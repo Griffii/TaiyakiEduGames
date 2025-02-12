@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fortune Game</title>
+
+    <style>
+      body {
+        text-align: center;
+        margin: 0px;
+        padding-top: 50px;
+      }
+      h1 {
+        color: #333;
+      }
+
+      .home-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 30px;
+        height: 30px;
+        z-index: 1000; /* Ensures it stays on top */
+      }
+      .home-button img {
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+      .home-button img:hover {
+        transform: scale(1.1);
+      }
+
+      .gamecontainer {
+        min-height: 1000px;
+        width: 100%;
+      }
+
+      .fortune {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+      }
+      .result {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007b00;
+      }
+
+      ruby {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      rt {
+        font-size: 0.7rem;
+        color: #555; /* Optional: Make the furigana slightly lighter */
+      }
+
+      /* Jiggle Taiyaki Animation */
+      @keyframes jiggle {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        25% {
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+        75% {
+          transform: translate(-50%, -50%) scale(0.9);
+        }
+      }
+      .jiggle {
+        animation: jiggle 0.3s infinite; /* Wiggles faster */
+      }
+
+      /* More wild Taiyaki Animation */
+      @keyframes crazy-shake {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg) scale(1);
+        }
+        25% {
+          transform: translate(-45%, -55%) rotate(15deg) scale(1.1);
+        }
+        50% {
+          transform: translate(-50%, -50%) rotate(-15deg) scale(1.2);
+        }
+        75% {
+          transform: translate(-55%, -45%) rotate(10deg) scale(1.1);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(0deg) scale(1);
+        }
+      }
+
+      .crazy-shake {
+        animation: crazy-shake 0.5s infinite;
+      }
+
+      /* Fade-in animations */
+      @keyframes fadeInGrow {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .fade-in-grow {
+        animation: fadeInGrow 0.5s ease-out forwards; /* Faster fade-in for the Overall Luck */
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      .fade-in {
+        animation: fadeIn 1s ease-in forwards; /* 1 second fade-in for fortune sections */
+        opacity: 0;
+      }
+
+      /* Styling for Overall Luck */
+      #overall-luck {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      #overall-luck h2 {
+        font-size: 48px;
+        color: #ff4500; /* Bright orange for the main Kanji */
+        margin: 0;
+      }
+
+      #overall-luck .furigana {
+        font-size: 20px;
+        color: #007bff; /* Bright blue for the name in parentheses */
+        margin-top: 5px;
+      }
+
+      /* Fortunes layout (default vertical stacking) */
+      .fortunes {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      /* Fortune type layout */
+      .fortune-type {
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 10px;
+        width: 250px;
+        background-color: #f9f9f9;
+      }
+
+      /* Star styles */
+      .fortune-stars {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      /* Button styles */
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Result container layout */
+      /* Default: Small screens (less than 840px) */
+      #result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        gap: 20px;
+      }
+
+      /* Large screens (840px and above) */
+      @media (min-width: 840px) {
+        #result {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          margin-top: 20px;
+          gap: 20px;
+        }
+      }
+      /* Responsive layout: side-by-side on larger screens */
+      @media (min-width: 768px) {
+        .fortunes {
+          flex-direction: row; /* Side by side */
+          justify-content: center;
+        }
+      }
+
+      /* Footer */
+      footer {
+        background: #2aa784;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        font-size: 0.9rem;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/" class="home-button">
+      <img src="../../assets/home-icon.png" alt="Home" />
+    </a>
+
+    <section class="gamecontainer">
+      <h1>Taiyaki Sensei's<br />New Year's Fortune!</h1>
+      <button id="draw-fortune">Choose Your Fortune</button>
+
+      <img
+        id="taiyaki"
+        src="../../assets/taiyaki-icon.png"
+        alt="Taiyaki Animation"
+        style="
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) scale(1);
+        "
+      />
+
+      <img
+        id="animation"
+        src="../../assets/taiyaki-icon.png"
+        alt="Animation"
+        style="display: none; width: 100px; margin: 20px auto"
+      />
+
+      <div id="overall-luck"></div>
+      <div id="result"></div>
+
+      <script src="fortunegame.js"></script>
+    </section>
+
+    <!-- Preload sound effects -->
+    <audio
+      id="taiyaki-sound"
+      src="../../assets/sounds/fortunegame/omikuji-sfx.mp3"
+      preload="auto"
+    ></audio>
+    <audio
+      id="daikichi-sound"
+      src="../../assets/sounds/fortunegame/daikichi.mp3"
+      preload="auto"
+    ></audio>
+    <audio
+      id="kichi-sound"
+      src="../../assets/sounds/fortunegame/kichi.mp3"
+      preload="auto"
+    ></audio>
+    <audio
+      id="chukichi-sound"
+      src="../../assets/sounds/fortunegame/chukichi.mp3"
+      preload="auto"
+    ></audio>
+    <audio
+      id="shokichi-sound"
+      src="../../assets/sounds/fortunegame/shokichi.mp3"
+      preload="auto"
+    ></audio>
+    <audio
+      id="kyo-sound"
+      src="../../assets/sounds/fortunegame/kyo.mp3"
+      preload="auto"
+    ></audio>
+    <audio
+      id="daikyo-sound"
+      src="../../assets/sounds/fortunegame/daikyo.mp3"
+      preload="auto"
+    ></audio>
+  </body>
+
+</html>

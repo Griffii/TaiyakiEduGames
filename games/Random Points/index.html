@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Points Game</title>
+
+    <style>
+      body {
+        font-family: 'Merriweather', serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+        margin-top: 60px;
+        text-align: center;
+      }
+
+      .home-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 30px;
+        height: 30px;
+        z-index: 1000; /* Ensures it stays on top */
+      }
+      .home-button img {
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+      .home-button img:hover {
+        transform: scale(1.1);
+      }
+      
+      #grid-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #grid-labels {
+        display: grid;
+        grid-template-columns: 30px repeat(5, 80px);
+        margin-bottom: 5px;
+      }
+      .row-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        transform: translateX(-30px);
+      }
+      #grid {
+        display: grid;
+        grid-template-columns: 30px repeat(5, 80px);
+        grid-gap: 5px;
+        transform: translateX(-30px);
+      }
+      .grid-item {
+        width: 80px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f8ff;
+        border: 1px solid #000;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 26px;
+        transition: transform 0.2s, background-color 0.2s;
+        background-image: url("../assets/images/card-backs/card_back5.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* Reduce font size when a Swap card is revealed */
+      .grid-item:not(.hidden)[data-value*="Swap"] {
+        font-size: 22px;
+      }
+
+      .grid-item.hidden:hover {
+        transform: scale(1.1);
+        background-color: #add8e6;
+      }
+      .grid-item:not(.hidden) {
+        transform: none;
+        background-image: none;
+      }
+
+      .hidden {
+        color: #666;
+      }
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        background: linear-gradient(to right, #ff7e5f, #feb47b);
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+      button:active {
+        transform: scale(1.05);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+
+  <a href="/" class="home-button">
+    <img src="../../assets/home-icon.png" alt="Home" />
+  </a>
+
+  <body>
+    <h1>Random Points Game</h1>
+    <div id="grid-container">
+      <div id="grid-labels">
+        <div></div>
+        <div class="row-label">A</div>
+        <div class="row-label">B</div>
+        <div class="row-label">C</div>
+        <div class="row-label">D</div>
+        <div class="row-label">E</div>
+      </div>
+      <div id="grid"></div>
+    </div>
+    <div>
+      <button id="reset">Reset</button>
+      <button id="reveal-all">See All</button>
+    </div>
+
+    <div>
+      <p>
+        <b>Rules:</b>
+      </p>
+      <ol>
+        <li>From -25 to 25</li>
+        <li>1-5 'Swap' cards</li>
+        <li>1 'Lose All' card</li>
+        <li>1 50 points card</li>
+        <li>No 0 point cards</li>
+        <li>Random everytime!</li>
+      </ol>
+    </div>
+
+    <div>
+      <button id="taiyaki-toggle">Taiyaki Free</button>
+    </div>
+
+    <script>
+      const grid = document.getElementById("grid");
+      const resetButton = document.getElementById("reset");
+      const revealAllButton = document.getElementById("reveal-all");
+      const taiyakiButton = document.getElementById("taiyaki-toggle");
+      let isTaiyaki = true; // Default image is Taiyaki
+
+      function playSound(type) {
+        let soundPath;
+        switch (type) {
+          case "positive":
+            soundPath = "../../assets/sounds/fortunegame/chukichi.mp3";
+            break;
+          case "negative":
+            soundPath = "../../assets/sounds/fortunegame/kyo.mp3";
+            break;
+          case "swap":
+            soundPath = "../../assets/sounds/fortunegame/shokichi.mp3";
+            break;
+          case "lose-all":
+            soundPath = "../../assets/sounds/fortunegame/daikyo.mp3";
+            break;
+          case "fifty":
+            soundPath = "../../assets/sounds/fortunegame/daikichi.mp3";
+            break;
+          default:
+            soundPath = "../../assets/sounds/fortunegame/.kichi.mp3";
+        }
+        const audio = new Audio(soundPath);
+        audio.play();
+      }
+
+      function generateGrid() {
+        grid.innerHTML = ""; // Clear the grid
+
+        let numbers = [];
+        let swapCount = Math.floor(Math.random() * 5) + 1; // 1 to 5 swap cards
+        let loseAllPoints = 1;
+        let positiveCount = 14; // More positive numbers
+        let negativeCount = 10 - swapCount - loseAllPoints; // Remaining slots
+
+        // Add positive numbers (multiples of 5 between 5 and 25)
+        for (let i = 0; i < positiveCount; i++) {
+          numbers.push(5 * (Math.floor(Math.random() * 5) + 1));
+        }
+
+        // Add one +50 point box
+        numbers.push(50);
+
+        // Add negative numbers (multiples of 5 between -5 and -25)
+        for (let i = 0; i < negativeCount; i++) {
+          numbers.push(-5 * (Math.floor(Math.random() * 5) + 1));
+        }
+
+        // Add "Swap" boxes with randomized types
+        for (let i = 0; i < swapCount; i++) {
+          let swapType = Math.random();
+          if (swapType < 0.45) {
+            numbers.push("Swap Up");
+          } else if (swapType < 0.9) {
+            numbers.push("Swap Down");
+          } else {
+            numbers.push("Swap Choice"); // Very rare occurrence
+          }
+        }
+
+        // Add "Lose all points" box
+        numbers.push("Lose All");
+
+        // Shuffle numbers
+        numbers.sort(() => Math.random() - 0.5);
+
+        // Populate the grid
+        let index = 0;
+        for (let i = 0; i < 5; i++) {
+          const rowLabel = document.createElement("div");
+          rowLabel.classList.add("row-label");
+          rowLabel.textContent = i + 1; // Row numbers
+          grid.appendChild(rowLabel);
+
+          for (let j = 0; j < 5; j++) {
+            const cell = document.createElement("div");
+            cell.classList.add("grid-item", "hidden");
+            cell.dataset.value = numbers[index]; // Assign a value from the shuffled list
+            cell.style.backgroundImage = isTaiyaki
+              ? "url('../../assets/card-backs/card_back5.jpg')" // Default Taiyaki image
+              : "url('../../assets/card-backs/card_back0.jpg')"; // Alternative image
+            index++;
+
+            cell.addEventListener("click", () => {
+              if (cell.classList.contains("hidden")) {
+                const value = cell.dataset.value; // Value is always a string
+                if (value.includes("Swap")) {
+                  playSound("swap");
+                } else if (value === "Lose All") {
+                  playSound("lose-all");
+                } else if (parseInt(value, 10) === 50) {
+                  playSound("fifty");
+                } else if (parseInt(value, 10) > 0) {
+                  playSound("positive");
+                } else {
+                  playSound("negative");
+                }
+                cell.classList.remove("hidden");
+                cell.textContent = value;
+                cell.style.backgroundImage = "none"; // Remove the background image
+              }
+            });
+
+            grid.appendChild(cell);
+          }
+        }
+      }
+
+      resetButton.addEventListener("click", generateGrid);
+
+      revealAllButton.addEventListener("click", () => {
+        document.querySelectorAll(".grid-item").forEach((cell) => {
+          cell.textContent = cell.dataset.value;
+          cell.classList.remove("hidden");
+          cell.style.backgroundImage = "none"; // Remove background image for all revealed cards
+        });
+      });
+
+      taiyakiButton.addEventListener("click", () => {
+        isTaiyaki = !isTaiyaki; // Toggle the state
+
+        // Update the background image of hidden cards
+        document.querySelectorAll(".grid-item.hidden").forEach((cell) => {
+          cell.style.backgroundImage = isTaiyaki
+            ? "url('../../assets/card-backs/card_back5.jpg')" // Taiyaki image
+            : "url('../../assets/card-backs/card_back0.jpg')"; // Alternative image
+        });
+
+        // Update the button text for clarity
+        taiyakiButton.textContent = isTaiyaki
+          ? "Taiyaki Free"
+          : "Back to Taiyaki";
+      });
+
+      // Initial grid generation
+      generateGrid();
+    </script>
+  </body>
+</html>

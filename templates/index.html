@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taiyaki Edu Games</title>
+    <link rel="icon" type="image/png" href="icon.png" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9; /* Lighter background */
+        color: #333; /* Darker text for contrast */
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin: 40px 0; /* Increased margin for spacing */
+      }
+
+      #main-title {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-top: 60px;
+        color: #222;
+      }
+
+      a {
+        color: #333; /* Darker link color */
+        text-decoration: none;
+      }
+
+      .game-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px;
+        max-width: 900px; /* Ensures a max of 3 cards per row */
+        margin: 0 auto;
+      }
+
+      /* Force a max of 3 items per row */
+      @media (min-width: 900px) {
+        .game-list {
+          grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns */
+        }
+      }
+
+      /* Adjust for smaller screens */
+      @media (max-width: 900px) {
+        .game-list {
+          grid-template-columns: repeat(
+            auto-fit,
+            minmax(250px, 1fr)
+          ); /* Adjusts for smaller screens */
+        }
+      }
+
+      .game-item {
+        background-color: #dcdcee; /* Light card background */
+        border-radius: 10px;
+        padding: 15px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-align: center;
+        color: #222;
+        font-size: 28px;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .game-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Make entire card clickable */
+      .game-item a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        color: inherit;
+        padding: 15px;
+      }
+
+      .game-icon {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+
+      #footer {
+        margin-top: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="main-title">Taiyaki-Sensei's Education Games</h1>
+
+    <h1>🎮 Choose a Game 🎮</h1>
+    <div class="game-list">
+      {% for game in games %}
+      <a href="/game/{{ game }}/" class="game-item">
+        <img
+          class="game-icon"
+          src="/game/{{ game }}/icon.png"
+          alt="{{ game }} Icon"
+        />
+        <div>{{ game.replace('_', ' ').title() }}</div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <section id="footer">
+      <p>Version 1.0</p>
+      <p>
+        &copy; 2025 -
+        <a href="https://griffii.com" target="_blank">Griffii.com</a>
+      </p>
+    </section>
+  </body>
+</html>

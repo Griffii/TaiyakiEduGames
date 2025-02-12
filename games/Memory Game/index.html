@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <a href="/" class="home-button">
+      <img src="../../assets/home-icon.png" alt="Home" />
+    </a>
+
+    <div class="container">
+      <h1>Memory Game</h1>
+      <div class="game-container" id="gameContainer"></div>
+
+      <button id="restartButton">Restart</button>
+
+      <!-- Theme Selector Section -->
+      <div class="theme-selector">
+        <label for="themeSelect">Choose Theme: </label>
+        <select id="themeSelect">
+          <option value="shapes" selected>Shapes</option>
+          <option value="coloredshapes">Colored Shapes</option>
+          <option value="christmas">Christmas</option>
+          <option value="food">Food</option>
+        </select>
+      </div>
+
+      <div class="difficulty-buttons">
+        <button id="easyButton" class="difficulty active">Easy</button>
+        <button id="mediumButton" class="difficulty">Medium</button>
+        <button id="hardButton" class="difficulty">Hard</button>
+      </div>
+    </div>
+
+    <script src="memoryGameScript.js"></script>
+  </body>
+</html>

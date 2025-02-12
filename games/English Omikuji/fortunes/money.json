@@ -1,0 +1,290 @@
+[
+  {
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
+    "fortune_english": "\"You will find ¥10,000 in your pocket and buy your favorite snacks for everyone!\"",
+    "fortune_japanese": "ポケットの中(なか)から1万円(まんえん)を見(み)つけて、みんなに大好(だいす)きなお菓子(おかし)を買(か)ってあげます！"
+  },
+  {
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
+    "fortune_english": "\"You’ll get rich selling erasers to your classmates and make millions of yen!\"",
+    "fortune_japanese": "消(け)しゴムをクラスメートに売(う)って大金持(おおがねも)ちになります！"
+  },
+  {
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
+    "fortune_english": "\"You will win a contest and get more money than you can count!\"",
+    "fortune_japanese": "コンテストに勝(か)って、数(かぞ)えきれないほどのお金(かね)を手(て)に入(い)れます！"
+  },
+  {
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
+    "fortune_english": "\"Your piggy bank will be so full, it will explode with coins!\"",
+    "fortune_japanese": "貯金箱(ちょきんばこ)がいっぱいになりすぎて、コインが爆発(ばくはつ)して飛(と)び出(だ)します！"
+  },
+  {
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
+    "fortune_english": "\"You’ll find treasure in your backyard and become the richest kid in school!\"",
+    "fortune_japanese": "家(いえ)の庭(にわ)で宝物(たからもの)を見(み)つけて、学校(がっこう)で一番(いちばん)の金持(かねも)ちになります！"
+  },
+  {
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
+    "fortune_english": "\"You’ll find ¥1,000 in your pocket... and then realize it’s your mom’s!\"",
+    "fortune_japanese": "ポケットの中(なか)から1,000円(えん)を見(み)つけます…でもそれはお母(かあ)さんのです！"
+  },
+  {
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
+    "fortune_english": "\"You’ll get a big allowance, but don’t spend it all on snacks!\"",
+    "fortune_japanese": "お小遣(こづか)いをたくさんもらいますが、お菓子(おかし)で全部(ぜんぶ)使(つか)い切(き)らないでね！"
+  },
+  {
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
+    "fortune_english": "\"You’ll save up enough money to buy the coolest toy ever!\"",
+    "fortune_japanese": "お金(かね)を貯(た)めて、最高(さいこう)のおもちゃを買(か)います！"
+  },
+  {
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
+    "fortune_english": "\"You will find a shiny ¥500 coin under your bed!\"",
+    "fortune_japanese": "ベッドの下(した)からピカピカの500円玉(えんだま)を見(み)つけます！"
+  },
+  {
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
+    "fortune_english": "\"You’ll get lucky and win a free ice cream coupon at the store!\"",
+    "fortune_japanese": "お店(みせ)で無料(むりょう)のアイスクリームクーポンが当(あ)たります！"
+  },
+  {
+    "level": 3,
+    "stars": "⭐⭐⭐☆☆",
+    "fortune_english": "\"You’ll find ¥100, but it will roll away and you’ll have to chase it!\"",
+    "fortune_japanese": "100円玉(だま)を見(み)つけますが、それが転(ころ)がって逃(に)げるので追(お)いかけることに！"
+  },
+  {
+    "level": 3,
+    "stars": "⭐⭐⭐☆☆",
+    "fortune_english": "\"You’ll get a little money from chores, but then spend it all on candy!\"",
+    "fortune_japanese": "家(いえ)の手伝(てつだ)いで少(すこ)しお金(かね)をもらいますが、全部(ぜんぶ)お菓子(おかし)に使(つか)ってしまいます！"
+  },
+  {
+    "level": 3,
+    "stars": "⭐⭐⭐☆☆",
+    "fortune_english": "\"Your wallet will grow... but only with receipts from the snack shop!\"",
+    "fortune_japanese": "お財布(さいふ)が大(おお)きくなりますが、スナックショップのレシートだけが入(はい)っています！"
+  },
+  {
+    "level": 3,
+    "stars": "⭐⭐⭐☆☆",
+    "fortune_english": "\"You’ll find money on the ground, but it will be stuck in gum!\"",
+    "fortune_japanese": "地面(じめん)でお金(かね)を見(み)つけますが、ガムにくっついています！"
+  },
+  {
+    "level": 3,
+    "stars": "⭐⭐⭐☆☆",
+    "fortune_english": "\"You’ll get a ¥10 coin, but it’ll fall into a drain!\"",
+    "fortune_japanese": "10円玉(だま)を見(み)つけますが、それが排水口(はいすいこう)に落(お)ちてしまいます！"
+  },
+  {
+    "level": 2,
+    "stars": "⭐⭐☆☆☆",
+    "fortune_english": "\"You’ll lose your wallet, but find it under your bed next week!\"",
+    "fortune_japanese": "お財布(さいふ)をなくしますが、次(つぎ)の週(しゅう)にベッドの下(した)で見(み)つけます！"
+  },
+  {
+    "level": 2,
+    "stars": "⭐⭐☆☆☆",
+    "fortune_english": "\"You’ll spend all your money on snacks and still feel hungry!\"",
+    "fortune_japanese": "全(すべ)てのお金(かね)をお菓子(おかし)に使(つか)いますが、まだお腹(おなか)が空(す)いています！"
+  },
+  {
+    "level": 2,
+    "stars": "⭐⭐☆☆☆",
+    "fortune_english": "\"You’ll borrow money from a friend... and they’ll charge you interest!\"",
+    "fortune_japanese": "友達(ともだち)からお金(かね)を借(か)りますが、利子(りし)を取(と)られます！"
+  },
+  {
+    "level": 2,
+    "stars": "⭐⭐☆☆☆",
+    "fortune_english": "\"You’ll get change from a vending machine... but it’s fake money!\"",
+    "fortune_japanese": "自動販売機(じどうはんばいき)からおつりをもらいますが、それは偽札(にせさつ)です！"
+  },
+  {
+    "level": 2,
+    "stars": "⭐⭐☆☆☆",
+    "fortune_english": "\"You’ll find a treasure map, but it leads to an empty box!\"",
+    "fortune_japanese": "宝(たから)の地図(ちず)を見(み)つけますが、たどり着(つ)いた箱(はこ)は空(から)っぽです！"
+  },
+  {
+    "level": 1,
+    "stars": "⭐☆☆☆☆",
+    "fortune_english": "\"You’ll owe your mom so much money, you’ll have to do chores forever!\"",
+    "fortune_japanese": "お母(かあ)さんにたくさん借金(しゃっきん)をして、永遠(えいえん)に家事(かじ)をしなければなりません！"
+  },
+  {
+    "level": 1,
+    "stars": "⭐☆☆☆☆",
+    "fortune_english": "\"You’ll sell your lunch for money... and then be hungry all day!\"",
+    "fortune_japanese": "お昼(ひる)ごはんを売(う)ってお金(かね)を得(え)ますが、一日中(いちにちじゅう)お腹(おなか)が空(す)きます！"
+  },
+  {
+    "level": 1,
+    "stars": "⭐☆☆☆☆",
+    "fortune_english": "\"Your piggy bank will crack open... but only pennies will fall out!\"",
+    "fortune_japanese": "貯金箱(ちょきんばこ)を割(わ)りますが、中(なか)から出(で)てくるのは小銭(こぜに)だけです！"
+  },
+  {
+    "level": 1,
+    "stars": "⭐☆☆☆☆",
+    "fortune_english": "\"You’ll accidentally spend all your money on a broken yo-yo!\"",
+    "fortune_japanese": "全(すべ)てのお金(かね)を壊(こわ)れたヨーヨーに使(つか)ってしまいます！"
+  },
+  {
+    "level": 1,
+    "stars": "⭐☆☆☆☆",
+    "fortune_english": "\"You’ll spend your money on magic beans... and they won’t grow!\"",
+    "fortune_japanese": "魔法(まほう)の豆(まめ)を買(か)いますが、全(まった)く育(そだ)ちません！"
+  },
+  {
+    "level": 0,
+    "stars": "☆☆☆☆☆",
+    "fortune_english": "\"Your little brother will ‘borrow’ money... and never give it back!\"",
+    "fortune_japanese": "弟(おとうと)があなたのお金(かね)を『借(か)りて』返(かえ)してくれません！"
+  },
+  {
+    "level": 0,
+    "stars": "☆☆☆☆☆",
+    "fortune_english": "\"You’ll get fined for eating someone else’s snack!\"",
+    "fortune_japanese": "他(ほか)の人(ひと)のお菓子(おかし)を食(た)べた罰金(ばっきん)を取(と)られます！"
+  },
+  {
+    "level": 0,
+    "stars": "☆☆☆☆☆",
+    "fortune_english": "\"Your wallet will disappear, and your pet hamster will look guilty!\"",
+    "fortune_japanese": "財布(さいふ)がなくなり、ペットのハムスターが怪(あや)しい顔(かお)をしています！"
+  },
+  {
+    "level": 0,
+    "stars": "☆☆☆☆☆",
+    "fortune_english": "\"You’ll find treasure in the park, but it’s just bottle caps!\"",
+    "fortune_japanese": "公園(こうえん)で宝物(たからもの)を見(み)つけますが、それはただのボトルキャップです！"
+  },
+  {
+    "level": 0,
+    "stars": "☆☆☆☆☆",
+    "fortune_english": "\"You’ll win a prize... but it’s just a box of tissues!\"",
+    "fortune_japanese": "賞品(しょうひん)をもらいますが、それはただのティッシュの箱(はこ)です！"
+  },
+  {
+    "level": 0,
+    "stars": "☆☆☆☆☆",
+    "fortune_english": "\"You will lose all your money!\"",
+    "fortune_japanese": "あなたはお金(かね)を全部(ぜんぶ)なくします！"
+  },
+  {
+    "level": 0,
+    "stars": "☆☆☆☆☆",
+    "fortune_english": "\"You will drop your wallet in a puddle!\"",
+    "fortune_japanese": "あなたは財布(さいふ)を水(みず)たまりに落(お)とします！"
+  },
+  {
+    "level": 0,
+    "stars": "☆☆☆☆☆",
+    "fortune_english": "\"Your pocket will have a hole, and your money will fall out!\"",
+    "fortune_japanese": "あなたのポケットに穴(あな)があいて、お金(かね)が落(お)ちます！"
+  },
+  {
+    "level": 1,
+    "stars": "⭐☆☆☆☆",
+    "fortune_english": "\"You will spend too much money on snacks!\"",
+    "fortune_japanese": "あなたはおやつにお金(かね)を使(つか)いすぎます！"
+  },
+  {
+    "level": 1,
+    "stars": "⭐☆☆☆☆",
+    "fortune_english": "\"You will lose a little money today!\"",
+    "fortune_japanese": "あなたは今日(きょう)少(すこ)しお金(かね)をなくします！"
+  },
+  {
+    "level": 1,
+    "stars": "⭐☆☆☆☆",
+    "fortune_english": "\"You will forget your money at home!\"",
+    "fortune_japanese": "あなたは家(いえ)にお金(かね)を忘(わす)れます！"
+  },
+  {
+    "level": 2,
+    "stars": "⭐⭐☆☆☆",
+    "fortune_english": "\"You will find a small coin on the ground!\"",
+    "fortune_japanese": "あなたは地面(じめん)に小(ちい)さいコインを見(み)つけます！"
+  },
+  {
+    "level": 2,
+    "stars": "⭐⭐☆☆☆",
+    "fortune_english": "\"You will earn a little money today!\"",
+    "fortune_japanese": "あなたは今日(きょう)少(すこ)しお金(かね)をもらいます！"
+  },
+  {
+    "level": 2,
+    "stars": "⭐⭐☆☆☆",
+    "fortune_english": "\"You will buy something nice but expensive!\"",
+    "fortune_japanese": "あなたは良(よ)いけど高(たか)いものを買(か)います！"
+  },
+  {
+    "level": 3,
+    "stars": "⭐⭐⭐☆☆",
+    "fortune_english": "\"You will save some money today!\"",
+    "fortune_japanese": "あなたは今日(きょう)少(すこ)しお金(かね)を貯(た)めます！"
+  },
+  {
+    "level": 3,
+    "stars": "⭐⭐⭐☆☆",
+    "fortune_english": "\"You will find money in your pocket!\"",
+    "fortune_japanese": "あなたはポケットの中(なか)でお金(かね)を見(み)つけます！"
+  },
+  {
+    "level": 3,
+    "stars": "⭐⭐⭐☆☆",
+    "fortune_english": "\"You will receive a small gift of money!\"",
+    "fortune_japanese": "あなたは少(すこ)しお金(かね)のプレゼントをもらいます！"
+  },
+  {
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
+    "fortune_english": "\"You will find a lucky coin today!\"",
+    "fortune_japanese": "あなたは今日(きょう)幸運(こううん)のコインを見(み)つけます！"
+  },
+  {
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
+    "fortune_english": "\"You will receive extra money from a family member!\"",
+    "fortune_japanese": "あなたは家族(かぞく)からお金(かね)をもらいます！"
+  },
+  {
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
+    "fortune_english": "\"You will buy something special at a good price!\"",
+    "fortune_japanese": "あなたは特別(とくべつ)なものを良(よ)い値段(ねだん)で買(か)います！"
+  },
+  {
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
+    "fortune_english": "\"You will receive a big money gift!\"",
+    "fortune_japanese": "あなたは大(おお)きなお金(かね)のプレゼントをもらいます！"
+  },
+  {
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
+    "fortune_english": "\"You will win a fun prize with money!\"",
+    "fortune_japanese": "あなたはお金(かね)の賞品(しょうひん)を当(あ)てます！"
+  },
+  {
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
+    "fortune_english": "\"You will become very lucky with money today!\"",
+    "fortune_japanese": "あなたは今日(きょう)お金(かね)の運(うん)がとても良(よ)いです！"
+  }
+]
