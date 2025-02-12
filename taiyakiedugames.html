@@ -99,22 +99,37 @@
       }
     </style>
   </head>
+  
   <body>
     <h1 id="main-title">Taiyaki-Sensei's Education Games</h1>
 
     <h1>🎮 Choose a Game 🎮</h1>
     <div class="game-list">
-      {% for game in games %}
-      <a href="/game/{{ game }}/" class="game-item">
-        <img
-          class="game-icon"
-          src="/game/{{ game }}/icon.png"
-          alt="{{ game }} Icon"
-        />
-        <div>{{ game.replace('_', ' ').title() }}</div>
-      </a>
-      {% endfor %}
+        <script>
+            // List of available games (Manually add games here)
+            const games = [
+                { name: "Dice Simulator", path: "games/DiceSimulator/index.html" },
+                { name: "Vocab Othello", path: "games/VocabOthello/index.html" },
+                { name: "English Omikuji", path: "games/EnglishOmikuji/index.html" },
+                { name: "Memory Game", path: "games/MemoryGame/index.html" },
+                { name: "Random Points", path: "games/RandomPoints/index.html" }
+            ];
+
+            const gameListDiv = document.querySelector(".game-list");
+
+            games.forEach(game => {
+                const gameItem = document.createElement("a");
+                gameItem.href = game.path;
+                gameItem.classList.add("game-item");
+                gameItem.innerHTML = `
+                    <img class="game-icon" src="games/${game.name.replace(/\s+/g, '')}/icon.png" alt="${game.name} Icon">
+                    <div>${game.name}</div>
+                `;
+                gameListDiv.appendChild(gameItem);
+            });
+        </script>
     </div>
+
 
     <section id="footer">
       <p>Version 1.0</p>

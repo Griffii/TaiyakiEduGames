@@ -1,0 +1,15 @@
+# Ignore Python files and folders used for .exe compilation
+app.py
+templates/
+icon.ico
+dist/
+build/
+*.spec
+
+# Ignore virtual environments
+venv/
+__pycache__/
+
+# Ignore system files (Mac & Windows)
+.DS_Store
+Thumbs.db
