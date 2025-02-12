@@ -6,6 +6,23 @@
     <title>Taiyaki Edu Games</title>
     <link rel="icon" type="image/png" href="icon.png" />
     <style>
+      .home-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 30px;
+        height: 30px;
+        z-index: 1000; /* Ensures it stays on top */
+      }
+      .home-button img {
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+      .home-button img:hover {
+        transform: scale(1.1);
+      }
       body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f9; /* Lighter background */
@@ -101,6 +118,10 @@
   </head>
   
   <body>
+    <a href="../projects.html" class="home-button">
+      <img src="assets/home-icon.png" alt="Home" />
+    </a>
+
     <h1 id="main-title">Taiyaki-Sensei's Education Games</h1>
 
     <h1>🎮 Choose a Game 🎮</h1>
