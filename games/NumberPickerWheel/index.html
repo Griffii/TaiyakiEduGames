@@ -10,7 +10,6 @@
         text-align: center;
         background: #f0f0f0;
         color: black;
-        
       }
 
       canvas {
@@ -86,6 +85,7 @@
         cursor: pointer;
         transition: 0.3s;
         box-shadow: 0 4px 6px rgba(255, 255, 255, 0.2);
+        margin-bottom: 50px;
       }
 
       #spinButton:hover {
@@ -142,7 +142,6 @@
     </style>
   </head>
 
-  
   <body>
     <a href="/TaiyakiEduGames/taiyakiedugames.html" class="home-button">
       <img src="../../assets/home-icon.png" alt="Home" />
@@ -165,14 +164,14 @@
           id="indicator"
           style="
             position: absolute;
-            top: 25px;
+            top: 10px;
             left: 47.5%;
             transform: rotate(180deg);
             width: 0;
             height: 0;
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
-            border-bottom: 20px solid red;
+            border-bottom: 30px solid red;
             z-index: 10;
           "
         ></div>
@@ -196,6 +195,9 @@
       let currentAngle = -Math.PI / 2; // Aligns the first slice at -90° (top)
       let spinning = false;
       let spinSpeed = 0;
+      // Load the spin sound
+      const spinSound = new Audio("../../assets/sounds/spin-sound-02.mp3");
+      const selectSound = new Audio("../../assets/sounds/fortunegame/kichi.mp3");
 
       function updateWheel() {
         let start = parseInt(document.getElementById("startNum").value);
@@ -305,6 +307,9 @@
       function spinWheel() {
         if (numbers.length === 0 || spinning) return; // Prevent spinning when empty or already spinning
 
+        spinSound.currentTime = 0; // Reset sound to start
+        spinSound.play(); // Play the sound
+
         spinSpeed = Math.random() * 0.2 + 0.3; // Set a random initial speed
         spinning = true;
         requestAnimationFrame(animateSpin);
@@ -319,7 +324,8 @@
           requestAnimationFrame(animateSpin);
         } else {
           spinning = false;
-          determineResult(); // Show the result
+          setTimeout(determineResult, 300); // Delay results by 0.3secs
+          //determineResult(); // Show the result
         }
       }
 
@@ -339,6 +345,9 @@
             360;
           sliceAngles.push({ index: i, angle: centerAngle });
         }
+
+        selectSound.currentTime = 0; // Reset sound to start
+        selectSound.play(); // Play the sound
 
         // Get the selected number
         let selectedNumber = getTopValue(sliceAngles, 270); // 270° is the top in canvas rotation
