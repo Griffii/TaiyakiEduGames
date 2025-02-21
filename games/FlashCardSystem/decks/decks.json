@@ -1,0 +1,46 @@
+{
+    "LetsTry1": {
+        "image": "images/textbooks/lets_try_1.png",
+        "decks": {
+            "Unit 1 - Hello!":              { "path": "decks/ES3/unit1.json", "image": "images/ES3/countries/japan.png" },
+            "Unit 2 - How are you?":        { "path": "decks/ES3/unit2.json", "image": "images/tomomicat/happy.png" },
+            "Unit 3 - How many?":           { "path": "decks/ES3/unit3.json", "image": "images/ES3/numbers/10.png" },
+            "Unit 4 - I like blue.":        { "path": "decks/ES3/unit4.json", "image": "images/ES3/colors/blue.png" },
+            "Unit 5 - What do you like?":   { "path": "decks/ES3/unit5.json", "image": "images/monkeyandbanana/tennis.png" },
+            "Unit 6 - ALPHABET":            { "path": "decks/ES3/unit6.json", "image": "images/ES3/ALPHABET/letter-a.png" },
+            "Unit 7 - This is for you.":    { "path": "decks/ES3/unit7.json", "image": "images/ES3/shapes/heart.png" },
+            "Unit 8 - What's this?":        { "path": "decks/ES3/unit8.json", "image": "images/ES3/animals/animals.png" },
+            "Unit 9 - Who are you?":        { "path": "decks/ES3/unit9.json", "image": "images/ES3/animals/dragon.png" }
+        }
+    },
+    "LetsTry2": {
+        "image": "images/textbooks/lets_try_2.png",
+        "decks": {
+            "Unit 1 - Hello, world!":       { "path": "decks/ES4/unit1.json", "image": "images/taiyaki.png" },
+            "Unit 2 - Let's play cards.":   { "path": "decks/ES4/unit2.json", "image": "images/taiyaki.png" },
+            "Unit 3 - I like Mondays.":     { "path": "decks/ES4/unit3.json", "image": "images/taiyaki.png" },
+            "Unit 4 - What time is it?.":   { "path": "decks/ES4/unit4.json", "image": "images/taiyaki.png" },
+            "Unit 5 - Do you have a pen?":  { "path": "decks/ES4/unit5.json", "image": "images/taiyaki.png" },
+            "Unit 6 - Alphabet":            { "path": "decks/ES4/unit6.json", "image": "images/taiyaki.png" },
+            "Unit 7 - What do you want?":   { "path": "decks/ES4/unit7.json", "image": "images/taiyaki.png" },
+            "Unit 8 - This is my favorite place.": { "path": "decks/ES4/unit8.json", "image": "images/taiyaki.png" },
+            "Unit 9 - This is my day.":     { "path": "decks/ES4/unit9.json", "image": "images/taiyaki.png" }
+        }
+    },
+    "NewHorizon1": {
+        "image": "images/textbooks/new_horizon_1.png",
+        "decks": {
+            "Unit 1 - Introductions": { "path": "decks/introductions.json", "image": "images/decks/introductions.png" },
+            "Unit 2 - Family": { "path": "decks/family.json", "image": "images/decks/family.png" },
+            "Unit 3 - Hobbies": { "path": "decks/hobbies.json", "image": "images/decks/hobbies.png" }
+        }
+    },
+    "NewHorizon2": {
+        "image": "images/textbooks/new_horizon_2.png",
+        "decks": {
+            "Unit 1 - Travel": { "path": "decks/travel.json", "image": "images/decks/travel.png" },
+            "Unit 2 - Shopping": { "path": "decks/shopping.json", "image": "images/decks/shopping.png" },
+            "Unit 3 - Directions": { "path": "decks/directions.json", "image": "images/decks/directions.png" }
+        }
+    }
+}

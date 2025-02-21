@@ -1,0 +1,66 @@
+[
+    {
+        "english": "happy",
+        "japanese": {
+            "kanji": "嬉しい",
+            "furigana": "うれしい"
+        },
+        "image": "images/tomomicat/happy.png"
+    },
+    {
+        "english": "sad",
+        "japanese": {
+            "kanji": "悲しい",
+            "furigana": "かなしい"
+        },
+        "image": "images/tomomicat/sad.png"
+    },
+    {
+        "english": "hungry",
+        "japanese": {
+            "kanji": "お腹空いた",
+            "furigana": "おなかすいた"
+        },
+        "image": "images/tomomicat/hungry.png"
+    },
+    {
+        "english": "excited",
+        "japanese": {
+            "kanji": "興奮した",
+            "furigana": "こうふんした"
+        },
+        "image": "images/tomomicat/excited.png"
+    },
+    {
+        "english": "tired",
+        "japanese": {
+            "kanji": "疲れた",
+            "furigana": "つかれた"
+        },
+        "image": "images/tomomicat/tired.png"
+    },
+    {
+        "english": "sleepy",
+        "japanese": {
+            "kanji": "眠い",
+            "furigana": "ねむい"
+        },
+        "image": "images/tomomicat/sleepy.png"
+    },
+    {
+        "english": "angry",
+        "japanese": {
+            "kanji": "怒っている",
+            "furigana": "おこっている"
+        },
+        "image": "images/tomomicat/angry.png"
+    },
+    {
+        "english": "surprised",
+        "japanese": {
+            "kanji": "驚いた",
+            "furigana": "おどろいた"
+        },
+        "image": "images/tomomicat/surprised.png"
+    }
+]

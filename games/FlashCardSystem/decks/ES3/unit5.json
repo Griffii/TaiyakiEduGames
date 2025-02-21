@@ -1,0 +1,186 @@
+[
+    {
+        "english": "food",
+        "japanese": {
+            "kanji": "食べ物",
+            "furigana": "たべもの"
+        },
+        "image": "images/ES3/food/food.png"
+    },
+    {
+        "english": "vegetables",
+        "japanese": {
+            "kanji": "野菜",
+            "furigana": "やさい"
+        },
+        "image": "images/ES3/food/vegetables.png"
+    },
+    {
+        "english": "carrot",
+        "japanese": {
+            "kanji": "人参",
+            "furigana": "にんじん"
+        },
+        "image": "images/ES3/food/carrot.png"
+    },
+    {
+        "english": "cucumber",
+        "japanese": {
+            "kanji": "胡瓜",
+            "furigana": "きゅうり"
+        },
+        "image": "images/ES3/food/cucumber.png"
+    },
+    {
+        "english": "green pepper",
+        "japanese": {
+            "kanji": "ピーマン",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/greenpepper.png"
+    },
+    {
+        "english": "onion",
+        "japanese": {
+            "kanji": "玉ねぎ",
+            "furigana": "たまねぎ"
+        },
+        "image": "images/ES3/food/onion.png"
+    },
+    {
+        "english": "fruit",
+        "japanese": {
+            "kanji": "果物",
+            "furigana": "くだもの"
+        },
+        "image": "images/ES3/food/fruit.png"
+    },
+    {
+        "english": "banana",
+        "japanese": {
+            "kanji": "バナナ",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/banana.png"
+    },
+    {
+        "english": "orange",
+        "japanese": {
+            "kanji": "オレンジ",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/orange.png"
+    },
+    {
+        "english": "peach",
+        "japanese": {
+            "kanji": "桃",
+            "furigana": "もも"
+        },
+        "image": "images/ES3/food/peach.png"
+    },
+    {
+        "english": "pineapple",
+        "japanese": {
+            "kanji": "パイナップル",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/pineapple.png"
+    },
+    {
+        "english": "strawberry",
+        "japanese": {
+            "kanji": "苺",
+            "furigana": "いちご"
+        },
+        "image": "images/ES3/food/strawberry.png"
+    },
+    {
+        "english": "baseball",
+        "japanese": {
+            "kanji": "野球",
+            "furigana": "やきゅう"
+        },
+        "image": "images/monkeyandbanana/baseball.png"
+    },
+    {
+        "english": "basketball",
+        "japanese": {
+            "kanji": "バスケットボール",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/basketball.png"
+    },
+    {
+        "english": "badminton",
+        "japanese": {
+            "kanji": "バドミントン",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/badminton.png"
+    },
+    {
+        "english": "soccer",
+        "japanese": {
+            "kanji": "サッカー",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/soccer.png"
+    },
+    {
+        "english": "tennis",
+        "japanese": {
+            "kanji": "テニス",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/tennis.png"
+    },
+    {
+        "english": "football",
+        "japanese": {
+            "kanji": "フットボール",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/football.png"
+    },
+    {
+        "english": "golf",
+        "japanese": {
+            "kanji": "ゴルフ",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/golf.png"
+    },
+    {
+        "english": "skiing",
+        "japanese": {
+            "kanji": "スキー",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/skiing.png"
+    },
+    {
+        "english": "snowboarding",
+        "japanese": {
+            "kanji": "スノーボード",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/snowboarding.png"
+    },
+    {
+        "english": "boxing",
+        "japanese": {
+            "kanji": "ボクシング",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/boxing.png"
+    },
+    {
+        "english": "hockey",
+        "japanese": {
+            "kanji": "ホッケー",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/hockey.png"
+    }
+]

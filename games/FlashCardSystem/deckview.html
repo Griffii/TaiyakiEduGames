@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deck View</title>
+    <link rel="stylesheet" href="menus.css" />
+    <script>
+      let selectedGrade, selectedDeck, deckPath, cardCount;
+      let cards = [];
+
+      async function loadDeckData() {
+        const urlParams = new URLSearchParams(window.location.search);
+        selectedGrade =
+          urlParams.get("grade") || sessionStorage.getItem("selectedGrade");
+        selectedDeck =
+          urlParams.get("deck") || sessionStorage.getItem("selectedDeck");
+        deckPath =
+          urlParams.get("deckPath") ||
+          sessionStorage.getItem("selectedDeckPath");
+
+        if (!selectedGrade || !selectedDeck || !deckPath) {
+          document.getElementById("deck-title").textContent = "Deck Not Found";
+          document.getElementById("card-count").textContent = "0"; // Show 0 if no deck found
+          return;
+        }
+
+        document.getElementById("deck-title").textContent = selectedDeck;
+
+        try {
+          const response = await fetch(deckPath);
+          if (!response.ok) throw new Error("Failed to load deck.");
+          cards = await response.json();
+          displayCards();
+
+          // Update the card count in the deck view
+          document.getElementById("card-count").textContent = cards.length;
+        } catch {
+          document.getElementById("card-list").innerHTML =
+            "<p>Deck not found.</p>";
+          document.getElementById("card-count").textContent = "0"; // Show 0 if loading fails
+        }
+      }
+
+      function displayCards() {
+        let cardList = document.getElementById("card-list");
+        cardList.innerHTML = "";
+
+        if (!cards.length) {
+          cardList.innerHTML = "<p>No cards available in this deck.</p>";
+          return;
+        }
+
+        let selectedCards = new Set(cards.map((_, index) => index)); // All cards start selected
+
+        cards.forEach((card, index) => {
+          let cardDiv = document.createElement("div");
+          cardDiv.classList.add("deck-card", "selected"); // Start selected
+          cardDiv.dataset.index = index; // Store the card index for reference
+
+          cardDiv.innerHTML = `
+            <div class="card-content">
+                <img src="${card.image}" alt="${card.english}" class="deck-card-img">
+                <div class="card-text">
+                    <p class="furigana">${card.japanese.furigana}</p>
+                    <p class="kanji">${card.japanese.kanji}</p>
+                    <p class="english">${card.english}</p>
+                </div>
+            </div>
+        `;
+
+          // Toggle selection on click
+          cardDiv.addEventListener("click", () => {
+            if (selectedCards.has(index)) {
+              selectedCards.delete(index);
+              cardDiv.classList.remove("selected");
+            } else {
+              selectedCards.add(index);
+              cardDiv.classList.add("selected");
+            }
+          });
+
+          cardList.appendChild(cardDiv);
+        });
+
+        // Update card count to reflect number of selectable cards
+        document.getElementById("card-count").textContent = cards.length;
+      }
+
+      function selectMode(mode) {
+        let selectedIndices = [
+          ...document.querySelectorAll(".deck-card.selected"),
+        ].map((card) => parseInt(card.dataset.index));
+
+        // Filter cards to only include selected ones
+        let selectedCards = selectedIndices.map((index) => cards[index]);
+
+        if (selectedCards.length === 0) {
+          alert("Please select at least one card before starting.");
+          return;
+        }
+
+        // Store selected cards in sessionStorage
+        sessionStorage.setItem("selectedCards", JSON.stringify(selectedCards));
+        sessionStorage.setItem("mode", mode); // Store mode (review or random)
+        window.location.href = "flashcards.html"; // Navigate to flashcards
+      }
+
+      document.addEventListener("DOMContentLoaded", loadDeckData);
+    </script>
+  </head>
+  <body>
+    <!-- Home Button -->
+    <a href="deckselection.html" class="home-button">
+      <img src="../../assets/home-icon.png" alt="Home" />
+    </a>
+
+    <h1 id="deck-title"></h1>
+
+    <div class="deck-header">
+      <button onclick="selectMode('review')">Review Mode</button>
+      <button onclick="selectMode('random')">Random Mode</button>
+      <button onclick="alert('Game mode coming soon!')">Game</button>
+  </div>
+  
+
+    <h2>Cards in this Deck: <span id="card-count">Loading...</span></h2>
+
+    <div id="card-list" class="deck-cards-grid"></div>
+  </body>
+</html>
