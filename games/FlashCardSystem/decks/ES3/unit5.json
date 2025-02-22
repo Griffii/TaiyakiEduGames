@@ -1,5 +1,93 @@
 [
     {
+        "english": "red",
+        "japanese": {
+            "kanji": "赤",
+            "furigana": "あか"
+        },
+        "image": "images/ES3/colors/red.png"
+    },
+    {
+        "english": "blue",
+        "japanese": {
+            "kanji": "青",
+            "furigana": "あお"
+        },
+        "image": "images/ES3/colors/blue.png"
+    },
+    {
+        "english": "green",
+        "japanese": {
+            "kanji": "緑",
+            "furigana": "みどり"
+        },
+        "image": "images/ES3/colors/green.png"
+    },
+    {
+        "english": "yellow",
+        "japanese": {
+            "kanji": "黄色",
+            "furigana": "きいろ"
+        },
+        "image": "images/ES3/colors/yellow.png"
+    },
+    {
+        "english": "orange",
+        "japanese": {
+            "kanji": "オレンジ",
+            "furigana": "おれんじ"
+        },
+        "image": "images/ES3/colors/orange.png"
+    },
+    {
+        "english": "brown",
+        "japanese": {
+            "kanji": "茶色",
+            "furigana": "ちゃいろ"
+        },
+        "image": "images/ES3/colors/brown.png"
+    },
+    {
+        "english": "purple",
+        "japanese": {
+            "kanji": "紫",
+            "furigana": "むらさき"
+        },
+        "image": "images/ES3/colors/purple.png"
+    },
+    {
+        "english": "pink",
+        "japanese": {
+            "kanji": "桃色",
+            "furigana": "ももいろ"
+        },
+        "image": "images/ES3/colors/pink.png"
+    },
+    {
+        "english": "black",
+        "japanese": {
+            "kanji": "黒",
+            "furigana": "くろ"
+        },
+        "image": "images/ES3/colors/black.png"
+    },
+    {
+        "english": "white",
+        "japanese": {
+            "kanji": "白",
+            "furigana": "しろ"
+        },
+        "image": "images/ES3/colors/white.png"
+    },
+    {
+        "english": "gray",
+        "japanese": {
+            "kanji": "灰色",
+            "furigana": "はいいろ"
+        },
+        "image": "images/ES3/colors/gray.png"
+    },
+    {
         "english": "food",
         "japanese": {
             "kanji": "食べ物",
@@ -46,6 +134,14 @@
             "furigana": "たまねぎ"
         },
         "image": "images/ES3/food/onion.png"
+    },
+    {
+        "english": "tomato",
+        "japanese": {
+            "kanji": "トマト",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/tomato.png"
     },
     {
         "english": "fruit",
@@ -128,6 +224,14 @@
         "image": "images/monkeyandbanana/soccer.png"
     },
     {
+        "english": "swimming",
+        "japanese": {
+            "kanji": "水泳",
+            "furigana": "すいえ"
+        },
+        "image": "images/monkeyandbanana/swimming.png"
+    },
+    {
         "english": "tennis",
         "japanese": {
             "kanji": "テニス",
@@ -182,5 +286,13 @@
             "furigana": ""
         },
         "image": "images/monkeyandbanana/hockey.png"
+    },
+    {
+        "english": "dodgeball",
+        "japanese": {
+            "kanji": "ドッジボール",
+            "furigana": ""
+        },
+        "image": "images/ES3/sports/dodgeball.png"
     }
 ]

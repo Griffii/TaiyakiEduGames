@@ -10,7 +10,8 @@
             "Unit 6 - ALPHABET":            { "path": "decks/ES3/unit6.json", "image": "images/ES3/ALPHABET/letter-a.png" },
             "Unit 7 - This is for you.":    { "path": "decks/ES3/unit7.json", "image": "images/ES3/shapes/heart.png" },
             "Unit 8 - What's this?":        { "path": "decks/ES3/unit8.json", "image": "images/ES3/animals/animals.png" },
-            "Unit 9 - Who are you?":        { "path": "decks/ES3/unit9.json", "image": "images/ES3/animals/dragon.png" }
+            "Unit 9 - Who are you?":        { "path": "decks/ES3/unit9.json", "image": "images/ES3/animals/dragon.png" },
+            "All Units":                    { "path": "decks/ES3/all.json", "image": "images/ES3/food/food.png" }
         }
     },
     "LetsTry2": {
