@@ -941,7 +941,7 @@
             "kanji": "零",
             "furigana": "れい"
         },
-        "image": "images/ES3/numbers/0.png"
+        "image": "images/ES3/numbers/0.PNG"
     },
     {
         "english": "one",
@@ -949,7 +949,7 @@
             "kanji": "一",
             "furigana": "いち"
         },
-        "image": "images/ES3/numbers/1.png"
+        "image": "images/ES3/numbers/1.PNG"
     },
     {
         "english": "two",
@@ -957,7 +957,7 @@
             "kanji": "二",
             "furigana": "に"
         },
-        "image": "images/ES3/numbers/2.png"
+        "image": "images/ES3/numbers/2.PNG"
     },
     {
         "english": "three",
@@ -965,7 +965,7 @@
             "kanji": "三",
             "furigana": "さん"
         },
-        "image": "images/ES3/numbers/3.png"
+        "image": "images/ES3/numbers/3.PNG"
     },
     {
         "english": "four",
@@ -973,7 +973,7 @@
             "kanji": "四",
             "furigana": "し / よん"
         },
-        "image": "images/ES3/numbers/4.png"
+        "image": "images/ES3/numbers/4.PNG"
     },
     {
         "english": "five",
@@ -981,7 +981,7 @@
             "kanji": "五",
             "furigana": "ご"
         },
-        "image": "images/ES3/numbers/5.png"
+        "image": "images/ES3/numbers/5.PNG"
     },
     {
         "english": "six",
@@ -989,7 +989,7 @@
             "kanji": "六",
             "furigana": "ろく"
         },
-        "image": "images/ES3/numbers/6.png"
+        "image": "images/ES3/numbers/6.PNG"
     },
     {
         "english": "seven",
@@ -997,7 +997,7 @@
             "kanji": "七",
             "furigana": "しち / なな"
         },
-        "image": "images/ES3/numbers/7.png"
+        "image": "images/ES3/numbers/7.PNG"
     },
     {
         "english": "eight",
@@ -1005,7 +1005,7 @@
             "kanji": "八",
             "furigana": "はち"
         },
-        "image": "images/ES3/numbers/8.png"
+        "image": "images/ES3/numbers/8.PNG"
     },
     {
         "english": "nine",
@@ -1013,7 +1013,7 @@
             "kanji": "九",
             "furigana": "きゅう / く"
         },
-        "image": "images/ES3/numbers/9.png"
+        "image": "images/ES3/numbers/9.PNG"
     },
     {
         "english": "ten",
@@ -1021,7 +1021,7 @@
             "kanji": "十",
             "furigana": "じゅう"
         },
-        "image": "images/ES3/numbers/10.png"
+        "image": "images/ES3/numbers/10.PNG"
     },
     {
         "english": "eleven",
@@ -1029,7 +1029,7 @@
             "kanji": "十一",
             "furigana": "じゅういち"
         },
-        "image": "images/ES3/numbers/11.png"
+        "image": "images/ES3/numbers/11.PNG"
     },
     {
         "english": "twelve",
@@ -1037,7 +1037,7 @@
             "kanji": "十二",
             "furigana": "じゅうに"
         },
-        "image": "images/ES3/numbers/12.png"
+        "image": "images/ES3/numbers/12.PNG"
     },
     {
         "english": "thirteen",
@@ -1045,7 +1045,7 @@
             "kanji": "十三",
             "furigana": "じゅうさん"
         },
-        "image": "images/ES3/numbers/13.png"
+        "image": "images/ES3/numbers/13.PNG"
     },
     {
         "english": "fourteen",
@@ -1053,7 +1053,7 @@
             "kanji": "十四",
             "furigana": "じゅうよん"
         },
-        "image": "images/ES3/numbers/14.png"
+        "image": "images/ES3/numbers/14.PNG"
     },
     {
         "english": "fifteen",
@@ -1061,7 +1061,7 @@
             "kanji": "十五",
             "furigana": "じゅうご"
         },
-        "image": "images/ES3/numbers/15.png"
+        "image": "images/ES3/numbers/15.PNG"
     },
     {
         "english": "sixteen",
@@ -1069,7 +1069,7 @@
             "kanji": "十六",
             "furigana": "じゅうろく"
         },
-        "image": "images/ES3/numbers/16.png"
+        "image": "images/ES3/numbers/16.PNG"
     },
     {
         "english": "seventeen",
@@ -1077,7 +1077,7 @@
             "kanji": "十七",
             "furigana": "じゅうなな"
         },
-        "image": "images/ES3/numbers/17.png"
+        "image": "images/ES3/numbers/17.PNG"
     },
     {
         "english": "eighteen",
@@ -1085,7 +1085,7 @@
             "kanji": "十八",
             "furigana": "じゅうはち"
         },
-        "image": "images/ES3/numbers/18.png"
+        "image": "images/ES3/numbers/18.PNG"
     },
     {
         "english": "nineteen",
@@ -1093,7 +1093,7 @@
             "kanji": "十九",
             "furigana": "じゅうきゅう"
         },
-        "image": "images/ES3/numbers/19.png"
+        "image": "images/ES3/numbers/19.PNG"
     },
     {
         "english": "twenty",
@@ -1101,6 +1101,6 @@
             "kanji": "二十",
             "furigana": "にじゅう"
         },
-        "image": "images/ES3/numbers/20.png"
+        "image": "images/ES3/numbers/20.PNG"
     }
 ]
