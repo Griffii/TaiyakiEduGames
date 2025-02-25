@@ -94,8 +94,6 @@ function checkGuess(selectedCard, buttonElement) {
     if (missingCard.some(card => card === selectedCard)) {
         document.getElementById("correct-sound").play(); // Play correct answer sound
 
-        alert("Correct! You found a missing card!");
-
         let cardGrid = document.getElementById("card-grid");
         let cardElement = document.createElement("div");
         cardElement.classList.add("card");
