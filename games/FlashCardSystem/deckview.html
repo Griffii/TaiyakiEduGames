@@ -106,7 +106,44 @@
         window.location.href = "flashcards.html"; // Navigate to flashcards
       }
 
+      function openGameMenu() {
+        document.getElementById("game-menu").classList.remove("hidden");
+    }
+
+    function closeGameMenu() {
+        document.getElementById("game-menu").classList.add("hidden");
+    }
+
+    function startGame(gameMode) {
+        let selectedIndices = [...document.querySelectorAll(".deck-card.selected")].map(
+            card => parseInt(card.dataset.index)
+        );
+
+        // Filter cards to only include selected ones
+        let selectedCards = selectedIndices.map(index => cards[index]);
+
+        if (selectedCards.length === 0) {
+            alert("Please select at least one card before starting.");
+            return;
+        }
+
+        // Store selected cards and deck in sessionStorage
+        sessionStorage.setItem("selectedCards", JSON.stringify(selectedCards));
+        sessionStorage.setItem("selectedDeck", selectedDeck);
+        sessionStorage.setItem("gameMode", gameMode); // Store selected game mode
+
+        // Navigate to the appropriate game page
+        if (gameMode === "missing") {
+            window.location.href = "whatsmissing.html";
+        } else if (gameMode === "ngword") {
+            window.location.href = "ngword.html";
+        }
+    }
+      
+
+
       document.addEventListener("DOMContentLoaded", loadDeckData);
+      
     </script>
   </head>
   <body>
@@ -120,9 +157,16 @@
     <div class="deck-header">
       <button onclick="selectMode('review')">Review Mode</button>
       <button onclick="selectMode('random')">Random Mode</button>
-      <button onclick="alert('Game mode coming soon!')">Game</button>
-  </div>
-  
+      <button onclick="openGameMenu()">Game</button>
+    </div>
+
+    <!-- Game Selection Pop-Up -->
+    <div id="game-menu" class="popup hidden">
+      <h3>Select a Game Mode</h3>
+      <button onclick="startGame('missing')">What's Missing?</button>
+      <button onclick="startGame('ngword')">NG Word</button>
+      <button onclick="closeGameMenu()">Cancel</button>
+    </div>
 
     <h2>Cards in this Deck: <span id="card-count">Loading...</span></h2>
 

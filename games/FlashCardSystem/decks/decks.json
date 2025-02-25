@@ -17,7 +17,7 @@
     "LetsTry2": {
         "image": "images/textbooks/lets_try_2.png",
         "decks": {
-            "Unit 1 - Hello, world!":       { "path": "decks/ES4/unit1.json", "image": "images/taiyaki.png" },
+            "Unit 1 - Hello, world!":       { "path": "decks/ES4/unit1.json", "image": "images/ES3/countries/japan.png" },
             "Unit 2 - Let's play cards.":   { "path": "decks/ES4/unit2.json", "image": "images/taiyaki.png" },
             "Unit 3 - I like Mondays.":     { "path": "decks/ES4/unit3.json", "image": "images/taiyaki.png" },
             "Unit 4 - What time is it?.":   { "path": "decks/ES4/unit4.json", "image": "images/taiyaki.png" },

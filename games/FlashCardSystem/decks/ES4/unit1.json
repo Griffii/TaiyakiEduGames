@@ -1,0 +1,98 @@
+[
+    {
+        "english": "America",
+        "japanese": {
+            "kanji": "アメリカ",
+            "furigana": ""
+        },
+        "image": "images/ES3/countries/america.png"
+    },
+    {
+        "english": "Canada",
+        "japanese": {
+            "kanji": "カナダ",
+            "furigana": ""
+        },
+        "image": "images/ES3/countries/canada.png"
+    },
+    {
+        "english": "England",
+        "japanese": {
+            "kanji": "イギリス",
+            "furigana": ""
+        },
+        "image": "images/ES3/countries/united-kingdom.png"
+    },
+    {
+        "english": "Australia",
+        "japanese": {
+            "kanji": "オーストラリア",
+            "furigana": ""
+        },
+        "image": "images/ES3/countries/australia.png"
+    },
+    {
+        "english": "China",
+        "japanese": {
+            "kanji": "中国",
+            "furigana": "ちゅうごく"
+        },
+        "image": "images/ES3/countries/china.png"
+    },
+    {
+        "english": "Finland",
+        "japanese": {
+            "kanji": "フィンランド",
+            "furigana": ""
+        },
+        "image": "images/ES3/countries/finland.png"
+    },
+    {
+        "english": "Germany",
+        "japanese": {
+            "kanji": "ドイツ",
+            "furigana": ""
+        },
+        "image": "images/ES3/countries/germany.png"
+    },
+    {
+        "english": "France",
+        "japanese": {
+            "kanji": "フランス",
+            "furigana": ""
+        },
+        "image": "images/ES3/countries/france.png"
+    },
+    {
+        "english": "India",
+        "japanese": {
+            "kanji": "インド",
+            "furigana": ""
+        },
+        "image": "images/ES3/countries/india.png"
+    },
+    {
+        "english": "Japan",
+        "japanese": {
+            "kanji": "日本",
+            "furigana": "にほん"
+        },
+        "image": "images/ES3/countries/japan.png"
+    },
+    {
+        "english": "Kenya",
+        "japanese": {
+            "kanji": "ケニア",
+            "furigana": ""
+        },
+        "image": "images/ES3/countries/kenya.png"
+    },
+    {
+        "english": "Korea",
+        "japanese": {
+            "kanji": "韓国",
+            "furigana": "かんこく"
+        },
+        "image": "images/ES3/countries/korea.png"
+    }
+]
