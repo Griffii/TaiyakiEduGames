@@ -1,0 +1,130 @@
+[
+    {
+        "english": "classroom",
+        "japanese": {
+            "kanji": "教室",
+            "furigana": "きょうしつ"
+        },
+        "image": "images/ES3/schoolrooms/classroom.png"
+    },
+    {
+        "english": "entrance",
+        "japanese": {
+            "kanji": "玄関",
+            "furigana": "げんかん"
+        },
+        "image": "images/ES3/schoolrooms/entrance.png"
+    },
+    {
+        "english": "library",
+        "japanese": {
+            "kanji": "図書室",
+            "furigana": "としょしつ"
+        },
+        "image": "images/ES3/schoolrooms/library.png"
+    },
+    {
+        "english": "gym",
+        "japanese": {
+            "kanji": "体育館",
+            "furigana": "たいいくかん"
+        },
+        "image": "images/ES3/schoolrooms/gym.png"
+    },
+    {
+        "english": "computer room",
+        "japanese": {
+            "kanji": "コンピュータ室",
+            "furigana": "こんぴゅーたしつ"
+        },
+        "image": "images/ES3/schoolrooms/computer_room.png"
+    },
+    {
+        "english": "music room",
+        "japanese": {
+            "kanji": "音楽室",
+            "furigana": "おんがくしつ"
+        },
+        "image": "images/ES3/schoolrooms/music_room.png"
+    },
+    {
+        "english": "science room",
+        "japanese": {
+            "kanji": "理科室",
+            "furigana": "りかしつ"
+        },
+        "image": "images/ES3/schoolrooms/science_room.png"
+    },
+    {
+        "english": "restroom",
+        "japanese": {
+            "kanji": "お手洗い",
+            "furigana": "おてあらい"
+        },
+        "image": "images/ES3/schoolrooms/restroom.png"
+    },
+    {
+        "english": "playground",
+        "japanese": {
+            "kanji": "運動場",
+            "furigana": "うんどうじょう"
+        },
+        "image": "images/ES3/schoolrooms/playground.png"
+    },
+    {
+        "english": "nurse's office",
+        "japanese": {
+            "kanji": "保健室",
+            "furigana": "ほけんしつ"
+        },
+        "image": "images/ES3/schoolrooms/nurses_office.png"
+    },
+    {
+        "english": "teacher's office",
+        "japanese": {
+            "kanji": "職員室",
+            "furigana": "しょくいんしつ"
+        },
+        "image": "images/ES3/schoolrooms/teachers_office.png"
+    },
+    {
+        "english": "principal's office",
+        "japanese": {
+            "kanji": "校長室",
+            "furigana": "こうちょうしつ"
+        },
+        "image": "images/ES3/schoolrooms/principals_office.png"
+    },
+    {
+        "english": "school office",
+        "japanese": {
+            "kanji": "事務室",
+            "furigana": "じむしつ"
+        },
+        "image": "images/ES3/schoolrooms/school_office.png"
+    },
+    {
+        "english": "lunch room",
+        "japanese": {
+            "kanji": "給食室",
+            "furigana": "きゅうしょくしつ"
+        },
+        "image": "images/ES3/schoolrooms/lunch_room.png"
+    },
+    {
+        "english": "cooking room",
+        "japanese": {
+            "kanji": "調理室",
+            "furigana": "ちょうりしつ"
+        },
+        "image": "images/ES3/schoolrooms/cooking_room.png"
+    },
+    {
+        "english": "arts and crafts room",
+        "japanese": {
+            "kanji": "図工室",
+            "furigana": "ずこうしつ"
+        },
+        "image": "images/ES3/schoolrooms/art_room.png"
+    }
+]

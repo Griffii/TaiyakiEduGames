@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Game</title>
+    <link rel="stylesheet" href="gamemodes/matching.css">
+</head>
+<body>
+    <!-- Home Button -->
+    <a href="deckview.html" class="home-button">
+        <img src="../../assets/home-icon.png" alt="Home" />
+    </a>
+
+    <!-- Settings Button -->
+    <div class="settings-button" onclick="openSettingsMenu()">
+        <img src="../../assets/settings-icon.png" alt="Settings" />
+    </div>
+
+    <h1>Matching Game</h1>
+
+    <!-- Game Board -->
+    <div id="game-board" class="game-board"></div>
+
+
+    <!-- Settings Pop-Up -->
+    <div id="settings-menu" class="popup hidden">
+        <h3>Select Number of Pairs</h3>
+        <input type="number" id="pair-count" min="2" value="10" max="18">
+        <button class="apply-btn" onclick="applySettings()">Apply</button>
+        <button class="reselect-btn" onclick="reselectCards()">Reselect Cards</button>
+        <button class="cancel-btn" onclick="closeSettingsMenu()">Cancel</button>
+    </div>
+
+    <!-- Audio Feedback -->
+    <audio id="match-sound" src="../../assets/sounds/fortunegame/kichi.mp3"></audio>
+    <audio id="wrong-sound" src="../../assets/sounds/fortunegame/kyo.mp3"></audio>
+    <audio id="flip-sound" src="../../assets/sounds/place.mp3"></audio>
+
+    <script src="gamemodes/matching.js"></script>
+</body>
+</html>

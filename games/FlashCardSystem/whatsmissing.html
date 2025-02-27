@@ -19,28 +19,33 @@
 
     <!-- Settings Pop-Up -->
     <div id="settings-menu" class="popup hidden">
-        <h3>Game Settings</h3>
-    
-        <!-- Missing Cards Count -->
-        <label for="missing-count">Number of Missing Cards:</label>
-        <input type="number" id="missing-count" min="1" value="1">
-    
-        <!-- Cards Display Limit -->
-        <label for="display-card-limit">Number of Cards Displayed:</label>
-        <input type="number" id="display-card-limit" min="1" value="21">
-    
-        <!-- Apply and Reselect Buttons -->
-        <button onclick="applySettings()">Apply Settings</button>
-        <button onclick="reselectCards()">Reselect Cards</button>
-        <button onclick="closeSettingsMenu()">Cancel</button>
+      <h3>Game Settings</h3>
+
+      <!-- Number of Displayed Cards -->
+      <label for="display-card-limit">Number of Cards:</label>
+      <input type="number" id="display-card-limit" min="1" value="21" />
+
+      <!-- Number of Missing Cards -->
+      <label for="missing-card-count">Number of Missing Cards:</label>
+      <input type="number" id="missing-card-count" min="1" value="1" />
+
+      <!-- Toggle English Text Button -->
+      <button id="toggle-english-btn" onclick="toggleEnglishText()">
+        English: ON
+      </button>
+
+      <!-- Settings Buttons -->
+      <button class="apply-btn" onclick="applySettings()">Apply</button>
+      <button class="reselect-btn" onclick="reselectCards()">
+        Reselect Cards
+      </button>
+      <button class="cancel-btn" onclick="closeSettingsMenu()">Cancel</button>
     </div>
 
     <h1>What's Missing?</h1>
 
     <!-- Shuffle Button -->
-    <button id="shuffle-btn" onclick="shuffleAndRemove()">
-      Shuffle and Remove One
-    </button>
+    <button id="shuffle-btn" onclick="shuffleAndRemove()">Shuffle</button>
 
     <!-- Card Grid -->
     <div id="card-grid" class="card-grid"></div>

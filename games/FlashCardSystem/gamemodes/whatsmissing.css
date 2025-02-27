@@ -68,20 +68,66 @@
     display: block;
     margin: 10px auto;
     padding: 10px 15px;
-    background: teal;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-.popup button:hover {
-    background: #007777;
+
+/* Toggle Button for English Text */
+#toggle-english-btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    border: solid black 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: palegreen;
+    color: darkslategray;
+    transition: background 0.3s ease-in-out;
+}
+
+#toggle-english-btn.off {
+    background-color: palevioletred;
+}
+
+/* Colorful Settings Buttons */
+.apply-btn {
+    background-color: green;
+    color: white;
+}
+
+.reselect-btn {
+    background-color: orange;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: coral;
+    color: white;
+}
+
+/* Button Hover Effects */
+.apply-btn:hover {
+    background-color: darkgreen;
+}
+
+.reselect-btn:hover {
+    background-color: orangered;
+}
+
+.cancel-btn:hover {
+    background-color: crimson;
 }
 
 
+
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Comic Sans MS";
     text-align: center;
     background-color: #f5f5f5;
     margin-top: 60px;
@@ -162,4 +208,51 @@ h1 {
 
 .hidden {
     display: none;
+}
+
+
+@keyframes flashYellow {
+    0% { background-color: yellow; transform: scale(1); }
+    50% { background-color: yellow; transform: scale(1.2); }
+    100% { background-color: white; transform: scale(1); }
+}
+
+.wrong-guess {
+    animation: flashYellow 0.5s ease-in-out;
+}
+
+
+
+/* Increase Card Size on Larger Screens */
+@media (min-width: 1024px) {
+    .card {
+        width: 140px;
+        height: 180px;
+    }
+    .card-grid {
+        gap: 25px;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
+
+@media (min-width: 1440px) {
+    .card {
+        width: 160px;
+        height: 200px;
+    }
+    .card-grid {
+        gap: 30px;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+}
+
+@media (min-width: 1920px) {
+    .card {
+        width: 200px;
+        height: 260px;
+    }
+    .card-grid {
+        gap: 35px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
 }

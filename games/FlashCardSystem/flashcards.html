@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flashcards</title>
-    <link rel="stylesheet" href="flashcards.css" />
+    <link rel="stylesheet" href="gamemodes/flashcards.css" />
   </head>
   <body>
     <!-- Home Button -->
@@ -19,8 +19,16 @@
 
     <!-- Dropdown Menu (Hidden by Default) -->
     <div id="settings-menu" class="settings-menu hidden">
-      <button onclick="toggleJapanese()">Hide/Show Japanese</button>
-      <button onclick="toggleImage()">Hide/Show Image</button>
+      <button
+        id="toggle-japanese-btn"
+        class="toggle-btn"
+        onclick="toggleJapanese()"
+      >
+        Hide Japanese
+      </button>
+      <button id="toggle-image-btn" class="toggle-btn" onclick="toggleImage()">
+        Hide Image
+      </button>
       <button id="auto-mode-btn" onclick="toggleAutoMode()">
         Auto Mode: OFF
       </button>
@@ -52,6 +60,11 @@
       </div>
     </div>
 
-    <script src="flashcards.js"></script>
+    <audio
+      id="finished-sound"
+      src="../../assets/sounds/fortunegame/kichi.mp3"
+    ></audio>
+
+    <script src="gamemodes/flashcards.js"></script>
   </body>
 </html>

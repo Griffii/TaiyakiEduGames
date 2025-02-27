@@ -22,26 +22,78 @@
             "Unit 3 - I like Mondays.":     { "path": "decks/ES4/unit3.json", "image": "images/taiyaki.png" },
             "Unit 4 - What time is it?.":   { "path": "decks/ES4/unit4.json", "image": "images/taiyaki.png" },
             "Unit 5 - Do you have a pen?":  { "path": "decks/ES4/unit5.json", "image": "images/taiyaki.png" },
-            "Unit 6 - Alphabet":            { "path": "decks/ES4/unit6.json", "image": "images/taiyaki.png" },
+            "Unit 6 - Alphabet":            { "path": "decks/ES4/unit6.json", "image": "images/ES3/lowercase_alphabet/letter-a.png" },
             "Unit 7 - What do you want?":   { "path": "decks/ES4/unit7.json", "image": "images/taiyaki.png" },
-            "Unit 8 - This is my favorite place.": { "path": "decks/ES4/unit8.json", "image": "images/taiyaki.png" },
+            "Unit 8 - This is my favorite place.": { "path": "decks/ES4/unit8.json", "image": "images/ES3/schoolrooms/classroom.png" },
             "Unit 9 - This is my day.":     { "path": "decks/ES4/unit9.json", "image": "images/taiyaki.png" }
         }
     },
-    "NewHorizon1": {
-        "image": "images/textbooks/new_horizon_1.png",
+    "New Horizon 1": {
+        "image": "images/textbooks/newhorizon1.jpg",
         "decks": {
             "Unit 1 - Coming Soon": { "path": "decks/introductions.json", "image": "images/taiyaki.png" },
             "Unit 2 - Coming Soon": { "path": "decks/family.json", "image": "images/taiyaki.png" },
             "Unit 3 - Coming Soon": { "path": "decks/hobbies.json", "image": "images/taiyaki.png" }
         }
     },
-    "NewHorizon2": {
-        "image": "images/textbooks/new_horizon_2.png",
+    "New Horizon 2": {
+        "image": "images/textbooks/newhorizon2.jpg",
         "decks": {
             "Unit 1 - Coming Soon": { "path": "decks/travel.json", "image": "images/taiyaki.png" },
             "Unit 2 - Coming Soon": { "path": "decks/shopping.json", "image": "images/taiyaki.png" },
             "Unit 3 - Coming Soon": { "path": "decks/directions.json", "image": "images/taiyaki.png" }
+        }
+    },
+    "My Picture Dictionary": {
+        "image": "images/textbooks/mypicturedictionary.jpg",
+        "decks": {
+            "気分": { "path": "decks/PD/feelings.json", "image": "images/PD/feelings/great.png" },
+            "数": { "path": "decks/PD/numbers.json", "image": "images/ES3/numbers/20.png" },
+            "色": { "path": "decks/PD/colors.json", "image": "images/ES3/colors/blue.png" },
+            "形": { "path": "decks/PD/shapes.json", "image": "images/ES3/shapes/circle.png" },
+            "スポーツ": { "path": "decks/PD/sports.json", "image": "images/PD/sports/baseball.png" },
+            "食べ物": { "path": ".json", "image": "images/PD/food/originals/riceball.png" },
+            "飲み物": { "path": ".json", "image": "images/taiyaki.png" },
+            "デザート": { "path": ".json", "image": "images/taiyaki.png" },
+            "果物●野菜": { "path": ".json", "image": "images/taiyaki.png" },
+            "食材": { "path": ".json", "image": "images/taiyaki.png" },
+            "食事": { "path": ".json", "image": "images/taiyaki.png" },
+            "味など": { "path": ".json", "image": "images/taiyaki.png" },
+            "動物": { "path": ".json", "image": "images/taiyaki.png" },
+            "自然": { "path": ".json", "image": "images/taiyaki.png" },
+            "海の生き物": { "path": ".json", "image": "images/taiyaki.png" },
+            "虫": { "path": ".json", "image": "images/taiyaki.png" },
+            "生き物の問題●できること": { "path": ".json", "image": "images/taiyaki.png" },
+            "月": { "path": ".json", "image": "images/taiyaki.png" },
+            "日付": { "path": ".json", "image": "images/taiyaki.png" },
+            "曜日": { "path": ".json", "image": "images/taiyaki.png" },
+            "季節": { "path": ".json", "image": "images/taiyaki.png" },
+            "天気": { "path": ".json", "image": "images/taiyaki.png" },
+            "人": { "path": ".json", "image": "images/taiyaki.png" },
+            "性格など": { "path": ".json", "image": "images/taiyaki.png" },
+            "家族": { "path": ".json", "image": "images/taiyaki.png" },
+            "運作など（5年）": { "path": ".json", "image": "images/taiyaki.png" },
+            "運作など（6年）": { "path": ".json", "image": "images/taiyaki.png" },
+            "したこと": { "path": ".json", "image": "images/taiyaki.png" },
+            "頻度": { "path": ".json", "image": "images/taiyaki.png" },
+            "一日の生活": { "path": ".json", "image": "images/taiyaki.png" },
+            "衣類": { "path": ".json", "image": "images/taiyaki.png" },
+            "からだ": { "path": ".json", "image": "images/taiyaki.png" },
+            "町": { "path": ".json", "image": "images/taiyaki.png" },
+            "道案内": { "path": ".json", "image": "images/taiyaki.png" },
+            "位置": { "path": ".json", "image": "images/taiyaki.png" },
+            "教科": { "path": ".json", "image": "images/taiyaki.png" },
+            "学校": { "path": ".json", "image": "images/taiyaki.png" },
+            "文房具": { "path": ".json", "image": "images/taiyaki.png" },
+            "楽器": { "path": ".json", "image": "images/taiyaki.png" },
+            "身の回りのもの": { "path": ".json", "image": "images/taiyaki.png" },
+            "遊びなど": { "path": ".json", "image": "images/taiyaki.png" },
+            "学校行事": { "path": ".json", "image": "images/taiyaki.png" },
+            "年中行事": { "path": ".json", "image": "images/taiyaki.png" },
+            "感想●様子": { "path": ".json", "image": "images/taiyaki.png" },
+            "状態": { "path": ".json", "image": "images/taiyaki.png" },
+            "職業": { "path": ".json", "image": "images/taiyaki.png" },
+            "部活動": { "path": "decks/PD/clubactivities.json", "image": "images/PD/clubactivities/artclub.png" }
         }
     }
 }

@@ -108,23 +108,23 @@
 
       function openGameMenu() {
         document.getElementById("game-menu").classList.remove("hidden");
-    }
+      }
 
-    function closeGameMenu() {
+      function closeGameMenu() {
         document.getElementById("game-menu").classList.add("hidden");
-    }
+      }
 
-    function startGame(gameMode) {
-        let selectedIndices = [...document.querySelectorAll(".deck-card.selected")].map(
-            card => parseInt(card.dataset.index)
-        );
+      function startGame(gameMode) {
+        let selectedIndices = [
+          ...document.querySelectorAll(".deck-card.selected"),
+        ].map((card) => parseInt(card.dataset.index));
 
         // Filter cards to only include selected ones
-        let selectedCards = selectedIndices.map(index => cards[index]);
+        let selectedCards = selectedIndices.map((index) => cards[index]);
 
         if (selectedCards.length === 0) {
-            alert("Please select at least one card before starting.");
-            return;
+          alert("Please select at least one card before starting.");
+          return;
         }
 
         // Store selected cards and deck in sessionStorage
@@ -134,16 +134,15 @@
 
         // Navigate to the appropriate game page
         if (gameMode === "missing") {
-            window.location.href = "whatsmissing.html";
+          window.location.href = "whatsmissing.html";
         } else if (gameMode === "ngword") {
-            window.location.href = "ngword.html";
+          window.location.href = "ngword.html";
+        } else if (gameMode === "matching") {
+          window.location.href = "matching.html";
         }
-    }
-      
-
+      }
 
       document.addEventListener("DOMContentLoaded", loadDeckData);
-      
     </script>
   </head>
   <body>
@@ -165,6 +164,7 @@
       <h3>Select a Game Mode</h3>
       <button onclick="startGame('missing')">What's Missing?</button>
       <button onclick="startGame('ngword')">NG Word</button>
+      <button onclick="startGame('matching')">Matching</button>
       <button onclick="closeGameMenu()">Cancel</button>
     </div>
 

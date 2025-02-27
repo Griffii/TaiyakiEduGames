@@ -27,15 +27,28 @@ function displayCards() {
     let cardGrid = document.getElementById("card-grid");
     cardGrid.innerHTML = "";
 
-    displayedCards = [...cards]; // Reset displayed cards from the current selection
+    displayedCards = [...cards];
 
-    displayedCards.forEach(card => {
+    // Check if English text should be displayed (stored in sessionStorage)
+    let showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+
+    displayedCards.forEach((card, index) => {
         let cardElement = document.createElement("div");
         cardElement.classList.add("card");
-        cardElement.innerHTML = `<img src="${card.image}" alt="${card.english}">`;
+        cardElement.dataset.index = index;
+
+        // Display card with optional English text
+        cardElement.innerHTML = `
+            <div class="card-content">
+                <img src="${card.image}" alt="${card.english}">
+                ${showEnglish ? `<p class="card-text">${card.english}</p>` : ""}
+            </div>
+        `;
+
         cardGrid.appendChild(cardElement);
     });
 }
+
 
 // Shuffle displayed cards and remove the selected number of cards
 function shuffleAndRemove() {
@@ -91,6 +104,8 @@ function displayGuessOptions() {
 
 // Check if the guessed card is correct
 function checkGuess(selectedCard, buttonElement) {
+    let flashcard = document.querySelector(`.card img[src="${selectedCard.image}"]`)?.closest(".card");
+
     if (missingCard.some(card => card === selectedCard)) {
         document.getElementById("correct-sound").play(); // Play correct answer sound
 
@@ -108,13 +123,32 @@ function checkGuess(selectedCard, buttonElement) {
 
         if (missingCard.length === 0) {
             disableAllGuessButtons();
+        } else {
+            buttonElement.disabled = true;
+            buttonElement.style.backgroundColor = "#d3d3d3";
+            buttonElement.style.cursor = "not-allowed";
         }
     } else {
-        buttonElement.disabled = true;
-        buttonElement.style.backgroundColor = "#d3d3d3";
-        buttonElement.style.cursor = "not-allowed";
+        if (flashcard) {
+            // Apply flash yellow effect to the incorrect flashcard
+            flashcard.classList.add("wrong-guess");
+
+            // Remove effect after animation ends
+            setTimeout(() => {
+                flashcard.classList.remove("wrong-guess");
+            }, 500);
+        }
+
+        // Gray out the incorrect button after flashing the flashcard
+        setTimeout(() => {
+            buttonElement.disabled = true;
+            buttonElement.style.backgroundColor = "#d3d3d3";
+            buttonElement.style.cursor = "not-allowed";
+        }, 500);
     }
 }
+
+
 
 // Disable all guess buttons after finding all missing cards
 function disableAllGuessButtons() {
@@ -143,25 +177,33 @@ function getRandomSubset(array, limit) {
 // Settings menu controls
 function openSettingsMenu() {
     document.getElementById("settings-menu").classList.remove("hidden");
-}
 
+    // Update English Toggle Button State
+    let button = document.getElementById("toggle-english-btn");
+    let showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+    button.textContent = `English: ${showEnglish ? "ON" : "OFF"}`;
+    button.classList.toggle("off", !showEnglish);
+}
 function closeSettingsMenu() {
     document.getElementById("settings-menu").classList.add("hidden");
 }
 
 // Apply settings for missing cards and number of displayed cards
 function applySettings() {
-    let missingInput = parseInt(document.getElementById("missing-count").value);
     let displayLimitInput = parseInt(document.getElementById("display-card-limit").value);
+    let missingCountInput = parseInt(document.getElementById("missing-card-count").value);
+    let showEnglishText = sessionStorage.getItem("showEnglishText") === "true";
 
-    numberOfMissingCards = Math.min(Math.max(missingInput, 1), cards.length - 1);
     maxCardsDisplayed = Math.min(Math.max(displayLimitInput, 1), allCards.length);
+    numberOfMissingCards = Math.min(Math.max(missingCountInput, 1), maxCardsDisplayed - 1);
+
+    sessionStorage.setItem("numberOfMissingCards", numberOfMissingCards);
 
     cards = allCards.length > maxCardsDisplayed ? getRandomSubset(allCards, maxCardsDisplayed) : allCards;
-
     displayCards();
     closeSettingsMenu();
 }
+
 
 // Reselect cards from the full pool without refreshing
 function reselectCards() {
@@ -171,4 +213,20 @@ function reselectCards() {
         displayCards();
         closeSettingsMenu();
     }
+}
+
+function toggleEnglishText() {
+    let button = document.getElementById("toggle-english-btn");
+    let currentState = sessionStorage.getItem("showEnglishText") === "true";
+
+    // Toggle state
+    let newState = !currentState;
+    sessionStorage.setItem("showEnglishText", newState);
+
+    // Update button appearance
+    button.textContent = `English: ${newState ? "ON" : "OFF"}`;
+    button.classList.toggle("off", !newState);
+
+    // Immediately refresh the cards to reflect the new setting
+    displayCards();
 }
