@@ -80,6 +80,14 @@
         "image": "images/ES3/times/dreamtime.png"
     },
     {
+        "english": "What time is it?",
+        "japanese": {
+            "kanji": "何時ですか？",
+            "furigana": "なんじですか？"
+        },
+        "image": "images/tomomicat/time.png"
+    },
+    {
         "english": "twelve o'clock",
         "japanese": {
             "kanji": "12:00",

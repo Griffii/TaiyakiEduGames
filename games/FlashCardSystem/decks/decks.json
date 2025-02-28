@@ -20,7 +20,7 @@
             "Unit 1 - Hello, world!":       { "path": "decks/ES4/unit1.json", "image": "images/ES3/countries/japan.png" },
             "Unit 2 - Let's play cards.":   { "path": "decks/ES4/unit2.json", "image": "images/ES3/sports/playcards.png" },
             "Unit 3 - I like Mondays.":     { "path": "decks/ES4/unit3.json", "image": "images/PD/weekdays/monday.png" },
-            "Unit 4 - What time is it?":   { "path": "decks/ES4/unit4.json", "image": "images/ES3/times/wakeuptime.png" },
+            "Unit 4 - What time is it?":   { "path": "decks/ES4/unit4.json", "image": "images/tomomicat/time.png" },
             "Unit 5 - Do you have a pen?":  { "path": "decks/ES4/unit5.json", "image": "images/ES3/stationary/pencilcase.png" },
             "Unit 6 - Alphabet":            { "path": "decks/ES4/unit6.json", "image": "images/ES3/lowercase_alphabet/letter-a.png" },
             "Unit 7 - What do you want?":   { "path": "decks/ES4/unit7.json", "image": "images/ES3/food/fruit.png" },
