@@ -1,0 +1,130 @@
+[
+    {
+        "english": "sunny",
+        "japanese": {
+            "kanji": "晴れ",
+            "furigana": "はれ"
+        },
+        "image": "images/ES3/weather/sunny.png"
+    },
+    {
+        "english": "cloudy",
+        "japanese": {
+            "kanji": "曇り",
+            "furigana": "くもり"
+        },
+        "image": "images/ES3/weather/cloudy.png"
+    },
+    {
+        "english": "rainy",
+        "japanese": {
+            "kanji": "雨",
+            "furigana": "あめ"
+        },
+        "image": "images/ES3/weather/rainy.png"
+    },
+    {
+        "english": "snowy",
+        "japanese": {
+            "kanji": "雪",
+            "furigana": "ゆき"
+        },
+        "image": "images/ES3/weather/snowy.png"
+    },
+    {
+        "english": "hot",
+        "japanese": {
+            "kanji": "暑い",
+            "furigana": "あつい"
+        },
+        "image": "images/tomomicat/hot.png"
+    },
+    {
+        "english": "cold",
+        "japanese": {
+            "kanji": "寒い",
+            "furigana": "さむい"
+        },
+        "image": "images/monkeyandbanana/cold.png"
+    },
+    {
+        "english": "shorts",
+        "japanese": {
+            "kanji": "短パン",
+            "furigana": "たんぱん"
+        },
+        "image": "images/ES3/clothing/shorts.png"
+    },
+    {
+        "english": "shirt",
+        "japanese": {
+            "kanji": "シャツ",
+            "furigana": ""
+        },
+        "image": "images/ES3/clothing/shirt.png"
+    },
+    {
+        "english": "pants",
+        "japanese": {
+            "kanji": "ズボン",
+            "furigana": ""
+        },
+        "image": "images/ES3/clothing/pants.png"
+    },
+    {
+        "english": "jacket",
+        "japanese": {
+            "kanji": "ジャケット",
+            "furigana": ""
+        },
+        "image": "images/ES3/clothing/jacket.png"
+    },
+    {
+        "english": "boots",
+        "japanese": {
+            "kanji": "ブーツ",
+            "furigana": ""
+        },
+        "image": "images/ES3/clothing/boots.png"
+    },
+    {
+        "english": "hat",
+        "japanese": {
+            "kanji": "帽子",
+            "furigana": "ぼうし"
+        },
+        "image": "images/ES3/clothing/hat.png"
+    },
+    {
+        "english": "play tag",
+        "japanese": {
+            "kanji": "鬼ごっこする",
+            "furigana": "おにごっこする"
+        },
+        "image": "images/ES3/sports/playtag.png"
+    },
+    {
+        "english": "play cards",
+        "japanese": {
+            "kanji": "トランプする",
+            "furigana": ""
+        },
+        "image": "images/ES3/sports/playcards.png"
+    },
+    {
+        "english": "play dodgeball",
+        "japanese": {
+            "kanji": "ドッジボールする",
+            "furigana": ""
+        },
+        "image": "images/ES3/sports/playdodgeball.png"
+    },
+    {
+        "english": "make a snowman",
+        "japanese": {
+            "kanji": "雪だるまを作る",
+            "furigana": "ゆきだるまをつくる"
+        },
+        "image": "images/ES3/sports/makeasnowman.png"
+    }
+]

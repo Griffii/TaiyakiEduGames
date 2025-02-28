@@ -94,5 +94,36 @@
             "furigana": "かんこく"
         },
         "image": "images/ES3/countries/korea.png"
+    },
+    {
+        "english": "Hello",
+        "japanese": {
+            "kanji": "こんにちは",
+            "furigana": ""
+        },
+        "image": "images/tomomicat/hello.png"
+    },
+    {
+        "english": "Good-Bye",
+        "japanese": {
+            "kanji": "さようなら",
+            "furigana": ""
+        },
+        "image": "images/monkeyandbanana/goodbye.png"
+    },
+    {
+        "english": "like",
+        "japanese": {
+            "kanji": "好き",
+            "furigana": "すき"
+        },
+        "image": "images/tomomicat/like.png"
+    },{
+        "english": "dislike",
+        "japanese": {
+            "kanji": "好きじゃない",
+            "furigana": "すきじゃない"
+        },
+        "image": "images/monkeyandbanana/dislike.png"
     }
 ]

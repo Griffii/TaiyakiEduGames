@@ -195,7 +195,7 @@
         "english": "orange",
         "japanese": {
             "kanji": "オレンジ",
-            "furigana": "おれんじ"
+            "furigana": ""
         },
         "image": "images/ES3/colors/orange.png"
     },
@@ -453,7 +453,7 @@
             "kanji": "ドッジボール",
             "furigana": ""
         },
-        "image": "images/sports/dodgeball.png"
+        "image": "images/ES3/sports/playdodgeball.png"
     },
     {
         "english": "circle",
@@ -726,6 +726,70 @@
             "furigana": "いのしし"
         },
         "image": "images/ES3/animals/boar.png"
+    },
+    {
+        "english": "ear",
+        "japanese": {
+            "kanji": "耳",
+            "furigana": "みみ"
+        },
+        "image": "images/ES3/bodyparts/ear.png"
+    },
+    {
+        "english": "eye",
+        "japanese": {
+            "kanji": "目",
+            "furigana": "め"
+        },
+        "image": "images/ES3/bodyparts/eye.png"
+    },
+    {
+        "english": "mouth",
+        "japanese": {
+            "kanji": "口",
+            "furigana": "くち"
+        },
+        "image": "images/ES3/bodyparts/mouth.png"
+    },
+    {
+        "english": "nose",
+        "japanese": {
+            "kanji": "鼻",
+            "furigana": "はな"
+        },
+        "image": "images/ES3/bodyparts/nose.png"
+    },
+    {
+        "english": "head",
+        "japanese": {
+            "kanji": "頭",
+            "furigana": "あたま"
+        },
+        "image": "images/ES3/bodyparts/head.png"
+    },
+    {
+        "english": "shoulder",
+        "japanese": {
+            "kanji": "肩",
+            "furigana": "かた"
+        },
+        "image": "images/ES3/bodyparts/shoulder.png"
+    },
+    {
+        "english": "knees",
+        "japanese": {
+            "kanji": "膝",
+            "furigana": "ひざ"
+        },
+        "image": "images/ES3/bodyparts/knee.png"
+    },
+    {
+        "english": "toes",
+        "japanese": {
+            "kanji": "足の指",
+            "furigana": "あしのゆび"
+        },
+        "image": "images/ES3/bodyparts/toes.png"
     },
     {
         "english": "A",

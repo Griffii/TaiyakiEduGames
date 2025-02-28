@@ -18,14 +18,15 @@
         "image": "images/textbooks/lets_try_2.png",
         "decks": {
             "Unit 1 - Hello, world!":       { "path": "decks/ES4/unit1.json", "image": "images/ES3/countries/japan.png" },
-            "Unit 2 - Let's play cards.":   { "path": "decks/ES4/unit2.json", "image": "images/taiyaki.png" },
-            "Unit 3 - I like Mondays.":     { "path": "decks/ES4/unit3.json", "image": "images/taiyaki.png" },
-            "Unit 4 - What time is it?.":   { "path": "decks/ES4/unit4.json", "image": "images/taiyaki.png" },
-            "Unit 5 - Do you have a pen?":  { "path": "decks/ES4/unit5.json", "image": "images/taiyaki.png" },
+            "Unit 2 - Let's play cards.":   { "path": "decks/ES4/unit2.json", "image": "images/ES3/sports/playcards.png" },
+            "Unit 3 - I like Mondays.":     { "path": "decks/ES4/unit3.json", "image": "images/PD/weekdays/monday.png" },
+            "Unit 4 - What time is it?":   { "path": "decks/ES4/unit4.json", "image": "images/ES3/times/wakeuptime.png" },
+            "Unit 5 - Do you have a pen?":  { "path": "decks/ES4/unit5.json", "image": "images/ES3/stationary/pencilcase.png" },
             "Unit 6 - Alphabet":            { "path": "decks/ES4/unit6.json", "image": "images/ES3/lowercase_alphabet/letter-a.png" },
-            "Unit 7 - What do you want?":   { "path": "decks/ES4/unit7.json", "image": "images/taiyaki.png" },
+            "Unit 7 - What do you want?":   { "path": "decks/ES4/unit7.json", "image": "images/ES3/food/fruit.png" },
             "Unit 8 - This is my favorite place.": { "path": "decks/ES4/unit8.json", "image": "images/ES3/schoolrooms/classroom.png" },
-            "Unit 9 - This is my day.":     { "path": "decks/ES4/unit9.json", "image": "images/taiyaki.png" }
+            "Unit 9 - This is my day.":     { "path": "decks/ES4/unit9.json", "image": "images/ES3/myday/gotoschool.png" },
+            "Colors":                       { "path": "decks/ES4/colors.json", "image": "images/ES3/colors/red.png" }
         }
     },
     "New Horizon 1": {
@@ -48,14 +49,14 @@
         "image": "images/textbooks/mypicturedictionary.jpg",
         "decks": {
             "気分": { "path": "decks/PD/feelings.json", "image": "images/PD/feelings/great.png" },
-            "数": { "path": "decks/PD/numbers.json", "image": "images/ES3/numbers/20.png" },
+            "数": { "path": "decks/PD/numbers.json", "image": "images/ES3/numbers/20.PNG" },
             "色": { "path": "decks/PD/colors.json", "image": "images/ES3/colors/blue.png" },
             "形": { "path": "decks/PD/shapes.json", "image": "images/ES3/shapes/circle.png" },
             "スポーツ": { "path": "decks/PD/sports.json", "image": "images/PD/sports/baseball.png" },
-            "食べ物": { "path": ".json", "image": "images/PD/food/originals/riceball.png" },
-            "飲み物": { "path": ".json", "image": "images/taiyaki.png" },
-            "デザート": { "path": ".json", "image": "images/taiyaki.png" },
-            "果物●野菜": { "path": ".json", "image": "images/taiyaki.png" },
+            "食べ物": { "path": "decks/PD/food.json", "image": "images/PD/food/riceball.png" },
+            "飲み物": { "path": "decks/PD/drinks.json", "image": "images/PD/drinks/tea.png" },
+            "デザート": { "path": "decks/PD/dessert.json", "image": "images/PD/desserts/cake.png" },
+            "果物●野菜": { "path": "decks/PD/fruitsandveggies.json", "image": "images/PD/fruitsandveggies/fruits.png" },
             "食材": { "path": ".json", "image": "images/taiyaki.png" },
             "食事": { "path": ".json", "image": "images/taiyaki.png" },
             "味など": { "path": ".json", "image": "images/taiyaki.png" },
@@ -92,7 +93,7 @@
             "年中行事": { "path": ".json", "image": "images/taiyaki.png" },
             "感想●様子": { "path": ".json", "image": "images/taiyaki.png" },
             "状態": { "path": ".json", "image": "images/taiyaki.png" },
-            "職業": { "path": ".json", "image": "images/taiyaki.png" },
+            "職業": { "path": "decks/PD/jobs.json", "image": "images/PD/jobs/teacher.png" },
             "部活動": { "path": "decks/PD/clubactivities.json", "image": "images/PD/clubactivities/artclub.png" }
         }
     }

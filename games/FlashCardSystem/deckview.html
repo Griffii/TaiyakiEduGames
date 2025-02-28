@@ -100,10 +100,19 @@
           return;
         }
 
-        // Store selected cards in sessionStorage
+        // Store selected cards and deck in sessionStorage
         sessionStorage.setItem("selectedCards", JSON.stringify(selectedCards));
-        sessionStorage.setItem("mode", mode); // Store mode (review or random)
-        window.location.href = "flashcards.html"; // Navigate to flashcards
+        sessionStorage.setItem("selectedDeck", selectedDeck);
+        sessionStorage.setItem("mode", mode);
+
+        // Navigate to the appropriate mode
+        if (mode === "review") {
+          window.location.href = "flashcards.html";
+        } else if (mode === "random") {
+          window.location.href = "flashcards.html"; // Random mode handled inside flashcards.js
+        } else if (mode === "japanese") {
+          window.location.href = "japanesemode.html";
+        }
       }
 
       function openGameMenu() {
@@ -156,15 +165,16 @@
     <div class="deck-header">
       <button onclick="selectMode('review')">Review Mode</button>
       <button onclick="selectMode('random')">Random Mode</button>
-      <button onclick="openGameMenu()">Game</button>
+      <button onclick="selectMode('japanese')">Japanese Mode</button>
+      <button onclick="openGameMenu()">Games</button>
     </div>
 
     <!-- Game Selection Pop-Up -->
     <div id="game-menu" class="popup hidden">
       <h3>Select a Game Mode</h3>
       <button onclick="startGame('missing')">What's Missing?</button>
-      <button onclick="startGame('ngword')">NG Word</button>
-      <button onclick="startGame('matching')">Matching</button>
+      <button onclick="startGame('ngword')">Bomb Game</button>
+      <button onclick="startGame('matching')">Matching Game</button>
       <button onclick="closeGameMenu()">Cancel</button>
     </div>
 

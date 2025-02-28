@@ -1,0 +1,162 @@
+[
+    {
+        "english": "vegetables",
+        "japanese": {
+            "kanji": "野菜",
+            "furigana": "やさい"
+        },
+        "image": "images/ES3/food/vegetables.png"
+    },
+    {
+        "english": "onions",
+        "japanese": {
+            "kanji": "玉ねぎ",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/onions.png"
+    },
+    {
+        "english": "mushrooms",
+        "japanese": {
+            "kanji": "きのこ",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/mushrooms.png"
+    },
+    {
+        "english": "green peppers",
+        "japanese": {
+            "kanji": "ピーマン",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/greenpeppers.png"
+    },
+    {
+        "english": "tomatoes",
+        "japanese": {
+            "kanji": "トマト",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/tomatoes.png"
+    },
+    {
+        "english": "cabbages",
+        "japanese": {
+            "kanji": "キャベツ",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/cabbages.png"
+    },
+    {
+        "english": "corn",
+        "japanese": {
+            "kanji": "とうもろこし",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/corn.png"
+    },
+    {
+        "english": "carrots",
+        "japanese": {
+            "kanji": "にんじん",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/carrots.png"
+    },
+    {
+        "english": "cucumbers",
+        "japanese": {
+            "kanji": "きゅうり",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/cucumber.png"
+    },
+    {
+        "english": "potatoes",
+        "japanese": {
+            "kanji": "じゃがいも",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/potatoes.png"
+    },
+    {
+        "english": "fruits",
+        "japanese": {
+            "kanji": "果物",
+            "furigana": "くだもの"
+        },
+        "image": "images/ES3/food/fruit.png"
+    },
+    {
+        "english": "melons",
+        "japanese": {
+            "kanji": "メロン",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/melon.png"
+    },
+    {
+        "english": "peaches",
+        "japanese": {
+            "kanji": "桃",
+            "furigana": "もも"
+        },
+        "image": "images/ES3/food/peaches.png"
+    },
+    {
+        "english": "bananas",
+        "japanese": {
+            "kanji": "バナナ",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/bananas.png"
+    },
+    {
+        "english": "apples",
+        "japanese": {
+            "kanji": "りんご",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/apples.png"
+    },
+    {
+        "english": "pineapples",
+        "japanese": {
+            "kanji": "パイナップル",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/pineapples.png"
+    },
+    {
+        "english": "cherries",
+        "japanese": {
+            "kanji": "さくらんぼ",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/cherries.png"
+    },
+    {
+        "english": "strawberries",
+        "japanese": {
+            "kanji": "いちご",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/strawberries.png"
+    },
+    {
+        "english": "oranges",
+        "japanese": {
+            "kanji": "オレンジ",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/oranges.png"
+    },
+    {
+        "english": "kiwi fruits",
+        "japanese": {
+            "kanji": "キウイフルーツ",
+            "furigana": ""
+        },
+        "image": "images/ES3/food/kiwi.png"
+    }
+]

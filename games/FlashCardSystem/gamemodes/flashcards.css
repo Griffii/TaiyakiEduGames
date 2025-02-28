@@ -129,12 +129,10 @@ body {
 
 #left-screen {
   left: 0;
-  
 }
 
 #right-screen {
-  right: 0;
-  
+  right: 0; 
 }
 
 /* Flashcard Layout */

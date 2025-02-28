@@ -54,8 +54,9 @@ function displayCards() {
 function shuffleAndRemove() {
     displayedCards = shuffleArray([...cards]);
 
-    // Randomly remove the specified number of cards
+    numberOfMissingCards = parseInt(sessionStorage.getItem("numberOfMissingCards")) || 1;
     let removedCards = [];
+
     for (let i = 0; i < numberOfMissingCards; i++) {
         let removedCard = displayedCards.splice(Math.floor(Math.random() * displayedCards.length), 1)[0];
         removedCards.push(removedCard);
@@ -63,18 +64,21 @@ function shuffleAndRemove() {
 
     missingCard = removedCards;
 
-    // Display the shuffled cards with blanks for missing cards
     let cardGrid = document.getElementById("card-grid");
     cardGrid.innerHTML = "";
 
     displayedCards.forEach(card => {
         let cardElement = document.createElement("div");
         cardElement.classList.add("card");
-        cardElement.innerHTML = `<img src="${card.image}" alt="${card.english}">`;
+        cardElement.innerHTML = `
+            <div class="card-content">
+                <img src="${card.image}" alt="${card.english}">
+                <p class="card-text">${sessionStorage.getItem("showEnglishText") === "true" ? card.english : ""}</p>
+            </div>
+        `;
         cardGrid.appendChild(cardElement);
     });
 
-    // Add blank cards for each missing card
     for (let i = 0; i < numberOfMissingCards; i++) {
         let blankCard = document.createElement("div");
         blankCard.classList.add("card");
@@ -82,9 +86,9 @@ function shuffleAndRemove() {
         cardGrid.appendChild(blankCard);
     }
 
-    // Show guessing section
     displayGuessOptions();
 }
+
 
 // Show guessing options based on all cards
 function displayGuessOptions() {
@@ -217,16 +221,19 @@ function reselectCards() {
 
 function toggleEnglishText() {
     let button = document.getElementById("toggle-english-btn");
-    let currentState = sessionStorage.getItem("showEnglishText") === "true";
+    let showEnglish = sessionStorage.getItem("showEnglishText") === "true";
 
     // Toggle state
-    let newState = !currentState;
+    let newState = !showEnglish;
     sessionStorage.setItem("showEnglishText", newState);
 
     // Update button appearance
-    button.textContent = `English: ${newState ? "ON" : "OFF"}`;
+    button.textContent = newState ? "English: ON" : "English: OFF";
     button.classList.toggle("off", !newState);
 
-    // Immediately refresh the cards to reflect the new setting
-    displayCards();
+    // Toggle visibility of English text without affecting game state
+    let allCards = document.querySelectorAll(".card-content .card-text");
+    allCards.forEach(card => {
+        card.style.visibility = newState ? "visible" : "hidden";
+    });
 }
