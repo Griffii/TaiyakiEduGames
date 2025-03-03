@@ -118,7 +118,8 @@
             "furigana": "すき"
         },
         "image": "images/tomomicat/like.png"
-    },{
+    },
+    {
         "english": "dislike",
         "japanese": {
             "kanji": "好きじゃない",
