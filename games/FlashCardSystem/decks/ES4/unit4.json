@@ -88,6 +88,22 @@
         "image": "images/tomomicat/time.png"
     },
     {
+        "english": "A.M.",
+        "japanese": {
+            "kanji": "午前",
+            "furigana": "ごぜん"
+        },
+        "image": "images/ES3/times/am.png"
+    },
+    {
+        "english": "P.M.",
+        "japanese": {
+            "kanji": "午後",
+            "furigana": "ごご"
+        },
+        "image": "images/ES3/times/pm.png"
+    },
+    {
         "english": "twelve o'clock",
         "japanese": {
             "kanji": "12:00",
