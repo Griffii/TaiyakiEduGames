@@ -138,35 +138,33 @@ function openSettingsMenu() {
   button.textContent = `English: ${showEnglish ? "ON" : "OFF"}`;
   button.classList.toggle("off", !showEnglish);
 }
-
-
-
 function closeSettingsMenu() {
   document.getElementById("settings-menu").classList.add("hidden");
 }
 
 function applySettings() {
   let displayLimitInput = parseInt(document.getElementById("display-card-limit").value);
-  let showEnglishText = document.getElementById("toggle-english").checked;
-
+  
+  // Ensure the value is within valid range
   maxCardsDisplayed = Math.min(Math.max(displayLimitInput, 1), allCards.length);
 
-  sessionStorage.setItem("showEnglishText", showEnglishText); // Store setting
+  // Store settings
+  sessionStorage.setItem("maxCardsDisplayed", maxCardsDisplayed);
 
-  cards = allCards.length > maxCardsDisplayed ? getRandomSubset(allCards, maxCardsDisplayed) : allCards;
-  displayCards();
+
+  // Reselect new cards and refresh the display
+  reselectCards();
+
   closeSettingsMenu();
 }
 
 
 function reselectCards() {
   if (allCards.length > 0) {
-    cards =
-      allCards.length > maxCardsDisplayed
-        ? getRandomSubset(allCards, maxCardsDisplayed)
-        : allCards;
-    displayCards();
-    closeSettingsMenu();
+      cards = allCards.length > maxCardsDisplayed ? getRandomSubset(allCards, maxCardsDisplayed) : allCards;
+
+      displayCards();
+      closeSettingsMenu();
   }
 }
 

@@ -27,7 +27,7 @@
         "english": "baker",
         "japanese": {
             "kanji": "パン屋さん",
-            "furigana": "ぱんやさんさん"
+            "furigana": "ぱんやさん"
         },
         "image": "images/PD/jobs/baker.png"
     },
@@ -186,8 +186,8 @@
     {
         "english": "zookeeper",
         "japanese": {
-            "kanji": "動物園飼育員",
-            "furigana": "どうぶつえんしいくいん"
+            "kanji": "飼育員",
+            "furigana": "しいくいん"
         },
         "image": "images/PD/jobs/zookeeper.png"
     },
@@ -242,8 +242,8 @@
     {
         "english": "florist",
         "japanese": {
-            "kanji": "花屋",
-            "furigana": "はなや"
+            "kanji": "花屋さん",
+            "furigana": "はなやさん"
         },
         "image": "images/PD/jobs/bonuswords/florist.png"
     },

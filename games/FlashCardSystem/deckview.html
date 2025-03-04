@@ -148,6 +148,8 @@
           window.location.href = "ngword.html";
         } else if (gameMode === "matching") {
           window.location.href = "matching.html";
+        } else if (gameMode === "headsup") {
+          window.location.href = "headsup.html";
         }
       }
 
@@ -175,6 +177,7 @@
       <button onclick="startGame('missing')">What's Missing?</button>
       <button onclick="startGame('ngword')">Bomb Game</button>
       <button onclick="startGame('matching')">Matching Game</button>
+      <button onclick="startGame('headsup')">Heads Up</button>
       <button onclick="closeGameMenu()">Cancel</button>
     </div>
 

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heads Up Game</title>
+    <link rel="stylesheet" href="gamemodes/headsup.css">
+</head>
+<body>
+
+    <!-- Home Button -->
+    <a href="deckview.html" class="home-button">
+        <img src="../../assets/home-icon.png" alt="Home">
+    </a>
+
+    <!-- Timer Display -->
+    <div id="timer" class="timer">60</div>
+
+    <!-- Flashcard -->
+    <div
+      id="flashcard"
+      class="flashcard-container fade"
+      onclick="revealOrNextCard()"
+    >
+      <div class="card-content">
+        <div class="image-container">
+          <img id="card-image" src="images/taiyaki.png" alt="Flashcard Image" />
+        </div>
+        <div class="japanese-container">
+          <ruby id="japanese-text">
+            <span id="kanji">日本語</span>
+            <rt id="furigana">にほんご</rt>
+          </ruby>
+        </div>
+      </div>
+      <!-- English Text Section (Blue Banner) -->
+      <div class="english-container">
+        <div class="english" id="english-text">English</div>
+      </div>
+    </div>
+
+    <!-- Game Buttons -->
+    <div class="buttons-container">
+        <button id="pass-btn" class="pass-btn" onclick="passCard()">Pass</button>
+        <button id="get-btn" class="get-btn" onclick="getCard()">Get</button>
+    </div>
+
+    <!-- Settings Button -->
+    <div class="settings-button" onclick="toggleSettingsMenu()">
+        <img src="../../assets/settings-icon.png" alt="Settings">
+    </div>
+
+    <!-- Settings Menu -->
+    <div id="settings-menu" class="settings-menu hidden">
+        <button id="toggle-image-btn" class="toggle-btn" onclick="toggleImage()">Hide Image</button>
+        <button id="toggle-japanese-btn" class="toggle-btn" onclick="toggleJapanese()">Hide Japanese</button>
+        <button id="toggle-english-btn" class="toggle-btn" onclick="toggleEnglish()">Hide English</button>
+        <button id="toggle-score-btn" class="toggle-btn" onclick="toggleScore()">Hide Score</button>
+        <button id="start-game-btn" class="start-btn" onclick="startGame()">Restart Game</button>
+        <button id="end-game-btn" class="end-game-btn" onclick="endGame()">End Game</button>
+    </div>
+
+    <!-- Final Score Screen -->
+    <div id="score-screen" class="score-screen hidden">
+        <h1>Game Over!</h1>
+        <p>Your Score: <span id="final-score">0</span></p>
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+
+    <!-- Score Display (Always Visible) -->
+    <div id="score-display" class="score-display">Score: <span id="live-score">0</span></div>
+
+    
+
+    <script src="gamemodes/headsup.js"></script>
+</body>
+</html>

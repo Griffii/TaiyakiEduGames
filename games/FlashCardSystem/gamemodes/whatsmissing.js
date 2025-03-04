@@ -49,7 +49,6 @@ function displayCards() {
     });
 }
 
-
 // Shuffle displayed cards and remove the selected number of cards
 function shuffleAndRemove() {
     displayedCards = shuffleArray([...cards]);
@@ -88,7 +87,6 @@ function shuffleAndRemove() {
 
     displayGuessOptions();
 }
-
 
 // Show guessing options based on all cards
 function displayGuessOptions() {
@@ -152,8 +150,6 @@ function checkGuess(selectedCard, buttonElement) {
     }
 }
 
-
-
 // Disable all guess buttons after finding all missing cards
 function disableAllGuessButtons() {
     let buttons = document.querySelectorAll("#guess-options button");
@@ -208,7 +204,6 @@ function applySettings() {
     closeSettingsMenu();
 }
 
-
 // Reselect cards from the full pool without refreshing
 function reselectCards() {
     if (allCards.length > 0) {
@@ -219,6 +214,7 @@ function reselectCards() {
     }
 }
 
+// Toggle English text on and off
 function toggleEnglishText() {
     let button = document.getElementById("toggle-english-btn");
     let showEnglish = sessionStorage.getItem("showEnglishText") === "true";

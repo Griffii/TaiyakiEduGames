@@ -1,0 +1,66 @@
+[
+    {
+        "english": "coffee",
+        "japanese": {
+            "kanji": "コーヒー",
+            "furigana": ""
+        },
+        "image": "images/PD/drinks/coffee.png"
+    },
+    {
+        "english": "tea",
+        "japanese": {
+            "kanji": "お茶",
+            "furigana": "おちゃ"
+        },
+        "image": "images/PD/drinks/tea.png"
+    },
+    {
+        "english": "green tea",
+        "japanese": {
+            "kanji": "緑茶",
+            "furigana": "りょくちゃ"
+        },
+        "image": "images/PD/drinks/greentea.png"
+    },
+    {
+        "english": "juice",
+        "japanese": {
+            "kanji": "ジュース",
+            "furigana": ""
+        },
+        "image": "images/PD/drinks/juice.png"
+    },
+    {
+        "english": "soda",
+        "japanese": {
+            "kanji": "ソーダ",
+            "furigana": ""
+        },
+        "image": "images/PD/drinks/soda.png"
+    },
+    {
+        "english": "milk",
+        "japanese": {
+            "kanji": "牛乳",
+            "furigana": "ぎゅうにゅう"
+        },
+        "image": "images/PD/drinks/milk.png"
+    },
+    {
+        "english": "water",
+        "japanese": {
+            "kanji": "水",
+            "furigana": "みず"
+        },
+        "image": "images/PD/drinks/water.png"
+    },
+    {
+        "english": "mineral water",
+        "japanese": {
+            "kanji": "ミネラルウォーター",
+            "furigana": ""
+        },
+        "image": "images/PD/drinks/mineralwater.png"
+    }
+]

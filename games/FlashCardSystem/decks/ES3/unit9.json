@@ -280,6 +280,14 @@
         "image": "images/ES3/descriptors/furry.png"
     },
     {
+        "english": "cute",
+        "japanese": {
+            "kanji": "可愛い",
+            "furigana": "かわいい"
+        },
+        "image": "images/ES3/descriptors/cute.png"
+    },
+    {
         "english": "scary",
         "japanese": {
             "kanji": "怖い",
