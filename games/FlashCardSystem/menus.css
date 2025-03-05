@@ -50,6 +50,7 @@ button:hover {
     transform: scale(1.1);
 }
 
+
 /* ───────────────────────────────────────────────────────── */
 /* ───────── GRADE SELECTION PAGE (TEXTBOOK SELECTION) ───── */
 /* ───────────────────────────────────────────────────────── */
@@ -228,7 +229,6 @@ button:hover {
 }
 
 
-
 .popup {
     position: fixed;
     top: 50%;
@@ -246,19 +246,57 @@ button:hover {
     display: block;
     margin: 10px auto;
     padding: 10px 15px;
-    background: teal;
-    color: white;
+
     border: none;
     cursor: pointer;
     border-radius: 5px;
 }
 
-.popup button:hover {
-    background: #007777;
-}
 
 .hidden {
     display: none;
+}
+
+/* Button Styling ------------ */
+
+.missing-game-btn {
+    background-color: brown;
+}
+.missing-game-btn:hover {
+    background-color: lightsalmon;
+    scale: 1.05;
+}
+
+.ng-game-btn {
+    background-color: purple;
+}
+.ng-game-btn:hover {
+    background-color: lightskyblue;
+    scale: 1.05;
+}
+
+.matching-game-btn {
+    background-color: blue;
+}
+.matching-game-btn:hover {
+    background-color: lightskyblue;
+    scale: 1.05;
+}
+
+.headsup-game-btn {
+    background-color: orangered;
+}
+.headsup-game-btn:hover {
+    background-color: lightsalmon;
+    scale: 1.05;
+}
+
+.cancel-btn {
+    background-color: darkred;
+}
+.cancel-btn:hover {
+    background-color: red;
+    scale: 1.05;
 }
 
 

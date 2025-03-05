@@ -174,11 +174,11 @@
     <!-- Game Selection Pop-Up -->
     <div id="game-menu" class="popup hidden">
       <h3>Select a Game Mode</h3>
-      <button onclick="startGame('missing')">What's Missing?</button>
-      <button onclick="startGame('ngword')">Bomb Game</button>
-      <button onclick="startGame('matching')">Matching Game</button>
-      <button onclick="startGame('headsup')">Heads Up</button>
-      <button onclick="closeGameMenu()">Cancel</button>
+      <button class="missing-game-btn" onclick="startGame('missing')">What's Missing?</button>
+      <button class="ng-game-btn" onclick="startGame('ngword')">Bomb Game</button>
+      <button class="matching-game-btn" onclick="startGame('matching')">Matching Game</button>
+      <button class="headsup-game-btn" onclick="startGame('headsup')">Heads Up</button>
+      <button class="cancel-btn" onclick="closeGameMenu()">Cancel</button>
     </div>
 
     <h2>Cards in this Deck: <span id="card-count">Loading...</span></h2>
