@@ -90,6 +90,9 @@ function startGame() {
 
 // End Game and Show Score
 function endGame() {
+  let sound = document.getElementById('timeup-sound');
+  sound.play()
+
   clearInterval(timer); // Stop the timer
   document.getElementById("final-score").textContent = score; // Display final score
   document.getElementById("score-screen").classList.remove("hidden"); // Show score screen
