@@ -111,48 +111,81 @@
         margin-bottom: 10px;
       }
 
+      .credits-div{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+      }
+      .credits-btn {
+        display: block;
+        margin: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);
+        padding: 5px;
+        background-color:blanchedalmond;
+        font-size: 16px;
+        font-weight: bold;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .credits-btn:hover {
+        scale: 1.05;
+      }
+
+
       #footer {
         margin-top: 60px;
       }
     </style>
   </head>
-  
-  <body>
-    <a href="../projects.html" class="home-button">
-      <img src="assets/home-icon.png" alt="Home" />
-    </a>
 
+  <body>
     <h1 id="main-title">Taiyaki-Sensei's Education Games</h1>
 
     <h1>🎮 Choose a Game 🎮</h1>
     <div class="game-list">
-        <script>
-            // List of available games (Manually add games here)
-            const games = [
-                { name: "Dice Simulator", path: "games/DiceSimulator/index.html" },
-                { name: "Vocab Othello", path: "games/VocabOthello/index.html" },
-                { name: "English Omikuji", path: "games/EnglishOmikuji/index.html" },
-                { name: "Memory Game", path: "games/MemoryGame/index.html" },
-                { name: "Random Points", path: "games/RandomPoints/index.html" },
-                { name: "Number Picker Wheel", path: "games/NumberPickerWheel/index.html" },
-                { name: "Flash Card System", path: "games/FlashCardSystem/gradeselection.html" }
-            ];
+      <script>
+        // List of available games (Manually add games here)
+        const games = [
+          { name: "Dice Simulator", path: "games/DiceSimulator/index.html" },
+          { name: "Vocab Othello", path: "games/VocabOthello/index.html" },
+          { name: "English Omikuji", path: "games/EnglishOmikuji/index.html" },
+          { name: "Memory Game", path: "games/MemoryGame/index.html" },
+          { name: "Random Points", path: "games/RandomPoints/index.html" },
+          {
+            name: "Number Picker Wheel",
+            path: "games/NumberPickerWheel/index.html",
+          },
+          {
+            name: "Flash Card System",
+            path: "games/FlashCardSystem/gradeselection.html",
+          },
+        ];
 
-            const gameListDiv = document.querySelector(".game-list");
+        const gameListDiv = document.querySelector(".game-list");
 
-            games.forEach(game => {
-                const gameItem = document.createElement("a");
-                gameItem.href = game.path;
-                gameItem.classList.add("game-item");
-                gameItem.innerHTML = `
-                    <img class="game-icon" src="games/${game.name.replace(/\s+/g, '')}/icon.png" alt="${game.name} Icon">
+        games.forEach((game) => {
+          const gameItem = document.createElement("a");
+          gameItem.href = game.path;
+          gameItem.classList.add("game-item");
+          gameItem.innerHTML = `
+                    <img class="game-icon" src="games/${game.name.replace(
+                      /\s+/g,
+                      ""
+                    )}/icon.png" alt="${game.name} Icon">
                     <div>${game.name}</div>
                 `;
-                gameListDiv.appendChild(gameItem);
-            });
-        </script>
+          gameListDiv.appendChild(gameItem);
+        });
+      </script>
     </div>
 
+    <div class="credits-div">
+      <button class="credits-btn">
+        <a href="/TaiyakiEduGames/credits.html">
+          Acknowledgements
+        </a>
+      </button>
+    </div>
 
     <section id="footer">
       <p>Version 1.10</p>
