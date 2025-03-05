@@ -1,0 +1,130 @@
+[
+    {
+        "english": "sea animals",
+        "japanese": {
+            "kanji": "海の動物",
+            "furigana": "うみのどうぶつ"
+        },
+        "image": "images/PD/seaanimals/seaanimals.png"
+    },
+    {
+        "english": "whale",
+        "japanese": {
+            "kanji": "鯨",
+            "furigana": "くじら"
+        },
+        "image": "images/PD/seaanimals/whale.png"
+    },
+    {
+        "english": "dolphin",
+        "japanese": {
+            "kanji": "イルカ",
+            "furigana": "いるか"
+        },
+        "image": "images/PD/seaanimals/dolphin.png"
+    },
+    {
+        "english": "penguin",
+        "japanese": {
+            "kanji": "ペンギン",
+            "furigana": "ぺんぎん"
+        },
+        "image": "images/PD/seaanimals/penguin.png"
+    },
+    {
+        "english": "sea turtle",
+        "japanese": {
+            "kanji": "海亀",
+            "furigana": "うみがめ"
+        },
+        "image": "images/PD/seaanimals/seaturtle.png"
+    },
+    {
+        "english": "fish",
+        "japanese": {
+            "kanji": "魚",
+            "furigana": "さかな"
+        },
+        "image": "images/PD/seaanimals/fish.png"
+    },
+    {
+        "english": "shark",
+        "japanese": {
+            "kanji": "サメ",
+            "furigana": "さめ"
+        },
+        "image": "images/PD/seaanimals/shark.png"
+    },
+    {
+        "english": "crab",
+        "japanese": {
+            "kanji": "蟹",
+            "furigana": "かに"
+        },
+        "image": "images/PD/seaanimals/crab.png"
+    },
+    {
+        "english": "jellyfish",
+        "japanese": {
+            "kanji": "クラゲ",
+            "furigana": "くらげ"
+        },
+        "image": "images/PD/seaanimals/jellyfish.png"
+    },
+    {
+        "english": "sea otter",
+        "japanese": {
+            "kanji": "ラッコ",
+            "furigana": "らっこ"
+        },
+        "image": "images/PD/seaanimals/seaotter.png"
+    },
+    {
+        "english": "tuna",
+        "japanese": {
+            "kanji": "マグロ",
+            "furigana": "まぐろ"
+        },
+        "image": "images/PD/seaanimals/tuna.png"
+    },
+    {
+        "english": "eel",
+        "japanese": {
+            "kanji": "鰻",
+            "furigana": "うなぎ"
+        },
+        "image": "images/PD/seaanimals/eel.png"
+    },
+    {
+        "english": "octopus",
+        "japanese": {
+            "kanji": "蛸",
+            "furigana": "たこ"
+        },
+        "image": "images/PD/seaanimals/octopus.png"
+    },
+    {
+        "english": "squid",
+        "japanese": {
+            "kanji": "イカ",
+            "furigana": "いか"
+        },
+        "image": "images/PD/seaanimals/squid.png"
+    },
+    {
+        "english": "shrimp",
+        "japanese": {
+            "kanji": "海老",
+            "furigana": "えび"
+        },
+        "image": "images/PD/seaanimals/shrimp.png"
+    },
+    {
+        "english": "starfish",
+        "japanese": {
+            "kanji": "ヒトデ",
+            "furigana": "ひとで"
+        },
+        "image": "images/PD/seaanimals/starfish.png"
+    }
+]

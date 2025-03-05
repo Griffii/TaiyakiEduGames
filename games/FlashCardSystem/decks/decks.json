@@ -67,7 +67,7 @@
             "虫": { "path": "decks/PD/bugs.json", "image": "images/PD/bugs/bugs.png" },
             "生き物の問題●できること": { "path": "decks/PD/fortheenvironment.json", "image": "images/PD/fortheenvironment/recycle.png" },
             "月": { "path": "decks/PD/months.json", "image": "images/taiyaki.png" },
-            "日付": { "path": "decks/PD/days.json", "image": "images/taiyaki.png" },
+            "日付": { "path": "decks/PD/dates.json", "image": "images/taiyaki.png" },
             "曜日": { "path": "decks/PD/weekdays.json", "image": "images/PD/weekdays/monday.png" },
             "季節": { "path": "decks/PD/seasons.json", "image": "images/PD/seasons/spring.png" },
             "天気": { "path": "decks/PD/weather.json", "image": "images/PD/weather/sunny.png" },

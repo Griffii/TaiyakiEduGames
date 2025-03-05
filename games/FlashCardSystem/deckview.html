@@ -115,10 +115,28 @@
         }
       }
 
-      function openGameMenu() {
-        document.getElementById("game-menu").classList.remove("hidden");
+      function toggleSelectAll() {
+        // Code to deselect or select all cards in the deck.
       }
 
+      function openReviewMenu() {
+        if (document.getElementById("review-menu").classList.contains("hidden")) {
+          document.getElementById("review-menu").classList.remove("hidden");
+        } else {
+          document.getElementById("review-menu").classList.add("hidden");
+        }
+      }
+      function closeReviewMenu() {
+        document.getElementById("review-menu").classList.add("hidden");
+      }
+
+      function openGameMenu() {
+        if (document.getElementById("game-menu").classList.contains("hidden")) {
+          document.getElementById("game-menu").classList.remove("hidden");
+        } else {
+          document.getElementById("game-menu").classList.add("hidden");
+        }
+      }
       function closeGameMenu() {
         document.getElementById("game-menu").classList.add("hidden");
       }
@@ -165,10 +183,18 @@
     <h1 id="deck-title"></h1>
 
     <div class="deck-header">
-      <button onclick="selectMode('review')">Review Mode</button>
-      <button onclick="selectMode('random')">Random Mode</button>
-      <button onclick="selectMode('japanese')">Japanese Mode</button>
+      <button onclick="openReviewMenu()">Review Mode</button>
       <button onclick="openGameMenu()">Games</button>
+      <button onclick="toggleSelectAll()">Deselect All</button>
+    </div>
+
+    <!-- Review Selection Pop-Up -->
+    <div id="review-menu" class="popup hidden">
+      <h3>Select a Review Mode</h3>
+      <button class="normal-review-btn" onclick="selectMode('review')">Regular Order</button>
+      <button class="random-btn" onclick="selectMode('random')">Random Order</button>
+      <button class="japanese-mode-btn" onclick="selectMode('japanese')">Japanese Mode (Random)</button>
+      <button class="cancel-btn" onclick="closeReviewMenu()">Cancel</button>
     </div>
 
     <!-- Game Selection Pop-Up -->

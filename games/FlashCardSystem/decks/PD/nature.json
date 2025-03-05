@@ -1,0 +1,154 @@
+[
+    {
+        "english": "nature",
+        "japanese": {
+            "kanji": "自然",
+            "furigana": "しぜん"
+        },
+        "image": "images/PD/nature/nature.png"
+    },
+    {
+        "english": "desert",
+        "japanese": {
+            "kanji": "砂漠",
+            "furigana": "さばく"
+        },
+        "image": "images/PD/nature/desert.png"
+    },
+    {
+        "english": "forest",
+        "japanese": {
+            "kanji": "森",
+            "furigana": "もり"
+        },
+        "image": "images/PD/nature/forest.png"
+    },
+    {
+        "english": "rain forest",
+        "japanese": {
+            "kanji": "熱帯雨林",
+            "furigana": "ねったいうりん"
+        },
+        "image": "images/PD/nature/rainforest.png"
+    },
+    {
+        "english": "lake",
+        "japanese": {
+            "kanji": "湖",
+            "furigana": "みずうみ"
+        },
+        "image": "images/PD/nature/lake.png"
+    },
+    {
+        "english": "mountain",
+        "japanese": {
+            "kanji": "山",
+            "furigana": "やま"
+        },
+        "image": "images/PD/nature/mountain.png"
+    },
+    {
+        "english": "river",
+        "japanese": {
+            "kanji": "川",
+            "furigana": "かわ"
+        },
+        "image": "images/PD/nature/river.png"
+    },
+    {
+        "english": "savanna",
+        "japanese": {
+            "kanji": "サバンナ",
+            "furigana": "さばんな"
+        },
+        "image": "images/PD/nature/savanna.png"
+    },
+    {
+        "english": "sea",
+        "japanese": {
+            "kanji": "海",
+            "furigana": "うみ"
+        },
+        "image": "images/PD/nature/sea.png"
+    },
+    {
+        "english": "beach",
+        "japanese": {
+            "kanji": "ビーチ",
+            "furigana": "びーち"
+        },
+        "image": "images/PD/nature/beach.png"
+    },
+    {
+        "english": "hot spring",
+        "japanese": {
+            "kanji": "温泉",
+            "furigana": "おんせん"
+        },
+        "image": "images/PD/nature/hotspring.png"
+    },
+    {
+        "english": "island",
+        "japanese": {
+            "kanji": "島",
+            "furigana": "しま"
+        },
+        "image": "images/PD/nature/island.png"
+    },
+    {
+        "english": "waterfall",
+        "japanese": {
+            "kanji": "滝",
+            "furigana": "たき"
+        },
+        "image": "images/PD/nature/waterfall.png"
+    },
+    {
+        "english": "tree",
+        "japanese": {
+            "kanji": "木",
+            "furigana": "き"
+        },
+        "image": "images/PD/nature/tree.png"
+    },
+    {
+        "english": "plant",
+        "japanese": {
+            "kanji": "植物",
+            "furigana": "しょくぶつ"
+        },
+        "image": "images/PD/nature/plant.png"
+    },
+    {
+        "english": "flower",
+        "japanese": {
+            "kanji": "花",
+            "furigana": "はな"
+        },
+        "image": "images/PD/nature/flower.png"
+    },
+    {
+        "english": "rose",
+        "japanese": {
+            "kanji": "バラ",
+            "furigana": "ばら"
+        },
+        "image": "images/PD/nature/rose.png"
+    },
+    {
+        "english": "fire",
+        "japanese": {
+            "kanji": "火",
+            "furigana": "ひ"
+        },
+        "image": "images/PD/nature/fire.png"
+    },
+    {
+        "english": "ice",
+        "japanese": {
+            "kanji": "氷",
+            "furigana": "こおり"
+        },
+        "image": "images/PD/nature/ice.png"
+    }
+]

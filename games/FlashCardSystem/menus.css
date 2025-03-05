@@ -17,18 +17,22 @@ h1 {
 
 /* General Button Styling */
 button {
-    background-color: teal;
+    background-color: cornflowerblue;
     color: white;
     font-size: 18px;
     padding: 12px 20px;
     border: none;
     border-radius: 8px;
+    border: #333 solid 1px;
     cursor: pointer;
     transition: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background-color: #007777;
+    background-color: lightblue;
+    scale: 1.05;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Home Button */
@@ -246,21 +250,48 @@ button:hover {
     display: block;
     margin: 10px auto;
     padding: 10px 15px;
-
     border: none;
     cursor: pointer;
     border-radius: 5px;
 }
 
-
 .hidden {
     display: none;
 }
 
-/* Button Styling ------------ */
+/*---------- Review Menu Button Styling ------------ */
+.normal-review-btn {
+    width: 200px;
+    background-color: darkgoldenrod;
+}
+.normal-review-btn:hover {
+    scale: 1.05;
+    background-color: darkgreen;
+}
 
+.random-btn{
+    width: 200px;
+    background-color: darkgoldenrod;
+}
+.random-btn:hover {
+    scale: 1.05;
+    background-color: darkgreen;
+}
+
+.japanese-mode-btn{
+    width: 200px;
+    background-color: darkgoldenrod;
+}
+.japanese-mode-btn:hover {
+    scale: 1.05;
+    background-color: darkgreen;
+}
+
+
+/*---------- Games Menu Button Styling ------------ */
 .missing-game-btn {
     background-color: brown;
+    width: 200px;
 }
 .missing-game-btn:hover {
     background-color: lightsalmon;
@@ -269,6 +300,7 @@ button:hover {
 
 .ng-game-btn {
     background-color: purple;
+    width: 200px;
 }
 .ng-game-btn:hover {
     background-color: lightskyblue;
@@ -277,6 +309,7 @@ button:hover {
 
 .matching-game-btn {
     background-color: blue;
+    width: 200px;
 }
 .matching-game-btn:hover {
     background-color: lightskyblue;
@@ -285,6 +318,7 @@ button:hover {
 
 .headsup-game-btn {
     background-color: orangered;
+    width: 200px;
 }
 .headsup-game-btn:hover {
     background-color: lightsalmon;
