@@ -1,0 +1,66 @@
+[
+    {
+        "english": "ate",
+        "japanese": {
+            "kanji": "食べた",
+            "furigana": "たべた"
+        },
+        "image": "images/PD/pasttense/ate.png"
+    },
+    {
+        "english": "went",
+        "japanese": {
+            "kanji": "行った",
+            "furigana": "いった"
+        },
+        "image": "images/PD/pasttense/went.png"
+    },
+    {
+        "english": "saw",
+        "japanese": {
+            "kanji": "見た",
+            "furigana": "みた"
+        },
+        "image": "images/PD/pasttense/saw.png"
+    },
+    {
+        "english": "had",
+        "japanese": {
+            "kanji": "持っていた",
+            "furigana": "もっていた"
+        },
+        "image": "images/PD/pasttense/had.png"
+    },
+    {
+        "english": "made",
+        "japanese": {
+            "kanji": "作った",
+            "furigana": "つくった"
+        },
+        "image": "images/PD/pasttense/made.png"
+    },
+    {
+        "english": "enjoyed",
+        "japanese": {
+            "kanji": "楽しんだ",
+            "furigana": "たのしんだ"
+        },
+        "image": "images/PD/pasttense/enjoyed.png"
+    },
+    {
+        "english": "played",
+        "japanese": {
+            "kanji": "遊んだ",
+            "furigana": "あそんだ"
+        },
+        "image": "images/PD/pasttense/played.png"
+    },
+    {
+        "english": "watched",
+        "japanese": {
+            "kanji": "見た",
+            "furigana": "みた"
+        },
+        "image": "images/PD/pasttense/watched.png"
+    }
+]

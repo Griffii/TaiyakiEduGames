@@ -217,25 +217,31 @@ body {
 .buttons-container {
   display: flex;
   gap: 20px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .pass-btn {
   background-color: red;
   color: white;
   border-radius: 10px;
-  padding: 15px 25px;
-  font-size: 20px;
+  padding: 15px;
+  font-size: 3vw;
   cursor: pointer;
+}
+.pass-btn:hover {
+  scale: 1.05;
 }
 
 .get-btn {
   background-color: green;
   color: white;
   border-radius: 10px;
-  padding: 15px 25px;
-  font-size: 20px;
+  padding: 15px;
+  font-size: 3vw;
   cursor: pointer;
+}
+.get-btn:hover {
+  scale: 1.05;
 }
 
 /* Hidden Elements */
@@ -266,32 +272,32 @@ body {
 
 /* Score Text */
 .score-screen h1 {
-  font-size: 24px;
-  color: #333;
+  font-size: 40px;
+  color: orangered;
   margin-bottom: 10px;
 }
 
 .score-screen p {
-  font-size: 18px;
+  font-size: 46px;
   font-weight: bold;
-  color: #00796b;
+  color: black;
   margin-bottom: 20px;
 }
 
 /* Restart Button */
 .score-screen button {
-  background-color: teal;
+  background-color: olive;
   color: white;
   border: none;
   padding: 10px 20px;
+  margin-top: 10px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 26px;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
 }
-
 .score-screen button:hover {
-  background-color: #005f56;
+  background-color: yellowgreen;
 }
 
 /* Fade-in Animation */
@@ -347,11 +353,11 @@ body {
   }
 
   .english {
-    font-size: 4vw;
+    font-size: 5vw;
   }
 
   button {
-    font-size: 3vw;
+    font-size: 4vw;
   }
 }
 
@@ -374,11 +380,11 @@ body {
   }
 
   .english {
-    font-size: 3.5vw;
+    font-size: 5vw;
   }
 
   button {
-    font-size: 2vw;
+    font-size: 4vw;
   }
 }
 
@@ -401,11 +407,11 @@ body {
   }
 
   .english {
-    font-size: 3vw;
+    font-size: 5vw;
   }
 
   button {
-    font-size: 1.8vw;
+    font-size: 4vw;
   }
 }
 

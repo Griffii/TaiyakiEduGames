@@ -70,6 +70,9 @@ h1 {
     perspective: 1000px;
     cursor: pointer;
 }
+.card:hover {
+    scale: 1.05;
+}
 
 .card-inner {
     width: 100%;

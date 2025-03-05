@@ -1,0 +1,106 @@
+[
+    {
+        "english": "months",
+        "japanese": {
+            "kanji": "月",
+            "furigana": "つき"
+        },
+        "image": "images/PD/months/months.png"
+    },
+    {
+        "english": "January",
+        "japanese": {
+            "kanji": "一月",
+            "furigana": "いちがつ"
+        },
+        "image": "images/PD/months/January.png"
+    },
+    {
+        "english": "February",
+        "japanese": {
+            "kanji": "二月",
+            "furigana": "にがつ"
+        },
+        "image": "images/PD/months/February.png"
+    },
+    {
+        "english": "March",
+        "japanese": {
+            "kanji": "三月",
+            "furigana": "さんがつ"
+        },
+        "image": "images/PD/months/March.png"
+    },
+    {
+        "english": "April",
+        "japanese": {
+            "kanji": "四月",
+            "furigana": "しがつ"
+        },
+        "image": "images/PD/months/April.png"
+    },
+    {
+        "english": "May",
+        "japanese": {
+            "kanji": "五月",
+            "furigana": "ごがつ"
+        },
+        "image": "images/PD/months/May.png"
+    },
+    {
+        "english": "June",
+        "japanese": {
+            "kanji": "六月",
+            "furigana": "ろくがつ"
+        },
+        "image": "images/PD/months/June.png"
+    },
+    {
+        "english": "July",
+        "japanese": {
+            "kanji": "七月",
+            "furigana": "しちがつ"
+        },
+        "image": "images/PD/months/July.png"
+    },
+    {
+        "english": "August",
+        "japanese": {
+            "kanji": "八月",
+            "furigana": "はちがつ"
+        },
+        "image": "images/PD/months/August.png"
+    },
+    {
+        "english": "September",
+        "japanese": {
+            "kanji": "九月",
+            "furigana": "くがつ"
+        },
+        "image": "images/PD/months/September.png"
+    },
+    {
+        "english": "October",
+        "japanese": {
+            "kanji": "十月",
+            "furigana": "じゅうがつ"
+        },
+        "image": "images/PD/months/October.png"
+    },
+    {
+        "english": "November",
+        "japanese": {
+            "kanji": "十一月",
+            "furigana": "じゅういちがつ"
+        },
+        "image": "images/PD/months/November.png"
+    },
+    {
+        "english": "December",
+        "japanese": {
+            "kanji": "十二月",
+            "furigana": "じゅうにがつ"
+        },
+        "image": "images/PD/months/December.png"
+    }
+]

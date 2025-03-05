@@ -1,0 +1,74 @@
+[
+    {
+        "english": "active",
+        "japanese": {
+            "kanji": "活動的",
+            "furigana": "かつどうてき"
+        },
+        "image": "images/PD/personalities/active.png"
+    },
+    {
+        "english": "brave",
+        "japanese": {
+            "kanji": "勇敢",
+            "furigana": "ゆうかん"
+        },
+        "image": "images/PD/personalities/brave.png"
+    },
+    {
+        "english": "friendly",
+        "japanese": {
+            "kanji": "友好的",
+            "furigana": "ゆうこうてき"
+        },
+        "image": "images/PD/personalities/friendly.png"
+    },
+    {
+        "english": "funny",
+        "japanese": {
+            "kanji": "面白い",
+            "furigana": "おもしろい"
+        },
+        "image": "images/PD/personalities/funny.png"
+    },
+    {
+        "english": "kind",
+        "japanese": {
+            "kanji": "優しい",
+            "furigana": "やさしい"
+        },
+        "image": "images/PD/personalities/kind.png"
+    },
+    {
+        "english": "shy",
+        "japanese": {
+            "kanji": "内気",
+            "furigana": "うちき"
+        },
+        "image": "images/PD/personalities/shy.png"
+    },
+    {
+        "english": "smart",
+        "japanese": {
+            "kanji": "賢い",
+            "furigana": "かしこい"
+        },
+        "image": "images/PD/personalities/smart.png"
+    },
+    {
+        "english": "strong",
+        "japanese": {
+            "kanji": "強い",
+            "furigana": "つよい"
+        },
+        "image": "images/PD/personalities/strong.png"
+    },
+    {
+        "english": "gentle",
+        "japanese": {
+            "kanji": "穏やか",
+            "furigana": "おだやか"
+        },
+        "image": "images/PD/personalities/gentle.png"
+    }
+]

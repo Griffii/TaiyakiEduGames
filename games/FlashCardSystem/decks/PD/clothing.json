@@ -1,0 +1,170 @@
+[
+    {
+        "english": "clothes",
+        "japanese": {
+            "kanji": "服",
+            "furigana": "ふく"
+        },
+        "image": "images/PD/clothing/clothes.png"
+    },
+    {
+        "english": "shirt",
+        "japanese": {
+            "kanji": "シャツ",
+            "furigana": "しゃつ"
+        },
+        "image": "images/PD/clothing/shirt.png"
+    },
+    {
+        "english": "T-shirt",
+        "japanese": {
+            "kanji": "Tシャツ",
+            "furigana": "てぃーしゃつ"
+        },
+        "image": "images/PD/clothing/tshirt.png"
+    },
+    {
+        "english": "sweatshirt",
+        "japanese": {
+            "kanji": "トレーナー",
+            "furigana": "とれーなー"
+        },
+        "image": "images/PD/clothing/sweatshirt.png"
+    },
+    {
+        "english": "sweater",
+        "japanese": {
+            "kanji": "セーター",
+            "furigana": "せーたー"
+        },
+        "image": "images/PD/clothing/sweater.png"
+    },
+    {
+        "english": "uniform",
+        "japanese": {
+            "kanji": "制服",
+            "furigana": "せいふく"
+        },
+        "image": "images/PD/clothing/uniform.png"
+    },
+    {
+        "english": "pants",
+        "japanese": {
+            "kanji": "ズボン",
+            "furigana": "ずぼん"
+        },
+        "image": "images/PD/clothing/pants.png"
+    },
+    {
+        "english": "jeans",
+        "japanese": {
+            "kanji": "ジーンズ",
+            "furigana": "じーんず"
+        },
+        "image": "images/PD/clothing/jeans.png"
+    },
+    {
+        "english": "cap",
+        "japanese": {
+            "kanji": "キャップ",
+            "furigana": "きゃっぷ"
+        },
+        "image": "images/PD/clothing/cap.png"
+    },
+    {
+        "english": "hat",
+        "japanese": {
+            "kanji": "帽子",
+            "furigana": "ぼうし"
+        },
+        "image": "images/PD/clothing/hat.png"
+    },
+    {
+        "english": "gloves",
+        "japanese": {
+            "kanji": "手袋",
+            "furigana": "てぶくろ"
+        },
+        "image": "images/PD/clothing/gloves.png"
+    },
+    {
+        "english": "socks",
+        "japanese": {
+            "kanji": "靴下",
+            "furigana": "くつした"
+        },
+        "image": "images/PD/clothing/socks.png"
+    },
+    {
+        "english": "shoes",
+        "japanese": {
+            "kanji": "靴",
+            "furigana": "くつ"
+        },
+        "image": "images/PD/clothing/shoes.png"
+    },
+    {
+        "english": "apron",
+        "japanese": {
+            "kanji": "エプロン",
+            "furigana": "えぷろん"
+        },
+        "image": "images/PD/clothing/apron.png"
+    },
+    {
+        "english": "coat",
+        "japanese": {
+            "kanji": "コート",
+            "furigana": "こーと"
+        },
+        "image": "images/PD/clothing/coat.png"
+    },
+    {
+        "english": "jacket",
+        "japanese": {
+            "kanji": "ジャケット",
+            "furigana": "じゃけっと"
+        },
+        "image": "images/PD/clothing/jacket.png"
+    },
+    {
+        "english": "vest",
+        "japanese": {
+            "kanji": "ベスト",
+            "furigana": "べすと"
+        },
+        "image": "images/PD/clothing/vest.png"
+    },
+    {
+        "english": "skirt",
+        "japanese": {
+            "kanji": "スカート",
+            "furigana": "すかーと"
+        },
+        "image": "images/PD/clothing/skirt.png"
+    },
+    {
+        "english": "boots",
+        "japanese": {
+            "kanji": "ブーツ",
+            "furigana": "ぶーつ"
+        },
+        "image": "images/PD/clothing/boots.png"
+    },
+    {
+        "english": "glasses",
+        "japanese": {
+            "kanji": "眼鏡",
+            "furigana": "めがね"
+        },
+        "image": "images/PD/clothing/glasses.png"
+    },
+    {
+        "english": "ribbon",
+        "japanese": {
+            "kanji": "リボン",
+            "furigana": "りぼん"
+        },
+        "image": "images/PD/clothing/ribbon.png"
+    }
+]

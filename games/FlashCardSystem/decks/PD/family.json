@@ -1,0 +1,106 @@
+[
+    {
+        "english": "family",
+        "japanese": {
+            "kanji": "家族",
+            "furigana": "かぞく"
+        },
+        "image": "images/PD/family/family.png"
+    },
+    {
+        "english": "grandfather",
+        "japanese": {
+            "kanji": "祖父",
+            "furigana": "そふ"
+        },
+        "image": "images/PD/family/grandfather.png"
+    },
+    {
+        "english": "grandmother",
+        "japanese": {
+            "kanji": "祖母",
+            "furigana": "そぼ"
+        },
+        "image": "images/PD/family/grandmother.png"
+    },
+    {
+        "english": "grandparents",
+        "japanese": {
+            "kanji": "祖父母",
+            "furigana": "そふぼ"
+        },
+        "image": "images/PD/family/grandparents.png"
+    },
+    {
+        "english": "father",
+        "japanese": {
+            "kanji": "父",
+            "furigana": "ちち"
+        },
+        "image": "images/PD/family/father.png"
+    },
+    {
+        "english": "mother",
+        "japanese": {
+            "kanji": "母",
+            "furigana": "はは"
+        },
+        "image": "images/PD/family/mother.png"
+    },
+    {
+        "english": "parents",
+        "japanese": {
+            "kanji": "両親",
+            "furigana": "りょうしん"
+        },
+        "image": "images/PD/family/parents.png"
+    },
+    {
+        "english": "uncle",
+        "japanese": {
+            "kanji": "叔父",
+            "furigana": "おじ"
+        },
+        "image": "images/PD/family/uncle.png"
+    },
+    {
+        "english": "aunt",
+        "japanese": {
+            "kanji": "叔母",
+            "furigana": "おば"
+        },
+        "image": "images/PD/family/aunt.png"
+    },
+    {
+        "english": "brother",
+        "japanese": {
+            "kanji": "兄弟",
+            "furigana": "きょうだい"
+        },
+        "image": "images/PD/family/brother.png"
+    },
+    {
+        "english": "sister",
+        "japanese": {
+            "kanji": "姉妹",
+            "furigana": "しまい"
+        },
+        "image": "images/PD/family/sister.png"
+    },
+    {
+        "english": "cousin",
+        "japanese": {
+            "kanji": "いとこ",
+            "furigana": "いとこ"
+        },
+        "image": "images/PD/family/cousin.png"
+    },
+    {
+        "english": "me",
+        "japanese": {
+            "kanji": "私",
+            "furigana": "わたし"
+        },
+        "image": "images/PD/family/me.png"
+    }
+]

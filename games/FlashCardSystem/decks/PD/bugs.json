@@ -1,0 +1,114 @@
+[
+    {
+        "english": "bugs",
+        "japanese": {
+            "kanji": "虫",
+            "furigana": "むし"
+        },
+        "image": "images/PD/bugs/bugs.png"
+    },
+    {
+        "english": "ant",
+        "japanese": {
+            "kanji": "蟻",
+            "furigana": "あり"
+        },
+        "image": "images/PD/bugs/ant.png"
+    },
+    {
+        "english": "beetle",
+        "japanese": {
+            "kanji": "甲虫",
+            "furigana": "こうちゅう"
+        },
+        "image": "images/PD/bugs/beetle.png"
+    },
+    {
+        "english": "stag beetle",
+        "japanese": {
+            "kanji": "クワガタ",
+            "furigana": "くわがた"
+        },
+        "image": "images/PD/bugs/stagbeetle.png"
+    },
+    {
+        "english": "butterfly",
+        "japanese": {
+            "kanji": "蝶",
+            "furigana": "ちょう"
+        },
+        "image": "images/PD/bugs/butterfly.png"
+    },
+    {
+        "english": "dragonfly",
+        "japanese": {
+            "kanji": "トンボ",
+            "furigana": "とんぼ"
+        },
+        "image": "images/PD/bugs/dragonfly.png"
+    },
+    {
+        "english": "grasshopper",
+        "japanese": {
+            "kanji": "バッタ",
+            "furigana": "ばった"
+        },
+        "image": "images/PD/bugs/grasshopper.png"
+    },
+    {
+        "english": "mantis",
+        "japanese": {
+            "kanji": "カマキリ",
+            "furigana": "かまきり"
+        },
+        "image": "images/PD/bugs/mantis.png"
+    },
+    {
+        "english": "spider",
+        "japanese": {
+            "kanji": "蜘蛛",
+            "furigana": "くも"
+        },
+        "image": "images/PD/bugs/spider.png"
+    },
+    {
+        "english": "cicada",
+        "japanese": {
+            "kanji": "蝉",
+            "furigana": "せみ"
+        },
+        "image": "images/PD/bugs/bonuswords/cicada.png"
+    },
+    {
+        "english": "firefly",
+        "japanese": {
+            "kanji": "蛍",
+            "furigana": "ほたる"
+        },
+        "image": "images/PD/bugs/bonuswords/firefly.png"
+    },
+    {
+        "english": "ladybug",
+        "japanese": {
+            "kanji": "てんとう虫",
+            "furigana": "てんとうむし"
+        },
+        "image": "images/PD/bugs/bonuswords/ladybug.png"
+    },
+    {
+        "english": "mosquito",
+        "japanese": {
+            "kanji": "蚊",
+            "furigana": "か"
+        },
+        "image": "images/PD/bugs/bonuswords/mosquito.png"
+    },
+    {
+        "english": "earth worm",
+        "japanese": {
+            "kanji": "ミミズ",
+            "furigana": "みみず"
+        },
+        "image": "images/PD/bugs/bonuswords/earthworm.png"
+    }
+]

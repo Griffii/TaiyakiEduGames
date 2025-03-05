@@ -1,0 +1,354 @@
+[
+    {
+        "english": "animals",
+        "japanese": {
+            "kanji": "動物",
+            "furigana": "どうぶつ"
+        },
+        "image": "images/PD/animals/animals.png"
+    },
+    {
+        "english": "bear",
+        "japanese": {
+            "kanji": "熊",
+            "furigana": "くま"
+        },
+        "image": "images/PD/animals/bear.png"
+    },
+    {
+        "english": "elephant",
+        "japanese": {
+            "kanji": "象",
+            "furigana": "ぞう"
+        },
+        "image": "images/PD/animals/elephant.png"
+    },
+    {
+        "english": "tiger",
+        "japanese": {
+            "kanji": "虎",
+            "furigana": "とら"
+        },
+        "image": "images/PD/animals/tiger.png"
+    },
+    {
+        "english": "lion",
+        "japanese": {
+            "kanji": "ライオン",
+            "furigana": "らいおん"
+        },
+        "image": "images/PD/animals/lion.png"
+    },
+    {
+        "english": "horse",
+        "japanese": {
+            "kanji": "馬",
+            "furigana": "うま"
+        },
+        "image": "images/PD/animals/horse.png"
+    },
+    {
+        "english": "zebra",
+        "japanese": {
+            "kanji": "シマウマ",
+            "furigana": "しまうま"
+        },
+        "image": "images/PD/animals/zebra.png"
+    },
+    {
+        "english": "camel",
+        "japanese": {
+            "kanji": "ラクダ",
+            "furigana": "らくだ"
+        },
+        "image": "images/PD/animals/camel.png"
+    },
+    {
+        "english": "giraffe",
+        "japanese": {
+            "kanji": "キリン",
+            "furigana": "きりん"
+        },
+        "image": "images/PD/animals/giraffe.png"
+    },
+    {
+        "english": "gorilla",
+        "japanese": {
+            "kanji": "ゴリラ",
+            "furigana": "ごりら"
+        },
+        "image": "images/PD/animals/gorilla.png"
+    },
+    {
+        "english": "monkey",
+        "japanese": {
+            "kanji": "猿",
+            "furigana": "さる"
+        },
+        "image": "images/PD/animals/monkey.png"
+    },
+    {
+        "english": "orangutan",
+        "japanese": {
+            "kanji": "オランウータン",
+            "furigana": "おらんうーたん"
+        },
+        "image": "images/PD/animals/orangutan.png"
+    },
+    {
+        "english": "panda",
+        "japanese": {
+            "kanji": "パンダ",
+            "furigana": "ぱんだ"
+        },
+        "image": "images/PD/animals/panda.png"
+    },
+    {
+        "english": "koala",
+        "japanese": {
+            "kanji": "コアラ",
+            "furigana": "こあら"
+        },
+        "image": "images/PD/animals/koala.png"
+    },
+    {
+        "english": "dog",
+        "japanese": {
+            "kanji": "犬",
+            "furigana": "いぬ"
+        },
+        "image": "images/PD/animals/dog.png"
+    },
+    {
+        "english": "cat",
+        "japanese": {
+            "kanji": "猫",
+            "furigana": "ねこ"
+        },
+        "image": "images/PD/animals/cat.png"
+    },
+    {
+        "english": "fox",
+        "japanese": {
+            "kanji": "狐",
+            "furigana": "きつね"
+        },
+        "image": "images/PD/animals/fox.png"
+    },
+    {
+        "english": "rabbit",
+        "japanese": {
+            "kanji": "兎",
+            "furigana": "うさぎ"
+        },
+        "image": "images/PD/animals/rabbit.png"
+    },
+    {
+        "english": "mouse",
+        "japanese": {
+            "kanji": "鼠",
+            "furigana": "ねずみ"
+        },
+        "image": "images/PD/animals/mouse.png"
+    },
+    {
+        "english": "crocodile",
+        "japanese": {
+            "kanji": "ワニ",
+            "furigana": "わに"
+        },
+        "image": "images/PD/animals/crocodile.png"
+    },
+    {
+        "english": "snake",
+        "japanese": {
+            "kanji": "蛇",
+            "furigana": "へび"
+        },
+        "image": "images/PD/animals/snake.png"
+    },
+    {
+        "english": "frog",
+        "japanese": {
+            "kanji": "蛙",
+            "furigana": "かえる"
+        },
+        "image": "images/PD/animals/frog.png"
+    },
+    {
+        "english": "bird",
+        "japanese": {
+            "kanji": "鳥",
+            "furigana": "とり"
+        },
+        "image": "images/PD/animals/bird.png"
+    },
+    {
+        "english": "polar bear",
+        "japanese": {
+            "kanji": "白熊",
+            "furigana": "しろくま"
+        },
+        "image": "images/PD/animals/bonuswords/polarbear.png"
+    },
+    {
+        "english": "hippo",
+        "japanese": {
+            "kanji": "カバ",
+            "furigana": "かば"
+        },
+        "image": "images/PD/animals/bonuswords/hippo.png"
+    },
+    {
+        "english": "cow",
+        "japanese": {
+            "kanji": "牛",
+            "furigana": "うし"
+        },
+        "image": "images/PD/animals/bonuswords/cow.png"
+    },
+    {
+        "english": "pig",
+        "japanese": {
+            "kanji": "豚",
+            "furigana": "ぶた"
+        },
+        "image": "images/PD/animals/bonuswords/pig.png"
+    },
+    {
+        "english": "wild boar",
+        "japanese": {
+            "kanji": "猪",
+            "furigana": "いのしし"
+        },
+        "image": "images/PD/animals/bonuswords/wildboar.png"
+    },
+    {
+        "english": "kangaroo",
+        "japanese": {
+            "kanji": "カンガルー",
+            "furigana": "かんがるー"
+        },
+        "image": "images/PD/animals/bonuswords/kangaroo.png"
+    },
+    {
+        "english": "deer",
+        "japanese": {
+            "kanji": "鹿",
+            "furigana": "しか"
+        },
+        "image": "images/PD/animals/bonuswords/deer.png"
+    },
+    {
+        "english": "goat",
+        "japanese": {
+            "kanji": "山羊",
+            "furigana": "やぎ"
+        },
+        "image": "images/PD/animals/bonuswords/goat.png"
+    },
+    {
+        "english": "sheep",
+        "japanese": {
+            "kanji": "羊",
+            "furigana": "ひつじ"
+        },
+        "image": "images/PD/animals/bonuswords/sheep.png"
+    },
+    {
+        "english": "hamster",
+        "japanese": {
+            "kanji": "ハムスター",
+            "furigana": "はむすたー"
+        },
+        "image": "images/PD/animals/bonuswords/hamster.png"
+    },
+    {
+        "english": "wolf",
+        "japanese": {
+            "kanji": "狼",
+            "furigana": "おおかみ"
+        },
+        "image": "images/PD/animals/bonuswords/wolf.png"
+    },
+    {
+        "english": "bat",
+        "japanese": {
+            "kanji": "蝙蝠",
+            "furigana": "こうもり"
+        },
+        "image": "images/PD/animals/bonuswords/bat.png"
+    },
+    {
+        "english": "chicken",
+        "japanese": {
+            "kanji": "鶏",
+            "furigana": "にわとり"
+        },
+        "image": "images/PD/animals/bonuswords/chicken.png"
+    },
+    {
+        "english": "duck",
+        "japanese": {
+            "kanji": "鴨",
+            "furigana": "かも"
+        },
+        "image": "images/PD/animals/bonuswords/duck.png"
+    },
+    {
+        "english": "hawk",
+        "japanese": {
+            "kanji": "鷹",
+            "furigana": "たか"
+        },
+        "image": "images/PD/animals/bonuswords/hawk.png"
+    },
+    {
+        "english": "snail",
+        "japanese": {
+            "kanji": "カタツムリ",
+            "furigana": "かたつむり"
+        },
+        "image": "images/PD/animals/bonuswords/snail.png"
+    },
+    {
+        "english": "iguana",
+        "japanese": {
+            "kanji": "イグアナ",
+            "furigana": "いぐあな"
+        },
+        "image": "images/PD/animals/bonuswords/iguana.png"
+    },
+    {
+        "english": "dinosaur",
+        "japanese": {
+            "kanji": "恐竜",
+            "furigana": "きょうりゅう"
+        },
+        "image": "images/PD/animals/bonuswords/dinosaur.png"
+    },
+    {
+        "english": "dragon",
+        "japanese": {
+            "kanji": "竜",
+            "furigana": "りゅう"
+        },
+        "image": "images/PD/animals/bonuswords/dragon.png"
+    },
+    {
+        "english": "phoenix",
+        "japanese": {
+            "kanji": "鳳凰",
+            "furigana": "ほうおう"
+        },
+        "image": "images/PD/animals/bonuswords/phoenix.png"
+    },
+    {
+        "english": "unicorn",
+        "japanese": {
+            "kanji": "一角獣",
+            "furigana": "いっかくじゅう"
+        },
+        "image": "images/PD/animals/bonuswords/unicorn.png"
+    }
+]

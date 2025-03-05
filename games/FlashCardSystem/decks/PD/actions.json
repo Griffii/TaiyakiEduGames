@@ -1,0 +1,586 @@
+[
+    {
+        "english": "spell",
+        "japanese": {
+            "kanji": "綴る",
+            "furigana": "つづる"
+        },
+        "image": "images/PD/actions/spell.png"
+    },
+    {
+        "english": "like",
+        "japanese": {
+            "kanji": "好き",
+            "furigana": "すき"
+        },
+        "image": "images/PD/actions/like.png"
+    },
+    {
+        "english": "listen",
+        "japanese": {
+            "kanji": "聞く",
+            "furigana": "きく"
+        },
+        "image": "images/PD/actions/listen.png"
+    },
+    {
+        "english": "want",
+        "japanese": {
+            "kanji": "欲しい",
+            "furigana": "ほしい"
+        },
+        "image": "images/PD/actions/want.png"
+    },
+    {
+        "english": "play",
+        "japanese": {
+            "kanji": "遊ぶ",
+            "furigana": "あそぶ"
+        },
+        "image": "images/PD/actions/play.png"
+    },
+    {
+        "english": "walk",
+        "japanese": {
+            "kanji": "歩く",
+            "furigana": "あるく"
+        },
+        "image": "images/PD/actions/walk.png"
+    },
+    {
+        "english": "run",
+        "japanese": {
+            "kanji": "走る",
+            "furigana": "はしる"
+        },
+        "image": "images/PD/actions/run.png"
+    },
+    {
+        "english": "dance",
+        "japanese": {
+            "kanji": "踊る",
+            "furigana": "おどる"
+        },
+        "image": "images/PD/actions/dance.png"
+    },
+    {
+        "english": "jump",
+        "japanese": {
+            "kanji": "跳ぶ",
+            "furigana": "とぶ"
+        },
+        "image": "images/PD/actions/jump.png"
+    },
+    {
+        "english": "catch",
+        "japanese": {
+            "kanji": "捕まえる",
+            "furigana": "つかまえる"
+        },
+        "image": "images/PD/actions/catch.png"
+    },
+    {
+        "english": "swim",
+        "japanese": {
+            "kanji": "泳ぐ",
+            "furigana": "およぐ"
+        },
+        "image": "images/PD/actions/swim.png"
+    },
+    {
+        "english": "fly",
+        "japanese": {
+            "kanji": "飛ぶ",
+            "furigana": "とぶ"
+        },
+        "image": "images/PD/actions/fly.png"
+    },
+    {
+        "english": "sing",
+        "japanese": {
+            "kanji": "歌う",
+            "furigana": "うたう"
+        },
+        "image": "images/PD/actions/sing.png"
+    },
+    {
+        "english": "cook",
+        "japanese": {
+            "kanji": "料理する",
+            "furigana": "りょうりする"
+        },
+        "image": "images/PD/actions/cook.png"
+    },
+    {
+        "english": "have",
+        "japanese": {
+            "kanji": "持つ",
+            "furigana": "もつ"
+        },
+        "image": "images/PD/actions/have.png"
+    },
+    {
+        "english": "go",
+        "japanese": {
+            "kanji": "行く",
+            "furigana": "いく"
+        },
+        "image": "images/PD/actions/go.png"
+    },
+    {
+        "english": "turn",
+        "japanese": {
+            "kanji": "回る",
+            "furigana": "まわる"
+        },
+        "image": "images/PD/actions/turn.png"
+    },
+    {
+        "english": "see",
+        "japanese": {
+            "kanji": "見る",
+            "furigana": "みる"
+        },
+        "image": "images/PD/actions/see.png"
+    },
+    {
+        "english": "look",
+        "japanese": {
+            "kanji": "見る",
+            "furigana": "みる"
+        },
+        "image": "images/PD/actions/look.png"
+    },
+    {
+        "english": "drink",
+        "japanese": {
+            "kanji": "飲む",
+            "furigana": "のむ"
+        },
+        "image": "images/PD/actions/drink.png"
+    },
+    {
+        "english": "eat",
+        "japanese": {
+            "kanji": "食べる",
+            "furigana": "たべる"
+        },
+        "image": "images/PD/actions/eat.png"
+    },
+    {
+        "english": "buy",
+        "japanese": {
+            "kanji": "買う",
+            "furigana": "かう"
+        },
+        "image": "images/PD/actions/buy.png"
+    },
+    {
+        "english": "speak",
+        "japanese": {
+            "kanji": "話す",
+            "furigana": "はなす"
+        },
+        "image": "images/PD/actions/speak.png"
+    },
+    {
+        "english": "live",
+        "japanese": {
+            "kanji": "住む",
+            "furigana": "すむ"
+        },
+        "image": "images/PD/actions/live.png"
+    },
+    {
+        "english": "make",
+        "japanese": {
+            "kanji": "作る",
+            "furigana": "つくる"
+        },
+        "image": "images/PD/actions/make.png"
+    },
+    {
+        "english": "wear",
+        "japanese": {
+            "kanji": "着る",
+            "furigana": "きる"
+        },
+        "image": "images/PD/actions/wear.png"
+    },
+    {
+        "english": "talk",
+        "japanese": {
+            "kanji": "話す",
+            "furigana": "はなす"
+        },
+        "image": "images/PD/actions/talk.png"
+    },
+    {
+        "english": "watch",
+        "japanese": {
+            "kanji": "見る",
+            "furigana": "みる"
+        },
+        "image": "images/PD/actions/watch.png"
+    },
+    {
+        "english": "read",
+        "japanese": {
+            "kanji": "読む",
+            "furigana": "よむ"
+        },
+        "image": "images/PD/actions/read.png"
+    },
+    {
+        "english": "help",
+        "japanese": {
+            "kanji": "助ける",
+            "furigana": "たすける"
+        },
+        "image": "images/PD/actions/help.png"
+    },
+    {
+        "english": "practice",
+        "japanese": {
+            "kanji": "練習する",
+            "furigana": "れんしゅうする"
+        },
+        "image": "images/PD/actions/practice.png"
+    },
+    {
+        "english": "clean",
+        "japanese": {
+            "kanji": "掃除する",
+            "furigana": "そうじする"
+        },
+        "image": "images/PD/actions/clean.png"
+    },
+    {
+        "english": "enjoy",
+        "japanese": {
+            "kanji": "楽しむ",
+            "furigana": "たのしむ"
+        },
+        "image": "images/PD/actions/enjoy.png"
+    },
+    {
+        "english": "visit",
+        "japanese": {
+            "kanji": "訪れる",
+            "furigana": "おとずれる"
+        },
+        "image": "images/PD/actions/visit.png"
+    },
+    {
+        "english": "ride",
+        "japanese": {
+            "kanji": "乗る",
+            "furigana": "のる"
+        },
+        "image": "images/PD/actions/ride.png"
+    },
+    {
+        "english": "come",
+        "japanese": {
+            "kanji": "来る",
+            "furigana": "くる"
+        },
+        "image": "images/PD/actions/come.png"
+    },
+    {
+        "english": "get",
+        "japanese": {
+            "kanji": "得る",
+            "furigana": "える"
+        },
+        "image": "images/PD/actions/get.png"
+    },
+    {
+        "english": "save",
+        "japanese": {
+            "kanji": "節約する",
+            "furigana": "せつやくする"
+        },
+        "image": "images/PD/actions/save.png"
+    },
+    {
+        "english": "stop",
+        "japanese": {
+            "kanji": "止まる",
+            "furigana": "とまる"
+        },
+        "image": "images/PD/actions/stop.png"
+    },
+    {
+        "english": "study",
+        "japanese": {
+            "kanji": "勉強する",
+            "furigana": "べんきょうする"
+        },
+        "image": "images/PD/actions/study.png"
+    },
+    {
+        "english": "join",
+        "japanese": {
+            "kanji": "参加する",
+            "furigana": "さんかする"
+        },
+        "image": "images/PD/actions/join.png"
+    },
+    {
+        "english": "work",
+        "japanese": {
+            "kanji": "働く",
+            "furigana": "はたらく"
+        },
+        "image": "images/PD/actions/work.png"
+    },
+    {
+        "english": "call",
+        "japanese": {
+            "kanji": "呼ぶ",
+            "furigana": "よぶ"
+        },
+        "image": "images/actions/bonuswords/call.png"
+    },
+    {
+        "english": "chat",
+        "japanese": {
+            "kanji": "おしゃべりする",
+            "furigana": "おしゃべりする"
+        },
+        "image": "images/actions/bonuswords/chat.png"
+    },
+    {
+        "english": "check",
+        "japanese": {
+            "kanji": "確認する",
+            "furigana": "かくにんする"
+        },
+        "image": "images/actions/bonuswords/check.png"
+    },
+    {
+        "english": "climb",
+        "japanese": {
+            "kanji": "登る",
+            "furigana": "のぼる"
+        },
+        "image": "images/actions/bonuswords/climb.png"
+    },
+    {
+        "english": "collect",
+        "japanese": {
+            "kanji": "集める",
+            "furigana": "あつめる"
+        },
+        "image": "images/actions/bonuswords/collect.png"
+    },
+    {
+        "english": "cut",
+        "japanese": {
+            "kanji": "切る",
+            "furigana": "きる"
+        },
+        "image": "images/actions/bonuswords/cut.png"
+    },
+    {
+        "english": "dig",
+        "japanese": {
+            "kanji": "掘る",
+            "furigana": "ほる"
+        },
+        "image": "images/actions/bonuswords/dig.png"
+    },
+    {
+        "english": "disappear",
+        "japanese": {
+            "kanji": "消える",
+            "furigana": "きえる"
+        },
+        "image": "images/actions/bonuswords/disappear.png"
+    },
+    {
+        "english": "draw",
+        "japanese": {
+            "kanji": "描く",
+            "furigana": "えがく"
+        },
+        "image": "images/actions/bonuswords/draw.png"
+    },
+    {
+        "english": "drive",
+        "japanese": {
+            "kanji": "運転する",
+            "furigana": "うんてんする"
+        },
+        "image": "images/actions/bonuswords/drive.png"
+    },
+    {
+        "english": "feed",
+        "japanese": {
+            "kanji": "餌をやる",
+            "furigana": "えさをやる"
+        },
+        "image": "images/actions/bonuswords/feed.png"
+    },
+    {
+        "english": "grow",
+        "japanese": {
+            "kanji": "育てる",
+            "furigana": "そだてる"
+        },
+        "image": "images/actions/bonuswords/grow.png"
+    },
+    {
+        "english": "hit",
+        "japanese": {
+            "kanji": "打つ",
+            "furigana": "うつ"
+        },
+        "image": "images/actions/bonuswords/hit.png"
+    },
+    {
+        "english": "hop",
+        "japanese": {
+            "kanji": "跳ねる",
+            "furigana": "はねる"
+        },
+        "image": "images/actions/bonuswords/hop.png"
+    },
+    {
+        "english": "hug",
+        "japanese": {
+            "kanji": "抱きしめる",
+            "furigana": "だきしめる"
+        },
+        "image": "images/actions/bonuswords/hug.png"
+    },
+    {
+        "english": "keep",
+        "japanese": {
+            "kanji": "保つ",
+            "furigana": "たもつ"
+        },
+        "image": "images/actions/bonuswords/keep.png"
+    },
+    {
+        "english": "kick",
+        "japanese": {
+            "kanji": "蹴る",
+            "furigana": "ける"
+        },
+        "image": "images/actions/bonuswords/kick.png"
+    },
+    {
+        "english": "meet",
+        "japanese": {
+            "kanji": "会う",
+            "furigana": "あう"
+        },
+        "image": "images/actions/bonuswords/meet.png"
+    },
+    {
+        "english": "mix",
+        "japanese": {
+            "kanji": "混ぜる",
+            "furigana": "まぜる"
+        },
+        "image": "images/actions/bonuswords/mix.png"
+    },
+    {
+        "english": "whip",
+        "japanese": {
+            "kanji": "泡立てる",
+            "furigana": "あわだてる"
+        },
+        "image": "images/actions/bonuswords/whip.png"
+    },
+    {
+        "english": "put",
+        "japanese": {
+            "kanji": "置く",
+            "furigana": "おく"
+        },
+        "image": "images/actions/bonuswords/put.png"
+    },
+    {
+        "english": "sit",
+        "japanese": {
+            "kanji": "座る",
+            "furigana": "すわる"
+        },
+        "image": "images/actions/bonuswords/sit.png"
+    },
+    {
+        "english": "sleep",
+        "japanese": {
+            "kanji": "寝る",
+            "furigana": "ねる"
+        },
+        "image": "images/actions/bonuswords/sleep.png"
+    },
+    {
+        "english": "stand",
+        "japanese": {
+            "kanji": "立つ",
+            "furigana": "たつ"
+        },
+        "image": "images/actions/bonuswords/stand.png"
+    },
+    {
+        "english": "teach",
+        "japanese": {
+            "kanji": "教える",
+            "furigana": "おしえる"
+        },
+        "image": "images/actions/bonuswords/teach.png"
+    },
+    {
+        "english": "travel",
+        "japanese": {
+            "kanji": "旅行する",
+            "furigana": "りょこうする"
+        },
+        "image": "images/actions/bonuswords/travel.png"
+    },
+    {
+        "english": "try",
+        "japanese": {
+            "kanji": "試す",
+            "furigana": "ためす"
+        },
+        "image": "images/actions/bonuswords/try.png"
+    },
+    {
+        "english": "wait",
+        "japanese": {
+            "kanji": "待つ",
+            "furigana": "まつ"
+        },
+        "image": "images/actions/bonuswords/wait.png"
+    },
+    {
+        "english": "wash",
+        "japanese": {
+            "kanji": "洗う",
+            "furigana": "あらう"
+        },
+        "image": "images/actions/bonuswords/wash.png"
+    },
+    {
+        "english": "water",
+        "japanese": {
+            "kanji": "水をやる",
+            "furigana": "みずをやる"
+        },
+        "image": "images/actions/bonuswords/water.png"
+    },
+    {
+        "english": "write",
+        "japanese": {
+            "kanji": "書く",
+            "furigana": "かく"
+        },
+        "image": "images/actions/bonuswords/write.png"
+    }
+]

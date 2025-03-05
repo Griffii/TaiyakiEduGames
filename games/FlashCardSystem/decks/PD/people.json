@@ -1,0 +1,106 @@
+[
+    {
+        "english": "I",
+        "japanese": {
+            "kanji": "私",
+            "furigana": "わたし"
+        },
+        "image": "images/PD/people/I.png"
+    },
+    {
+        "english": "you",
+        "japanese": {
+            "kanji": "あなた",
+            "furigana": "あなた"
+        },
+        "image": "images/PD/people/you.png"
+    },
+    {
+        "english": "she",
+        "japanese": {
+            "kanji": "彼女",
+            "furigana": "かのじょ"
+        },
+        "image": "images/PD/people/she.png"
+    },
+    {
+        "english": "he",
+        "japanese": {
+            "kanji": "彼",
+            "furigana": "かれ"
+        },
+        "image": "images/PD/people/he.png"
+    },
+    {
+        "english": "we",
+        "japanese": {
+            "kanji": "私たち",
+            "furigana": "わたしたち"
+        },
+        "image": "images/PD/people/we.png"
+    },
+    {
+        "english": "man",
+        "japanese": {
+            "kanji": "男性",
+            "furigana": "だんせい"
+        },
+        "image": "images/PD/people/man.png"
+    },
+    {
+        "english": "woman",
+        "japanese": {
+            "kanji": "女性",
+            "furigana": "じょせい"
+        },
+        "image": "images/PD/people/woman.png"
+    },
+    {
+        "english": "boy",
+        "japanese": {
+            "kanji": "男の子",
+            "furigana": "おとこのこ"
+        },
+        "image": "images/PD/people/boy.png"
+    },
+    {
+        "english": "girl",
+        "japanese": {
+            "kanji": "女の子",
+            "furigana": "おんなのこ"
+        },
+        "image": "images/PD/people/girl.png"
+    },
+    {
+        "english": "children",
+        "japanese": {
+            "kanji": "子供",
+            "furigana": "こども"
+        },
+        "image": "images/PD/people/children.png"
+    },
+    {
+        "english": "classmates",
+        "japanese": {
+            "kanji": "クラスメイト",
+            "furigana": "くらすめいと"
+        },
+        "image": "images/PD/people/classmates.png"
+    },
+    {
+        "english": "friends",
+        "japanese": {
+            "kanji": "友達",
+            "furigana": "ともだち"
+        },
+        "image": "images/PD/people/friends.png"
+    },
+    {
+        "english": "baby",
+        "japanese": {
+            "kanji": "赤ちゃん",
+            "furigana": "あかちゃん"
+        },
+        "image": "images/PD/people/baby.png"
+    }
+]

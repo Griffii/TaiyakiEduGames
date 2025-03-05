@@ -1,0 +1,34 @@
+[
+    {
+        "english": "always",
+        "japanese": {
+            "kanji": "いつも",
+            "furigana": "いつも"
+        },
+        "image": "images/PD/frequency/always.png"
+    },
+    {
+        "english": "usually",
+        "japanese": {
+            "kanji": "たいてい",
+            "furigana": "たいてい"
+        },
+        "image": "images/PD/frequency/usually.png"
+    },
+    {
+        "english": "sometimes",
+        "japanese": {
+            "kanji": "時々",
+            "furigana": "ときどき"
+        },
+        "image": "images/PD/frequency/sometimes.png"
+    },
+    {
+        "english": "never",
+        "japanese": {
+            "kanji": "決して",
+            "furigana": "けっして"
+        },
+        "image": "images/PD/frequency/never.png"
+    }
+]

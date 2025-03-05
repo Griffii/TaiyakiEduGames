@@ -1,0 +1,178 @@
+[
+    {
+        "english": "spell",
+        "japanese": {
+            "kanji": "綴る",
+            "furigana": "つづる"
+        },
+        "image": "images/PD/actions/spell.png"
+    },
+    {
+        "english": "like",
+        "japanese": {
+            "kanji": "好き",
+            "furigana": "すき"
+        },
+        "image": "images/PD/actions/like.png"
+    },
+    {
+        "english": "listen",
+        "japanese": {
+            "kanji": "聞く",
+            "furigana": "きく"
+        },
+        "image": "images/PD/actions/listen.png"
+    },
+    {
+        "english": "want",
+        "japanese": {
+            "kanji": "欲しい",
+            "furigana": "ほしい"
+        },
+        "image": "images/PD/actions/want.png"
+    },
+    {
+        "english": "play",
+        "japanese": {
+            "kanji": "遊ぶ",
+            "furigana": "あそぶ"
+        },
+        "image": "images/PD/actions/play.png"
+    },
+    {
+        "english": "walk",
+        "japanese": {
+            "kanji": "歩く",
+            "furigana": "あるく"
+        },
+        "image": "images/PD/actions/walk.png"
+    },
+    {
+        "english": "run",
+        "japanese": {
+            "kanji": "走る",
+            "furigana": "はしる"
+        },
+        "image": "images/PD/actions/run.png"
+    },
+    {
+        "english": "dance",
+        "japanese": {
+            "kanji": "踊る",
+            "furigana": "おどる"
+        },
+        "image": "images/PD/actions/dance.png"
+    },
+    {
+        "english": "jump",
+        "japanese": {
+            "kanji": "跳ぶ",
+            "furigana": "とぶ"
+        },
+        "image": "images/PD/actions/jump.png"
+    },
+    {
+        "english": "catch",
+        "japanese": {
+            "kanji": "捕まえる",
+            "furigana": "つかまえる"
+        },
+        "image": "images/PD/actions/catch.png"
+    },
+    {
+        "english": "swim",
+        "japanese": {
+            "kanji": "泳ぐ",
+            "furigana": "およぐ"
+        },
+        "image": "images/PD/actions/swim.png"
+    },
+    {
+        "english": "fly",
+        "japanese": {
+            "kanji": "飛ぶ",
+            "furigana": "とぶ"
+        },
+        "image": "images/PD/actions/fly.png"
+    },
+    {
+        "english": "sing",
+        "japanese": {
+            "kanji": "歌う",
+            "furigana": "うたう"
+        },
+        "image": "images/PD/actions/sing.png"
+    },
+    {
+        "english": "cook",
+        "japanese": {
+            "kanji": "料理する",
+            "furigana": "りょうりする"
+        },
+        "image": "images/PD/actions/cook.png"
+    },
+    {
+        "english": "have",
+        "japanese": {
+            "kanji": "持つ",
+            "furigana": "もつ"
+        },
+        "image": "images/PD/actions/have.png"
+    },
+    {
+        "english": "go",
+        "japanese": {
+            "kanji": "行く",
+            "furigana": "いく"
+        },
+        "image": "images/PD/actions/go.png"
+    },
+    {
+        "english": "turn",
+        "japanese": {
+            "kanji": "回る",
+            "furigana": "まわる"
+        },
+        "image": "images/PD/actions/turn.png"
+    },
+    {
+        "english": "see",
+        "japanese": {
+            "kanji": "見る",
+            "furigana": "みる"
+        },
+        "image": "images/PD/actions/see.png"
+    },
+    {
+        "english": "look",
+        "japanese": {
+            "kanji": "見る",
+            "furigana": "みる"
+        },
+        "image": "images/PD/actions/look.png"
+    },
+    {
+        "english": "drink",
+        "japanese": {
+            "kanji": "飲む",
+            "furigana": "のむ"
+        },
+        "image": "images/PD/actions/drink.png"
+    },
+    {
+        "english": "eat",
+        "japanese": {
+            "kanji": "食べる",
+            "furigana": "たべる"
+        },
+        "image": "images/PD/actions/eat.png"
+    },
+    {
+        "english": "buy",
+        "japanese": {
+            "kanji": "買う",
+            "furigana": "かう"
+        },
+        "image": "images/PD/actions/buy.png"
+    }
+]
