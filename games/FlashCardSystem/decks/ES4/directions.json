@@ -24,20 +24,20 @@
         "image": "images/PD/directions/turn.png"
     },
     {
-        "english": "right",
-        "japanese": {
-            "kanji": "右",
-            "furigana": "みぎ"
-        },
-        "image": "images/PD/directions/right.png"
-    },
-    {
         "english": "left",
         "japanese": {
             "kanji": "左",
             "furigana": "ひだり"
         },
         "image": "images/PD/directions/left.png"
+    },
+    {
+        "english": "right",
+        "japanese": {
+            "kanji": "右",
+            "furigana": "みぎ"
+        },
+        "image": "images/PD/directions/right.png"
     },
     {
         "english": "step",

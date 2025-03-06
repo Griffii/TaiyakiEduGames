@@ -1,5 +1,5 @@
 {
-    "LetsTry1": {
+    "Let's Try 1": {
         "image": "images/textbooks/lets_try_1.png",
         "decks": {
             "Unit 1 - Hello!":              { "path": "decks/ES3/unit1.json", "image": "images/ES3/countries/japan.png" },
@@ -14,7 +14,7 @@
             "All Units":                    { "path": "decks/ES3/allES3.json", "image": "images/ES3/food/food.png" }
         }
     },
-    "LetsTry2": {
+    "Let's Try 2": {
         "image": "images/textbooks/lets_try_2.png",
         "decks": {
             "Unit 1 - Hello, world!":       { "path": "decks/ES4/unit1.json", "image": "images/tomomicat/hello.png" },
@@ -31,7 +31,7 @@
             "All Units":                    { "path": "decks/ES4/allES4.json", "image": "images/ES3/weather/sunny.png" }
         }
     },
-    "New Horizon 1": {
+    "New Horizon 5": {
         "image": "images/textbooks/newhorizon1.jpg",
         "decks": {
             "Unit 1 - Coming Soon": { "path": "decks/introductions.json", "image": "images/taiyaki.png" },
@@ -39,7 +39,7 @@
             "Unit 3 - Coming Soon": { "path": "decks/hobbies.json", "image": "images/taiyaki.png" }
         }
     },
-    "New Horizon 2": {
+    "New Horizon 6": {
         "image": "images/textbooks/newhorizon2.jpg",
         "decks": {
             "Unit 1 - Coming Soon": { "path": "decks/travel.json", "image": "images/taiyaki.png" },
