@@ -5,7 +5,7 @@
             "kanji": "日付",
             "furigana": "ひづけ"
         },
-        "image": "images/PD/dates/dates.png"
+        "image": "images/PD/dates/date.png"
     },
     {
         "english": "first",
@@ -173,7 +173,7 @@
             "kanji": "二十一日",
             "furigana": "にじゅういちにち"
         },
-        "image": "images/PD/dates/twentyfirst.png"
+        "image": "images/PD/dates/twenty-first.png"
     },
     {
         "english": "twenty-second",
@@ -181,7 +181,7 @@
             "kanji": "二十二日",
             "furigana": "にじゅうににち"
         },
-        "image": "images/PD/dates/twentysecond.png"
+        "image": "images/PD/dates/twenty-second.png"
     },
     {
         "english": "twenty-third",
@@ -189,7 +189,7 @@
             "kanji": "二十三日",
             "furigana": "にじゅうさんにち"
         },
-        "image": "images/PD/dates/twentythird.png"
+        "image": "images/PD/dates/twenty-third.png"
     },
     {
         "english": "twenty-fourth",
@@ -197,7 +197,7 @@
             "kanji": "二十四日",
             "furigana": "にじゅうよっか"
         },
-        "image": "images/PD/dates/twentyfourth.png"
+        "image": "images/PD/dates/twenty-fourth.png"
     },
     {
         "english": "twenty-fifth",
@@ -205,7 +205,7 @@
             "kanji": "二十五日",
             "furigana": "にじゅうごにち"
         },
-        "image": "images/PD/dates/twentyfifth.png"
+        "image": "images/PD/dates/twenty-fifth.png"
     },
     {
         "english": "twenty-sixth",
@@ -213,7 +213,7 @@
             "kanji": "二十六日",
             "furigana": "にじゅうろくにち"
         },
-        "image": "images/PD/dates/twentysixth.png"
+        "image": "images/PD/dates/twenty-sixth.png"
     },
     {
         "english": "twenty-seventh",
@@ -221,7 +221,7 @@
             "kanji": "二十七日",
             "furigana": "にじゅうしちにち"
         },
-        "image": "images/PD/dates/twentyseventh.png"
+        "image": "images/PD/dates/twenty-seventh.png"
     },
     {
         "english": "twenty-eighth",
@@ -229,7 +229,7 @@
             "kanji": "二十八日",
             "furigana": "にじゅうはちにち"
         },
-        "image": "images/PD/dates/twentyeighth.png"
+        "image": "images/PD/dates/twenty-eighth.png"
     },
     {
         "english": "twenty-ninth",
@@ -237,7 +237,7 @@
             "kanji": "二十九日",
             "furigana": "にじゅうくにち"
         },
-        "image": "images/PD/dates/twentyninth.png"
+        "image": "images/PD/dates/twenty-ninth.png"
     },
     {
         "english": "thirtieth",
@@ -253,6 +253,6 @@
             "kanji": "三十一日",
             "furigana": "さんじゅういちにち"
         },
-        "image": "images/PD/dates/thirtyfirst.png"
+        "image": "images/PD/dates/thirty-first.png"
     }
 ]

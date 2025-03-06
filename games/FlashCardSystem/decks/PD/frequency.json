@@ -3,7 +3,7 @@
         "english": "always",
         "japanese": {
             "kanji": "いつも",
-            "furigana": "いつも"
+            "furigana": ""
         },
         "image": "images/PD/frequency/always.png"
     },
@@ -11,7 +11,7 @@
         "english": "usually",
         "japanese": {
             "kanji": "たいてい",
-            "furigana": "たいてい"
+            "furigana": ""
         },
         "image": "images/PD/frequency/usually.png"
     },
@@ -26,8 +26,8 @@
     {
         "english": "never",
         "japanese": {
-            "kanji": "決して",
-            "furigana": "けっして"
+            "kanji": "全然",
+            "furigana": "ぜんぜん"
         },
         "image": "images/PD/frequency/never.png"
     }

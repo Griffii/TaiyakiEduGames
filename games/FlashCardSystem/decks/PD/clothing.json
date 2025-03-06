@@ -11,7 +11,7 @@
         "english": "shirt",
         "japanese": {
             "kanji": "シャツ",
-            "furigana": "しゃつ"
+            "furigana": ""
         },
         "image": "images/PD/clothing/shirt.png"
     },
@@ -19,7 +19,7 @@
         "english": "T-shirt",
         "japanese": {
             "kanji": "Tシャツ",
-            "furigana": "てぃーしゃつ"
+            "furigana": ""
         },
         "image": "images/PD/clothing/tshirt.png"
     },
@@ -27,7 +27,7 @@
         "english": "sweatshirt",
         "japanese": {
             "kanji": "トレーナー",
-            "furigana": "とれーなー"
+            "furigana": ""
         },
         "image": "images/PD/clothing/sweatshirt.png"
     },
@@ -35,7 +35,7 @@
         "english": "sweater",
         "japanese": {
             "kanji": "セーター",
-            "furigana": "せーたー"
+            "furigana": ""
         },
         "image": "images/PD/clothing/sweater.png"
     },
@@ -51,7 +51,7 @@
         "english": "pants",
         "japanese": {
             "kanji": "ズボン",
-            "furigana": "ずぼん"
+            "furigana": ""
         },
         "image": "images/PD/clothing/pants.png"
     },
@@ -59,7 +59,7 @@
         "english": "jeans",
         "japanese": {
             "kanji": "ジーンズ",
-            "furigana": "じーんず"
+            "furigana": ""
         },
         "image": "images/PD/clothing/jeans.png"
     },
@@ -67,7 +67,7 @@
         "english": "cap",
         "japanese": {
             "kanji": "キャップ",
-            "furigana": "きゃっぷ"
+            "furigana": ""
         },
         "image": "images/PD/clothing/cap.png"
     },
@@ -107,7 +107,7 @@
         "english": "apron",
         "japanese": {
             "kanji": "エプロン",
-            "furigana": "えぷろん"
+            "furigana": ""
         },
         "image": "images/PD/clothing/apron.png"
     },
@@ -115,7 +115,7 @@
         "english": "coat",
         "japanese": {
             "kanji": "コート",
-            "furigana": "こーと"
+            "furigana": ""
         },
         "image": "images/PD/clothing/coat.png"
     },
@@ -123,7 +123,7 @@
         "english": "jacket",
         "japanese": {
             "kanji": "ジャケット",
-            "furigana": "じゃけっと"
+            "furigana": ""
         },
         "image": "images/PD/clothing/jacket.png"
     },
@@ -131,7 +131,7 @@
         "english": "vest",
         "japanese": {
             "kanji": "ベスト",
-            "furigana": "べすと"
+            "furigana": ""
         },
         "image": "images/PD/clothing/vest.png"
     },
@@ -139,7 +139,7 @@
         "english": "skirt",
         "japanese": {
             "kanji": "スカート",
-            "furigana": "すかーと"
+            "furigana": ""
         },
         "image": "images/PD/clothing/skirt.png"
     },
@@ -147,7 +147,7 @@
         "english": "boots",
         "japanese": {
             "kanji": "ブーツ",
-            "furigana": "ぶーつ"
+            "furigana": ""
         },
         "image": "images/PD/clothing/boots.png"
     },
@@ -163,7 +163,7 @@
         "english": "ribbon",
         "japanese": {
             "kanji": "リボン",
-            "furigana": "りぼん"
+            "furigana": ""
         },
         "image": "images/PD/clothing/ribbon.png"
     }

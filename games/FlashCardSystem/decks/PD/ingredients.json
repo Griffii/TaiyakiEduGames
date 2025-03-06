@@ -35,7 +35,7 @@
         "english": "bacon",
         "japanese": {
             "kanji": "ベーコン",
-            "furigana": "べーこん"
+            "furigana": ""
         },
         "image": "images/PD/ingredients/bacon.png"
     },
@@ -43,7 +43,7 @@
         "english": "ham",
         "japanese": {
             "kanji": "ハム",
-            "furigana": "はむ"
+            "furigana": ""
         },
         "image": "images/PD/ingredients/ham.png"
     },
@@ -51,7 +51,7 @@
         "english": "cheese",
         "japanese": {
             "kanji": "チーズ",
-            "furigana": "ちーず"
+            "furigana": ""
         },
         "image": "images/PD/ingredients/cheese.png"
     },
@@ -83,7 +83,7 @@
         "english": "octopus",
         "japanese": {
             "kanji": "タコ",
-            "furigana": "たこ"
+            "furigana": ""
         },
         "image": "images/PD/ingredients/octopus.png"
     },
@@ -91,7 +91,7 @@
         "english": "crab",
         "japanese": {
             "kanji": "カニ",
-            "furigana": "かに"
+            "furigana": ""
         },
         "image": "images/PD/ingredients/bonuswords/crab.png"
     },
@@ -107,7 +107,7 @@
         "english": "shrimp",
         "japanese": {
             "kanji": "エビ",
-            "furigana": "えび"
+            "furigana": ""
         },
         "image": "images/PD/ingredients/bonuswords/shrimp.png"
     },
@@ -115,7 +115,7 @@
         "english": "squid",
         "japanese": {
             "kanji": "イカ",
-            "furigana": "いか"
+            "furigana": ""
         },
         "image": "images/PD/ingredients/bonuswords/squid.png"
     },
@@ -123,7 +123,7 @@
         "english": "tuna",
         "japanese": {
             "kanji": "マグロ",
-            "furigana": "まぐろ"
+            "furigana": ""
         },
         "image": "images/PD/ingredients/bonuswords/tuna.png"
     },

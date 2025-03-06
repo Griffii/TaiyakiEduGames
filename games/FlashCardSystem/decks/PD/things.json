@@ -1,0 +1,501 @@
+[
+    {
+        "english": "bag",
+        "japanese": {
+            "kanji": "かばん",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bag.png"
+    },
+    {
+        "english": "bat",
+        "japanese": {
+            "kanji": "バット",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bat.png"
+    },
+    {
+        "english": "glove",
+        "japanese": {
+            "kanji": "グローブ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/glove.png"
+    },
+    {
+        "english": "racket",
+        "japanese": {
+            "kanji": "ラケット",
+            "furigana": ""
+        },
+        "image": "images/PD/things/racket.png"
+    },
+    {
+        "english": "soccer shoes",
+        "japanese": {
+            "kanji": "サッカーシューズ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/soccershoes.png"
+    },
+    {
+        "english": "umbrella",
+        "japanese": {
+            "kanji": "傘",
+            "furigana": "かさ"
+        },
+        "image": "images/PD/things/umbrella.png"
+    },
+    {
+        "english": "glass",
+        "japanese": {
+            "kanji": "グラス",
+            "furigana": ""
+        },
+        "image": "images/PD/things/glass.png"
+    },
+    {
+        "english": "mug",
+        "japanese": {
+            "kanji": "マグカップ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/mug.png"
+    },
+    {
+        "english": "textbook",
+        "japanese": {
+            "kanji": "教科書",
+            "furigana": "きょうかしょ"
+        },
+        "image": "images/PD/things/textbook.png"
+    },
+    {
+        "english": "comic book",
+        "japanese": {
+            "kanji": "漫画",
+            "furigana": "まんが"
+        },
+        "image": "images/PD/things/comicbook.png"
+    },
+    {
+        "english": "dictionary",
+        "japanese": {
+            "kanji": "辞書",
+            "furigana": "じしょ"
+        },
+        "image": "images/PD/things/dictionary.png"
+    },
+    {
+        "english": "present",
+        "japanese": {
+            "kanji": "プレゼント",
+            "furigana": ""
+        },
+        "image": "images/PD/things/present.png"
+    },
+    {
+        "english": "treasure",
+        "japanese": {
+            "kanji": "宝物",
+            "furigana": "たからもの"
+        },
+        "image": "images/PD/things/treasure.png"
+    },
+    {
+        "english": "sticker",
+        "japanese": {
+            "kanji": "シール",
+            "furigana": ""
+        },
+        "image": "images/PD/things/sticker.png"
+    },
+    {
+        "english": "ticket",
+        "japanese": {
+            "kanji": "チケット",
+            "furigana": ""
+        },
+        "image": "images/PD/things/ticket.png"
+    },
+    {
+        "english": "watch",
+        "japanese": {
+            "kanji": "時計",
+            "furigana": "とけい"
+        },
+        "image": "images/PD/things/watch.png"
+    },
+    {
+        "english": "TV",
+        "japanese": {
+            "kanji": "テレビ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/tv.png"
+    },
+    {
+        "english": "computer",
+        "japanese": {
+            "kanji": "コンピューター",
+            "furigana": ""
+        },
+        "image": "images/PD/things/computer.png"
+    },
+    {
+        "english": "smartphone",
+        "japanese": {
+            "kanji": "スマートフォン",
+            "furigana": ""
+        },
+        "image": "images/PD/things/smartphone.png"
+    },
+    {
+        "english": "tablet",
+        "japanese": {
+            "kanji": "タブレット",
+            "furigana": ""
+        },
+        "image": "images/PD/things/tablet.png"
+    },
+    {
+        "english": "desk",
+        "japanese": {
+            "kanji": "机",
+            "furigana": "つくえ"
+        },
+        "image": "images/PD/things/desk.png"
+    },
+    {
+        "english": "chair",
+        "japanese": {
+            "kanji": "椅子",
+            "furigana": "いす"
+        },
+        "image": "images/PD/things/chair.png"
+    },
+    {
+        "english": "bed",
+        "japanese": {
+            "kanji": "ベッド",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bed.png"
+    },
+
+
+
+    {
+        "english": "ball",
+        "japanese": {
+            "kanji": "ボール",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/ball.png"
+    },
+    {
+        "english": "basket",
+        "japanese": {
+            "kanji": "かご",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/basket.png"
+    },
+    {
+        "english": "book",
+        "japanese": {
+            "kanji": "本",
+            "furigana": "ほん"
+        },
+        "image": "images/PD/things/bonuswords/book.png"
+    },
+    {
+        "english": "album",
+        "japanese": {
+            "kanji": "アルバム",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/album.png"
+    },
+    {
+        "english": "box",
+        "japanese": {
+            "kanji": "箱",
+            "furigana": "はこ"
+        },
+        "image": "images/PD/things/bonuswords/box.png"
+    },
+    {
+        "english": "calendar",
+        "japanese": {
+            "kanji": "カレンダー",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/calendar.png"
+    },
+    {
+        "english": "card",
+        "japanese": {
+            "kanji": "カード",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/card.png"
+    },
+    {
+        "english": "fan",
+        "japanese": {
+            "kanji": "扇子",
+            "furigana": "せんす"
+        },
+        "image": "images/PD/things/bonuswords/fan.png"
+    },
+    {
+        "english": "map",
+        "japanese": {
+            "kanji": "地図",
+            "furigana": "ちず"
+        },
+        "image": "images/PD/things/bonuswords/map.png"
+    },
+    {
+        "english": "picture",
+        "japanese": {
+            "kanji": "絵",
+            "furigana": "え"
+        },
+        "image": "images/PD/things/bonuswords/picture.png"
+    },
+    {
+        "english": "doll",
+        "japanese": {
+            "kanji": "人形",
+            "furigana": "にんぎょう"
+        },
+        "image": "images/PD/things/bonuswords/doll.png"
+    },
+    {
+        "english": "ring",
+        "japanese": {
+            "kanji": "指輪",
+            "furigana": "ゆびわ"
+        },
+        "image": "images/PD/things/bonuswords/ring.png"
+    },
+    {
+        "english": "clock",
+        "japanese": {
+            "kanji": "時計",
+            "furigana": "とけい"
+        },
+        "image": "images/PD/things/bonuswords/clock.png"
+    },
+    {
+        "english": "camera",
+        "japanese": {
+            "kanji": "カメラ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/camera.png"
+    },
+    {
+        "english": "telephone",
+        "japanese": {
+            "kanji": "電話",
+            "furigana": "でんわ"
+        },
+        "image": "images/PD/things/bonuswords/telephone.png"
+    },
+    {
+        "english": "Eco-friendly bag",
+        "japanese": {
+            "kanji": "エコバッグ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/ecofriendlybag.png"
+    },
+    {
+        "english": "plastic bag",
+        "japanese": {
+            "kanji": "ビニール袋",
+            "furigana": "びにーるぶくろ"
+        },
+        "image": "images/PD/things/bonuswords/plasticbag.png"
+    },
+    {
+        "english": "bucket",
+        "japanese": {
+            "kanji": "バケツ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/bucket.png"
+    },
+    {
+        "english": "garbage",
+        "japanese": {
+            "kanji": "ゴミ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/garbage.png"
+    },
+    {
+        "english": "wheelchair",
+        "japanese": {
+            "kanji": "車椅子",
+            "furigana": "くるまいす"
+        },
+        "image": "images/PD/things/bonuswords/wheelchair.png"
+    },
+    {
+        "english": "cup",
+        "japanese": {
+            "kanji": "カップ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/cup.png"
+    },
+    {
+        "english": "fork",
+        "japanese": {
+            "kanji": "フォーク",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/fork.png"
+    },
+    {
+        "english": "spoon",
+        "japanese": {
+            "kanji": "スプーン",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/spoon.png"
+    },
+    {
+        "english": "dish",
+        "japanese": {
+            "kanji": "皿",
+            "furigana": "さら"
+        },
+        "image": "images/PD/things/bonuswords/dish.png"
+    },
+    {
+        "english": "pot",
+        "japanese": {
+            "kanji": "鍋",
+            "furigana": "なべ"
+        },
+        "image": "images/PD/things/bonuswords/pot.png"
+    },
+    {
+        "english": "gate",
+        "japanese": {
+            "kanji": "門",
+            "furigana": "もん"
+        },
+        "image": "images/PD/things/bonuswords/gate.png"
+    },
+    {
+        "english": "elevator",
+        "japanese": {
+            "kanji": "エレベーター",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/elevator.png"
+    },
+    {
+        "english": "door",
+        "japanese": {
+            "kanji": "ドア",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/door.png"
+    },
+    {
+        "english": "key",
+        "japanese": {
+            "kanji": "鍵",
+            "furigana": "かぎ"
+        },
+        "image": "images/PD/things/bonuswords/key.png"
+    },
+    {
+        "english": "room",
+        "japanese": {
+            "kanji": "部屋",
+            "furigana": "へや"
+        },
+        "image": "images/PD/things/bonuswords/room.png"
+    },
+    {
+        "english": "rug",
+        "japanese": {
+            "kanji": "敷物",
+            "furigana": "しきもの"
+        },
+        "image": "images/PD/things/bonuswords/rug.png"
+    },
+    {
+        "english": "quilt",
+        "japanese": {
+            "kanji": "掛け布団",
+            "furigana": "かけぶとん"
+        },
+        "image": "images/PD/things/bonuswords/quilt.png"
+    },
+    {
+        "english": "sofa",
+        "japanese": {
+            "kanji": "ソファ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/sofa.png"
+    },
+    {
+        "english": "table",
+        "japanese": {
+            "kanji": "テーブル",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/table.png"
+    },
+    {
+        "english": "lamp",
+        "japanese": {
+            "kanji": "ランプ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/lamp.png"
+    },
+    {
+        "english": "wall",
+        "japanese": {
+            "kanji": "壁",
+            "furigana": "かべ"
+        },
+        "image": "images/PD/things/bonuswords/wall.png"
+    },
+    {
+        "english": "window",
+        "japanese": {
+            "kanji": "窓",
+            "furigana": "まど"
+        },
+        "image": "images/PD/things/bonuswords/window.png"
+    },
+    {
+        "english": "bath",
+        "japanese": {
+            "kanji": "風呂",
+            "furigana": "ふろ"
+        },
+        "image": "images/PD/things/bonuswords/bath.png"
+    },
+    {
+        "english": "yen",
+        "japanese": {
+            "kanji": "円",
+            "furigana": "えん"
+        },
+        "image": "images/PD/things/bonuswords/yen.png"
+    }
+]

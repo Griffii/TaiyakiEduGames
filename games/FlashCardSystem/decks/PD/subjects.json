@@ -1,0 +1,106 @@
+[
+    {
+        "english": "subjects",
+        "japanese": {
+            "kanji": "教科",
+            "furigana": "きょうか"
+        },
+        "image": "images/PD/subjects/subjects.png"
+    },
+    {
+        "english": "English",
+        "japanese": {
+            "kanji": "英語",
+            "furigana": "えいご"
+        },
+        "image": "images/PD/subjects/english.png"
+    },
+    {
+        "english": "Japanese",
+        "japanese": {
+            "kanji": "国語",
+            "furigana": "こくご"
+        },
+        "image": "images/PD/subjects/japanese.png"
+    },
+    {
+        "english": "calligraphy",
+        "japanese": {
+            "kanji": "書道",
+            "furigana": "しょどう"
+        },
+        "image": "images/PD/subjects/calligraphy.png"
+    },
+    {
+        "english": "social studies",
+        "japanese": {
+            "kanji": "社会",
+            "furigana": "しゃかい"
+        },
+        "image": "images/PD/subjects/socialstudies.png"
+    },
+    {
+        "english": "math",
+        "japanese": {
+            "kanji": "数学",
+            "furigana": "すうがく"
+        },
+        "image": "images/PD/subjects/math.png"
+    },
+    {
+        "english": "science",
+        "japanese": {
+            "kanji": "理科",
+            "furigana": "りか"
+        },
+        "image": "images/PD/subjects/science.png"
+    },
+    {
+        "english": "music",
+        "japanese": {
+            "kanji": "音楽",
+            "furigana": "おんがく"
+        },
+        "image": "images/PD/subjects/music.png"
+    },
+    {
+        "english": "arts and crafts",
+        "japanese": {
+            "kanji": "図工",
+            "furigana": "ずこう"
+        },
+        "image": "images/PD/subjects/artsandcrafts.png"
+    },
+    {
+        "english": "home economics",
+        "japanese": {
+            "kanji": "家庭科",
+            "furigana": "かていか"
+        },
+        "image": "images/PD/subjects/homeeconomics.png"
+    },
+    {
+        "english": "P.E.",
+        "japanese": {
+            "kanji": "体育",
+            "furigana": "たいいく"
+        },
+        "image": "images/PD/subjects/pe.png"
+    },
+    {
+        "english": "moral education",
+        "japanese": {
+            "kanji": "道徳",
+            "furigana": "どうとく"
+        },
+        "image": "images/PD/subjects/moraleducation.png"
+    },
+    {
+        "english": "homeroom",
+        "japanese": {
+            "kanji": "ホームルーム",
+            "furigana": "ほーむるーむ"
+        },
+        "image": "images/PD/subjects/homeroom.png"
+    }
+]

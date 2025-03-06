@@ -1,0 +1,58 @@
+[
+    {
+        "english": "Monday",
+        "japanese": {
+            "kanji": "月曜日",
+            "furigana": "げつようび"
+        },
+        "image": "images/PD/weekdays/monday.png"
+    },
+    {
+        "english": "Tuesday",
+        "japanese": {
+            "kanji": "火曜日",
+            "furigana": "かようび"
+        },
+        "image": "images/PD/weekdays/tuesday.png"
+    },
+    {
+        "english": "Wednesday",
+        "japanese": {
+            "kanji": "水曜日",
+            "furigana": "すいようび"
+        },
+        "image": "images/PD/weekdays/wednesday.png"
+    },
+    {
+        "english": "Thursday",
+        "japanese": {
+            "kanji": "木曜日",
+            "furigana": "もくようび"
+        },
+        "image": "images/PD/weekdays/thursday.png"
+    },
+    {
+        "english": "Friday",
+        "japanese": {
+            "kanji": "金曜日",
+            "furigana": "きんようび"
+        },
+        "image": "images/PD/weekdays/friday.png"
+    },
+    {
+        "english": "Saturday",
+        "japanese": {
+            "kanji": "土曜日",
+            "furigana": "どようび"
+        },
+        "image": "images/PD/weekdays/saturday.png"
+    },
+    {
+        "english": "Sunday",
+        "japanese": {
+            "kanji": "日曜日",
+            "furigana": "にちようび"
+        },
+        "image": "images/PD/weekdays/sunday.png"
+    }
+]

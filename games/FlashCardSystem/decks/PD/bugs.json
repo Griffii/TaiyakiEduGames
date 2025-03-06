@@ -27,7 +27,7 @@
         "english": "stag beetle",
         "japanese": {
             "kanji": "クワガタ",
-            "furigana": "くわがた"
+            "furigana": ""
         },
         "image": "images/PD/bugs/stagbeetle.png"
     },
@@ -43,7 +43,7 @@
         "english": "dragonfly",
         "japanese": {
             "kanji": "トンボ",
-            "furigana": "とんぼ"
+            "furigana": ""
         },
         "image": "images/PD/bugs/dragonfly.png"
     },
@@ -51,7 +51,7 @@
         "english": "grasshopper",
         "japanese": {
             "kanji": "バッタ",
-            "furigana": "ばった"
+            "furigana": ""
         },
         "image": "images/PD/bugs/grasshopper.png"
     },
@@ -59,7 +59,7 @@
         "english": "mantis",
         "japanese": {
             "kanji": "カマキリ",
-            "furigana": "かまきり"
+            "furigana": ""
         },
         "image": "images/PD/bugs/mantis.png"
     },
@@ -91,7 +91,7 @@
         "english": "ladybug",
         "japanese": {
             "kanji": "てんとう虫",
-            "furigana": "てんとうむし"
+            "furigana": ""
         },
         "image": "images/PD/bugs/bonuswords/ladybug.png"
     },
@@ -107,7 +107,7 @@
         "english": "earth worm",
         "japanese": {
             "kanji": "ミミズ",
-            "furigana": "みみず"
+            "furigana": ""
         },
         "image": "images/PD/bugs/bonuswords/earthworm.png"
     }

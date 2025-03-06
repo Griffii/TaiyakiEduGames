@@ -74,8 +74,8 @@
     {
         "english": "hungry",
         "japanese": {
-            "kanji": "お腹が空いた",
-            "furigana": "おなかがすいた"
+            "kanji": "お腹空いた",
+            "furigana": "おなかすいた"
         },
         "image": "images/PD/feelings/hungry.png"
     },

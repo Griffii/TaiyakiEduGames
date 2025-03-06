@@ -35,7 +35,7 @@
         "english": "lion",
         "japanese": {
             "kanji": "ライオン",
-            "furigana": "らいおん"
+            "furigana": ""
         },
         "image": "images/PD/animals/lion.png"
     },
@@ -51,7 +51,7 @@
         "english": "zebra",
         "japanese": {
             "kanji": "シマウマ",
-            "furigana": "しまうま"
+            "furigana": ""
         },
         "image": "images/PD/animals/zebra.png"
     },
@@ -59,7 +59,7 @@
         "english": "camel",
         "japanese": {
             "kanji": "ラクダ",
-            "furigana": "らくだ"
+            "furigana": ""
         },
         "image": "images/PD/animals/camel.png"
     },
@@ -67,7 +67,7 @@
         "english": "giraffe",
         "japanese": {
             "kanji": "キリン",
-            "furigana": "きりん"
+            "furigana": ""
         },
         "image": "images/PD/animals/giraffe.png"
     },
@@ -75,7 +75,7 @@
         "english": "gorilla",
         "japanese": {
             "kanji": "ゴリラ",
-            "furigana": "ごりら"
+            "furigana": ""
         },
         "image": "images/PD/animals/gorilla.png"
     },
@@ -91,7 +91,7 @@
         "english": "orangutan",
         "japanese": {
             "kanji": "オランウータン",
-            "furigana": "おらんうーたん"
+            "furigana": ""
         },
         "image": "images/PD/animals/orangutan.png"
     },
@@ -99,7 +99,7 @@
         "english": "panda",
         "japanese": {
             "kanji": "パンダ",
-            "furigana": "ぱんだ"
+            "furigana": ""
         },
         "image": "images/PD/animals/panda.png"
     },
@@ -107,7 +107,7 @@
         "english": "koala",
         "japanese": {
             "kanji": "コアラ",
-            "furigana": "こあら"
+            "furigana": ""
         },
         "image": "images/PD/animals/koala.png"
     },
@@ -155,7 +155,7 @@
         "english": "crocodile",
         "japanese": {
             "kanji": "ワニ",
-            "furigana": "わに"
+            "furigana": ""
         },
         "image": "images/PD/animals/crocodile.png"
     },
@@ -195,7 +195,7 @@
         "english": "hippo",
         "japanese": {
             "kanji": "カバ",
-            "furigana": "かば"
+            "furigana": ""
         },
         "image": "images/PD/animals/bonuswords/hippo.png"
     },
@@ -227,7 +227,7 @@
         "english": "kangaroo",
         "japanese": {
             "kanji": "カンガルー",
-            "furigana": "かんがるー"
+            "furigana": ""
         },
         "image": "images/PD/animals/bonuswords/kangaroo.png"
     },
@@ -259,7 +259,7 @@
         "english": "hamster",
         "japanese": {
             "kanji": "ハムスター",
-            "furigana": "はむすたー"
+            "furigana": ""
         },
         "image": "images/PD/animals/bonuswords/hamster.png"
     },
@@ -307,7 +307,7 @@
         "english": "snail",
         "japanese": {
             "kanji": "カタツムリ",
-            "furigana": "かたつむり"
+            "furigana": ""
         },
         "image": "images/PD/animals/bonuswords/snail.png"
     },
@@ -315,7 +315,7 @@
         "english": "iguana",
         "japanese": {
             "kanji": "イグアナ",
-            "furigana": "いぐあな"
+            "furigana": ""
         },
         "image": "images/PD/animals/bonuswords/iguana.png"
     },

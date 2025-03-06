@@ -35,7 +35,7 @@
         "english": "plastic",
         "japanese": {
             "kanji": "プラスチック",
-            "furigana": "ぷらすちっく"
+            "furigana": ""
         },
         "image": "images/PD/fortheenvironment/plastic.png"
     },
@@ -43,7 +43,7 @@
         "english": "use eco-friendly bags",
         "japanese": {
             "kanji": "エコバッグを使う",
-            "furigana": "えこばっぐをつかう"
+            "furigana": ""
         },
         "image": "images/PD/fortheenvironment/useecofriendlybags.png"
     },
@@ -75,7 +75,7 @@
         "english": "recycle",
         "japanese": {
             "kanji": "リサイクルする",
-            "furigana": "りさいくるする"
+            "furigana": ""
         },
         "image": "images/PD/fortheenvironment/recycle.png"
     },

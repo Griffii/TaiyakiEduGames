@@ -10,8 +10,8 @@
     {
         "english": "afternoon",
         "japanese": {
-            "kanji": "午後",
-            "furigana": "ごご"
+            "kanji": "昼",
+            "furigana": "ひる"
         },
         "image": "images/PD/dailyactivities/afternoon.png"
     },
@@ -51,7 +51,7 @@
         "english": "take out the garbage",
         "japanese": {
             "kanji": "ゴミを出す",
-            "furigana": "ごみをだす"
+            "furigana": ""
         },
         "image": "images/PD/dailyactivities/takeoutthegarbage.png"
     },
@@ -115,7 +115,7 @@
         "english": "play soccer",
         "japanese": {
             "kanji": "サッカーをする",
-            "furigana": "さっかーをする"
+            "furigana": ""
         },
         "image": "images/PD/dailyactivities/playsoccer.png"
     },
@@ -155,7 +155,7 @@
         "english": "watch TV",
         "japanese": {
             "kanji": "テレビを見る",
-            "furigana": "てれびをみる"
+            "furigana": ""
         },
         "image": "images/PD/dailyactivities/watchtv.png"
     },
@@ -184,11 +184,11 @@
         "image": "images/PD/dailyactivities/cleanmyroom.png"
     },
     {
-        "english": "play with friends",
+        "english": "play with my friends",
         "japanese": {
             "kanji": "友達と遊ぶ",
             "furigana": "ともだちとあそぶ"
         },
-        "image": "images/PD/dailyactivities/playwithfriends.png"
+        "image": "images/PD/dailyactivities/playwithmyfriends.png"
     }
 ]
