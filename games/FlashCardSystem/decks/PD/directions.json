@@ -1,0 +1,82 @@
+[
+    {
+        "english": "go",
+        "japanese": {
+            "kanji": "行く",
+            "furigana": "いく"
+        },
+        "image": "images/PD/directions/go.png"
+    },
+    {
+        "english": "straight",
+        "japanese": {
+            "kanji": "まっすぐ",
+            "furigana": ""
+        },
+        "image": "images/PD/directions/straight.png"
+    },
+    {
+        "english": "turn",
+        "japanese": {
+            "kanji": "曲がる",
+            "furigana": "まがる"
+        },
+        "image": "images/PD/directions/turn.png"
+    },
+    {
+        "english": "right",
+        "japanese": {
+            "kanji": "右",
+            "furigana": "みぎ"
+        },
+        "image": "images/PD/directions/right.png"
+    },
+    {
+        "english": "left",
+        "japanese": {
+            "kanji": "左",
+            "furigana": "ひだり"
+        },
+        "image": "images/PD/directions/left.png"
+    },
+    {
+        "english": "see",
+        "japanese": {
+            "kanji": "見る",
+            "furigana": "みる"
+        },
+        "image": "images/PD/directions/see.png"
+    },
+    {
+        "english": "up",
+        "japanese": {
+            "kanji": "上",
+            "furigana": "うえ"
+        },
+        "image": "images/PD/directions/up.png"
+    },
+    {
+        "english": "down",
+        "japanese": {
+            "kanji": "下",
+            "furigana": "した"
+        },
+        "image": "images/PD/directions/down.png"
+    },
+    {
+        "english": "block",
+        "japanese": {
+            "kanji": "区画",
+            "furigana": "くかく"
+        },
+        "image": "images/PD/directions/block.png"
+    },
+    {
+        "english": "corner",
+        "japanese": {
+            "kanji": "角",
+            "furigana": "かど"
+        },
+        "image": "images/PD/directions/corner.png"
+    }
+]

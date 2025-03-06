@@ -116,11 +116,34 @@
       }
 
       function toggleSelectAll() {
-        // Code to deselect or select all cards in the deck.
+        let allCards = document.querySelectorAll(".deck-card");
+        let allSelected = [...allCards].every((card) =>
+          card.classList.contains("selected")
+        );
+
+        let selectedCards = new Set(); // Reset selection tracking
+
+        allCards.forEach((card) => {
+          let index = parseInt(card.dataset.index);
+          if (allSelected) {
+            card.classList.remove("selected");
+          } else {
+            card.classList.add("selected");
+            selectedCards.add(index); // Ensure proper tracking when selecting all
+          }
+        });
+
+        // Update button text dynamically
+        let toggleButton = document.querySelector(
+          ".deck-header button:nth-child(3)"
+        );
+        toggleButton.textContent = allSelected ? "Select All" : "Deselect All";
       }
 
       function openReviewMenu() {
-        if (document.getElementById("review-menu").classList.contains("hidden")) {
+        if (
+          document.getElementById("review-menu").classList.contains("hidden")
+        ) {
           document.getElementById("review-menu").classList.remove("hidden");
         } else {
           document.getElementById("review-menu").classList.add("hidden");
@@ -191,19 +214,33 @@
     <!-- Review Selection Pop-Up -->
     <div id="review-menu" class="popup hidden">
       <h3>Select a Review Mode</h3>
-      <button class="normal-review-btn" onclick="selectMode('review')">Regular Order</button>
-      <button class="random-btn" onclick="selectMode('random')">Random Order</button>
-      <button class="japanese-mode-btn" onclick="selectMode('japanese')">Japanese Mode (Random)</button>
+      <button class="normal-review-btn" onclick="selectMode('review')">
+        Regular Order
+      </button>
+      <button class="random-btn" onclick="selectMode('random')">
+        Random Order
+      </button>
+      <button class="japanese-mode-btn" onclick="selectMode('japanese')">
+        Japanese Mode (Random)
+      </button>
       <button class="cancel-btn" onclick="closeReviewMenu()">Cancel</button>
     </div>
 
     <!-- Game Selection Pop-Up -->
     <div id="game-menu" class="popup hidden">
       <h3>Select a Game Mode</h3>
-      <button class="missing-game-btn" onclick="startGame('missing')">What's Missing?</button>
-      <button class="ng-game-btn" onclick="startGame('ngword')">Bomb Game</button>
-      <button class="matching-game-btn" onclick="startGame('matching')">Matching Game</button>
-      <button class="headsup-game-btn" onclick="startGame('headsup')">Heads Up</button>
+      <button class="missing-game-btn" onclick="startGame('missing')">
+        What's Missing?
+      </button>
+      <button class="ng-game-btn" onclick="startGame('ngword')">
+        Bomb Game
+      </button>
+      <button class="matching-game-btn" onclick="startGame('matching')">
+        Matching Game
+      </button>
+      <button class="headsup-game-btn" onclick="startGame('headsup')">
+        Heads Up
+      </button>
       <button class="cancel-btn" onclick="closeGameMenu()">Cancel</button>
     </div>
 

@@ -27,6 +27,7 @@
             "Unit 8 - This is my favorite place.": { "path": "decks/ES4/unit8.json", "image": "images/ES3/schoolrooms/classroom.png" },
             "Unit 9 - This is my day.":     { "path": "decks/ES4/unit9.json", "image": "images/ES3/myday/gotoschool.png" },
             "Colors":                       { "path": "decks/ES4/colors.json", "image": "images/ES3/colors/red.png" },
+            "Directions":                   { "path": "decks/ES4/directions.json", "image": "images/PD/directions/straight.png" },
             "All Units":                    { "path": "decks/ES4/allES4.json", "image": "images/ES3/weather/sunny.png" }
         }
     },
@@ -69,7 +70,7 @@
             "月": { "path": "decks/PD/months.json", "image": "images/taiyaki.png" },
             "日付": { "path": "decks/PD/dates.json", "image": "images/taiyaki.png" },
             "曜日": { "path": "decks/PD/weekdays.json", "image": "images/PD/weekdays/monday.png" },
-            "季節": { "path": "decks/PD/seasons.json", "image": "images/PD/seasons/spring.png" },
+            "季節": { "path": "decks/PD/seasons.json", "image": "images/PD/seasons/seasons.png" },
             "天気": { "path": "decks/PD/weather.json", "image": "images/PD/weather/sunny.png" },
             "人": { "path": "decks/PD/people.json", "image": "images/taiyaki.png" },
             "性格など": { "path": "decks/PD/personalities.json", "image": "images/taiyaki.png" },
@@ -83,7 +84,7 @@
             "衣類": { "path": "decks/PD/clothing.json", "image": "images/taiyaki.png" },
             "からだ": { "path": "decks/PD/body.json", "image": "images/taiyaki.png" },
             "町": { "path": "decks/PD/town.json", "image": "images/taiyaki.png" },
-            "道案内": { "path": "decks/PD/directions.json", "image": "images/taiyaki.png" },
+            "道案内": { "path": "decks/PD/directions.json", "image": "images/PD/directions/straight.png" },
             "位置": { "path": "decks/PD/positions.json", "image": "images/taiyaki.png" },
             "教科": { "path": "decks/PD/subjects.json", "image": "images/taiyaki.png" },
             "学校": { "path": "decks/PD/school.json", "image": "images/taiyaki.png" },

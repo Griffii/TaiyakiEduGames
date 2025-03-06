@@ -48,6 +48,9 @@ function displayCard() {
 
 // "Get" Button - Remove card & Increase Score
 function getCard() {
+  let sound = document.getElementById('correct-sound');
+  sound.play()
+
   score++;
   document.getElementById("live-score").textContent = score; // Update live score
   cards.splice(currentIndex, 1);
@@ -56,6 +59,9 @@ function getCard() {
 
 // "Pass" Button - Shuffle the card back in
 function passCard() {
+  let sound = document.getElementById('pass-sound');
+  sound.play()
+
   cards.push(cards.splice(currentIndex, 1)[0]);
   displayCard();
 }
