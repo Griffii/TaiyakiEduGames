@@ -173,7 +173,7 @@
             "kanji": "三十",
             "furigana": "さんじゅう"
         },
-        "image": "images/ES3/numbers/30.PNG"
+        "image": "images/ES3/numbers/30.png"
     },
     {
         "english": "forty",
@@ -181,7 +181,7 @@
             "kanji": "四十",
             "furigana": "よんじゅう"
         },
-        "image": "images/ES3/numbers/40.PNG"
+        "image": "images/ES3/numbers/40.png"
     },
     {
         "english": "fifty",
@@ -189,7 +189,7 @@
             "kanji": "五十",
             "furigana": "ごじゅう"
         },
-        "image": "images/ES3/numbers/50.PNG"
+        "image": "images/ES3/numbers/50.png"
     },
     {
         "english": "sixty",
@@ -197,7 +197,7 @@
             "kanji": "六十",
             "furigana": "ろくじゅう"
         },
-        "image": "images/ES3/numbers/60.PNG"
+        "image": "images/ES3/numbers/60.png"
     },
     {
         "english": "seventy",
@@ -205,7 +205,7 @@
             "kanji": "七十",
             "furigana": "ななじゅう"
         },
-        "image": "images/ES3/numbers/70.PNG"
+        "image": "images/ES3/numbers/70.png"
     },
     {
         "english": "eighty",
@@ -213,7 +213,7 @@
             "kanji": "八十",
             "furigana": "はちじゅう"
         },
-        "image": "images/ES3/numbers/80.PNG"
+        "image": "images/ES3/numbers/80.png"
     },
     {
         "english": "ninety",
@@ -221,7 +221,7 @@
             "kanji": "九十",
             "furigana": "きゅうじゅう"
         },
-        "image": "images/ES3/numbers/90.PNG"
+        "image": "images/ES3/numbers/90.png"
     },
     {
         "english": "one hundred",
@@ -229,6 +229,6 @@
             "kanji": "百",
             "furigana": "ひゃく"
         },
-        "image": "images/ES3/numbers/100.PNG"
+        "image": "images/ES3/numbers/100.png"
     }
 ]
