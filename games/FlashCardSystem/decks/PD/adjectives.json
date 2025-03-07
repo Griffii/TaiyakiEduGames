@@ -1,0 +1,154 @@
+[
+    {
+        "english": "good",
+        "japanese": {
+            "kanji": "良い",
+            "furigana": "よい"
+        },
+        "image": "images/PD/feelings/good.png"
+    },
+    {
+        "english": "great",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/feelings/great.png"
+    },
+    {
+        "english": "bad",
+        "japanese": {
+            "kanji": "悪い",
+            "furigana": "わるい"
+        },
+        "image": "images/PD/adjectives/bad.png"
+    },
+    {
+        "english": "nice",
+        "japanese": {
+            "kanji": "素敵な",
+            "furigana": "すてきな"
+        },
+        "image": "images/PD/adjectives/nice.png"
+    },
+    {
+        "english": "amazing",
+        "japanese": {
+            "kanji": "驚くべき",
+            "furigana": "おどろくべき"
+        },
+        "image": "images/PD/adjectives/amazing.png"
+    },
+    {
+        "english": "fantastic",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/adjectives/fantastic.png"
+    },
+    {
+        "english": "wonderful",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/adjectives/wonderful.png"
+    },
+    {
+        "english": "beautiful",
+        "japanese": {
+            "kanji": "美しい",
+            "furigana": "うつくしい"
+        },
+        "image": "images/PD/adjectives/beautiful.png"
+    },
+    {
+        "english": "cool",
+        "japanese": {
+            "kanji": "かっこいい",
+            "furigana": "かっこいい"
+        },
+        "image": "images/PD/adjectives/cool.png"
+    },
+    {
+        "english": "cute",
+        "japanese": {
+            "kanji": "かわいい",
+            "furigana": "かわいい"
+        },
+        "image": "images/PD/adjectives/cute.png"
+    },
+    {
+        "english": "favorite",
+        "japanese": {
+            "kanji": "お気に入り",
+            "furigana": "おきにいり"
+        },
+        "image": "images/PD/adjectives/favorite.png"
+    },
+    {
+        "english": "interesting",
+        "japanese": {
+            "kanji": "面白い",
+            "furigana": "おもしろい"
+        },
+        "image": "images/PD/adjectives/interesting.png"
+    },
+    {
+        "english": "exciting",
+        "japanese": {
+            "kanji": "わくわくする",
+            "furigana": "わくわくする"
+        },
+        "image": "images/PD/adjectives/exciting.png"
+    },
+    {
+        "english": "famous",
+        "japanese": {
+            "kanji": "有名な",
+            "furigana": "ゆうめいな"
+        },
+        "image": "images/PD/adjectives/famous.png"
+    },
+    {
+        "english": "popular",
+        "japanese": {
+            "kanji": "人気のある",
+            "furigana": "にんきのある"
+        },
+        "image": "images/PD/adjectives/popular.png"
+    },
+    {
+        "english": "colorful",
+        "japanese": {
+            "kanji": "カラフル",
+            "furigana": "からふる"
+        },
+        "image": "images/PD/adjectives/colorful.png"
+    },
+    {
+        "english": "international",
+        "japanese": {
+            "kanji": "国際的な",
+            "furigana": "こくさいてきな"
+        },
+        "image": "images/PD/adjectives/international.png"
+    },
+    {
+        "english": "fun",
+        "japanese": {
+            "kanji": "楽しい",
+            "furigana": "たのしい"
+        },
+        "image": "images/PD/adjectives/fun.png"
+    },
+    {
+        "english": "special",
+        "japanese": {
+            "kanji": "特別な",
+            "furigana": "とくべつな"
+        },
+        "image": "images/PD/adjectives/special.png"
+    }
+]

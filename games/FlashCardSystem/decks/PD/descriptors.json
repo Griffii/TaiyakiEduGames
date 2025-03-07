@@ -1,0 +1,242 @@
+[
+    {
+        "english": "big",
+        "japanese": {
+            "kanji": "大きい",
+            "furigana": "おおきい"
+        },
+        "image": "images/PD/descriptors/big.png"
+    },
+    {
+        "english": "small",
+        "japanese": {
+            "kanji": "小さい",
+            "furigana": "ちいさい"
+        },
+        "image": "images/PD/descriptors/small.png"
+    },
+    {
+        "english": "long",
+        "japanese": {
+            "kanji": "長い",
+            "furigana": "ながい"
+        },
+        "image": "images/ES3/descriptors/long.png"
+    },
+    {
+        "english": "short",
+        "japanese": {
+            "kanji": "短い",
+            "furigana": "みじかい"
+        },
+        "image": "images/ES3/descriptors/short.png"
+    },
+    {
+        "english": "new",
+        "japanese": {
+            "kanji": "新しい",
+            "furigana": "あたらしい"
+        },
+        "image": "images/PD/descriptors/new.png"
+    },
+    {
+        "english": "old",
+        "japanese": {
+            "kanji": "古い",
+            "furigana": "ふるい"
+        },
+        "image": "images/PD/descriptors/old.png"
+    },
+    {
+        "english": "fast",
+        "japanese": {
+            "kanji": "速い",
+            "furigana": "はやい"
+        },
+        "image": "images/PD/descriptors/fast.png"
+    },
+    {
+        "english": "slow",
+        "japanese": {
+            "kanji": "遅い",
+            "furigana": "おそい"
+        },
+        "image": "images/PD/descriptors/slow.png"
+    },
+    {
+        "english": "high",
+        "japanese": {
+            "kanji": "高い",
+            "furigana": "たかい"
+        },
+        "image": "images/PD/descriptors/high.png"
+    },
+    {
+        "english": "low",
+        "japanese": {
+            "kanji": "低い",
+            "furigana": "ひくい"
+        },
+        "image": "images/PD/descriptors/low.png"
+    },
+    {
+        "english": "cheap",
+        "japanese": {
+            "kanji": "安い",
+            "furigana": "やすい"
+        },
+        "image": "images/PD/descriptors/cheap.png"
+    },
+    {
+        "english": "expensive",
+        "japanese": {
+            "kanji": "高価な",
+            "furigana": "こうかな"
+        },
+        "image": "images/PD/descriptors/expensive.png"
+    },
+    {
+        "english": "clean",
+        "japanese": {
+            "kanji": "きれい",
+            "furigana": "きれい"
+        },
+        "image": "images/PD/descriptors/clean.png"
+    },
+    {
+        "english": "dirty",
+        "japanese": {
+            "kanji": "汚い",
+            "furigana": "きたない"
+        },
+        "image": "images/PD/descriptors/dirty.png"
+    },
+    {
+        "english": "closed",
+        "japanese": {
+            "kanji": "閉まっている",
+            "furigana": "しまっている"
+        },
+        "image": "images/PD/descriptors/closed.png"
+    },
+    {
+        "english": "open",
+        "japanese": {
+            "kanji": "開いている",
+            "furigana": "あいている"
+        },
+        "image": "images/PD/descriptors/open.png"
+    },
+    {
+        "english": "easy",
+        "japanese": {
+            "kanji": "簡単",
+            "furigana": "かんたん"
+        },
+        "image": "images/PD/descriptors/easy.png"
+    },
+    {
+        "english": "difficult",
+        "japanese": {
+            "kanji": "難しい",
+            "furigana": "むずかしい"
+        },
+        "image": "images/PD/descriptors/difficult.png"
+    },
+    {
+        "english": "hard",
+        "japanese": {
+            "kanji": "硬い",
+            "furigana": "かたい"
+        },
+        "image": "images/PD/descriptors/hard.png"
+    },
+    {
+        "english": "soft",
+        "japanese": {
+            "kanji": "柔らかい",
+            "furigana": "やわらかい"
+        },
+        "image": "images/PD/descriptors/soft.png"
+    },
+    {
+        "english": "heavy",
+        "japanese": {
+            "kanji": "重い",
+            "furigana": "おもい"
+        },
+        "image": "images/PD/descriptors/heavy.png"
+    },
+    {
+        "english": "light",
+        "japanese": {
+            "kanji": "軽い",
+            "furigana": "かるい"
+        },
+        "image": "images/PD/descriptors/light.png"
+    },
+    {
+        "english": "inside",
+        "japanese": {
+            "kanji": "内側",
+            "furigana": "うちがわ"
+        },
+        "image": "images/PD/descriptors/inside.png"
+    },
+    {
+        "english": "outside",
+        "japanese": {
+            "kanji": "外側",
+            "furigana": "そとがわ"
+        },
+        "image": "images/PD/descriptors/outside.png"
+    },
+    {
+        "english": "same",
+        "japanese": {
+            "kanji": "同じ",
+            "furigana": "おなじ"
+        },
+        "image": "images/PD/descriptors/same.png"
+    },
+    {
+        "english": "different",
+        "japanese": {
+            "kanji": "違う",
+            "furigana": "ちがう"
+        },
+        "image": "images/PD/descriptors/different.png"
+    },
+    {
+        "english": "tall",
+        "japanese": {
+            "kanji": "背が高い",
+            "furigana": "せがたかい"
+        },
+        "image": "images/PD/descriptors/tall.png"
+    },
+    {
+        "english": "short",
+        "japanese": {
+            "kanji": "背が低い",
+            "furigana": "せがひくい"
+        },
+        "image": "images/PD/descriptors/shortheight.png"
+    },
+    {
+        "english": "young",
+        "japanese": {
+            "kanji": "若い",
+            "furigana": "わかい"
+        },
+        "image": "images/PD/descriptors/young.png"
+    },
+    {
+        "english": "old",
+        "japanese": {
+            "kanji": "年老いた",
+            "furigana": "としおいた"
+        },
+        "image": "images/PD/descriptors/oldage.png"
+    }
+]

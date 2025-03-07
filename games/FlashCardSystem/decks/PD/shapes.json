@@ -1,75 +1,82 @@
 [
-    {
+  {
+      "english": "shapes",
+      "japanese": {
+          "kanji": "形",
+          "furigana": "かたち"
+      },
+      "image": "images/ES3/shapes/shapes.png"
+  },
+  {
       "english": "circle",
       "japanese": {
-        "kanji": "丸",
-        "furigana": "まる"
+          "kanji": "丸",
+          "furigana": "まる"
       },
       "image": "images/ES3/shapes/circle.png"
-    },
-    {
-      "english": "square",
+  },
+  {
+      "english": "cross",
       "japanese": {
-        "kanji": "四角",
-        "furigana": "しかく"
+          "kanji": "十字",
+          "furigana": "じゅうじ"
       },
-      "image": "images/ES3/shapes/square.png"
-    },
-    {
-      "english": "triangle",
-      "japanese": {
-        "kanji": "三角",
-        "furigana": "さんかく"
-      },
-      "image": "images/ES3/shapes/triangle.png"
-    },
-    {
-      "english": "rectangle",
-      "japanese": {
-        "kanji": "長方形",
-        "furigana": "ちょうほうけい"
-      },
-      "image": "images/ES3/shapes/rectangle.png"
-    },
-    {
-      "english": "star",
-      "japanese": {
-        "kanji": "星形",
-        "furigana": "ほしがた"
-      },
-      "image": "images/ES3/shapes/star.png"
-    },
-    {
-      "english": "heart",
-      "japanese": {
-        "kanji": "ハート",
-        "furigana": ""
-      },
-      "image": "images/ES3/shapes/heart.png"
-    },
-    {
-      "english": "moon",
-      "japanese": {
-        "kanji": "三日月",
-        "furigana": "みかづき"
-      },
-      "image": "images/ES3/shapes/moon.png"
-    },
-    {
+      "image": "images/ES3/shapes/cross.png"
+  },
+  {
       "english": "diamond",
       "japanese": {
-        "kanji": "菱形",
-        "furigana": "ひしがた"
+          "kanji": "菱形",
+          "furigana": "ひしがた"
       },
       "image": "images/ES3/shapes/diamond.png"
-    },
-    {
-      "english": "line",
+  },
+  {
+      "english": "heart",
       "japanese": {
-        "kanji": "線",
-        "furigana": "せん"
+          "kanji": "ハート",
+          "furigana": ""
       },
-      "image": "images/ES3/shapes/line.png"
-    }
-  ]
-  
+      "image": "images/ES3/shapes/heart.png"
+  },
+  {
+      "english": "rectangle",
+      "japanese": {
+          "kanji": "長方形",
+          "furigana": "ちょうほう"
+      },
+      "image": "images/ES3/shapes/rectangle.png"
+  },
+  {
+      "english": "square",
+      "japanese": {
+          "kanji": "四角",
+          "furigana": "しかく"
+      },
+      "image": "images/ES3/shapes/square.png"
+  },
+  {
+      "english": "star",
+      "japanese": {
+          "kanji": "星",
+          "furigana": "ほし"
+      },
+      "image": "images/ES3/shapes/star.png"
+  },
+  {
+      "english": "triangle",
+      "japanese": {
+          "kanji": "三角",
+          "furigana": "さんかく"
+      },
+      "image": "images/ES3/shapes/triangle.png"
+  },
+  {
+      "english": "oval",
+      "japanese": {
+          "kanji": "楕円形",
+          "furigana": "だえん"
+      },
+      "image": "images/ES3/shapes/oval.png"
+  }
+]

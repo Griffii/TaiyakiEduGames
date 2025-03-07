@@ -341,7 +341,7 @@
             "kanji": "呼ぶ",
             "furigana": "よぶ"
         },
-        "image": "images/actions/bonuswords/call.png"
+        "image": "images/PD/actions/bonuswords/call.png"
     },
     {
         "english": "chat",
@@ -349,7 +349,7 @@
             "kanji": "おしゃべりする",
             "furigana": "おしゃべりする"
         },
-        "image": "images/actions/bonuswords/chat.png"
+        "image": "images/PD/actions/bonuswords/chat.png"
     },
     {
         "english": "check",
@@ -357,7 +357,7 @@
             "kanji": "確認する",
             "furigana": "かくにんする"
         },
-        "image": "images/actions/bonuswords/check.png"
+        "image": "images/PD/actions/bonuswords/check.png"
     },
     {
         "english": "climb",
@@ -365,7 +365,7 @@
             "kanji": "登る",
             "furigana": "のぼる"
         },
-        "image": "images/actions/bonuswords/climb.png"
+        "image": "images/PD/actions/bonuswords/climb.png"
     },
     {
         "english": "collect",
@@ -373,7 +373,7 @@
             "kanji": "集める",
             "furigana": "あつめる"
         },
-        "image": "images/actions/bonuswords/collect.png"
+        "image": "images/PD/actions/bonuswords/collect.png"
     },
     {
         "english": "cut",
@@ -381,7 +381,7 @@
             "kanji": "切る",
             "furigana": "きる"
         },
-        "image": "images/actions/bonuswords/cut.png"
+        "image": "images/PD/actions/bonuswords/cut.png"
     },
     {
         "english": "dig",
@@ -389,7 +389,7 @@
             "kanji": "掘る",
             "furigana": "ほる"
         },
-        "image": "images/actions/bonuswords/dig.png"
+        "image": "images/PD/actions/bonuswords/dig.png"
     },
     {
         "english": "disappear",
@@ -397,7 +397,7 @@
             "kanji": "消える",
             "furigana": "きえる"
         },
-        "image": "images/actions/bonuswords/disappear.png"
+        "image": "images/PD/actions/bonuswords/disappear.png"
     },
     {
         "english": "draw",
@@ -405,7 +405,7 @@
             "kanji": "描く",
             "furigana": "えがく"
         },
-        "image": "images/actions/bonuswords/draw.png"
+        "image": "images/PD/actions/bonuswords/draw.png"
     },
     {
         "english": "drive",
@@ -413,7 +413,7 @@
             "kanji": "運転する",
             "furigana": "うんてんする"
         },
-        "image": "images/actions/bonuswords/drive.png"
+        "image": "images/PD/actions/bonuswords/drive.png"
     },
     {
         "english": "feed",
@@ -421,7 +421,7 @@
             "kanji": "餌をやる",
             "furigana": "えさをやる"
         },
-        "image": "images/actions/bonuswords/feed.png"
+        "image": "images/PD/actions/bonuswords/feed.png"
     },
     {
         "english": "grow",
@@ -429,7 +429,7 @@
             "kanji": "育てる",
             "furigana": "そだてる"
         },
-        "image": "images/actions/bonuswords/grow.png"
+        "image": "images/PD/actions/bonuswords/grow.png"
     },
     {
         "english": "hit",
@@ -437,7 +437,7 @@
             "kanji": "打つ",
             "furigana": "うつ"
         },
-        "image": "images/actions/bonuswords/hit.png"
+        "image": "images/PD/actions/bonuswords/hit.png"
     },
     {
         "english": "hop",
@@ -445,7 +445,7 @@
             "kanji": "跳ねる",
             "furigana": "はねる"
         },
-        "image": "images/actions/bonuswords/hop.png"
+        "image": "images/PD/actions/bonuswords/hop.png"
     },
     {
         "english": "hug",
@@ -453,7 +453,7 @@
             "kanji": "抱きしめる",
             "furigana": "だきしめる"
         },
-        "image": "images/actions/bonuswords/hug.png"
+        "image": "images/PD/actions/bonuswords/hug.png"
     },
     {
         "english": "keep",
@@ -461,7 +461,7 @@
             "kanji": "保つ",
             "furigana": "たもつ"
         },
-        "image": "images/actions/bonuswords/keep.png"
+        "image": "images/PD/actions/bonuswords/keep.png"
     },
     {
         "english": "kick",
@@ -469,7 +469,7 @@
             "kanji": "蹴る",
             "furigana": "ける"
         },
-        "image": "images/actions/bonuswords/kick.png"
+        "image": "images/PD/actions/bonuswords/kick.png"
     },
     {
         "english": "meet",
@@ -477,7 +477,7 @@
             "kanji": "会う",
             "furigana": "あう"
         },
-        "image": "images/actions/bonuswords/meet.png"
+        "image": "images/PD/actions/bonuswords/meet.png"
     },
     {
         "english": "mix",
@@ -485,7 +485,7 @@
             "kanji": "混ぜる",
             "furigana": "まぜる"
         },
-        "image": "images/actions/bonuswords/mix.png"
+        "image": "images/PD/actions/bonuswords/mix.png"
     },
     {
         "english": "whip",
@@ -493,7 +493,7 @@
             "kanji": "泡立てる",
             "furigana": "あわだてる"
         },
-        "image": "images/actions/bonuswords/whip.png"
+        "image": "images/PD/actions/bonuswords/whip.png"
     },
     {
         "english": "put",
@@ -501,7 +501,7 @@
             "kanji": "置く",
             "furigana": "おく"
         },
-        "image": "images/actions/bonuswords/put.png"
+        "image": "images/PD/actions/bonuswords/put.png"
     },
     {
         "english": "sit",
@@ -509,7 +509,7 @@
             "kanji": "座る",
             "furigana": "すわる"
         },
-        "image": "images/actions/bonuswords/sit.png"
+        "image": "images/PD/actions/bonuswords/sit.png"
     },
     {
         "english": "sleep",
@@ -517,7 +517,7 @@
             "kanji": "寝る",
             "furigana": "ねる"
         },
-        "image": "images/actions/bonuswords/sleep.png"
+        "image": "images/PD/actions/bonuswords/sleep.png"
     },
     {
         "english": "stand",
@@ -525,7 +525,7 @@
             "kanji": "立つ",
             "furigana": "たつ"
         },
-        "image": "images/actions/bonuswords/stand.png"
+        "image": "images/PD/actions/bonuswords/stand.png"
     },
     {
         "english": "teach",
@@ -533,7 +533,7 @@
             "kanji": "教える",
             "furigana": "おしえる"
         },
-        "image": "images/actions/bonuswords/teach.png"
+        "image": "images/PD/actions/bonuswords/teach.png"
     },
     {
         "english": "travel",
@@ -541,7 +541,7 @@
             "kanji": "旅行する",
             "furigana": "りょこうする"
         },
-        "image": "images/actions/bonuswords/travel.png"
+        "image": "images/PD/actions/bonuswords/travel.png"
     },
     {
         "english": "try",
@@ -549,7 +549,7 @@
             "kanji": "試す",
             "furigana": "ためす"
         },
-        "image": "images/actions/bonuswords/try.png"
+        "image": "images/PD/actions/bonuswords/try.png"
     },
     {
         "english": "wait",
@@ -557,7 +557,7 @@
             "kanji": "待つ",
             "furigana": "まつ"
         },
-        "image": "images/actions/bonuswords/wait.png"
+        "image": "images/PD/actions/bonuswords/wait.png"
     },
     {
         "english": "wash",
@@ -565,7 +565,7 @@
             "kanji": "洗う",
             "furigana": "あらう"
         },
-        "image": "images/actions/bonuswords/wash.png"
+        "image": "images/PD/actions/bonuswords/wash.png"
     },
     {
         "english": "water",
@@ -573,7 +573,7 @@
             "kanji": "水をやる",
             "furigana": "みずをやる"
         },
-        "image": "images/actions/bonuswords/water.png"
+        "image": "images/PD/actions/bonuswords/water.png"
     },
     {
         "english": "write",
@@ -581,6 +581,6 @@
             "kanji": "書く",
             "furigana": "かく"
         },
-        "image": "images/actions/bonuswords/write.png"
+        "image": "images/PD/actions/bonuswords/write.png"
     }
 ]

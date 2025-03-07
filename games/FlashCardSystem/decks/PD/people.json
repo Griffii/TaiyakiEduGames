@@ -11,7 +11,7 @@
         "english": "you",
         "japanese": {
             "kanji": "あなた",
-            "furigana": "あなた"
+            "furigana": ""
         },
         "image": "images/PD/people/you.png"
     },
@@ -35,7 +35,7 @@
         "english": "we",
         "japanese": {
             "kanji": "私たち",
-            "furigana": "わたしたち"
+            "furigana": ""
         },
         "image": "images/PD/people/we.png"
     },
@@ -83,7 +83,7 @@
         "english": "classmates",
         "japanese": {
             "kanji": "クラスメイト",
-            "furigana": "くらすめいと"
+            "furigana": ""
         },
         "image": "images/PD/people/classmates.png"
     },

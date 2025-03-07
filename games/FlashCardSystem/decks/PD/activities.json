@@ -3,7 +3,7 @@
         "english": "camping",
         "japanese": {
             "kanji": "キャンプ",
-            "furigana": "きゃんぷ"
+            "furigana": ""
         },
         "image": "images/PD/activities/camping.png"
     },
@@ -11,7 +11,7 @@
         "english": "dancing",
         "japanese": {
             "kanji": "ダンス",
-            "furigana": "だんす"
+            "furigana": ""
         },
         "image": "images/PD/activities/dancing.png"
     },
@@ -69,7 +69,7 @@
             "kanji": "スケートボード",
             "furigana": "すけーとぼーど"
         },
-        "image": "images/PD/activities/skateboarding.png"
+        "image": "images/PD/sports/skateboarding.png"
     },
     {
         "english": "swinging",
@@ -85,7 +85,7 @@
             "kanji": "ピアノを弾く",
             "furigana": "ぴあのをひく"
         },
-        "image": "images/PD/activities/playingpiano.png"
+        "image": "images/PD/activities/playingthepiano.png"
     },
     {
         "english": "playing video games",
@@ -101,7 +101,7 @@
             "kanji": "映画を見る",
             "furigana": "えいがをみる"
         },
-        "image": "images/PD/activities/watchingmovie.png"
+        "image": "images/PD/activities/watchingmovies.png"
     },
     {
         "english": "cards",
@@ -133,7 +133,7 @@
             "kanji": "かくれんぼ",
             "furigana": "かくれんぼ"
         },
-        "image": "images/PD/activities/hideandseek.png"
+        "image": "images/PD/activities/hide-and-seek.png"
     },
     {
         "english": "rock-paper-scissors",
@@ -141,7 +141,7 @@
             "kanji": "じゃんけん",
             "furigana": "じゃんけん"
         },
-        "image": "images/PD/activities/rockpaperscissors.png"
+        "image": "images/PD/activities/rock-paper-scissors.png"
     },
     {
         "english": "running",
@@ -181,7 +181,7 @@
             "kanji": "ギターを弾く",
             "furigana": "ぎたーをひく"
         },
-        "image": "images/PD/activities/playingguitar.png"
+        "image": "images/PD/activities/playingtheguitar.png"
     },
     {
         "english": "playing the recorder",
@@ -189,6 +189,6 @@
             "kanji": "リコーダーを吹く",
             "furigana": "りこーだーをふく"
         },
-        "image": "images/PD/activities/playingrecorder.png"
+        "image": "images/PD/activities/playingtherecorder.png"
     }
 ]

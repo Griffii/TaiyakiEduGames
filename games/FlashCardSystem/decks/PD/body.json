@@ -5,7 +5,7 @@
             "kanji": "体",
             "furigana": "からだ"
         },
-        "image": "images/PD/body/body.png"
+        "image": "images/ES3/bodyparts/body.png"
     },
     {
         "english": "hair",
@@ -13,7 +13,7 @@
             "kanji": "髪",
             "furigana": "かみ"
         },
-        "image": "images/PD/body/hair.png"
+        "image": "images/ES3/bodyparts/hair.png"
     },
     {
         "english": "head",
@@ -21,7 +21,7 @@
             "kanji": "頭",
             "furigana": "あたま"
         },
-        "image": "images/PD/body/head.png"
+        "image": "images/ES3/bodyparts/head.png"
     },
     {
         "english": "face",
@@ -29,7 +29,7 @@
             "kanji": "顔",
             "furigana": "かお"
         },
-        "image": "images/PD/body/face.png"
+        "image": "images/ES3/bodyparts/face.png"
     },
     {
         "english": "shoulder",
@@ -37,7 +37,7 @@
             "kanji": "肩",
             "furigana": "かた"
         },
-        "image": "images/PD/body/shoulder.png"
+        "image": "images/ES3/bodyparts/shoulder.png"
     },
     {
         "english": "hand",
@@ -45,7 +45,7 @@
             "kanji": "手",
             "furigana": "て"
         },
-        "image": "images/PD/body/hand.png"
+        "image": "images/ES3/bodyparts/hand.png"
     },
     {
         "english": "arm",
@@ -53,7 +53,7 @@
             "kanji": "腕",
             "furigana": "うで"
         },
-        "image": "images/PD/body/arm.png"
+        "image": "images/ES3/bodyparts/arm.png"
     },
     {
         "english": "knee",
@@ -61,7 +61,7 @@
             "kanji": "膝",
             "furigana": "ひざ"
         },
-        "image": "images/PD/body/knee.png"
+        "image": "images/ES3/bodyparts/knee.png"
     },
     {
         "english": "eye",
@@ -69,7 +69,7 @@
             "kanji": "目",
             "furigana": "め"
         },
-        "image": "images/PD/body/eye.png"
+        "image": "images/ES3/bodyparts/eye.png"
     },
     {
         "english": "ear",
@@ -77,7 +77,7 @@
             "kanji": "耳",
             "furigana": "みみ"
         },
-        "image": "images/PD/body/ear.png"
+        "image": "images/ES3/bodyparts/ear.png"
     },
     {
         "english": "nose",
@@ -85,7 +85,7 @@
             "kanji": "鼻",
             "furigana": "はな"
         },
-        "image": "images/PD/body/nose.png"
+        "image": "images/ES3/bodyparts/nose.png"
     },
     {
         "english": "mouth",
@@ -93,7 +93,7 @@
             "kanji": "口",
             "furigana": "くち"
         },
-        "image": "images/PD/body/mouth.png"
+        "image": "images/ES3/bodyparts/mouth.png"
     },
     {
         "english": "teeth",
@@ -101,7 +101,7 @@
             "kanji": "歯",
             "furigana": "は"
         },
-        "image": "images/PD/body/teeth.png"
+        "image": "images/ES3/bodyparts/teeth.png"
     },
     {
         "english": "neck",
@@ -109,7 +109,7 @@
             "kanji": "首",
             "furigana": "くび"
         },
-        "image": "images/PD/body/neck.png"
+        "image": "images/ES3/bodyparts/neck.png"
     },
     {
         "english": "leg",
@@ -117,15 +117,15 @@
             "kanji": "脚",
             "furigana": "あし"
         },
-        "image": "images/PD/body/leg.png"
+        "image": "images/ES3/bodyparts/leg.png"
     },
     {
-        "english": "toe",
+        "english": "toes",
         "japanese": {
             "kanji": "足の指",
             "furigana": "あしのゆび"
         },
-        "image": "images/PD/body/toe.png"
+        "image": "images/ES3/bodyparts/toes.png"
     },
     {
         "english": "tongue",
@@ -133,7 +133,7 @@
             "kanji": "舌",
             "furigana": "した"
         },
-        "image": "images/PD/body/tongue.png"
+        "image": "images/ES3/bodyparts/tongue.png"
     },
     {
         "english": "elbow",
@@ -141,7 +141,7 @@
             "kanji": "肘",
             "furigana": "ひじ"
         },
-        "image": "images/PD/body/elbow.png"
+        "image": "images/ES3/bodyparts/elbow.png"
     },
     {
         "english": "thumb",
@@ -149,14 +149,14 @@
             "kanji": "親指",
             "furigana": "おやゆび"
         },
-        "image": "images/PD/body/thumb.png"
+        "image": "images/ES3/bodyparts/thumb.png"
     },
     {
-        "english": "nail",
+        "english": "nails",
         "japanese": {
             "kanji": "爪",
             "furigana": "つめ"
         },
-        "image": "images/PD/body/nail.png"
+        "image": "images/ES3/bodyparts/nails.png"
     }
 ]
