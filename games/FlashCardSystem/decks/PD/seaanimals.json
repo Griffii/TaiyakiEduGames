@@ -19,7 +19,7 @@
         "english": "dolphin",
         "japanese": {
             "kanji": "イルカ",
-            "furigana": "いるか"
+            "furigana": ""
         },
         "image": "images/PD/seaanimals/dolphin.png"
     },
@@ -27,7 +27,7 @@
         "english": "penguin",
         "japanese": {
             "kanji": "ペンギン",
-            "furigana": "ぺんぎん"
+            "furigana": ""
         },
         "image": "images/PD/seaanimals/penguin.png"
     },
@@ -51,7 +51,7 @@
         "english": "shark",
         "japanese": {
             "kanji": "サメ",
-            "furigana": "さめ"
+            "furigana": ""
         },
         "image": "images/PD/seaanimals/shark.png"
     },
@@ -67,7 +67,7 @@
         "english": "jellyfish",
         "japanese": {
             "kanji": "クラゲ",
-            "furigana": "くらげ"
+            "furigana": ""
         },
         "image": "images/PD/seaanimals/jellyfish.png"
     },
@@ -75,7 +75,7 @@
         "english": "sea otter",
         "japanese": {
             "kanji": "ラッコ",
-            "furigana": "らっこ"
+            "furigana": ""
         },
         "image": "images/PD/seaanimals/seaotter.png"
     },
@@ -83,7 +83,7 @@
         "english": "tuna",
         "japanese": {
             "kanji": "マグロ",
-            "furigana": "まぐろ"
+            "furigana": ""
         },
         "image": "images/PD/seaanimals/tuna.png"
     },
@@ -107,7 +107,7 @@
         "english": "squid",
         "japanese": {
             "kanji": "イカ",
-            "furigana": "いか"
+            "furigana": ""
         },
         "image": "images/PD/seaanimals/squid.png"
     },
@@ -123,7 +123,7 @@
         "english": "starfish",
         "japanese": {
             "kanji": "ヒトデ",
-            "furigana": "ひとで"
+            "furigana": ""
         },
         "image": "images/PD/seaanimals/starfish.png"
     }

@@ -424,7 +424,7 @@
             "kanji": "12:00",
             "furigana": ""
         },
-        "image": "images/ES3/times/1200.png"
+        "image": "images/ES3/times/bonuswords/1200.png"
     },
     {
         "english": "twelve thirty",
@@ -432,7 +432,7 @@
             "kanji": "12:30",
             "furigana": ""
         },
-        "image": "images/ES3/times/1230.png"
+        "image": "images/ES3/times/bonuswords/1230.png"
     },
     {
         "english": "one o'clock",
@@ -440,7 +440,7 @@
             "kanji": "01:00",
             "furigana": ""
         },
-        "image": "images/ES3/times/0100.png"
+        "image": "images/ES3/times/bonuswords/0100.png"
     },
     {
         "english": "one thirty",
@@ -448,7 +448,7 @@
             "kanji": "01:30",
             "furigana": ""
         },
-        "image": "images/ES3/times/0130.png"
+        "image": "images/ES3/times/bonuswords/0130.png"
     },
 
     {
@@ -1005,7 +1005,7 @@
             "kanji": "灰色",
             "furigana": "はいいろ"
         },
-        "image": "images/ES3/colors/gray.png"
+        "image": "images/ES3/colors/bonuswords/gray.png"
     },
     {
         "english": "silver",
@@ -1013,7 +1013,7 @@
             "kanji": "銀",
             "furigana": "ぎん"
         },
-        "image": "images/ES3/colors/silver.png"
+        "image": "images/ES3/colors/bonuswords/silver.png"
     },
     {
         "english": "gold",
@@ -1021,7 +1021,7 @@
             "kanji": "金",
             "furigana": "きん"
         },
-        "image": "images/ES3/colors/gold.png"
+        "image": "images/ES3/colors/bonuswords/gold.png"
     },
     {
         "english": "go",
@@ -1069,7 +1069,7 @@
             "kanji": "歩調",
             "furigana": "ほちょう"
         },
-        "image": "images/ES3/nature/footprints.png"
+        "image": "images/ES3/animals/bonuswords/footprints.png"
     },
     {
         "english": "a",

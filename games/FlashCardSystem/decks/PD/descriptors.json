@@ -90,8 +90,8 @@
     {
         "english": "expensive",
         "japanese": {
-            "kanji": "高価な",
-            "furigana": "こうかな"
+            "kanji": "高い",
+            "furigana": "たかい"
         },
         "image": "images/PD/descriptors/expensive.png"
     },
@@ -99,7 +99,7 @@
         "english": "clean",
         "japanese": {
             "kanji": "きれい",
-            "furigana": "きれい"
+            "furigana": ""
         },
         "image": "images/PD/descriptors/clean.png"
     },

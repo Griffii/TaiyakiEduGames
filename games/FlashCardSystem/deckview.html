@@ -133,11 +133,41 @@
           }
         });
 
-        // Update button text dynamically
-        let toggleButton = document.querySelector(
-          ".deck-header button:nth-child(3)"
+        // Update ONLY the Toggle All button text
+        let toggleAllButton = document.getElementById("toggle-all-btn");
+        toggleAllButton.textContent = allSelected
+          ? "Select All"
+          : "Deselect All";
+      }
+
+      function toggleBonusWords() {
+        let allCards = document.querySelectorAll(".deck-card");
+        let bonusCards = [...allCards].filter((card) =>
+          card.querySelector(".deck-card-img").src.includes("bonuswords")
         );
-        toggleButton.textContent = allSelected ? "Select All" : "Deselect All";
+
+        if (bonusCards.length === 0) {
+          return;
+        }
+
+        let allBonusSelected = bonusCards.every((card) =>
+          card.classList.contains("selected")
+        );
+
+        bonusCards.forEach((card) => {
+          let index = parseInt(card.dataset.index);
+          if (allBonusSelected) {
+            card.classList.remove("selected");
+          } else {
+            card.classList.add("selected");
+          }
+        });
+
+        // Update button text dynamically
+        let toggleBonusButton = document.getElementById("toggle-bonus-btn");
+        toggleBonusButton.textContent = allBonusSelected
+          ? "Select Bonus Words"
+          : "Deselect Bonus Words";
       }
 
       function openReviewMenu() {
@@ -208,7 +238,12 @@
     <div class="deck-header">
       <button onclick="openReviewMenu()">Review Mode</button>
       <button onclick="openGameMenu()">Games</button>
-      <button onclick="toggleSelectAll()">Deselect All</button>
+      <button id="toggle-bonus-btn" onclick="toggleBonusWords()">
+        Deselect Bonus Words
+      </button>
+      <button id="toggle-all-btn" onclick="toggleSelectAll()">
+        Deselect All
+      </button>
     </div>
 
     <!-- Review Selection Pop-Up -->

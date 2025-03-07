@@ -99,7 +99,7 @@
         "english": "restaurant",
         "japanese": {
             "kanji": "レストラン",
-            "furigana": "れすとらん"
+            "furigana": ""
         },
         "image": "images/PD/town/restaurant.png"
     },
@@ -107,7 +107,7 @@
         "english": "supermarket",
         "japanese": {
             "kanji": "スーパー",
-            "furigana": "すーぱー"
+            "furigana": ""
         },
         "image": "images/PD/town/supermarket.png"
     },
@@ -155,7 +155,7 @@
         "english": "stadium",
         "japanese": {
             "kanji": "スタジアム",
-            "furigana": "すたじあむ"
+            "furigana": ""
         },
         "image": "images/PD/town/stadium.png"
     },
@@ -179,7 +179,7 @@
         "english": "convenience store",
         "japanese": {
             "kanji": "コンビニ",
-            "furigana": "こんびに"
+            "furigana": ""
         },
         "image": "images/PD/town/conveniencestore.png"
     },
@@ -203,7 +203,7 @@
         "english": "bus",
         "japanese": {
             "kanji": "バス",
-            "furigana": "ばす"
+            "furigana": ""
         },
         "image": "images/PD/town/bus.png"
     },
@@ -211,7 +211,7 @@
         "english": "taxi",
         "japanese": {
             "kanji": "タクシー",
-            "furigana": "たくしー"
+            "furigana": ""
         },
         "image": "images/PD/town/taxi.png"
     },
@@ -259,7 +259,7 @@
         "english": "hotel",
         "japanese": {
             "kanji": "ホテル",
-            "furigana": "ほてる"
+            "furigana": ""
         },
         "image": "images/PD/town/bonuswords/hotel.png"
     },
@@ -291,7 +291,7 @@
         "english": "department store",
         "japanese": {
             "kanji": "デパート",
-            "furigana": "でぱーと"
+            "furigana": ""
         },
         "image": "images/PD/town/bonuswords/departmentstore.png"
     },
@@ -299,7 +299,7 @@
         "english": "shopping mall",
         "japanese": {
             "kanji": "ショッピングモール",
-            "furigana": "しょっぴんぐもーる"
+            "furigana": ""
         },
         "image": "images/PD/town/bonuswords/shoppingmall.png"
     },
@@ -323,7 +323,7 @@
         "english": "gas station",
         "japanese": {
             "kanji": "ガソリンスタンド",
-            "furigana": "がそりんすたんど"
+            "furigana": ""
         },
         "image": "images/PD/town/bonuswords/gasstation.png"
     },
@@ -355,7 +355,7 @@
         "english": "dam",
         "japanese": {
             "kanji": "ダム",
-            "furigana": "だむ"
+            "furigana": ""
         },
         "image": "images/PD/town/bonuswords/dam.png"
     },
@@ -378,8 +378,8 @@
     {
         "english": "street",
         "japanese": {
-            "kanji": "通り",
-            "furigana": "とおり"
+            "kanji": "道",
+            "furigana": "みち"
         },
         "image": "images/PD/town/bonuswords/street.png"
     },
@@ -403,7 +403,7 @@
         "english": "truck",
         "japanese": {
             "kanji": "トラック",
-            "furigana": "とらっく"
+            "furigana": ""
         },
         "image": "images/PD/town/bonuswords/truck.png"
     },
@@ -411,7 +411,7 @@
         "english": "van",
         "japanese": {
             "kanji": "バン",
-            "furigana": "ばん"
+            "furigana": ""
         },
         "image": "images/PD/town/bonuswords/van.png"
     },
@@ -435,7 +435,7 @@
         "english": "boat",
         "japanese": {
             "kanji": "ボート",
-            "furigana": "ぼーと"
+            "furigana": ""
         },
         "image": "images/PD/town/bonuswords/boat.png"
     },
@@ -451,7 +451,7 @@
         "english": "yacht",
         "japanese": {
             "kanji": "ヨット",
-            "furigana": "よっと"
+            "furigana": ""
         },
         "image": "images/PD/town/bonuswords/yacht.png"
     }

@@ -59,7 +59,7 @@
         "english": "savanna",
         "japanese": {
             "kanji": "サバンナ",
-            "furigana": "さばんな"
+            "furigana": ""
         },
         "image": "images/PD/nature/savanna.png"
     },
@@ -75,7 +75,7 @@
         "english": "beach",
         "japanese": {
             "kanji": "ビーチ",
-            "furigana": "びーち"
+            "furigana": ""
         },
         "image": "images/PD/nature/beach.png"
     },
@@ -131,7 +131,7 @@
         "english": "rose",
         "japanese": {
             "kanji": "バラ",
-            "furigana": "ばら"
+            "furigana": ""
         },
         "image": "images/PD/nature/rose.png"
     },

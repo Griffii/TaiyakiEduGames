@@ -109,7 +109,7 @@
             "kanji": "12:00",
             "furigana": ""
         },
-        "image": "images/ES3/times/1200.png"
+        "image": "images/ES3/times/bonuswords/1200.png"
     },
     {
         "english": "twelve thirty",
@@ -117,7 +117,7 @@
             "kanji": "12:30",
             "furigana": ""
         },
-        "image": "images/ES3/times/1230.png"
+        "image": "images/ES3/times/bonuswords/1230.png"
     },
     {
         "english": "one o'clock",
@@ -125,7 +125,7 @@
             "kanji": "01:00",
             "furigana": ""
         },
-        "image": "images/ES3/times/0100.png"
+        "image": "images/ES3/times/bonuswords/0100.png"
     },
     {
         "english": "one thirty",
@@ -133,6 +133,6 @@
             "kanji": "01:30",
             "furigana": ""
         },
-        "image": "images/ES3/times/0130.png"
+        "image": "images/ES3/times/bonuswords/0130.png"
     }
 ]

@@ -221,7 +221,7 @@
             "kanji": "ボッチャ",
             "furigana": ""
         },
-        "image": "images/PD/sports/boccia.png"
+        "image": "images/PD/sports/bonuswords/boccia.png"
     },
     {
         "english": "fencing",
@@ -229,7 +229,7 @@
             "kanji": "フェンシング",
             "furigana": ""
         },
-        "image": "images/PD/sports/fencing.png"
+        "image": "images/PD/sports/bonuswords/fencing.png"
     },
     {
         "english": "figure skating",
@@ -237,7 +237,7 @@
             "kanji": "フィギュアスケート",
             "furigana": ""
         },
-        "image": "images/PD/sports/figureskating.png"
+        "image": "images/PD/sports/bonuswords/figureskating.png"
     },
     {
         "english": "ice hockey",
@@ -245,7 +245,7 @@
             "kanji": "アイスホッケー",
             "furigana": ""
         },
-        "image": "images/PD/sports/icehockey.png"
+        "image": "images/PD/sports/bonuswords/icehockey.png"
     },
     {
         "english": "road cycling",
@@ -253,7 +253,7 @@
             "kanji": "ロードサイクリング",
             "furigana": ""
         },
-        "image": "images/PD/sports/roadcycling.png"
+        "image": "images/PD/sports/bonuswords/roadcycling.png"
     },
     {
         "english": "sailing",
@@ -261,7 +261,7 @@
             "kanji": "セーリング",
             "furigana": ""
         },
-        "image": "images/PD/sports/sailing.png"
+        "image": "images/PD/sports/bonuswords/sailing.png"
     },
     {
         "english": "weight lifting",
@@ -269,7 +269,7 @@
             "kanji": "重量挙げ",
             "furigana": "じゅうりょうあげ"
         },
-        "image": "images/PD/sports/weightlifting.png"
+        "image": "images/PD/sports/bonuswords/weightlifting.png"
     },
     {
         "english": "wheelchair tennis",
@@ -277,6 +277,6 @@
             "kanji": "車いすテニス",
             "furigana": "くるまいすてにす"
         },
-        "image": "images/PD/sports/wheelchairtennis.png"
+        "image": "images/PD/sports/bonuswords/wheelchairtennis.png"
     }
 ]

@@ -3,7 +3,7 @@
         "english": "recorder",
         "japanese": {
             "kanji": "リコーダー",
-            "furigana": "りこーだー"
+            "furigana": ""
         },
         "image": "images/PD/instruments/recorder.png"
     },
@@ -11,7 +11,7 @@
         "english": "harmonica",
         "japanese": {
             "kanji": "ハーモニカ",
-            "furigana": "はーもにか"
+            "furigana": ""
         },
         "image": "images/PD/instruments/harmonica.png"
     },
@@ -19,7 +19,7 @@
         "english": "triangle",
         "japanese": {
             "kanji": "トライアングル",
-            "furigana": "とらいあんぐる"
+            "furigana": ""
         },
         "image": "images/PD/instruments/triangle.png"
     },
@@ -27,7 +27,7 @@
         "english": "piano",
         "japanese": {
             "kanji": "ピアノ",
-            "furigana": "ぴあの"
+            "furigana": ""
         },
         "image": "images/PD/instruments/piano.png"
     },
@@ -35,7 +35,7 @@
         "english": "guitar",
         "japanese": {
             "kanji": "ギター",
-            "furigana": "ぎたー"
+            "furigana": ""
         },
         "image": "images/PD/instruments/guitar.png"
     },
@@ -43,7 +43,7 @@
         "english": "violin",
         "japanese": {
             "kanji": "バイオリン",
-            "furigana": "ばいおりん"
+            "furigana": ""
         },
         "image": "images/PD/instruments/violin.png"
     },
@@ -51,7 +51,7 @@
         "english": "drum",
         "japanese": {
             "kanji": "ドラム",
-            "furigana": "どらむ"
+            "furigana": ""
         },
         "image": "images/PD/instruments/drum.png"
     },

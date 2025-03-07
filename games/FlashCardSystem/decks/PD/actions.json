@@ -130,8 +130,8 @@
     {
         "english": "turn",
         "japanese": {
-            "kanji": "回る",
-            "furigana": "まわる"
+            "kanji": "曲がる",
+            "furigana": "まがる"
         },
         "image": "images/PD/actions/turn.png"
     },
@@ -347,7 +347,7 @@
         "english": "chat",
         "japanese": {
             "kanji": "おしゃべりする",
-            "furigana": "おしゃべりする"
+            "furigana": ""
         },
         "image": "images/PD/actions/bonuswords/chat.png"
     },

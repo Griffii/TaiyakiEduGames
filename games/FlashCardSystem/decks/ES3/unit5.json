@@ -85,7 +85,7 @@
             "kanji": "灰色",
             "furigana": "はいいろ"
         },
-        "image": "images/ES3/colors/gray.png"
+        "image": "images/ES3/colors/bonuswords/gray.png"
     },
     {
         "english": "food",
@@ -192,6 +192,14 @@
         "image": "images/ES3/food/strawberry.png"
     },
     {
+        "english": "dodgeball",
+        "japanese": {
+            "kanji": "ドッジボール",
+            "furigana": ""
+        },
+        "image": "images/ES3/sports/playdodgeball.png"
+    },
+    {
         "english": "baseball",
         "japanese": {
             "kanji": "野球",
@@ -245,7 +253,7 @@
             "kanji": "フットボール",
             "furigana": ""
         },
-        "image": "images/monkeyandbanana/football.png"
+        "image": "images/monkeyandbanana/bonuswords/football.png"
     },
     {
         "english": "golf",
@@ -253,7 +261,7 @@
             "kanji": "ゴルフ",
             "furigana": ""
         },
-        "image": "images/monkeyandbanana/golf.png"
+        "image": "images/monkeyandbanana/bonuswords/golf.png"
     },
     {
         "english": "skiing",
@@ -261,7 +269,7 @@
             "kanji": "スキー",
             "furigana": ""
         },
-        "image": "images/monkeyandbanana/skiing.png"
+        "image": "images/monkeyandbanana/bonuswords/skiing.png"
     },
     {
         "english": "snowboarding",
@@ -269,7 +277,7 @@
             "kanji": "スノーボード",
             "furigana": ""
         },
-        "image": "images/monkeyandbanana/snowboarding.png"
+        "image": "images/monkeyandbanana/bonuswords/snowboarding.png"
     },
     {
         "english": "boxing",
@@ -277,7 +285,7 @@
             "kanji": "ボクシング",
             "furigana": ""
         },
-        "image": "images/monkeyandbanana/boxing.png"
+        "image": "images/monkeyandbanana/bonuswords/boxing.png"
     },
     {
         "english": "hockey",
@@ -285,14 +293,6 @@
             "kanji": "ホッケー",
             "furigana": ""
         },
-        "image": "images/monkeyandbanana/hockey.png"
-    },
-    {
-        "english": "dodgeball",
-        "japanese": {
-            "kanji": "ドッジボール",
-            "furigana": ""
-        },
-        "image": "images/ES3/sports/playdodgeball.png"
+        "image": "images/monkeyandbanana/bonuswords/hockey.png"
     }
 ]

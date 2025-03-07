@@ -35,7 +35,7 @@
         "english": "Children's Day",
         "japanese": {
             "kanji": "こどもの日",
-            "furigana": "こどものひ"
+            "furigana": ""
         },
         "image": "images/PD/holidays/childrensday.png"
     },
@@ -59,7 +59,7 @@
         "english": "Halloween",
         "japanese": {
             "kanji": "ハロウィン",
-            "furigana": "はろうぃん"
+            "furigana": ""
         },
         "image": "images/PD/holidays/halloween.png"
     },
@@ -67,7 +67,7 @@
         "english": "Christmas",
         "japanese": {
             "kanji": "クリスマス",
-            "furigana": "くりすます"
+            "furigana": ""
         },
         "image": "images/PD/holidays/christmas.png"
     },
@@ -91,7 +91,7 @@
         "english": "April Fool's Day",
         "japanese": {
             "kanji": "エイプリルフール",
-            "furigana": "えいぷりるふーる"
+            "furigana": ""
         },
         "image": "images/PD/holidays/aprilfoolsday.png"
     }

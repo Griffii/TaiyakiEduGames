@@ -2,32 +2,32 @@
     {
         "english": "by",
         "japanese": {
-            "kanji": "そばに",
-            "furigana": "そばに"
+            "kanji": "そば",
+            "furigana": ""
         },
         "image": "images/PD/positions/by.png"
     },
     {
         "english": "in",
         "japanese": {
-            "kanji": "中に",
-            "furigana": "なかに"
+            "kanji": "中",
+            "furigana": "なか"
         },
         "image": "images/PD/positions/in.png"
     },
     {
         "english": "on",
         "japanese": {
-            "kanji": "上に",
-            "furigana": "うえに"
+            "kanji": "上",
+            "furigana": "うえ"
         },
         "image": "images/PD/positions/on.png"
     },
     {
         "english": "under",
         "japanese": {
-            "kanji": "下に",
-            "furigana": "したに"
+            "kanji": "下",
+            "furigana": "した"
         },
         "image": "images/PD/positions/under.png"
     }

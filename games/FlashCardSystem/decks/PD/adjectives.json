@@ -67,7 +67,7 @@
         "english": "cool",
         "japanese": {
             "kanji": "かっこいい",
-            "furigana": "かっこいい"
+            "furigana": ""
         },
         "image": "images/PD/adjectives/cool.png"
     },
@@ -75,7 +75,7 @@
         "english": "cute",
         "japanese": {
             "kanji": "かわいい",
-            "furigana": "かわいい"
+            "furigana": ""
         },
         "image": "images/PD/adjectives/cute.png"
     },
@@ -99,7 +99,7 @@
         "english": "exciting",
         "japanese": {
             "kanji": "わくわくする",
-            "furigana": "わくわくする"
+            "furigana": ""
         },
         "image": "images/PD/adjectives/exciting.png"
     },
@@ -123,7 +123,7 @@
         "english": "colorful",
         "japanese": {
             "kanji": "カラフル",
-            "furigana": "からふる"
+            "furigana": ""
         },
         "image": "images/PD/adjectives/colorful.png"
     },

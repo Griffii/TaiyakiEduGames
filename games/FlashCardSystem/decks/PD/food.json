@@ -214,5 +214,85 @@
             "furigana": "てんぷら"
         },
         "image": "images/PD/food/tempura.png"
+    },
+    {
+        "english": "cereal",
+        "japanese": {
+            "kanji": "シリアル",
+            "furigana": ""
+        },
+        "image": "images/PD/food/bonuswords/cereal.png"
+    },
+    {
+        "english": "cheese fondue",
+        "japanese": {
+            "kanji": "チーズフォンデュ",
+            "furigana": ""
+        },
+        "image": "images/PD/food/bonuswords/cheesefondue.png"
+    },
+    {
+        "english": "fried egg",
+        "japanese": {
+            "kanji": "目玉焼き",
+            "furigana": "めだまやき"
+        },
+        "image": "images/PD/food/bonuswords/friedegg.png"
+    },
+    {
+        "english": "jam",
+        "japanese": {
+            "kanji": "ジャム",
+            "furigana": ""
+        },
+        "image": "images/PD/food/bonuswords/jam.png"
+    },
+    {
+        "english": "miso soup",
+        "japanese": {
+            "kanji": "味噌汁",
+            "furigana": "みそしる"
+        },
+        "image": "images/PD/food/bonuswords/misosoup.png"
+    },
+    {
+        "english": "toast",
+        "japanese": {
+            "kanji": "トースト",
+            "furigana": ""
+        },
+        "image": "images/PD/food/bonuswords/toast.png"
+    },
+    {
+        "english": "tuna bowl",
+        "japanese": {
+            "kanji": "まぐろ丼",
+            "furigana": "まぐろどん"
+        },
+        "image": "images/PD/food/bonuswords/tunabowl.png"
+    },
+    {
+        "english": "yogurt",
+        "japanese": {
+            "kanji": "ヨーグルト",
+            "furigana": ""
+        },
+        "image": "images/PD/food/bonuswords/yogurt.png"
+    },
+    {
+        "english": "gyoza",
+        "japanese": {
+            "kanji": "餃子",
+            "furigana": "ぎょうざ"
+        },
+        "image": "images/PD/food/bonuswords/gyoza.png"
+    },
+    {
+        "english": "okonomiyaki",
+        "japanese": {
+            "kanji": "お好み焼き",
+            "furigana": "おこのみやき"
+        },
+        "image": "images/PD/food/bonuswords/okonomiyaki.png"
     }
 ]

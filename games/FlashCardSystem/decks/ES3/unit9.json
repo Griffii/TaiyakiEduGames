@@ -269,7 +269,7 @@
             "kanji": "丸い",
             "furigana": "まるい"
         },
-        "image": "images/ES3/descriptors/round.png"
+        "image": "images/ES3/descriptors/bonuswords/round.png"
     },
     {
         "english": "furry",
@@ -277,7 +277,7 @@
             "kanji": "毛だらけ",
             "furigana": "けだらけ"
         },
-        "image": "images/ES3/descriptors/furry.png"
+        "image": "images/ES3/descriptors/bonuswords/furry.png"
     },
     {
         "english": "cute",
@@ -285,7 +285,7 @@
             "kanji": "可愛い",
             "furigana": "かわいい"
         },
-        "image": "images/ES3/descriptors/cute.png"
+        "image": "images/ES3/descriptors/bonuswords/cute.png"
     },
     {
         "english": "scary",
@@ -293,7 +293,7 @@
             "kanji": "怖い",
             "furigana": "こわい"
         },
-        "image": "images/ES3/descriptors/scary.png"
+        "image": "images/ES3/descriptors/bonuswords/scary.png"
     },
     {
         "english": "shiny",
@@ -301,6 +301,6 @@
             "kanji": "光る",
             "furigana": "ひかる"
         },
-        "image": "images/ES3/descriptors/shiny.png"
+        "image": "images/ES3/descriptors/bonuswords/shiny.png"
     }
 ]

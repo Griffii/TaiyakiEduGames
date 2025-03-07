@@ -130,8 +130,8 @@
     {
         "english": "turn",
         "japanese": {
-            "kanji": "回る",
-            "furigana": "まわる"
+            "kanji": "曲がる",
+            "furigana": "まがる"
         },
         "image": "images/PD/actions/turn.png"
     },

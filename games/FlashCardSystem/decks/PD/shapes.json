@@ -43,7 +43,7 @@
       "english": "rectangle",
       "japanese": {
           "kanji": "長方形",
-          "furigana": "ちょうほう"
+          "furigana": "ちょうほうけい"
       },
       "image": "images/ES3/shapes/rectangle.png"
   },
@@ -58,8 +58,8 @@
   {
       "english": "star",
       "japanese": {
-          "kanji": "星",
-          "furigana": "ほし"
+          "kanji": "星形",
+          "furigana": "ほしがた"
       },
       "image": "images/ES3/shapes/star.png"
   },
@@ -77,6 +77,22 @@
           "kanji": "楕円形",
           "furigana": "だえん"
       },
-      "image": "images/ES3/shapes/oval.png"
+      "image": "images/ES3/shapes/bonuswords/oval.png"
+  },
+  {
+      "english": "moon",
+      "japanese": {
+          "kanji": "三日月",
+          "furigana": "みかづき"
+      },
+      "image": "images/ES3/shapes/bonuswords/moon.png"
+  },
+  {
+      "english": "line",
+      "japanese": {
+          "kanji": "線",
+          "furigana": "せん"
+      },
+      "image": "images/ES3/shapes/bonuswords/line.png"
   }
 ]

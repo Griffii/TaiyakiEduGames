@@ -74,8 +74,8 @@
     {
         "english": "humid",
         "japanese": {
-            "kanji": "湿気が多い",
-            "furigana": "しっけがおおい"
+            "kanji": "蒸し暑い",
+            "furigana": "むしあつい"
         },
         "image": "images/PD/weather/humid.png"
     }

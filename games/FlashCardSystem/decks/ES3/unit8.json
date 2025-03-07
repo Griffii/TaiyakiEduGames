@@ -109,7 +109,7 @@
             "kanji": "海",
             "furigana": "うみ"
         },
-        "image": "images/ES3/nature/sea.png"
+        "image": "images/ES3/animals/bonuswords/sea.png"
     },
     {
         "english": "nest",
@@ -117,7 +117,7 @@
             "kanji": "巣",
             "furigana": "す"
         },
-        "image": "images/ES3/nature/nest.png"
+        "image": "images/ES3/animals/bonuswords/nest.png"
     },
     {
         "english": "tree",
@@ -125,7 +125,7 @@
             "kanji": "木",
             "furigana": "き"
         },
-        "image": "images/ES3/nature/tree.png"
+        "image": "images/ES3/animals/bonuswords/tree.png"
     },
     {
         "english": "footprints",
@@ -133,6 +133,6 @@
             "kanji": "足跡",
             "furigana": "あしあと"
         },
-        "image": "images/ES3/nature/footprints.png"
+        "image": "images/ES3/animals/bonuswords/footprints.png"
     }
 ]

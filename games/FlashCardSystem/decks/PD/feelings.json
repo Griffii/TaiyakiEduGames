@@ -93,7 +93,7 @@
             "kanji": "病気",
             "furigana": "びょうき"
         },
-        "image": "images/PD/feelings/sick.png"
+        "image": "images/PD/feelings/bonuswords/sick.png"
     },
     {
         "english": "full",
@@ -101,7 +101,7 @@
             "kanji": "満腹",
             "furigana": "まんぷく"
         },
-        "image": "images/PD/feelings/full.png"
+        "image": "images/PD/feelings/bonuswords/full.png"
     },
     {
         "english": "angry",
@@ -109,6 +109,6 @@
             "kanji": "怒っている",
             "furigana": "おこっている"
         },
-        "image": "images/PD/feelings/angry.png"
+        "image": "images/PD/feelings/bonuswords/angry.png"
     }
 ]

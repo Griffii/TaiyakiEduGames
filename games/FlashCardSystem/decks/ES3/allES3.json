@@ -245,7 +245,7 @@
       "kanji": "灰色",
       "furigana": "はいいろ"
     },
-    "image": "images/ES3/colors/gray.png"
+    "image": "images/ES3/colors/bonuswords/gray.png"
   },
   {
     "english": "food",
@@ -352,6 +352,14 @@
     "image": "images/ES3/food/strawberry.png"
   },
   {
+    "english": "dodgeball",
+    "japanese": {
+      "kanji": "ドッジボール",
+      "furigana": ""
+    },
+    "image": "images/ES3/sports/playdodgeball.png"
+  },
+  {
     "english": "baseball",
     "japanese": {
       "kanji": "野球",
@@ -405,7 +413,7 @@
       "kanji": "フットボール",
       "furigana": ""
     },
-    "image": "images/monkeyandbanana/football.png"
+    "image": "images/monkeyandbanana/bonuswords/football.png"
   },
   {
     "english": "golf",
@@ -413,7 +421,7 @@
       "kanji": "ゴルフ",
       "furigana": ""
     },
-    "image": "images/monkeyandbanana/golf.png"
+    "image": "images/monkeyandbanana/bonuswords/golf.png"
   },
   {
     "english": "skiing",
@@ -421,7 +429,7 @@
       "kanji": "スキー",
       "furigana": ""
     },
-    "image": "images/monkeyandbanana/skiing.png"
+    "image": "images/monkeyandbanana/bonuswords/skiing.png"
   },
   {
     "english": "snowboarding",
@@ -429,7 +437,7 @@
       "kanji": "スノーボード",
       "furigana": ""
     },
-    "image": "images/monkeyandbanana/snowboarding.png"
+    "image": "images/monkeyandbanana/bonuswords/snowboarding.png"
   },
   {
     "english": "boxing",
@@ -437,7 +445,7 @@
       "kanji": "ボクシング",
       "furigana": ""
     },
-    "image": "images/monkeyandbanana/boxing.png"
+    "image": "images/monkeyandbanana/bonuswords/boxing.png"
   },
   {
     "english": "hockey",
@@ -445,15 +453,15 @@
       "kanji": "ホッケー",
       "furigana": ""
     },
-    "image": "images/monkeyandbanana/hockey.png"
+    "image": "images/monkeyandbanana/bonuswords/hockey.png"
   },
   {
-    "english": "dodgeball",
+    "english": "shapes",
     "japanese": {
-      "kanji": "ドッジボール",
-      "furigana": ""
+      "kanji": "形",
+      "furigana": "かたち"
     },
-    "image": "images/ES3/sports/playdodgeball.png"
+    "image": "images/ES3/shapes/shapes.png"
   },
   {
     "english": "circle",
@@ -504,14 +512,6 @@
     "image": "images/ES3/shapes/heart.png"
   },
   {
-    "english": "moon",
-    "japanese": {
-      "kanji": "三日月",
-      "furigana": "みかづき"
-    },
-    "image": "images/ES3/shapes/moon.png"
-  },
-  {
     "english": "diamond",
     "japanese": {
       "kanji": "菱形",
@@ -520,44 +520,20 @@
     "image": "images/ES3/shapes/diamond.png"
   },
   {
+    "english": "moon",
+    "japanese": {
+      "kanji": "三日月",
+      "furigana": "みかづき"
+    },
+    "image": "images/ES3/shapes/bonuswords/moon.png"
+  },
+  {
     "english": "line",
     "japanese": {
       "kanji": "線",
       "furigana": "せん"
     },
-    "image": "images/ES3/shapes/line.png"
-  },
-  {
-    "english": "sea",
-    "japanese": {
-      "kanji": "海",
-      "furigana": "うみ"
-    },
-    "image": "images/ES3/nature/sea.png"
-  },
-  {
-    "english": "nest",
-    "japanese": {
-      "kanji": "巣",
-      "furigana": "す"
-    },
-    "image": "images/ES3/nature/nest.png"
-  },
-  {
-    "english": "tree",
-    "japanese": {
-      "kanji": "木",
-      "furigana": "き"
-    },
-    "image": "images/ES3/nature/tree.png"
-  },
-  {
-    "english": "footprints",
-    "japanese": {
-      "kanji": "足跡",
-      "furigana": "あしあと"
-    },
-    "image": "images/ES3/nature/footprints.png"
+    "image": "images/ES3/shapes/bonuswords/line.png"
   },
   {
     "english": "animals",
@@ -728,6 +704,38 @@
     "image": "images/ES3/animals/boar.png"
   },
   {
+    "english": "sea",
+    "japanese": {
+      "kanji": "海",
+      "furigana": "うみ"
+    },
+    "image": "images/ES3/animals/bonuswords/sea.png"
+  },
+  {
+    "english": "nest",
+    "japanese": {
+      "kanji": "巣",
+      "furigana": "す"
+    },
+    "image": "images/ES3/animals/bonuswords/nest.png"
+  },
+  {
+    "english": "tree",
+    "japanese": {
+      "kanji": "木",
+      "furigana": "き"
+    },
+    "image": "images/ES3/animals/bonuswords/tree.png"
+  },
+  {
+    "english": "footprints",
+    "japanese": {
+      "kanji": "足跡",
+      "furigana": "あしあと"
+    },
+    "image": "images/ES3/animals/bonuswords/footprints.png"
+  },
+  {
     "english": "ear",
     "japanese": {
       "kanji": "耳",
@@ -830,7 +838,7 @@
       "kanji": "丸い",
       "furigana": "まるい"
     },
-    "image": "images/ES3/descriptors/round.png"
+    "image": "images/ES3/descriptors/bonuswords/round.png"
   },
   {
     "english": "furry",
@@ -838,15 +846,15 @@
       "kanji": "毛だらけ",
       "furigana": "けだらけ"
     },
-    "image": "images/ES3/descriptors/furry.png"
+    "image": "images/ES3/descriptors/bonuswords/furry.png"
   },
   {
     "english": "cute",
     "japanese": {
-        "kanji": "可愛い",
-        "furigana": "かわいい"
+      "kanji": "可愛い",
+      "furigana": "かわいい"
     },
-    "image": "images/ES3/descriptors/cute.png"
+    "image": "images/ES3/descriptors/bonuswords/cute.png"
   },
   {
     "english": "scary",
@@ -854,7 +862,7 @@
       "kanji": "怖い",
       "furigana": "こわい"
     },
-    "image": "images/ES3/descriptors/scary.png"
+    "image": "images/ES3/descriptors/bonuswords/scary.png"
   },
   {
     "english": "shiny",
@@ -862,7 +870,7 @@
       "kanji": "光る",
       "furigana": "ひかる"
     },
-    "image": "images/ES3/descriptors/shiny.png"
+    "image": "images/ES3/descriptors/bonuswords/shiny.png"
   },
 
   {

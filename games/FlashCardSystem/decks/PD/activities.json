@@ -27,7 +27,7 @@
         "english": "hiking",
         "japanese": {
             "kanji": "ハイキング",
-            "furigana": "はいきんぐ"
+            "furigana": ""
         },
         "image": "images/PD/activities/hiking.png"
     },
@@ -59,7 +59,7 @@
         "english": "jogging",
         "japanese": {
             "kanji": "ジョギング",
-            "furigana": "じょぎんぐ"
+            "furigana": ""
         },
         "image": "images/PD/activities/jogging.png"
     },
@@ -67,7 +67,7 @@
         "english": "skateboarding",
         "japanese": {
             "kanji": "スケートボード",
-            "furigana": "すけーとぼーど"
+            "furigana": ""
         },
         "image": "images/PD/sports/skateboarding.png"
     },
@@ -75,7 +75,7 @@
         "english": "swinging",
         "japanese": {
             "kanji": "ブランコ",
-            "furigana": "ぶらんこ"
+            "furigana": ""
         },
         "image": "images/PD/activities/swinging.png"
     },
@@ -91,7 +91,7 @@
         "english": "playing video games",
         "japanese": {
             "kanji": "テレビゲームをする",
-            "furigana": "てれびげーむをする"
+            "furigana": ""
         },
         "image": "images/PD/activities/playingvideogames.png"
     },
@@ -107,7 +107,7 @@
         "english": "cards",
         "japanese": {
             "kanji": "トランプ",
-            "furigana": "とらんぷ"
+            "furigana": ""
         },
         "image": "images/PD/activities/cards.png"
     },
@@ -131,7 +131,7 @@
         "english": "hide-and-seek",
         "japanese": {
             "kanji": "かくれんぼ",
-            "furigana": "かくれんぼ"
+            "furigana": ""
         },
         "image": "images/PD/activities/hide-and-seek.png"
     },
@@ -139,7 +139,7 @@
         "english": "rock-paper-scissors",
         "japanese": {
             "kanji": "じゃんけん",
-            "furigana": "じゃんけん"
+            "furigana": ""
         },
         "image": "images/PD/activities/rock-paper-scissors.png"
     },
@@ -171,7 +171,7 @@
         "english": "playing dodge ball",
         "japanese": {
             "kanji": "ドッジボール",
-            "furigana": "どっじぼーる"
+            "furigana": ""
         },
         "image": "images/PD/activities/playingdodgeball.png"
     },
