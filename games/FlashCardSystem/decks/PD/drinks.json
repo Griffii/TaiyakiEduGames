@@ -62,5 +62,29 @@
             "furigana": ""
         },
         "image": "images/PD/drinks/mineralwater.png"
+    },
+    {
+        "english": "cola",
+        "japanese": {
+            "kanji": "コーラ",
+            "furigana": "こーら"
+        },
+        "image": "images/PD/drinks/bonuswords/cola.png"
+    },
+    {
+        "english": "oolong",
+        "japanese": {
+            "kanji": "ウーロン茶",
+            "furigana": "うーろんちゃ"
+        },
+        "image": "images/PD/drinks/bonuswords/oolong.png"
+    },
+    {
+        "english": "barley tea",
+        "japanese": {
+            "kanji": "麦茶",
+            "furigana": "むぎちゃ"
+        },
+        "image": "images/PD/drinks/bonuswords/barleytea.png"
     }
 ]

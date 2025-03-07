@@ -109,7 +109,7 @@
             "kanji": "エプロン",
             "furigana": ""
         },
-        "image": "images/PD/clothing/apron.png"
+        "image": "images/PD/clothing/bonuswords/apron.png"
     },
     {
         "english": "coat",
@@ -117,7 +117,7 @@
             "kanji": "コート",
             "furigana": ""
         },
-        "image": "images/PD/clothing/coat.png"
+        "image": "images/PD/clothing/bonuswords/coat.png"
     },
     {
         "english": "jacket",
@@ -125,7 +125,7 @@
             "kanji": "ジャケット",
             "furigana": ""
         },
-        "image": "images/PD/clothing/jacket.png"
+        "image": "images/PD/clothing/bonuswords/jacket.png"
     },
     {
         "english": "vest",
@@ -133,7 +133,7 @@
             "kanji": "ベスト",
             "furigana": ""
         },
-        "image": "images/PD/clothing/vest.png"
+        "image": "images/PD/clothing/bonuswords/vest.png"
     },
     {
         "english": "skirt",
@@ -141,7 +141,7 @@
             "kanji": "スカート",
             "furigana": ""
         },
-        "image": "images/PD/clothing/skirt.png"
+        "image": "images/PD/clothing/bonuswords/skirt.png"
     },
     {
         "english": "boots",
@@ -149,7 +149,7 @@
             "kanji": "ブーツ",
             "furigana": ""
         },
-        "image": "images/PD/clothing/boots.png"
+        "image": "images/PD/clothing/bonuswords/boots.png"
     },
     {
         "english": "glasses",
@@ -157,7 +157,7 @@
             "kanji": "眼鏡",
             "furigana": "めがね"
         },
-        "image": "images/PD/clothing/glasses.png"
+        "image": "images/PD/clothing/bonuswords/glasses.png"
     },
     {
         "english": "ribbon",
@@ -165,6 +165,6 @@
             "kanji": "リボン",
             "furigana": ""
         },
-        "image": "images/PD/clothing/ribbon.png"
+        "image": "images/PD/clothing/bonuswords/ribbon.png"
     }
 ]

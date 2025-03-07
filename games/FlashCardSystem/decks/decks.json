@@ -80,7 +80,7 @@
             "運作など（全部）": { "path": "decks/PD/actions.json", "image": "images/PD/actions/jump.png" },
             "したこと": { "path": "decks/PD/pasttense.json", "image": "images/PD/pasttense/went.png" },
             "頻度": { "path": "decks/PD/frequency.json", "image": "images/PD/frequency/usually.png" },
-            "一日の生活": { "path": "decks/PD/dailyactivities.json", "image": "images/PD/dailyactivities/playwithmyfriends.png" },
+            "一日の生活": { "path": "decks/PD/dailyactivities.json", "image": "images/PD/dailyactivities/bonuswords/playwithmyfriends.png" },
             "衣類": { "path": "decks/PD/clothing.json", "image": "images/PD/clothing/sweater.png" },
             "からだ": { "path": "decks/PD/body.json", "image": "images/ES3/bodyparts/face.png" },
             "町": { "path": "decks/PD/town.json", "image": "images/PD/town/hospital.png" },

@@ -85,7 +85,7 @@
             "kanji": "灰色",
             "furigana": "はいいろ"
         },
-        "image": "images/ES3/colors/gray.png"
+        "image": "images/ES3/colors/bonuswords/gray.png"
     },
     {
         "english": "silver",
@@ -93,7 +93,7 @@
             "kanji": "銀",
             "furigana": "ぎん"
         },
-        "image": "images/ES3/colors/silver.png"
+        "image": "images/ES3/colors/bonuswords/silver.png"
     },
     {
         "english": "gold",
@@ -101,6 +101,6 @@
             "kanji": "金",
             "furigana": "きん"
         },
-        "image": "images/ES3/colors/gold.png"
+        "image": "images/ES3/colors/bonuswords/gold.png"
     }
 ]

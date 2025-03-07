@@ -85,7 +85,7 @@
             "kanji": "狩猟",
             "furigana": "しゅりょう"
         },
-        "image": "images/PD/fortheenvironment/hunting.png"
+        "image": "images/PD/fortheenvironment/bonuswords/hunting.png"
     },
     {
         "english": "over fishing",
@@ -93,7 +93,7 @@
             "kanji": "乱獲",
             "furigana": "らんかく"
         },
-        "image": "images/PD/fortheenvironment/overfishing.png"
+        "image": "images/PD/fortheenvironment/bonuswords/overfishing.png"
     },
     {
         "english": "air pollution",
@@ -101,7 +101,7 @@
             "kanji": "大気汚染",
             "furigana": "たいきおせん"
         },
-        "image": "images/PD/fortheenvironment/airpollution.png"
+        "image": "images/PD/fortheenvironment/bonuswords/airpollution.png"
     },
     {
         "english": "chemicals",
@@ -109,7 +109,7 @@
             "kanji": "化学物質",
             "furigana": "かがくぶっしつ"
         },
-        "image": "images/PD/fortheenvironment/chemicals.png"
+        "image": "images/PD/fortheenvironment/bonuswords/chemicals.png"
     },
     {
         "english": "traffic accidents",
@@ -117,6 +117,6 @@
             "kanji": "交通事故",
             "furigana": "こうつうじこ"
         },
-        "image": "images/PD/fortheenvironment/trafficaccidents.png"
+        "image": "images/PD/fortheenvironment/bonuswords/trafficaccidents.png"
     }
 ]

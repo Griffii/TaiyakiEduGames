@@ -78,5 +78,29 @@
             "furigana": "あつい"
         },
         "image": "images/PD/flavors/hot.png"
+    },
+    {
+        "english": "good",
+        "japanese": {
+            "kanji": "良い",
+            "furigana": "よい"
+        },
+        "image": "images/PD/flavors/bonuswords/good.png"
+    },
+    {
+        "english": "great",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/flavors/bonuswords/great.png"
+    },
+    {
+        "english": "bad",
+        "japanese": {
+            "kanji": "悪い",
+            "furigana": "わるい"
+        },
+        "image": "images/PD/flavors/bonuswords/bad.png"
     }
 ]

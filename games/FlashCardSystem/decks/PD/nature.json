@@ -74,10 +74,10 @@
     {
         "english": "beach",
         "japanese": {
-            "kanji": "ビーチ",
-            "furigana": ""
+            "kanji": "海岸",
+            "furigana": "かいがん"
         },
-        "image": "images/PD/nature/beach.png"
+        "image": "images/PD/nature/bonuswords/beach.png"
     },
     {
         "english": "hot spring",
@@ -85,7 +85,7 @@
             "kanji": "温泉",
             "furigana": "おんせん"
         },
-        "image": "images/PD/nature/hotspring.png"
+        "image": "images/PD/nature/bonuswords/hotspring.png"
     },
     {
         "english": "island",
@@ -93,7 +93,23 @@
             "kanji": "島",
             "furigana": "しま"
         },
-        "image": "images/PD/nature/island.png"
+        "image": "images/PD/nature/bonuswords/island.png"
+    },
+    {
+        "english": "ocean",
+        "japanese": {
+            "kanji": "海",
+            "furigana": "うみ"
+        },
+        "image": "images/PD/nature/bonuswords/ocean.png"
+    },
+    {
+        "english": "pond",
+        "japanese": {
+            "kanji": "池",
+            "furigana": "いけ"
+        },
+        "image": "images/PD/nature/bonuswords/pond.png"
     },
     {
         "english": "waterfall",
@@ -101,7 +117,7 @@
             "kanji": "滝",
             "furigana": "たき"
         },
-        "image": "images/PD/nature/waterfall.png"
+        "image": "images/PD/nature/bonuswords/waterfall.png"
     },
     {
         "english": "tree",
@@ -109,7 +125,7 @@
             "kanji": "木",
             "furigana": "き"
         },
-        "image": "images/PD/nature/tree.png"
+        "image": "images/PD/nature/bonuswords/tree.png"
     },
     {
         "english": "plant",
@@ -117,7 +133,7 @@
             "kanji": "植物",
             "furigana": "しょくぶつ"
         },
-        "image": "images/PD/nature/plant.png"
+        "image": "images/PD/nature/bonuswords/plant.png"
     },
     {
         "english": "flower",
@@ -125,7 +141,7 @@
             "kanji": "花",
             "furigana": "はな"
         },
-        "image": "images/PD/nature/flower.png"
+        "image": "images/PD/nature/bonuswords/flower.png"
     },
     {
         "english": "rose",
@@ -133,7 +149,7 @@
             "kanji": "バラ",
             "furigana": ""
         },
-        "image": "images/PD/nature/rose.png"
+        "image": "images/PD/nature/bonuswords/rose.png"
     },
     {
         "english": "fire",
@@ -141,7 +157,7 @@
             "kanji": "火",
             "furigana": "ひ"
         },
-        "image": "images/PD/nature/fire.png"
+        "image": "images/PD/nature/bonuswords/fire.png"
     },
     {
         "english": "ice",
@@ -149,6 +165,102 @@
             "kanji": "氷",
             "furigana": "こおり"
         },
-        "image": "images/PD/nature/ice.png"
+        "image": "images/PD/nature/bonuswords/ice.png"
+    },
+    {
+        "english": "rock",
+        "japanese": {
+            "kanji": "岩",
+            "furigana": "いわ"
+        },
+        "image": "images/PD/nature/bonuswords/rock.png"
+    },
+    {
+        "english": "sky",
+        "japanese": {
+            "kanji": "空",
+            "furigana": "そら"
+        },
+        "image": "images/PD/nature/bonuswords/sky.png"
+    },
+    {
+        "english": "cloud",
+        "japanese": {
+            "kanji": "雲",
+            "furigana": "くも"
+        },
+        "image": "images/PD/nature/bonuswords/cloud.png"
+    },
+    {
+        "english": "rain",
+        "japanese": {
+            "kanji": "雨",
+            "furigana": "あめ"
+        },
+        "image": "images/PD/nature/bonuswords/rain.png"
+    },
+    {
+        "english": "snow",
+        "japanese": {
+            "kanji": "雪",
+            "furigana": "ゆき"
+        },
+        "image": "images/PD/nature/bonuswords/snow.png"
+    },
+    {
+        "english": "rainbow",
+        "japanese": {
+            "kanji": "虹",
+            "furigana": "にじ"
+        },
+        "image": "images/PD/nature/bonuswords/rainbow.png"
+    },
+    {
+        "english": "thunder",
+        "japanese": {
+            "kanji": "雷",
+            "furigana": "かみなり"
+        },
+        "image": "images/PD/nature/bonuswords/thunder.png"
+    },
+    {
+        "english": "aurora",
+        "japanese": {
+            "kanji": "オーロラ",
+            "furigana": ""
+        },
+        "image": "images/PD/nature/bonuswords/aurora.png"
+    },
+    {
+        "english": "sun",
+        "japanese": {
+            "kanji": "太陽",
+            "furigana": "たいよう"
+        },
+        "image": "images/PD/nature/bonuswords/sun.png"
+    },
+    {
+        "english": "moon",
+        "japanese": {
+            "kanji": "月",
+            "furigana": "つき"
+        },
+        "image": "images/PD/nature/bonuswords/moon.png"
+    },
+    {
+        "english": "star",
+        "japanese": {
+            "kanji": "星",
+            "furigana": "ほし"
+        },
+        "image": "images/PD/nature/bonuswords/star.png"
+    },
+    {
+        "english": "space",
+        "japanese": {
+            "kanji": "宇宙",
+            "furigana": "うちゅう"
+        },
+        "image": "images/PD/nature/bonuswords/space.png"
     }
 ]

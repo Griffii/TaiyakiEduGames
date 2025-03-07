@@ -133,7 +133,7 @@
             "kanji": "舌",
             "furigana": "した"
         },
-        "image": "images/ES3/bodyparts/tongue.png"
+        "image": "images/ES3/bodyparts/bonuswords/tongue.png"
     },
     {
         "english": "elbow",
@@ -141,7 +141,7 @@
             "kanji": "肘",
             "furigana": "ひじ"
         },
-        "image": "images/ES3/bodyparts/elbow.png"
+        "image": "images/ES3/bodyparts/bonuswords/elbow.png"
     },
     {
         "english": "thumb",
@@ -149,7 +149,7 @@
             "kanji": "親指",
             "furigana": "おやゆび"
         },
-        "image": "images/ES3/bodyparts/thumb.png"
+        "image": "images/ES3/bodyparts/bonuswords/thumb.png"
     },
     {
         "english": "nails",
@@ -157,6 +157,6 @@
             "kanji": "爪",
             "furigana": "つめ"
         },
-        "image": "images/ES3/bodyparts/nails.png"
+        "image": "images/ES3/bodyparts/bonuswords/nails.png"
     }
 ]

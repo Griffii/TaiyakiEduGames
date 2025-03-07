@@ -149,7 +149,7 @@
             "kanji": "走る",
             "furigana": "はしる"
         },
-        "image": "images/PD/activities/running.png"
+        "image": "images/PD/activities/bonuswords/running.png"
     },
     {
         "english": "kite flying",
@@ -157,7 +157,7 @@
             "kanji": "凧揚げ",
             "furigana": "たこあげ"
         },
-        "image": "images/PD/activities/kiteflying.png"
+        "image": "images/PD/activities/bonuswords/kiteflying.png"
     },
     {
         "english": "top spinning",
@@ -165,7 +165,7 @@
             "kanji": "独楽回し",
             "furigana": "こままわし"
         },
-        "image": "images/PD/activities/topspinning.png"
+        "image": "images/PD/activities/bonuswords/topspinning.png"
     },
     {
         "english": "playing dodge ball",
@@ -173,7 +173,7 @@
             "kanji": "ドッジボール",
             "furigana": ""
         },
-        "image": "images/PD/activities/playingdodgeball.png"
+        "image": "images/PD/activities/bonuswords/playingdodgeball.png"
     },
     {
         "english": "playing the guitar",
@@ -181,7 +181,7 @@
             "kanji": "ギターを弾く",
             "furigana": "ぎたーをひく"
         },
-        "image": "images/PD/activities/playingtheguitar.png"
+        "image": "images/PD/activities/bonuswords/playingtheguitar.png"
     },
     {
         "english": "playing the recorder",
@@ -189,6 +189,6 @@
             "kanji": "リコーダーを吹く",
             "furigana": "りこーだーをふく"
         },
-        "image": "images/PD/activities/playingtherecorder.png"
+        "image": "images/PD/activities/bonuswords/playingtherecorder.png"
     }
 ]

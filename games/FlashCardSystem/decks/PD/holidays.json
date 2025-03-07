@@ -85,7 +85,7 @@
             "kanji": "雪祭り",
             "furigana": "ゆきまつり"
         },
-        "image": "images/PD/holidays/snowfestival.png"
+        "image": "images/PD/holidays/bonuswords/snowfestival.png"
     },
     {
         "english": "April Fool's Day",
@@ -93,6 +93,6 @@
             "kanji": "エイプリルフール",
             "furigana": ""
         },
-        "image": "images/PD/holidays/aprilfoolsday.png"
+        "image": "images/PD/holidays/bonuswords/aprilfoolsday.png"
     }
 ]

@@ -181,7 +181,7 @@
             "kanji": "部屋を掃除する",
             "furigana": "へやをそうじする"
         },
-        "image": "images/PD/dailyactivities/cleanmyroom.png"
+        "image": "images/PD/dailyactivities/bonuswords/cleanmyroom.png"
     },
     {
         "english": "play with my friends",
@@ -189,6 +189,6 @@
             "kanji": "友達と遊ぶ",
             "furigana": "ともだちとあそぶ"
         },
-        "image": "images/PD/dailyactivities/playwithmyfriends.png"
+        "image": "images/PD/dailyactivities/bonuswords/playwithmyfriends.png"
     }
 ]

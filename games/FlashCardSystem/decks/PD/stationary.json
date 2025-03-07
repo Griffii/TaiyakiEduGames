@@ -94,5 +94,45 @@
             "furigana": "じしゃく"
         },
         "image": "images/ES3/stationary/magnet.png"
+    },
+    {
+        "english": "ballpoint pen",
+        "japanese": {
+            "kanji": "ボールペン",
+            "furigana": ""
+        },
+        "image": "images/ES3/stationary/bonuswords/ballpointpen.png"
+    },
+    {
+        "english": "colored pencil",
+        "japanese": {
+            "kanji": "色鉛筆",
+            "furigana": "いろえんぴつ"
+        },
+        "image": "images/ES3/stationary/bonuswords/colorpencils.png"
+    },
+    {
+        "english": "brush",
+        "japanese": {
+            "kanji": "筆",
+            "furigana": "ふで"
+        },
+        "image": "images/ES3/stationary/bonuswords/brush.png"
+    },
+    {
+        "english": "ink",
+        "japanese": {
+            "kanji": "インク",
+            "furigana": ""
+        },
+        "image": "images/ES3/stationary/bonuswords/ink.png"
+    },
+    {
+        "english": "pin",
+        "japanese": {
+            "kanji": "ピン",
+            "furigana": ""
+        },
+        "image": "images/ES3/stationary/bonuswords/pin.png"
     }
 ]

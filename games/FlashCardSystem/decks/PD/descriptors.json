@@ -85,7 +85,7 @@
             "kanji": "安い",
             "furigana": "やすい"
         },
-        "image": "images/PD/descriptors/cheap.png"
+        "image": "images/PD/descriptors/bonuswords/cheap.png"
     },
     {
         "english": "expensive",
@@ -93,7 +93,7 @@
             "kanji": "高い",
             "furigana": "たかい"
         },
-        "image": "images/PD/descriptors/expensive.png"
+        "image": "images/PD/descriptors/bonuswords/expensive.png"
     },
     {
         "english": "clean",
@@ -101,7 +101,7 @@
             "kanji": "きれい",
             "furigana": ""
         },
-        "image": "images/PD/descriptors/clean.png"
+        "image": "images/PD/descriptors/bonuswords/clean.png"
     },
     {
         "english": "dirty",
@@ -109,7 +109,7 @@
             "kanji": "汚い",
             "furigana": "きたない"
         },
-        "image": "images/PD/descriptors/dirty.png"
+        "image": "images/PD/descriptors/bonuswords/dirty.png"
     },
     {
         "english": "closed",
@@ -117,7 +117,7 @@
             "kanji": "閉まっている",
             "furigana": "しまっている"
         },
-        "image": "images/PD/descriptors/closed.png"
+        "image": "images/PD/descriptors/bonuswords/closed.png"
     },
     {
         "english": "open",
@@ -125,7 +125,7 @@
             "kanji": "開いている",
             "furigana": "あいている"
         },
-        "image": "images/PD/descriptors/open.png"
+        "image": "images/PD/descriptors/bonuswords/open.png"
     },
     {
         "english": "easy",
@@ -133,7 +133,7 @@
             "kanji": "簡単",
             "furigana": "かんたん"
         },
-        "image": "images/PD/descriptors/easy.png"
+        "image": "images/PD/descriptors/bonuswords/easy.png"
     },
     {
         "english": "difficult",
@@ -141,7 +141,7 @@
             "kanji": "難しい",
             "furigana": "むずかしい"
         },
-        "image": "images/PD/descriptors/difficult.png"
+        "image": "images/PD/descriptors/bonuswords/difficult.png"
     },
     {
         "english": "hard",
@@ -149,7 +149,7 @@
             "kanji": "硬い",
             "furigana": "かたい"
         },
-        "image": "images/PD/descriptors/hard.png"
+        "image": "images/PD/descriptors/bonuswords/hard.png"
     },
     {
         "english": "soft",
@@ -157,7 +157,7 @@
             "kanji": "柔らかい",
             "furigana": "やわらかい"
         },
-        "image": "images/PD/descriptors/soft.png"
+        "image": "images/PD/descriptors/bonuswords/soft.png"
     },
     {
         "english": "heavy",
@@ -165,7 +165,7 @@
             "kanji": "重い",
             "furigana": "おもい"
         },
-        "image": "images/PD/descriptors/heavy.png"
+        "image": "images/PD/descriptors/bonuswords/heavy.png"
     },
     {
         "english": "light",
@@ -173,7 +173,7 @@
             "kanji": "軽い",
             "furigana": "かるい"
         },
-        "image": "images/PD/descriptors/light.png"
+        "image": "images/PD/descriptors/bonuswords/light.png"
     },
     {
         "english": "inside",
@@ -181,7 +181,7 @@
             "kanji": "内側",
             "furigana": "うちがわ"
         },
-        "image": "images/PD/descriptors/inside.png"
+        "image": "images/PD/descriptors/bonuswords/inside.png"
     },
     {
         "english": "outside",
@@ -189,7 +189,7 @@
             "kanji": "外側",
             "furigana": "そとがわ"
         },
-        "image": "images/PD/descriptors/outside.png"
+        "image": "images/PD/descriptors/bonuswords/outside.png"
     },
     {
         "english": "same",
@@ -197,7 +197,7 @@
             "kanji": "同じ",
             "furigana": "おなじ"
         },
-        "image": "images/PD/descriptors/same.png"
+        "image": "images/PD/descriptors/bonuswords/same.png"
     },
     {
         "english": "different",
@@ -205,7 +205,7 @@
             "kanji": "違う",
             "furigana": "ちがう"
         },
-        "image": "images/PD/descriptors/different.png"
+        "image": "images/PD/descriptors/bonuswords/different.png"
     },
     {
         "english": "tall",
@@ -213,7 +213,7 @@
             "kanji": "背が高い",
             "furigana": "せがたかい"
         },
-        "image": "images/PD/descriptors/tall.png"
+        "image": "images/PD/descriptors/bonuswords/tall.png"
     },
     {
         "english": "short",
@@ -221,7 +221,7 @@
             "kanji": "背が低い",
             "furigana": "せがひくい"
         },
-        "image": "images/PD/descriptors/shortheight.png"
+        "image": "images/PD/descriptors/bonuswords/shortheight.png"
     },
     {
         "english": "young",
@@ -229,7 +229,7 @@
             "kanji": "若い",
             "furigana": "わかい"
         },
-        "image": "images/PD/descriptors/young.png"
+        "image": "images/PD/descriptors/bonuswords/young.png"
     },
     {
         "english": "old",
@@ -237,6 +237,6 @@
             "kanji": "年老いた",
             "furigana": "としおいた"
         },
-        "image": "images/PD/descriptors/oldage.png"
+        "image": "images/PD/descriptors/bonuswords/oldage.png"
     }
 ]

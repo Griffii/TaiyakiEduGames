@@ -77,7 +77,7 @@
             "kanji": "ラッコ",
             "furigana": ""
         },
-        "image": "images/PD/seaanimals/seaotter.png"
+        "image": "images/PD/seaanimals/bonuswords/seaotter.png"
     },
     {
         "english": "tuna",
@@ -85,7 +85,7 @@
             "kanji": "マグロ",
             "furigana": ""
         },
-        "image": "images/PD/seaanimals/tuna.png"
+        "image": "images/PD/seaanimals/bonuswords/tuna.png"
     },
     {
         "english": "eel",
@@ -93,7 +93,7 @@
             "kanji": "鰻",
             "furigana": "うなぎ"
         },
-        "image": "images/PD/seaanimals/eel.png"
+        "image": "images/PD/seaanimals/bonuswords/eel.png"
     },
     {
         "english": "octopus",
@@ -101,7 +101,7 @@
             "kanji": "蛸",
             "furigana": "たこ"
         },
-        "image": "images/PD/seaanimals/octopus.png"
+        "image": "images/PD/seaanimals/bonuswords/octopus.png"
     },
     {
         "english": "squid",
@@ -109,7 +109,7 @@
             "kanji": "イカ",
             "furigana": ""
         },
-        "image": "images/PD/seaanimals/squid.png"
+        "image": "images/PD/seaanimals/bonuswords/squid.png"
     },
     {
         "english": "shrimp",
@@ -117,7 +117,7 @@
             "kanji": "海老",
             "furigana": "えび"
         },
-        "image": "images/PD/seaanimals/shrimp.png"
+        "image": "images/PD/seaanimals/bonuswords/shrimp.png"
     },
     {
         "english": "starfish",
@@ -125,6 +125,6 @@
             "kanji": "ヒトデ",
             "furigana": ""
         },
-        "image": "images/PD/seaanimals/starfish.png"
+        "image": "images/PD/seaanimals/bonuswords/starfish.png"
     }
 ]

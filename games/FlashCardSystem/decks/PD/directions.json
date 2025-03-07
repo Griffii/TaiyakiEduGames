@@ -78,5 +78,13 @@
             "furigana": "かど"
         },
         "image": "images/PD/directions/corner.png"
+    },
+    {
+        "english": "traffic light",
+        "japanese": {
+            "kanji": "信号",
+            "furigana": "しんごう"
+        },
+        "image": "images/PD/directions/bonuswords/trafficlight.png"
     }
 ]
