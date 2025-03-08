@@ -224,7 +224,29 @@
         }
       }
 
+      /* Load in the deck upon page load */
       document.addEventListener("DOMContentLoaded", loadDeckData);
+      /* This organizes the grid of buttons in the 'Games' pop-up menu */
+      document.addEventListener("DOMContentLoaded", function () {
+        const container = document.querySelector(".game-popup .button-container");
+        const buttons = container.children.length;
+
+        // Define grid sizes based on button count
+        let columns;
+        if (buttons <= 4) {
+            columns = 2; // 2x2
+        } else if (buttons <= 9) {
+            columns = 3; // 3x3
+        } else if (buttons <= 12) {
+            columns = 4; // 3x4
+        } else if (buttons <= 15) {
+            columns = 5; // 3x5
+        } else {
+            columns = Math.ceil(Math.sqrt(buttons)); // General rule: square root for dynamic layouts
+        }
+
+        container.style.gridTemplateColumns = `repeat(${columns}, auto)`;
+      });
     </script>
   </head>
   <body>
@@ -249,6 +271,7 @@
     <!-- Review Selection Pop-Up -->
     <div id="review-menu" class="popup hidden">
       <h3>Select a Review Mode</h3>
+      
       <button class="normal-review-btn" onclick="selectMode('review')">
         Regular Order
       </button>
@@ -262,20 +285,26 @@
     </div>
 
     <!-- Game Selection Pop-Up -->
-    <div id="game-menu" class="popup hidden">
+    <div id="game-menu" class="game-popup hidden">
       <h3>Select a Game Mode</h3>
-      <button class="missing-game-btn" onclick="startGame('missing')">
-        What's Missing?
-      </button>
-      <button class="ng-game-btn" onclick="startGame('ngword')">
-        Bomb Game
-      </button>
-      <button class="matching-game-btn" onclick="startGame('matching')">
-        Matching Game
-      </button>
-      <button class="headsup-game-btn" onclick="startGame('headsup')">
-        Heads Up
-      </button>
+      <div class="button-container">
+        <button class="missing-game-btn" onclick="startGame('missing')">
+          <p>What's Missing?</p>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/missing-game.png"></img>
+        </button>
+        <button class="ng-game-btn" onclick="startGame('ngword')">
+          <p>Bomb Game</p>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/ng-game.png"></img>
+        </button>
+        <button class="matching-game-btn" onclick="startGame('matching')">
+          <p>Matching Game</p>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/matching-game.png"></img>
+        </button>
+        <button class="headsup-game-btn" onclick="startGame('headsup')">
+          <p>Heads Up</p>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/heads-up.png"></img>
+        </button>
+      </div>
       <button class="cancel-btn" onclick="closeGameMenu()">Cancel</button>
     </div>
 

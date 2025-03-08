@@ -38,13 +38,9 @@
 
             let deckDiv = document.createElement("div");
             deckDiv.classList.add("deck-item");
-            deckDiv.onclick = () => {
-              sessionStorage.setItem("selectedDeck", deckName);
-              sessionStorage.setItem("selectedDeckPath", deckData.path);
-              location.href = `deckview.html?grade=${selectedGrade}&deck=${encodeURIComponent(
-                deckName
-              )}`;
-            };
+
+            deckDiv.onclick = () =>
+              checkDeckAndNavigate(deckName, deckData, selectedGrade);
 
             deckDiv.innerHTML = `
                     <img src="${deckData.image}" alt="${deckName}" class="deck-img">
@@ -56,6 +52,23 @@
         } catch (error) {
           document.getElementById("deck-list").innerHTML =
             "<p>Error loading decks.</p>";
+        }
+      }
+
+      async function checkDeckAndNavigate(deckName, deckData, selectedGrade) {
+        try {
+          const response = await fetch(deckData.path);
+          if (!response.ok) throw new Error("Deck JSON not found.");
+
+          // JSON exists, proceed to navigation
+          sessionStorage.setItem("selectedDeck", deckName);
+          sessionStorage.setItem("selectedDeckPath", deckData.path);
+          location.href = `deckview.html?grade=${selectedGrade}&deck=${encodeURIComponent(
+            deckName
+          )}`;
+        } catch (error) {
+          console.warn(`Deck ${deckName} does not have a valid JSON file.`);
+          alert(`Error: The selected deck "${deckName}" is not available.`);
         }
       }
 

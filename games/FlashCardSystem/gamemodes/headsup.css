@@ -68,7 +68,6 @@ body {
 
 /* Settings Buttons */
 .settings-menu button {
-  /* Deep teal */
   color: white;
   border: none;
   padding: 10px 15px;
@@ -91,10 +90,10 @@ body {
 }
 
 /* Start Game Button */
-.start-btn {
+.restart-btn {
   background-color: blue;
 }
-.start-btn:hover {
+.restart-btn:hover {
   background-color: lightblue;
 }
 

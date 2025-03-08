@@ -13,7 +13,7 @@
     </a>
 
     <!-- Settings Button -->
-    <div class="settings-button" onclick="openSettingsMenu()">
+    <div class="settings-button" onclick="toggleSettingsMenu()">
       <img src="../../assets/settings-icon.png" alt="Settings" />
     </div>
 
@@ -23,7 +23,7 @@
     <div id="card-grid" class="card-grid"></div>
 
     <!-- Settings Pop-Up -->
-    <div id="settings-menu" class="popup hidden">
+    <div id="settings-menu" class="settings-menu hidden">
       <h3>Game Settings</h3>
 
       <!-- Number of Displayed Cards -->
@@ -39,10 +39,10 @@
       <button class="apply-btn" onclick="applySettings()">
         Apply
       </button>
-      <button class="reselect-btn" onclick="reselectCards()">
-        Reselect Cards
+      <button class="reselect-btn" onclick="restart()">
+        Restart
       </button>
-      <button class="cancel-btn" onclick="closeSettingsMenu()">
+      <button class="cancel-btn" onclick="toggleSettingsMenu()">
         Cancel
       </button>
     </div>
@@ -56,6 +56,10 @@
       id="bomb-sound" 
       src="../../assets/sounds/bomb.mp3">
     </audio>
+    <audio
+      id="select-sound"
+      src="../../assets/sounds/arcade_beep_01.mp3"
+    ></audio>
 
     <script src="gamemodes/ngword.js"></script>
   </body>

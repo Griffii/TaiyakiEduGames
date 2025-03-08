@@ -35,43 +35,46 @@
   .settings-button img:hover {
     transform: scale(1.1);
   }
-
-/* Settings Popup Menu */
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  
+  
+  /* Setting Menu Styling */
+  .settings-menu {
+    position: absolute;
+    top: 60px;
+    right: 20px;
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     z-index: 1000;
-}
-
-.popup label {
+    width: 180px;
+    text-align: center;
+    align-items: center;
+  }
+.settings-menu label {
     display: block;
-    margin-top: 10px;
     font-weight: bold;
 }
-
-.popup input {
+.settings-menu input {
     width: 60px;
     padding: 5px;
     margin: 10px;
-    text-align: center;
+    margin-top: 0px;
 }
-
-
-.popup button {
+.settings-menu button {
     display: block;
-    margin: 10px auto;
     padding: 10px 15px;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 100%;
+}
+.settings-menu button:hover {
+    scale: 1.05;
 }
 
 
@@ -89,7 +92,6 @@
     color: darkslategray;
     transition: background 0.3s ease-in-out;
 }
-
 #toggle-english-btn.off {
     background-color: palevioletred;
 }
@@ -162,17 +164,18 @@ h1 {
 }
 
 #shuffle-btn {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px 20px;
-    background-color: teal;
+    background-color: orangered;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 22px;
 }
-
 #shuffle-btn:hover {
-    background-color: #007777;
+    background-color: orange;
+    scale: 1.05;
 }
 
 #guess-section {
@@ -188,15 +191,16 @@ h1 {
 
 .guess-options button {
     padding: 10px;
-    background-color: teal;
+    background-color: cornflowerblue;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 18px;
 }
-
 .guess-options button:hover {
-    background-color: #007777;
+    background-color: purple;
+    scale: 1.05;
 }
 
 .guess-options button:disabled {
@@ -216,9 +220,22 @@ h1 {
     50% { background-color: yellow; transform: scale(1.2); }
     100% { background-color: white; transform: scale(1); }
 }
-
 .wrong-guess {
     animation: flashYellow 0.5s ease-in-out;
+}
+
+@keyframes dropIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.drop-in {
+    animation: dropIn 0.3s ease-out forwards;
 }
 
 

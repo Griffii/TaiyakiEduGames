@@ -13,12 +13,12 @@
     </a>
 
     <!-- Settings Button -->
-    <div class="settings-button" onclick="openSettingsMenu()">
+    <div class="settings-button" onclick="toggleSettingsMenu()">
       <img src="../../assets/settings-icon.png" alt="Settings" />
     </div>
 
     <!-- Settings Pop-Up -->
-    <div id="settings-menu" class="popup hidden">
+    <div id="settings-menu" class="settings-menu hidden">
       <h3>Game Settings</h3>
 
       <!-- Number of Displayed Cards -->
@@ -37,9 +37,9 @@
       <!-- Settings Buttons -->
       <button class="apply-btn" onclick="applySettings()">Apply</button>
       <button class="reselect-btn" onclick="reselectCards()">
-        Reselect Cards
+        Restart
       </button>
-      <button class="cancel-btn" onclick="closeSettingsMenu()">Cancel</button>
+      <button class="cancel-btn" onclick="toggleSettingsMenu()">Cancel</button>
     </div>
 
     <h1>What's Missing?</h1>
@@ -59,6 +59,14 @@
     <audio
       id="correct-sound"
       src="../../assets/sounds/fortunegame/kichi.mp3"
+    ></audio>
+    <audio
+      id="shuffle-sound"
+      src="../../assets/sounds/cards-shuffle-sfx-01.mp3"
+    ></audio>
+    <audio
+      id="select-sound"
+      src="../../assets/sounds/arcade_beep_01.mp3"
     ></audio>
 
     <script src="gamemodes/whatsmissing.js"></script>

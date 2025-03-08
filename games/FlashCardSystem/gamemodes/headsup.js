@@ -96,6 +96,8 @@ function startGame() {
 
 // End Game and Show Score
 function endGame() {
+  toggleSettingsMenu();
+
   let sound = document.getElementById('timeup-sound');
   sound.play()
 
@@ -121,10 +123,6 @@ function shuffleArray(array) {
 
 function toggleSettingsMenu() {
   document.getElementById("settings-menu").classList.toggle("hidden");
-}
-
-function closeSettingsMenu() {
-  document.getElementById("settings-menu").classList.add("hidden");
 }
 
 function toggleImage() {
