@@ -216,13 +216,14 @@ h1 {
 
 
 @keyframes flashYellow {
-    0% { background-color: yellow; transform: scale(1); }
+    0% { background-color: yellow; transform: scale(1);}
     50% { background-color: yellow; transform: scale(1.2); }
     100% { background-color: white; transform: scale(1); }
 }
 .wrong-guess {
     animation: flashYellow 0.5s ease-in-out;
 }
+
 
 @keyframes dropIn {
     from {

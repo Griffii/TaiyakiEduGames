@@ -47,14 +47,15 @@ function displayCards() {
     cardElement.innerHTML = `
             <div class="card-content">
                 <img src="${card.image}" alt="${card.english}">
-                <p class="card-text ${showEnglish ? '' : 'hidden'}">${card.english}</p>
+                <p class="card-text ${showEnglish ? "" : "hidden"}">${
+      card.english
+    }</p>
             </div>
         `;
 
     cardGrid.appendChild(cardElement);
   });
 }
-
 
 // Shuffle displayed cards and remove the selected number of cards
 function shuffleAndRemove() {
@@ -113,6 +114,7 @@ function shuffleAndRemove() {
   for (let i = 0; i < numberOfMissingCards; i++) {
     let blankCard = document.createElement("div");
     blankCard.classList.add("card");
+    blankCard.style.backgroundColor = "lightgreen";
     blankCard.style.backgroundImage =
       "url('/TaiyakiEduGames/assets/game-icons/question-mark.png')"; // Set background image
     blankCard.style.backgroundSize = "cover";
@@ -178,13 +180,18 @@ function checkGuess(selectedCard, buttonElement) {
   } else {
     if (flashcard) {
       document.getElementById("select-sound").play();
+
       // Apply flash yellow effect to the incorrect flashcard
-      flashcard.classList.add("wrong-guess");
+      flashcard.classList.remove("drop-in"); // Remove first in case it was stuck
+      void flashcard.offsetWidth; // Trigger reflow for animation restart
+      flashcard.classList.add("wrong-guess"); // Apply animation
 
       // Remove effect after animation ends
       setTimeout(() => {
         flashcard.classList.remove("wrong-guess");
       }, 500);
+    } else {
+      console.warn("No flashcard found for incorrect guess.");
     }
 
     // Gray out the incorrect button after flashing the flashcard
