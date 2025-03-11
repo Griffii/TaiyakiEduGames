@@ -82,19 +82,19 @@
       /* More wild Taiyaki Animation */
       @keyframes crazy-shake {
         0% {
-          transform: translate(-50%, -50%) rotate(0deg) scale(1);
+          transform: rotate(0deg) scale(1);
         }
         25% {
-          transform: translate(-45%, -55%) rotate(15deg) scale(1.1);
+          transform: rotate(15deg) scale(1.1);
         }
         50% {
-          transform: translate(-50%, -50%) rotate(-15deg) scale(1.2);
+          transform: rotate(-15deg) scale(1.2);
         }
         75% {
-          transform: translate(-55%, -45%) rotate(10deg) scale(1.1);
+          transform: rotate(10deg) scale(1.1);
         }
         100% {
-          transform: translate(-50%, -50%) rotate(0deg) scale(1);
+          transform: rotate(0deg) scale(1);
         }
       }
 
@@ -242,18 +242,14 @@
       <h1>Taiyaki Sensei's<br />New Year's Fortune!</h1>
       <button id="draw-fortune">Choose Your Fortune</button>
 
-      <img
-        id="taiyaki"
-        src="../../assets/taiyaki-icon.png"
-        alt="Taiyaki Animation"
-        style="
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%) scale(1);
-        "
-      />
-
+      <div>
+        <img
+          id="taiyaki"
+          src="../../assets/taiyaki-icon.png"
+          alt="Taiyaki Animation"
+          style="margin-top: 30px;"
+        />
+      </div>
       <img
         id="animation"
         src="../../assets/taiyaki-icon.png"
@@ -304,5 +300,4 @@
       preload="auto"
     ></audio>
   </body>
-
 </html>
