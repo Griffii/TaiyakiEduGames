@@ -34,11 +34,27 @@
     "New Horizon 5<br><span style='font-size: 0.6em;'>(Coming Soon)</span>": {
         "image": "images/textbooks/newhorizon1.jpg",
         "decks": {
+            "Unit 1 - Hello, friends!":         { "path": "decks/ES5/unit1.json", "image": "images/PD/subjects/English.png" },
+            "Unit 2 - Happy Birthday":          { "path": "decks/ES5/unit2.json", "image": "images/PD/months/months.png" },
+            "Unit 3 - Can you play dodgeball?": { "path": "decks/ES5/unit3.json", "image": "images/PD/sports/dodgeball.png" },
+            "Unit 4 - Who is this?":            { "path": "decks/ES5/unit4.json", "image": "images/PD/family/grandmother.png" },
+            "Unit 5 - Let's go to the zoo.":    { "path": "decks/ES5/unit5.json", "image": "images/PD/animals/gorilla.png" },
+            "Unit 6 - At a restaurant.":        { "path": "decks/ES5/unit6.json", "image": "images/PD/food/spaghetti.png" },
+            "Unit 7 - Welcome to Japan!":       { "path": "decks/ES5/unit7.json", "image": "images/ES3/countries/japan.png" },
+            "Unit 8 - Who is your hero?":       { "path": "decks/ES5/unit8.json", "image": "images/PD/personalities/brave.png" }
         }
     },
     "New Horizon 6<br><span style='font-size: 0.6em;'>(Coming Soon)</span>": {
         "image": "images/textbooks/newhorizon2.jpg",
         "decks": {
+            "Unit 1 - This is me!":          { "path": "decks/ES6/unit1.json", "image": "images/PD/adjectives/fun.png" },
+            "Unit 2 - My Daily Schedule":    { "path": "decks/ES6/unit2.json", "image": "images/PD/dailyactivities/gotoschool.png" },
+            "Unit 3 - My Weekend":           { "path": "decks/ES6/unit3.json", "image": "images/PD/dailyactivities/bonuswords/playwithmyfriends.png" },
+            "Unit 4 - Let's see the world.": { "path": "decks/ES6/unit4.json", "image": "images/ES3/countries/america.png" },
+            "Unit 5 - Where is it from?":    { "path": "decks/ES6/unit5.json", "image": "images/PD/ingredients/beef.png" },
+            "Unit 6 - Save the animals.":    { "path": "decks/ES6/unit6.json", "image": "images/PD/fortheenvironment/forestloss.png" },
+            "Unit 7 - My Best Memory":       { "path": "decks/ES6/unit7.json", "image": "images/PD/schoolevents/fieldtrip.png" },
+            "Unit 8 - Mr Future, My Dream":  { "path": "decks/ES6/unit8.json", "image": "images/PD/jobs/astronaut.png" }
         }
     },
     "My Picture Dictionary": {

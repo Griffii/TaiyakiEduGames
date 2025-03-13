@@ -865,8 +865,8 @@
     {
         "english": "check my schoolbag",
         "japanese": {
-            "kanji": "学校のかばんを確認する",
-            "furigana": "がっこうのかばんをかくにんする"
+            "kanji": "かばんを確認する",
+            "furigana": "かばんをかくにんする"
         },
         "image": "images/ES3/myday/checkmyschoolbag.png"
     },

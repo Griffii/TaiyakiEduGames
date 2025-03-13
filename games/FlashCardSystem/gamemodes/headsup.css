@@ -156,17 +156,6 @@ body {
   text-align: center;
 }
 
-/* Japanese Text Container */
-.japanese-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-family: "UG Digi Kyokasho NK-B";
-  font-weight: bold;
-}
-
 /* Image Container */
 .image-container {
   flex: 1;
