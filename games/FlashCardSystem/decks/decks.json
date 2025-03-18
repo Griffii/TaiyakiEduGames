@@ -34,7 +34,7 @@
     "New Horizon 5": {
         "image": "images/textbooks/newhorizon1.jpg",
         "decks": {
-            "Unit 1 - Hello, friends!":         { "path": "decks/ES5/unit1.json", "image": "images/PD/subjects/English.png" },
+            "Unit 1 - Hello, friends!":         { "path": "decks/ES5/unit1.json", "image": "images/PD/subjects/english.png" },
             "Unit 2 - Happy Birthday":          { "path": "decks/ES5/unit2.json", "image": "images/PD/months/months.png" },
             "Unit 3 - Can you play dodgeball?": { "path": "decks/ES5/unit3.json", "image": "images/PD/sports/dodgeball.png" },
             "Unit 4 - Who is this?":            { "path": "decks/ES5/unit4.json", "image": "images/PD/family/grandmother.png" },

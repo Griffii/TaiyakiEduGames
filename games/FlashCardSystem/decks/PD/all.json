@@ -66,16 +66,16 @@
     {
         "english": "North America",
         "japanese": {
-            "kanji": "北アメリカ",
-            "furigana": "きたあめりか"
+            "kanji": "北米",
+            "furigana": "ほくべい"
         },
         "image": "images/PD/world/northamerica.png"
     },
     {
         "english": "South America",
         "japanese": {
-            "kanji": "南アメリカ",
-            "furigana": "みなみあめりか"
+            "kanji": "南米",
+            "furigana": "なんべい"
         },
         "image": "images/PD/world/southamerica.png"
     },
