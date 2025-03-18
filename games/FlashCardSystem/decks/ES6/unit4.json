@@ -58,16 +58,16 @@
     {
         "english": "North America",
         "japanese": {
-            "kanji": "北米",
-            "furigana": "ほくべい"
+            "kanji": "北アメリカ",
+            "furigana": "きたあめりか"
         },
         "image": "images/PD/world/northamerica.png"
     },
     {
         "english": "South America",
         "japanese": {
-            "kanji": "南米",
-            "furigana": "なんべい"
+            "kanji": "南アメリカ",
+            "furigana": "みなみあめりか"
         },
         "image": "images/PD/world/southamerica.png"
     },
@@ -104,7 +104,7 @@
         "image": "images/PD/world/oceania.png"
     },
     {
-        "english": "the U.K.",
+        "english": "The U.K.",
         "japanese": {
             "kanji": "イギリス",
             "furigana": ""
