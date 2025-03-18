@@ -1,109 +1,5 @@
 [
     {
-        "english": "subjects",
-        "japanese": {
-            "kanji": "教科",
-            "furigana": "きょうか"
-        },
-        "image": "images/PD/subjects/subjects.png"
-    },
-    {
-        "english": "English",
-        "japanese": {
-            "kanji": "英語",
-            "furigana": "えいご"
-        },
-        "image": "images/PD/subjects/english.png"
-    },
-    {
-        "english": "Japanese",
-        "japanese": {
-            "kanji": "国語",
-            "furigana": "こくご"
-        },
-        "image": "images/PD/subjects/japanese.png"
-    },
-    {
-        "english": "calligraphy",
-        "japanese": {
-            "kanji": "書道",
-            "furigana": "しょどう"
-        },
-        "image": "images/PD/subjects/calligraphy.png"
-    },
-    {
-        "english": "social studies",
-        "japanese": {
-            "kanji": "社会",
-            "furigana": "しゃかい"
-        },
-        "image": "images/PD/subjects/socialstudies.png"
-    },
-    {
-        "english": "math",
-        "japanese": {
-            "kanji": "数学",
-            "furigana": "すうがく"
-        },
-        "image": "images/PD/subjects/math.png"
-    },
-    {
-        "english": "science",
-        "japanese": {
-            "kanji": "理科",
-            "furigana": "りか"
-        },
-        "image": "images/PD/subjects/science.png"
-    },
-    {
-        "english": "music",
-        "japanese": {
-            "kanji": "音楽",
-            "furigana": "おんがく"
-        },
-        "image": "images/PD/subjects/music.png"
-    },
-    {
-        "english": "arts and crafts",
-        "japanese": {
-            "kanji": "図工",
-            "furigana": "ずこう"
-        },
-        "image": "images/PD/subjects/artsandcrafts.png"
-    },
-    {
-        "english": "home economics",
-        "japanese": {
-            "kanji": "家庭科",
-            "furigana": "かていか"
-        },
-        "image": "images/PD/subjects/homeeconomics.png"
-    },
-    {
-        "english": "P.E.",
-        "japanese": {
-            "kanji": "体育",
-            "furigana": "たいいく"
-        },
-        "image": "images/PD/subjects/pe.png"
-    },
-    {
-        "english": "moral education",
-        "japanese": {
-            "kanji": "道徳",
-            "furigana": "どうとく"
-        },
-        "image": "images/PD/subjects/moraleducation.png"
-    },
-    {
-        "english": "homeroom",
-        "japanese": {
-            "kanji": "ホームルーム",
-            "furigana": ""
-        },
-        "image": "images/PD/subjects/bonuswords/homeroom.png"
-    },
-    {
         "english": "badminton",
         "japanese": {
             "kanji": "バドミントン",
@@ -318,5 +214,213 @@
             "furigana": ""
         },
         "image": "images/PD/sports/wrestling.png"
+    },
+    {
+        "english": "jobs",
+        "japanese": {
+            "kanji": "仕事",
+            "furigana": "しごと"
+        },
+        "image": "images/PD/jobs/jobs.png"
+    },
+    {
+        "english": "artist",
+        "japanese": {
+            "kanji": "芸術家",
+            "furigana": "げいじゅつか"
+        },
+        "image": "images/PD/jobs/artist.png"
+    },
+    {
+        "english": "astronaut",
+        "japanese": {
+            "kanji": "宇宙飛行士",
+            "furigana": "うちゅうひこうし"
+        },
+        "image": "images/PD/jobs/astronaut.png"
+    },
+    {
+        "english": "baker",
+        "japanese": {
+            "kanji": "パン屋さん",
+            "furigana": "ぱんやさん"
+        },
+        "image": "images/PD/jobs/baker.png"
+    },
+    {
+        "english": "baseball player",
+        "japanese": {
+            "kanji": "野球選手",
+            "furigana": "やきゅうせんしゅ"
+        },
+        "image": "images/PD/jobs/baseballplayer.png"
+    },
+    {
+        "english": "comedian",
+        "japanese": {
+            "kanji": "芸人",
+            "furigana": "げいにん"
+        },
+        "image": "images/PD/jobs/comedian.png"
+    },
+    {
+        "english": "cook",
+        "japanese": {
+            "kanji": "料理人",
+            "furigana": "りょうりにん"
+        },
+        "image": "images/PD/jobs/cook.png"
+    },
+    {
+        "english": "doctor",
+        "japanese": {
+            "kanji": "医者",
+            "furigana": "いしゃ"
+        },
+        "image": "images/PD/jobs/doctor.png"
+    },
+    {
+        "english": "farmer",
+        "japanese": {
+            "kanji": "農家",
+            "furigana": "のうか"
+        },
+        "image": "images/PD/jobs/farmer.png"
+    },
+    {
+        "english": "fire fighter",
+        "japanese": {
+            "kanji": "消防士",
+            "furigana": "しょうぼうし"
+        },
+        "image": "images/PD/jobs/firefighter.png"
+    },
+    {
+        "english": "flight attendant",
+        "japanese": {
+            "kanji": "客室乗務員",
+            "furigana": "きゃくしつじょうむいん"
+        },
+        "image": "images/PD/jobs/flightattendant.png"
+    },
+    {
+        "english": "mountaineer",
+        "japanese": {
+            "kanji": "登山家",
+            "furigana": "とざんか"
+        },
+        "image": "images/PD/jobs/mountaineer.png"
+    },
+    {
+        "english": "nurse",
+        "japanese": {
+            "kanji": "看護師",
+            "furigana": "かんごし"
+        },
+        "image": "images/PD/jobs/nurse.png"
+    },
+    {
+        "english": "office worker",
+        "japanese": {
+            "kanji": "会社員",
+            "furigana": "かいしゃいん"
+        },
+        "image": "images/PD/jobs/officeworker.png"
+    },
+    {
+        "english": "pilot",
+        "japanese": {
+            "kanji": "パイロット",
+            "furigana": ""
+        },
+        "image": "images/PD/jobs/pilot.png"
+    },
+    {
+        "english": "police officer",
+        "japanese": {
+            "kanji": "警察官",
+            "furigana": "けいさつかん"
+        },
+        "image": "images/PD/jobs/policeofficer.png"
+    },
+    {
+        "english": "programmer",
+        "japanese": {
+            "kanji": "プログラマー",
+            "furigana": ""
+        },
+        "image": "images/PD/jobs/programmer.png"
+    },
+    {
+        "english": "researcher",
+        "japanese": {
+            "kanji": "研究者",
+            "furigana": "けんきゅうしゃ"
+        },
+        "image": "images/PD/jobs/researcher.png"
+    },
+    {
+        "english": "scientist",
+        "japanese": {
+            "kanji": "科学者",
+            "furigana": "かがくしゃ"
+        },
+        "image": "images/PD/jobs/scientist.png"
+    },
+    {
+        "english": "singer",
+        "japanese": {
+            "kanji": "歌手",
+            "furigana": "かしゅ"
+        },
+        "image": "images/PD/jobs/singer.png"
+    },
+    {
+        "english": "teacher",
+        "japanese": {
+            "kanji": "先生",
+            "furigana": "せんせい"
+        },
+        "image": "images/PD/jobs/teacher.png"
+    },
+    {
+        "english": "vet",
+        "japanese": {
+            "kanji": "獣医",
+            "furigana": "じゅうい"
+        },
+        "image": "images/PD/jobs/vet.png"
+    },
+    {
+        "english": "writer",
+        "japanese": {
+            "kanji": "作家",
+            "furigana": "さっか"
+        },
+        "image": "images/PD/jobs/writer.png"
+    },
+    {
+        "english": "zookeeper",
+        "japanese": {
+            "kanji": "飼育員",
+            "furigana": "しいくいん"
+        },
+        "image": "images/PD/jobs/zookeeper.png"
+    },
+    {
+        "english": "now",
+        "japanese": {
+            "kanji": "今",
+            "furigana": "いま"
+        },
+        "image": "images/PD/jobs/now.png"
+    },
+    {
+        "english": "future",
+        "japanese": {
+            "kanji": "未来",
+            "furigana": "みらい"
+        },
+        "image": "images/PD/jobs/future.png"
     }
 ]

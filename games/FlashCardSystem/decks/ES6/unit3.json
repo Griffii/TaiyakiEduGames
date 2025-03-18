@@ -1,0 +1,738 @@
+[
+    {
+        "english": "ate",
+        "japanese": {
+            "kanji": "食べた",
+            "furigana": "たべた"
+        },
+        "image": "images/PD/pasttense/ate.png"
+    },
+    {
+        "english": "went",
+        "japanese": {
+            "kanji": "行った",
+            "furigana": "いった"
+        },
+        "image": "images/PD/pasttense/went.png"
+    },
+    {
+        "english": "saw",
+        "japanese": {
+            "kanji": "見た",
+            "furigana": "みた"
+        },
+        "image": "images/PD/pasttense/saw.png"
+    },
+    {
+        "english": "had",
+        "japanese": {
+            "kanji": "持った",
+            "furigana": "もった"
+        },
+        "image": "images/PD/pasttense/had.png"
+    },
+    {
+        "english": "made",
+        "japanese": {
+            "kanji": "作った",
+            "furigana": "つくった"
+        },
+        "image": "images/PD/pasttense/made.png"
+    },
+    {
+        "english": "enjoyed",
+        "japanese": {
+            "kanji": "楽しんだ",
+            "furigana": "たのしんだ"
+        },
+        "image": "images/PD/pasttense/enjoyed.png"
+    },
+    {
+        "english": "played",
+        "japanese": {
+            "kanji": "遊んだ",
+            "furigana": "あそんだ"
+        },
+        "image": "images/PD/pasttense/played.png"
+    },
+    {
+        "english": "watched",
+        "japanese": {
+            "kanji": "見た",
+            "furigana": "みた"
+        },
+        "image": "images/PD/pasttense/watched.png"
+    },
+    {
+        "english": "town",
+        "japanese": {
+            "kanji": "町",
+            "furigana": "まち"
+        },
+        "image": "images/PD/town/town.png"
+    },
+    {
+        "english": "house",
+        "japanese": {
+            "kanji": "家",
+            "furigana": "いえ"
+        },
+        "image": "images/PD/town/house.png"
+    },
+    {
+        "english": "park",
+        "japanese": {
+            "kanji": "公園",
+            "furigana": "こうえん"
+        },
+        "image": "images/PD/town/park.png"
+    },
+    {
+        "english": "library",
+        "japanese": {
+            "kanji": "図書館",
+            "furigana": "としょかん"
+        },
+        "image": "images/PD/town/library.png"
+    },
+    {
+        "english": "museum",
+        "japanese": {
+            "kanji": "博物館",
+            "furigana": "はくぶつかん"
+        },
+        "image": "images/PD/town/museum.png"
+    },
+    {
+        "english": "hospital",
+        "japanese": {
+            "kanji": "病院",
+            "furigana": "びょういん"
+        },
+        "image": "images/PD/town/hospital.png"
+    },
+    {
+        "english": "bus stop",
+        "japanese": {
+            "kanji": "バス停",
+            "furigana": "ばすてい"
+        },
+        "image": "images/PD/town/busstop.png"
+    },
+    {
+        "english": "station",
+        "japanese": {
+            "kanji": "駅",
+            "furigana": "えき"
+        },
+        "image": "images/PD/town/station.png"
+    },
+    {
+        "english": "police station",
+        "japanese": {
+            "kanji": "警察署",
+            "furigana": "けいさつしょ"
+        },
+        "image": "images/PD/town/policestation.png"
+    },
+    {
+        "english": "fire station",
+        "japanese": {
+            "kanji": "消防署",
+            "furigana": "しょうぼうしょ"
+        },
+        "image": "images/PD/town/firestation.png"
+    },
+    {
+        "english": "post office",
+        "japanese": {
+            "kanji": "郵便局",
+            "furigana": "ゆうびんきょく"
+        },
+        "image": "images/PD/town/postoffice.png"
+    },
+    {
+        "english": "bookstore",
+        "japanese": {
+            "kanji": "本屋",
+            "furigana": "ほんや"
+        },
+        "image": "images/PD/town/bookstore.png"
+    },
+    {
+        "english": "restaurant",
+        "japanese": {
+            "kanji": "レストラン",
+            "furigana": ""
+        },
+        "image": "images/PD/town/restaurant.png"
+    },
+    {
+        "english": "supermarket",
+        "japanese": {
+            "kanji": "スーパー",
+            "furigana": ""
+        },
+        "image": "images/PD/town/supermarket.png"
+    },
+    {
+        "english": "castle",
+        "japanese": {
+            "kanji": "城",
+            "furigana": "しろ"
+        },
+        "image": "images/PD/town/castle.png"
+    },
+    {
+        "english": "shrine",
+        "japanese": {
+            "kanji": "神社",
+            "furigana": "じんじゃ"
+        },
+        "image": "images/PD/town/shrine.png"
+    },
+    {
+        "english": "temple",
+        "japanese": {
+            "kanji": "お寺",
+            "furigana": "おてら"
+        },
+        "image": "images/PD/town/temple.png"
+    },
+    {
+        "english": "church",
+        "japanese": {
+            "kanji": "教会",
+            "furigana": "きょうかい"
+        },
+        "image": "images/PD/town/church.png"
+    },
+    {
+        "english": "aquarium",
+        "japanese": {
+            "kanji": "水族館",
+            "furigana": "すいぞくかん"
+        },
+        "image": "images/PD/town/aquarium.png"
+    },
+    {
+        "english": "stadium",
+        "japanese": {
+            "kanji": "スタジアム",
+            "furigana": ""
+        },
+        "image": "images/PD/town/stadium.png"
+    },
+    {
+        "english": "zoo",
+        "japanese": {
+            "kanji": "動物園",
+            "furigana": "どうぶつえん"
+        },
+        "image": "images/PD/town/zoo.png"
+    },
+    {
+        "english": "amusement park",
+        "japanese": {
+            "kanji": "遊園地",
+            "furigana": "ゆうえんち"
+        },
+        "image": "images/PD/town/amusementpark.png"
+    },
+    {
+        "english": "convenience store",
+        "japanese": {
+            "kanji": "コンビニ",
+            "furigana": ""
+        },
+        "image": "images/PD/town/conveniencestore.png"
+    },
+    {
+        "english": "elementary school",
+        "japanese": {
+            "kanji": "小学校",
+            "furigana": "しょうがっこう"
+        },
+        "image": "images/PD/town/elementaryschool.png"
+    },
+    {
+        "english": "junior high school",
+        "japanese": {
+            "kanji": "中学校",
+            "furigana": "ちゅうがっこう"
+        },
+        "image": "images/PD/town/juniorhighschool.png"
+    },
+    {
+        "english": "bus",
+        "japanese": {
+            "kanji": "バス",
+            "furigana": ""
+        },
+        "image": "images/PD/town/bus.png"
+    },
+    {
+        "english": "taxi",
+        "japanese": {
+            "kanji": "タクシー",
+            "furigana": ""
+        },
+        "image": "images/PD/town/taxi.png"
+    },
+    {
+        "english": "bike",
+        "japanese": {
+            "kanji": "自転車",
+            "furigana": "じてんしゃ"
+        },
+        "image": "images/PD/town/bike.png"
+    },
+    {
+        "english": "train",
+        "japanese": {
+            "kanji": "電車",
+            "furigana": "でんしゃ"
+        },
+        "image": "images/PD/town/train.png"
+    },
+    {
+        "english": "good",
+        "japanese": {
+            "kanji": "良い",
+            "furigana": "よい"
+        },
+        "image": "images/PD/feelings/good.png"
+    },
+    {
+        "english": "great",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/feelings/great.png"
+    },
+    {
+        "english": "bad",
+        "japanese": {
+            "kanji": "悪い",
+            "furigana": "わるい"
+        },
+        "image": "images/PD/adjectives/bad.png"
+    },
+    {
+        "english": "nice",
+        "japanese": {
+            "kanji": "素敵な",
+            "furigana": "すてきな"
+        },
+        "image": "images/PD/adjectives/nice.png"
+    },
+    {
+        "english": "amazing",
+        "japanese": {
+            "kanji": "驚くべき",
+            "furigana": "おどろくべき"
+        },
+        "image": "images/PD/adjectives/amazing.png"
+    },
+    {
+        "english": "fantastic",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/adjectives/fantastic.png"
+    },
+    {
+        "english": "wonderful",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/adjectives/wonderful.png"
+    },
+    {
+        "english": "beautiful",
+        "japanese": {
+            "kanji": "美しい",
+            "furigana": "うつくしい"
+        },
+        "image": "images/PD/adjectives/beautiful.png"
+    },
+    {
+        "english": "cool",
+        "japanese": {
+            "kanji": "かっこいい",
+            "furigana": ""
+        },
+        "image": "images/PD/adjectives/cool.png"
+    },
+    {
+        "english": "cute",
+        "japanese": {
+            "kanji": "かわいい",
+            "furigana": ""
+        },
+        "image": "images/PD/adjectives/cute.png"
+    },
+    {
+        "english": "favorite",
+        "japanese": {
+            "kanji": "お気に入り",
+            "furigana": "おきにいり"
+        },
+        "image": "images/PD/adjectives/favorite.png"
+    },
+    {
+        "english": "interesting",
+        "japanese": {
+            "kanji": "面白い",
+            "furigana": "おもしろい"
+        },
+        "image": "images/PD/adjectives/interesting.png"
+    },
+    {
+        "english": "exciting",
+        "japanese": {
+            "kanji": "わくわくする",
+            "furigana": ""
+        },
+        "image": "images/PD/adjectives/exciting.png"
+    },
+    {
+        "english": "famous",
+        "japanese": {
+            "kanji": "有名な",
+            "furigana": "ゆうめいな"
+        },
+        "image": "images/PD/adjectives/famous.png"
+    },
+    {
+        "english": "popular",
+        "japanese": {
+            "kanji": "人気のある",
+            "furigana": "にんきのある"
+        },
+        "image": "images/PD/adjectives/popular.png"
+    },
+    {
+        "english": "colorful",
+        "japanese": {
+            "kanji": "カラフル",
+            "furigana": ""
+        },
+        "image": "images/PD/adjectives/colorful.png"
+    },
+    {
+        "english": "international",
+        "japanese": {
+            "kanji": "国際的な",
+            "furigana": "こくさいてきな"
+        },
+        "image": "images/PD/adjectives/international.png"
+    },
+    {
+        "english": "fun",
+        "japanese": {
+            "kanji": "楽しい",
+            "furigana": "たのしい"
+        },
+        "image": "images/PD/adjectives/fun.png"
+    },
+    {
+        "english": "badminton",
+        "japanese": {
+            "kanji": "バドミントン",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/badminton.png"
+    },
+    {
+        "english": "baseball",
+        "japanese": {
+            "kanji": "野球",
+            "furigana": "やきゅう"
+        },
+        "image": "images/PD/sports/baseball.png"
+    },
+    {
+        "english": "basketball",
+        "japanese": {
+            "kanji": "バスケットボール",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/basketball.png"
+    },
+    {
+        "english": "cricket",
+        "japanese": {
+            "kanji": "クリケット",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/cricket.png"
+    },
+    {
+        "english": "dancing",
+        "japanese": {
+            "kanji": "ダンス",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/dancing.png"
+    },
+    {
+        "english": "dodgeball",
+        "japanese": {
+            "kanji": "ドッジボール",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/dodgeball.png"
+    },
+    {
+        "english": "golf",
+        "japanese": {
+            "kanji": "ゴルフ",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/golf.png"
+    },
+    {
+        "english": "gymnastics",
+        "japanese": {
+            "kanji": "体操",
+            "furigana": "たいそう"
+        },
+        "image": "images/PD/sports/gymnastics.png"
+    },
+    {
+        "english": "judo",
+        "japanese": {
+            "kanji": "柔道",
+            "furigana": "じゅうどう"
+        },
+        "image": "images/PD/sports/judo.png"
+    },
+    {
+        "english": "karate",
+        "japanese": {
+            "kanji": "空手",
+            "furigana": "からて"
+        },
+        "image": "images/PD/sports/karate.png"
+    },
+    {
+        "english": "kendo",
+        "japanese": {
+            "kanji": "剣道",
+            "furigana": "けんどう"
+        },
+        "image": "images/PD/sports/kendo.png"
+    },
+    {
+        "english": "marathon",
+        "japanese": {
+            "kanji": "マラソン",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/marathon.png"
+    },
+    {
+        "english": "rugby",
+        "japanese": {
+            "kanji": "ラグビー",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/rugby.png"
+    },
+    {
+        "english": "skateboarding",
+        "japanese": {
+            "kanji": "スケートボード",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/skateboarding.png"
+    },
+    {
+        "english": "skating",
+        "japanese": {
+            "kanji": "スケート",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/skating.png"
+    },
+    {
+        "english": "skiing",
+        "japanese": {
+            "kanji": "スキー",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/skiing.png"
+    },
+    {
+        "english": "soccer",
+        "japanese": {
+            "kanji": "サッカー",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/soccer.png"
+    },
+    {
+        "english": "softball",
+        "japanese": {
+            "kanji": "ソフトボール",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/softball.png"
+    },
+    {
+        "english": "sports",
+        "japanese": {
+            "kanji": "スポーツ",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/sports.png"
+    },
+    {
+        "english": "sumo",
+        "japanese": {
+            "kanji": "相撲",
+            "furigana": "すもう"
+        },
+        "image": "images/PD/sports/sumo.png"
+    },
+    {
+        "english": "surfing",
+        "japanese": {
+            "kanji": "サーフィン",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/surfing.png"
+    },
+    {
+        "english": "swimming",
+        "japanese": {
+            "kanji": "水泳",
+            "furigana": "すいえい"
+        },
+        "image": "images/PD/sports/swimming.png"
+    },
+    {
+        "english": "table tennis",
+        "japanese": {
+            "kanji": "卓球",
+            "furigana": "たっきゅう"
+        },
+        "image": "images/PD/sports/tabletennis.png"
+    },
+    {
+        "english": "tennis",
+        "japanese": {
+            "kanji": "テニス",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/tennis.png"
+    },
+    {
+        "english": "track and field",
+        "japanese": {
+            "kanji": "陸上競技",
+            "furigana": "りくじょうきょうぎ"
+        },
+        "image": "images/PD/sports/trackandfield.png"
+    },
+    {
+        "english": "volleyball",
+        "japanese": {
+            "kanji": "バレーボール",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/volleyball.png"
+    },
+    {
+        "english": "wrestling",
+        "japanese": {
+            "kanji": "レスリング",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/wrestling.png"
+    },
+    {
+        "english": "weather",
+        "japanese": {
+            "kanji": "天気",
+            "furigana": "てんき"
+        },
+        "image": "images/PD/weather/weather.png"
+    },
+    {
+        "english": "sunny",
+        "japanese": {
+            "kanji": "晴れ",
+            "furigana": "はれ"
+        },
+        "image": "images/PD/weather/sunny.png"
+    },
+    {
+        "english": "cloudy",
+        "japanese": {
+            "kanji": "曇り",
+            "furigana": "くもり"
+        },
+        "image": "images/PD/weather/cloudy.png"
+    },
+    {
+        "english": "windy",
+        "japanese": {
+            "kanji": "風が強い",
+            "furigana": "かぜがつよい"
+        },
+        "image": "images/PD/weather/windy.png"
+    },
+    {
+        "english": "rainy",
+        "japanese": {
+            "kanji": "雨",
+            "furigana": "あめ"
+        },
+        "image": "images/PD/weather/rainy.png"
+    },
+    {
+        "english": "snowy",
+        "japanese": {
+            "kanji": "雪",
+            "furigana": "ゆき"
+        },
+        "image": "images/PD/weather/snowy.png"
+    },
+    {
+        "english": "cold",
+        "japanese": {
+            "kanji": "寒い",
+            "furigana": "さむい"
+        },
+        "image": "images/PD/weather/cold.png"
+    },
+    {
+        "english": "warm",
+        "japanese": {
+            "kanji": "暖かい",
+            "furigana": "あたたかい"
+        },
+        "image": "images/PD/weather/warm.png"
+    },
+    {
+        "english": "hot",
+        "japanese": {
+            "kanji": "暑い",
+            "furigana": "あつい"
+        },
+        "image": "images/PD/weather/hot.png"
+    },
+    {
+        "english": "humid",
+        "japanese": {
+            "kanji": "蒸し暑い",
+            "furigana": "むしあつい"
+        },
+        "image": "images/PD/weather/humid.png"
+    }
+]

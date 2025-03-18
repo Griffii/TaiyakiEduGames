@@ -1,0 +1,474 @@
+[
+    {
+        "english": "world",
+        "japanese": {
+            "kanji": "世界",
+            "furigana": "せかい"
+        },
+        "image": "images/PD/world/world.png"
+    },
+    {
+        "english": "country",
+        "japanese": {
+            "kanji": "国",
+            "furigana": "くに"
+        },
+        "image": "images/PD/world/country.png"
+    },
+    {
+        "english": "culture",
+        "japanese": {
+            "kanji": "文化",
+            "furigana": "ぶんか"
+        },
+        "image": "images/PD/world/culture.png"
+    },
+    {
+        "english": "north",
+        "japanese": {
+            "kanji": "北",
+            "furigana": "きた"
+        },
+        "image": "images/PD/world/north.png"
+    },
+    {
+        "english": "east",
+        "japanese": {
+            "kanji": "東",
+            "furigana": "ひがし"
+        },
+        "image": "images/PD/world/east.png"
+    },
+    {
+        "english": "south",
+        "japanese": {
+            "kanji": "南",
+            "furigana": "みなみ"
+        },
+        "image": "images/PD/world/south.png"
+    },
+    {
+        "english": "west",
+        "japanese": {
+            "kanji": "西",
+            "furigana": "にし"
+        },
+        "image": "images/PD/world/west.png"
+    },
+    {
+        "english": "North America",
+        "japanese": {
+            "kanji": "北アメリカ",
+            "furigana": "きたあめりか"
+        },
+        "image": "images/PD/world/northamerica.png"
+    },
+    {
+        "english": "South America",
+        "japanese": {
+            "kanji": "南アメリカ",
+            "furigana": "みなみあめりか"
+        },
+        "image": "images/PD/world/southamerica.png"
+    },
+    {
+        "english": "Asia",
+        "japanese": {
+            "kanji": "アジア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/asia.png"
+    },
+    {
+        "english": "Europe",
+        "japanese": {
+            "kanji": "ヨーロッパ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/europe.png"
+    },
+    {
+        "english": "Africa",
+        "japanese": {
+            "kanji": "アフリカ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/africa.png"
+    },
+    {
+        "english": "Oceania",
+        "japanese": {
+            "kanji": "オセアニア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/oceania.png"
+    },
+    {
+        "english": "the U.K.",
+        "japanese": {
+            "kanji": "イギリス",
+            "furigana": ""
+        },
+        "image": "images/PD/world/united-kingdom.png"
+    },
+    {
+        "english": "France",
+        "japanese": {
+            "kanji": "フランス",
+            "furigana": ""
+        },
+        "image": "images/PD/world/france.png"
+    },
+    {
+        "english": "Egypt",
+        "japanese": {
+            "kanji": "エジプト",
+            "furigana": ""
+        },
+        "image": "images/PD/world/egypt.png"
+    },
+    {
+        "english": "China",
+        "japanese": {
+            "kanji": "中国",
+            "furigana": "ちゅうごく"
+        },
+        "image": "images/PD/world/china.png"
+    },
+    {
+        "english": "Australia",
+        "japanese": {
+            "kanji": "オーストラリア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/australia.png"
+    },
+    {
+        "english": "Japan",
+        "japanese": {
+            "kanji": "日本",
+            "furigana": "にほん"
+        },
+        "image": "images/PD/world/japan.png"
+    },
+    {
+        "english": "America",
+        "japanese": {
+            "kanji": "アメリカ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/america.png"
+    },
+    {
+        "english": "Brazil",
+        "japanese": {
+            "kanji": "ブラジル",
+            "furigana": ""
+        },
+        "image": "images/PD/world/brazil.png"
+    },
+    {
+        "english": "speak",
+        "japanese": {
+            "kanji": "話す",
+            "furigana": "はなす"
+        },
+        "image": "images/PD/actions/speak.png"
+    },
+    {
+        "english": "live",
+        "japanese": {
+            "kanji": "住む",
+            "furigana": "すむ"
+        },
+        "image": "images/PD/actions/live.png"
+    },
+    {
+        "english": "make",
+        "japanese": {
+            "kanji": "作る",
+            "furigana": "つくる"
+        },
+        "image": "images/PD/actions/make.png"
+    },
+    {
+        "english": "wear",
+        "japanese": {
+            "kanji": "着る",
+            "furigana": "きる"
+        },
+        "image": "images/PD/actions/wear.png"
+    },
+    {
+        "english": "talk",
+        "japanese": {
+            "kanji": "話す",
+            "furigana": "はなす"
+        },
+        "image": "images/PD/actions/talk.png"
+    },
+    {
+        "english": "watch",
+        "japanese": {
+            "kanji": "見る",
+            "furigana": "みる"
+        },
+        "image": "images/PD/actions/watch.png"
+    },
+    {
+        "english": "read",
+        "japanese": {
+            "kanji": "読む",
+            "furigana": "よむ"
+        },
+        "image": "images/PD/actions/read.png"
+    },
+    {
+        "english": "help",
+        "japanese": {
+            "kanji": "助ける",
+            "furigana": "たすける"
+        },
+        "image": "images/PD/actions/help.png"
+    },
+    {
+        "english": "practice",
+        "japanese": {
+            "kanji": "練習する",
+            "furigana": "れんしゅうする"
+        },
+        "image": "images/PD/actions/practice.png"
+    },
+    {
+        "english": "clean",
+        "japanese": {
+            "kanji": "掃除する",
+            "furigana": "そうじする"
+        },
+        "image": "images/PD/actions/clean.png"
+    },
+    {
+        "english": "enjoy",
+        "japanese": {
+            "kanji": "楽しむ",
+            "furigana": "たのしむ"
+        },
+        "image": "images/PD/actions/enjoy.png"
+    },
+    {
+        "english": "visit",
+        "japanese": {
+            "kanji": "訪れる",
+            "furigana": "おとずれる"
+        },
+        "image": "images/PD/actions/visit.png"
+    },
+    {
+        "english": "ride",
+        "japanese": {
+            "kanji": "乗る",
+            "furigana": "のる"
+        },
+        "image": "images/PD/actions/ride.png"
+    },
+    {
+        "english": "come",
+        "japanese": {
+            "kanji": "来る",
+            "furigana": "くる"
+        },
+        "image": "images/PD/actions/come.png"
+    },
+    {
+        "english": "get",
+        "japanese": {
+            "kanji": "得る",
+            "furigana": "える"
+        },
+        "image": "images/PD/actions/get.png"
+    },
+    {
+        "english": "save",
+        "japanese": {
+            "kanji": "節約する",
+            "furigana": "せつやくする"
+        },
+        "image": "images/PD/actions/save.png"
+    },
+    {
+        "english": "stop",
+        "japanese": {
+            "kanji": "止まる",
+            "furigana": "とまる"
+        },
+        "image": "images/PD/actions/stop.png"
+    },
+    {
+        "english": "study",
+        "japanese": {
+            "kanji": "勉強する",
+            "furigana": "べんきょうする"
+        },
+        "image": "images/PD/actions/study.png"
+    },
+    {
+        "english": "join",
+        "japanese": {
+            "kanji": "参加する",
+            "furigana": "さんかする"
+        },
+        "image": "images/PD/actions/join.png"
+    },
+    {
+        "english": "work",
+        "japanese": {
+            "kanji": "働く",
+            "furigana": "はたらく"
+        },
+        "image": "images/PD/actions/work.png"
+    },
+    {
+        "english": "good",
+        "japanese": {
+            "kanji": "良い",
+            "furigana": "よい"
+        },
+        "image": "images/PD/feelings/good.png"
+    },
+    {
+        "english": "great",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/feelings/great.png"
+    },
+    {
+        "english": "bad",
+        "japanese": {
+            "kanji": "悪い",
+            "furigana": "わるい"
+        },
+        "image": "images/PD/adjectives/bad.png"
+    },
+    {
+        "english": "nice",
+        "japanese": {
+            "kanji": "素敵な",
+            "furigana": "すてきな"
+        },
+        "image": "images/PD/adjectives/nice.png"
+    },
+    {
+        "english": "amazing",
+        "japanese": {
+            "kanji": "驚くべき",
+            "furigana": "おどろくべき"
+        },
+        "image": "images/PD/adjectives/amazing.png"
+    },
+    {
+        "english": "fantastic",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/adjectives/fantastic.png"
+    },
+    {
+        "english": "wonderful",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/PD/adjectives/wonderful.png"
+    },
+    {
+        "english": "beautiful",
+        "japanese": {
+            "kanji": "美しい",
+            "furigana": "うつくしい"
+        },
+        "image": "images/PD/adjectives/beautiful.png"
+    },
+    {
+        "english": "cool",
+        "japanese": {
+            "kanji": "かっこいい",
+            "furigana": ""
+        },
+        "image": "images/PD/adjectives/cool.png"
+    },
+    {
+        "english": "cute",
+        "japanese": {
+            "kanji": "かわいい",
+            "furigana": ""
+        },
+        "image": "images/PD/adjectives/cute.png"
+    },
+    {
+        "english": "favorite",
+        "japanese": {
+            "kanji": "お気に入り",
+            "furigana": "おきにいり"
+        },
+        "image": "images/PD/adjectives/favorite.png"
+    },
+    {
+        "english": "interesting",
+        "japanese": {
+            "kanji": "面白い",
+            "furigana": "おもしろい"
+        },
+        "image": "images/PD/adjectives/interesting.png"
+    },
+    {
+        "english": "exciting",
+        "japanese": {
+            "kanji": "わくわくする",
+            "furigana": ""
+        },
+        "image": "images/PD/adjectives/exciting.png"
+    },
+    {
+        "english": "famous",
+        "japanese": {
+            "kanji": "有名な",
+            "furigana": "ゆうめいな"
+        },
+        "image": "images/PD/adjectives/famous.png"
+    },
+    {
+        "english": "popular",
+        "japanese": {
+            "kanji": "人気のある",
+            "furigana": "にんきのある"
+        },
+        "image": "images/PD/adjectives/popular.png"
+    },
+    {
+        "english": "colorful",
+        "japanese": {
+            "kanji": "カラフル",
+            "furigana": ""
+        },
+        "image": "images/PD/adjectives/colorful.png"
+    },
+    {
+        "english": "international",
+        "japanese": {
+            "kanji": "国際的な",
+            "furigana": "こくさいてきな"
+        },
+        "image": "images/PD/adjectives/international.png"
+    },
+    {
+        "english": "fun",
+        "japanese": {
+            "kanji": "楽しい",
+            "furigana": "たのしい"
+        },
+        "image": "images/PD/adjectives/fun.png"
+    }
+]

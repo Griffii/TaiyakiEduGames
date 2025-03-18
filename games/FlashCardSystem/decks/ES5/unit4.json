@@ -1,0 +1,178 @@
+[
+    {
+        "english": "I",
+        "japanese": {
+            "kanji": "私",
+            "furigana": "わたし"
+        },
+        "image": "images/PD/people/i.png"
+    },
+    {
+        "english": "you",
+        "japanese": {
+            "kanji": "あなた",
+            "furigana": ""
+        },
+        "image": "images/PD/people/you.png"
+    },
+    {
+        "english": "she",
+        "japanese": {
+            "kanji": "彼女",
+            "furigana": "かのじょ"
+        },
+        "image": "images/PD/people/she.png"
+    },
+    {
+        "english": "he",
+        "japanese": {
+            "kanji": "彼",
+            "furigana": "かれ"
+        },
+        "image": "images/PD/people/he.png"
+    },
+    {
+        "english": "we",
+        "japanese": {
+            "kanji": "私たち",
+            "furigana": ""
+        },
+        "image": "images/PD/people/we.png"
+    },
+    {
+        "english": "man",
+        "japanese": {
+            "kanji": "男性",
+            "furigana": "だんせい"
+        },
+        "image": "images/PD/people/man.png"
+    },
+    {
+        "english": "woman",
+        "japanese": {
+            "kanji": "女性",
+            "furigana": "じょせい"
+        },
+        "image": "images/PD/people/woman.png"
+    },
+    {
+        "english": "boy",
+        "japanese": {
+            "kanji": "男の子",
+            "furigana": "おとこのこ"
+        },
+        "image": "images/PD/people/boy.png"
+    },
+    {
+        "english": "girl",
+        "japanese": {
+            "kanji": "女の子",
+            "furigana": "おんなのこ"
+        },
+        "image": "images/PD/people/girl.png"
+    },
+    {
+        "english": "children",
+        "japanese": {
+            "kanji": "子供",
+            "furigana": "こども"
+        },
+        "image": "images/PD/people/children.png"
+    },
+    {
+        "english": "classmates",
+        "japanese": {
+            "kanji": "クラスメイト",
+            "furigana": ""
+        },
+        "image": "images/PD/people/classmates.png"
+    },
+    {
+        "english": "friends",
+        "japanese": {
+            "kanji": "友達",
+            "furigana": "ともだち"
+        },
+        "image": "images/PD/people/friends.png"
+    },
+    {
+        "english": "baby",
+        "japanese": {
+            "kanji": "赤ちゃん",
+            "furigana": "あかちゃん"
+        },
+        "image": "images/PD/people/baby.png"
+    },
+    {
+        "english": "active",
+        "japanese": {
+            "kanji": "活動的",
+            "furigana": "かつどうてき"
+        },
+        "image": "images/PD/personalities/active.png"
+    },
+    {
+        "english": "brave",
+        "japanese": {
+            "kanji": "勇敢",
+            "furigana": "ゆうかん"
+        },
+        "image": "images/PD/personalities/brave.png"
+    },
+    {
+        "english": "friendly",
+        "japanese": {
+            "kanji": "友好的",
+            "furigana": "ゆうこうてき"
+        },
+        "image": "images/PD/personalities/friendly.png"
+    },
+    {
+        "english": "funny",
+        "japanese": {
+            "kanji": "面白い",
+            "furigana": "おもしろい"
+        },
+        "image": "images/PD/personalities/funny.png"
+    },
+    {
+        "english": "kind",
+        "japanese": {
+            "kanji": "優しい",
+            "furigana": "やさしい"
+        },
+        "image": "images/PD/personalities/kind.png"
+    },
+    {
+        "english": "shy",
+        "japanese": {
+            "kanji": "内気",
+            "furigana": "うちき"
+        },
+        "image": "images/PD/personalities/shy.png"
+    },
+    {
+        "english": "smart",
+        "japanese": {
+            "kanji": "賢い",
+            "furigana": "かしこい"
+        },
+        "image": "images/PD/personalities/smart.png"
+    },
+    {
+        "english": "strong",
+        "japanese": {
+            "kanji": "強い",
+            "furigana": "つよい"
+        },
+        "image": "images/PD/personalities/strong.png"
+    },
+    {
+        "english": "gentle",
+        "japanese": {
+            "kanji": "穏やか",
+            "furigana": "おだやか"
+        },
+        "image": "images/PD/personalities/bonuswords/gentle.png"
+    }
+]
