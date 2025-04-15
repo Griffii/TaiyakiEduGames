@@ -4,13 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Taiyaki Edu Games</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap"
+      rel="stylesheet"
+    />
     <!-- Favicon link -->
     <link rel="icon" href="favicon.png" type="image/png" />
+    <script src="js/fallingcherryblossoms.js"></script>
     <script src="js/analytics.js"></script>
 
     <style>
-
       .title-board {
         background: #8b5e3c;
         border-bottom: 5px solid #5a3a21;
@@ -39,24 +42,6 @@
         text-align: center;
         margin: 0;
         padding: 0;
-      }
-
-      .border {
-        z-index: -1;
-        pointer-events: none; /* Optional: prevents the images from blocking clicks */
-      }
-      .border img {
-        position: absolute;
-      }
-      .border img:first-child {
-        position: absolute;
-        z-index: -1;
-        left: 0;
-      }
-      .border img:last-child {
-        position: absolute;
-        z-index: -1;
-        right: 0;
       }
 
       h1 {
@@ -170,55 +155,78 @@
         color: #fff8dc;
       }
 
+      /* Left and right border images */
+      .border {
+        position: absolute;
+        left: 0;
+        top: 100px;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+      }
+      .border-left,
+      .border-right {
+        position: absolute;
+        top: 100px;
+        width: 500px;
+        height: 100%;
+        background-repeat: repeat-y;
+        z-index: -1;
+      }
+      .border-left {
+        left: 0;
+        background-image: url("assets/Cherry_Border_01_Left.png");
+      }
+      .border-right {
+        right: 0;
+        background-image: url("assets/Cherry_Border_01_Right.png");
+      }
 
       /*
       Seasonal Effect - Cherry Blossoms Falling
       */
       .sakura {
-      position: absolute;
-      top: -50px;
-      width: 50px;
-      height: 50px;
-      background-image: url("assets/sakura_01.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      z-index: 0;
-      pointer-events: none;
+        position: absolute;
+        top: -50px;
+        width: 50px;
+        height: 50px;
+        background-image: url("assets/sakura_01.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        z-index: 0;
+        pointer-events: none;
       }
-      
-@keyframes fall {
-  0% {
-    transform: translateX(0px) translateY(-100px) rotate(0deg);
-    opacity: 1.0;
-  }
-  50% {
-    transform: translateX(30px) translateY(50vh) rotate(180deg);
-    opacity: 1.0;
-  }
-  100% {
-    transform: translateX(-30px) translateY(100vh) rotate(360deg);
-    opacity: 0;
-  }
-}
 
-
-
+      @keyframes fall {
+        0% {
+          transform: translateX(0px) translateY(-100px) rotate(0deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateX(30px) translateY(50vh) rotate(180deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-30px) translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
     </style>
   </head>
 
   <body>
     <div class="title-board">
       Taiyaki-Sensei's Education Games
-      <h2>
-        ~ Welcome back to school! ~
-      </h2>
+      <h2>~ Welcome back to school! ~</h2>
     </div>
-    
+
+    <!-- Seasonal Border -->
     <div class="border">
-      <img src="assets/Cherry_Border_01_Left.png"></img>
-      <img src="assets/Cherry_Border_01_Right.png"></img>
+      <div class="border-left"></div>
+      <div class="border-right"></div>
     </div>
-    
+
     <div class="game-list">
       <script>
         // List of available games (Manually add games here)
@@ -256,19 +264,15 @@
           gameListDiv.appendChild(gameItem);
         });
       </script>
-      
     </div>
 
-    
-
     <section id="footer">
-      
       <div class="credits-div">
         <button class="credits-btn">
           <a href="/TaiyakiEduGames/credits.html"> Acknowledgements </a>
         </button>
       </div>
-  
+
       <div class="credits-div">
         <button class="donations-btn">
           <a href="https://www.griffii.com/projects.html">
@@ -277,41 +281,12 @@
           </a>
         </button>
       </div>
-      
+
       <p>Version 1.15</p>
       <p>
         &copy; 2025 -
         <a href="https://griffii.com" target="_blank">Griffii.com</a>
-      </p> 
+      </p>
     </section>
-
-    <!-- Sakura Petal Script -->
-    <script>
-      function createSakuraPetal() {
-        const petal = document.createElement("div");
-        petal.classList.add("sakura");
-    
-        // Random horizontal position (0% to 100% of screen width)
-        petal.style.left = Math.random() * 100 + "vw";
-    
-        // Random duration and delay
-        const duration = 8 + Math.random() * 5; // 8–13s
-        petal.style.animation = `fall ${duration}s linear`;
-        
-        document.body.appendChild(petal);
-    
-        // Remove the petal once animation is done
-        setTimeout(() => {
-          petal.remove();
-        }, duration * 1000);
-      }
-    
-      // Start spawning petals at random intervals
-      setInterval(() => {
-        createSakuraPetal();
-      }, 1000 + Math.random() * 1000); // Every 1.0–1.5 seconds
-    </script>
-    
-    
   </body>
 </html>

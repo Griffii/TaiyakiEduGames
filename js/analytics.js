@@ -6,7 +6,7 @@
       // GitHub Pages
       measurementId = "G-77VF8YQJDR"; 
     } else if (hostname.includes("griffii.com")) {
-      // Your Hostinger-hosted site
+      // Hostinger-hosted site
       measurementId = "G-X9DNJ3WNTY"; 
     } else {
       console.warn("Unknown host, no analytics loaded.");
