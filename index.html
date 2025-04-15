@@ -4,35 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Taiyaki Edu Games</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
     <!-- Favicon link -->
     <link rel="icon" href="favicon.png" type="image/png" />
     <script src="js/analytics.js"></script>
 
     <style>
-      .home-button {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        width: 30px;
-        height: 30px;
-        z-index: 1000; /* Ensures it stays on top */
+
+      .title-board {
+        background: #8b5e3c;
+        border-bottom: 5px solid #5a3a21;
+        color: aquamarine;
+        text-align: center;
+        font-size: 3rem;
+        text-shadow: 0px 8px 16px #222;
+        padding: 20px;
+        padding-top: 50px;
+        margin-bottom: 30px;
+        z-index: 100;
       }
-      .home-button img {
-        width: 100%;
-        height: auto;
-        cursor: pointer;
-        transition: transform 0.2s ease-in-out;
+
+      .title-board h2 {
+        font-size: 2rem;
+        color: pink;
+        text-align: center;
+        text-shadow: 0px 8px 16px #222;
       }
-      .home-button img:hover {
-        transform: scale(1.1);
-      }
+
       body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9; /* Lighter background */
+        font-family: "Fredoka", sans-serif;
+        /* background-color: #f4f4f9; /* Lighter background */
+        background: linear-gradient(to top, #ffe4f0, #f5e9ff);
         color: #333; /* Darker text for contrast */
         text-align: center;
         margin: 0;
         padding: 0;
+      }
+
+      .border {
+        z-index: -1;
+        pointer-events: none; /* Optional: prevents the images from blocking clicks */
+      }
+      .border img {
+        position: absolute;
+      }
+      .border img:first-child {
+        position: absolute;
+        z-index: -1;
+        left: 0;
+      }
+      .border img:last-child {
+        position: absolute;
+        z-index: -1;
+        right: 0;
       }
 
       h1 {
@@ -73,13 +97,13 @@
         .game-list {
           grid-template-columns: repeat(
             auto-fit,
-            minmax(250px, 1fr)
+            minmax(180px, 1fr)
           ); /* Adjusts for smaller screens */
         }
       }
 
       .game-item {
-        background-color: #dcdcee; /* Light card background */
+        background-color: #fff8fc; /* #dcdcee; /* Light card background */
         border-radius: 10px;
         padding: 15px;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -88,7 +112,7 @@
         font-size: 28px;
         font-weight: bold;
         text-decoration: none;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
       }
 
       .game-item:hover {
@@ -114,14 +138,16 @@
         margin-bottom: 10px;
       }
 
-      .credits-div, .donations-div {
+      .credits-div,
+      .donations-div {
         display: flex;
         align-content: center;
         justify-content: center;
       }
-      .credits-btn, .donations-btn {
+      .credits-btn,
+      .donations-btn {
         display: block;
-        margin-top: 50px;
+        margin-top: 20px;
         border-radius: 5px;
         box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);
         padding: 5px;
@@ -130,33 +156,88 @@
         font-weight: bold;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
-      .credits-btn:hover, .donations-btn:hover {
+      .credits-btn:hover,
+      .donations-btn:hover {
         background-color: rgb(248, 215, 166);
+        scale: 1.1;
       }
 
       #footer {
-        margin-top: 60px;
+        margin-top: 30px;
+        padding: 20px;
+        background: #8b5e3c;
+        border-top: 5px solid #5a3a21;
+        color: #fff8dc;
       }
+
+
+      /*
+      Seasonal Effect - Cherry Blossoms Falling
+      */
+      .sakura {
+      position: absolute;
+      top: -50px;
+      width: 50px;
+      height: 50px;
+      background-image: url("assets/sakura_01.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 0;
+      pointer-events: none;
+      }
+      
+@keyframes fall {
+  0% {
+    transform: translateX(0px) translateY(-100px) rotate(0deg);
+    opacity: 1.0;
+  }
+  50% {
+    transform: translateX(30px) translateY(50vh) rotate(180deg);
+    opacity: 1.0;
+  }
+  100% {
+    transform: translateX(-30px) translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+
+
     </style>
   </head>
 
   <body>
-    <h1 id="main-title">Taiyaki-Sensei's Education Games</h1>
-
-    <h1>🎮 Choose a Game 🎮</h1>
+    <div class="title-board">
+      Taiyaki-Sensei's Education Games
+      <h2>
+        ~ Welcome back to school! ~
+      </h2>
+    </div>
+    
+    <div class="border">
+      <img src="assets/Cherry_Border_01_Left.png"></img>
+      <img src="assets/Cherry_Border_01_Right.png"></img>
+    </div>
+    
     <div class="game-list">
       <script>
         // List of available games (Manually add games here)
         const games = [
-          { name: "Flash Card System", path: "games/FlashCardSystem/gradeselection.html"},
-          { name: "Spelling Battle", path: "games/SpellingBattle/index.html"},
-          { name: "Who Is It", path: "games/WhoIsIt/index.html"},
+          {
+            name: "Flash Card System",
+            path: "games/FlashCardSystem/gradeselection.html",
+          },
+          { name: "Spelling Battle", path: "games/SpellingBattle/index.html" },
+          { name: "Who Is It", path: "games/WhoIsIt/index.html" },
           { name: "Vocab Othello", path: "games/VocabOthello/index.html" },
           { name: "Random Points", path: "games/RandomPoints/index.html" },
-          { name: "Number Picker Wheel", path: "games/NumberPickerWheel/index.html" },
+          {
+            name: "Number Picker Wheel",
+            path: "games/NumberPickerWheel/index.html",
+          },
           { name: "English Omikuji", path: "games/EnglishOmikuji/index.html" },
           { name: "Dice Simulator", path: "games/DiceSimulator/index.html" },
-           //{ name: "Memory Game", path: "games/MemoryGame/index.html" },
+          //{ name: "Memory Game", path: "games/MemoryGame/index.html" },
         ];
 
         const gameListDiv = document.querySelector(".game-list");
@@ -175,33 +256,62 @@
           gameListDiv.appendChild(gameItem);
         });
       </script>
+      
     </div>
 
-    <div class="credits-div">
-      <button class="credits-btn">
-        <a href="/TaiyakiEduGames/credits.html"> 
-          Acknowledgements 
-        </a>
-      </button>
-    </div>
-
-    <div class="credits-div">
-      <button class="donations-btn">
-        <a
-          href="https://www.griffii.com/projects.html"
-        >
-          Download Page<br>
-          (Offline Version)
-        </a>
-      </button>
-    </div>
+    
 
     <section id="footer">
-      <p>Version 1.14</p>
+      
+      <div class="credits-div">
+        <button class="credits-btn">
+          <a href="/TaiyakiEduGames/credits.html"> Acknowledgements </a>
+        </button>
+      </div>
+  
+      <div class="credits-div">
+        <button class="donations-btn">
+          <a href="https://www.griffii.com/projects.html">
+            Download Page<br />
+            (Offline Version)
+          </a>
+        </button>
+      </div>
+      
+      <p>Version 1.15</p>
       <p>
         &copy; 2025 -
         <a href="https://griffii.com" target="_blank">Griffii.com</a>
-      </p>
+      </p> 
     </section>
+
+    <!-- Sakura Petal Script -->
+    <script>
+      function createSakuraPetal() {
+        const petal = document.createElement("div");
+        petal.classList.add("sakura");
+    
+        // Random horizontal position (0% to 100% of screen width)
+        petal.style.left = Math.random() * 100 + "vw";
+    
+        // Random duration and delay
+        const duration = 8 + Math.random() * 5; // 8–13s
+        petal.style.animation = `fall ${duration}s linear`;
+        
+        document.body.appendChild(petal);
+    
+        // Remove the petal once animation is done
+        setTimeout(() => {
+          petal.remove();
+        }, duration * 1000);
+      }
+    
+      // Start spawning petals at random intervals
+      setInterval(() => {
+        createSakuraPetal();
+      }, 1000 + Math.random() * 1000); // Every 1.0–1.5 seconds
+    </script>
+    
+    
   </body>
 </html>
