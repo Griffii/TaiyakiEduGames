@@ -34,6 +34,11 @@
         text-shadow: 0px 8px 16px #222;
       }
 
+      .page-wrapper {
+        position: relative;
+        z-index: 0;
+      }
+
       body {
         font-family: "Fredoka", sans-serif;
         /* background-color: #f4f4f9; /* Lighter background */
@@ -158,20 +163,22 @@
       /* Left and right border images */
       .border {
         position: absolute;
+        top: 0;
         left: 0;
-        top: 100px;
         width: 100%;
-        height: 100%;
+        height: 100%; /* Grows with page content */
         z-index: -1;
         pointer-events: none;
       }
       .border-left,
       .border-right {
         position: absolute;
-        top: 100px;
-        width: 470px;
+        top: 0;
+        width: 300px;
         height: 100%;
         background-repeat: repeat-y;
+        background-size: contain;
+        background-position: top;
         z-index: -1;
       }
       .border-left {
@@ -216,77 +223,85 @@
   </head>
 
   <body>
-    <div class="title-board">
-      Taiyaki-Sensei's Education Games
-      <h2>~ Welcome back to school! ~</h2>
-    </div>
+    <div class="page-wrapper">
+      <div class="title-board">
+        Taiyaki-Sensei's Education Games
+        <h2>~ Welcome back to school! ~</h2>
+      </div>
 
-    <!-- Seasonal Border -->
-    <div class="border">
-      <div class="border-left"></div>
-      <div class="border-right"></div>
-    </div>
+      <!-- Seasonal Border -->
+      <div class="border">
+        <div class="border-left"></div>
+        <div class="border-right"></div>
+      </div>
 
-    <div class="game-list">
-      <script>
-        // List of available games (Manually add games here)
-        const games = [
-          {
-            name: "Flash Card System",
-            path: "games/FlashCardSystem/gradeselection.html",
-          },
-          { name: "Spelling Battle", path: "games/SpellingBattle/index.html" },
-          { name: "Who Is It", path: "games/WhoIsIt/index.html" },
-          { name: "Vocab Othello", path: "games/VocabOthello/index.html" },
-          { name: "Random Points", path: "games/RandomPoints/index.html" },
-          {
-            name: "Number Picker Wheel",
-            path: "games/NumberPickerWheel/index.html",
-          },
-          { name: "English Omikuji", path: "games/EnglishOmikuji/index.html" },
-          { name: "Dice Simulator", path: "games/DiceSimulator/index.html" },
-          //{ name: "Memory Game", path: "games/MemoryGame/index.html" },
-        ];
+      <div class="game-list">
+        <script>
+          // List of available games (Manually add games here)
+          const games = [
+            {
+              name: "Flash Card System",
+              path: "games/FlashCardSystem/gradeselection.html",
+            },
+            {
+              name: "Spelling Battle",
+              path: "games/SpellingBattle/index.html",
+            },
+            { name: "Who Is It", path: "games/WhoIsIt/index.html" },
+            { name: "Vocab Othello", path: "games/VocabOthello/index.html" },
+            { name: "Random Points", path: "games/RandomPoints/index.html" },
+            {
+              name: "Number Picker Wheel",
+              path: "games/NumberPickerWheel/index.html",
+            },
+            {
+              name: "English Omikuji",
+              path: "games/EnglishOmikuji/index.html",
+            },
+            { name: "Dice Simulator", path: "games/DiceSimulator/index.html" },
+            //{ name: "Memory Game", path: "games/MemoryGame/index.html" },
+          ];
 
-        const gameListDiv = document.querySelector(".game-list");
+          const gameListDiv = document.querySelector(".game-list");
 
-        games.forEach((game) => {
-          const gameItem = document.createElement("a");
-          gameItem.href = game.path;
-          gameItem.classList.add("game-item");
-          gameItem.innerHTML = `
+          games.forEach((game) => {
+            const gameItem = document.createElement("a");
+            gameItem.href = game.path;
+            gameItem.classList.add("game-item");
+            gameItem.innerHTML = `
                     <img class="game-icon" src="games/${game.name.replace(
                       /\s+/g,
                       ""
                     )}/icon.png" alt="${game.name} Icon">
                     <div>${game.name}</div>
                 `;
-          gameListDiv.appendChild(gameItem);
-        });
-      </script>
+            gameListDiv.appendChild(gameItem);
+          });
+        </script>
+      </div>
+
+      <section id="footer">
+        <div class="credits-div">
+          <button class="credits-btn">
+            <a href="/TaiyakiEduGames/credits.html"> Acknowledgements </a>
+          </button>
+        </div>
+
+        <div class="credits-div">
+          <button class="donations-btn">
+            <a href="https://www.griffii.com/projects.html">
+              Download Page<br />
+              (Offline Version)
+            </a>
+          </button>
+        </div>
+
+        <p>Version 1.15</p>
+        <p>
+          &copy; 2025 -
+          <a href="https://griffii.com" target="_blank">Griffii.com</a>
+        </p>
+      </section>
     </div>
-
-    <section id="footer">
-      <div class="credits-div">
-        <button class="credits-btn">
-          <a href="/TaiyakiEduGames/credits.html"> Acknowledgements </a>
-        </button>
-      </div>
-
-      <div class="credits-div">
-        <button class="donations-btn">
-          <a href="https://www.griffii.com/projects.html">
-            Download Page<br />
-            (Offline Version)
-          </a>
-        </button>
-      </div>
-
-      <p>Version 1.15</p>
-      <p>
-        &copy; 2025 -
-        <a href="https://griffii.com" target="_blank">Griffii.com</a>
-      </p>
-    </section>
   </body>
 </html>
