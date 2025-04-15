@@ -200,6 +200,26 @@ body {
   text-align: center;
   font-family: "UG Digi Kyokasho NK-B";
   font-weight: bold;
+  white-space: normal;
+  line-break: strict; /* preferred for Japanese */
+  overflow-wrap: break-word;
+  padding: 10px;
+  max-width: 90%;
+
+  /* Debug ZBorder */
+  /* border: 2px dashed red; */
+}
+
+.japanese-container ruby {
+  /* keep as inline for furigana rendering */
+  white-space: normal;
+  line-break: strict;
+  word-break: keep-all; /* for Japanese: don't break inside a word unless needed */
+}
+.japanese-container #kanji {
+  white-space: normal;
+  line-break: strict;
+  word-break: break-word; 
 }
 
 /* Furigana Text (Ruby Annotations) */
@@ -264,7 +284,7 @@ button:hover {
   }
 
   .japanese-container {
-    font-size: 6vw; /* Scales with screen */
+    font-size: 5vw; /* Scales with screen */
   }
 
   .english {
@@ -291,7 +311,7 @@ button:hover {
   }
 
   .japanese-container {
-    font-size: 5vw;
+    font-size: 4vw;
   }
 
   .english {

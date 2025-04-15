@@ -1,5 +1,13 @@
 [
     {
+        "english": "sports",
+        "japanese": {
+            "kanji": "スポーツ",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/sports.png"
+    },
+    {
         "english": "badminton",
         "japanese": {
             "kanji": "バドミントン",
@@ -142,14 +150,6 @@
             "furigana": ""
         },
         "image": "images/PD/sports/softball.png"
-    },
-    {
-        "english": "sports",
-        "japanese": {
-            "kanji": "スポーツ",
-            "furigana": ""
-        },
-        "image": "images/PD/sports/sports.png"
     },
     {
         "english": "sumo",
