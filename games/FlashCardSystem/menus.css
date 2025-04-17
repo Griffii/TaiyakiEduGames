@@ -334,6 +334,13 @@ button:hover {
     scale: 1.05;
 }
 
+.tornado-game-btn {
+    width: 200px;
+}
+.tornado-game-btn:hover {
+    scale: 1.05;
+}
+
 .matching-game-btn {
     background-color: blue;
     width: 200px;
