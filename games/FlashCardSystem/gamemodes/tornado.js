@@ -53,10 +53,9 @@ function displayCards() {
 
     cardGrid.appendChild(cardElement);
 
-    const allCards = document.querySelectorAll('.card'); // Adjust if your card class is different
+    const allCards = document.querySelectorAll(".card"); // Adjust if your card class is different
     assignCardValues(allCards);
-    allCards.forEach(card => card.addEventListener('click', onCardClick));
-    
+    allCards.forEach((card) => card.addEventListener("click", onCardClick));
   });
 }
 
@@ -98,8 +97,9 @@ function onCardClick(e) {
   const img = card.querySelector("img");
   if (img) img.remove();
 
-  //////// FIND A WAY TO REMOVE ENGLISH TEXT TOO
-  
+  // Remove English text
+  const enText = card.querySelector(".card-text");
+  if (enText) enText.remove();
 
   // Show result
   const result = document.createElement("div");
@@ -108,10 +108,10 @@ function onCardClick(e) {
   if (value === "tornado") {
     result.textContent = "🌪️ Tornado!";
     tornado(card);
-    document.getElementById("tornado-sound").play()
+    document.getElementById("tornado-sound").play();
   } else {
     result.textContent = `+${value} pts`;
-    document.getElementById("select-sound").play()
+    document.getElementById("select-sound").play();
   }
 
   card.appendChild(result);
