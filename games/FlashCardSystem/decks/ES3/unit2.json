@@ -8,6 +8,30 @@
         "image": "images/tomomicat/happy.png"
     },
     {
+        "english": "fine",
+        "japanese": {
+            "kanji": "大丈夫",
+            "furigana": "だいじょうぶ"
+        },
+        "image": "images/tomomicat/fine.png"
+    },
+    {
+        "english": "good",
+        "japanese": {
+            "kanji": "良かった",
+            "furigana": "よかった"
+        },
+        "image": "images/tomomicat/like.png"
+    },
+    {
+        "english": "great",
+        "japanese": {
+            "kanji": "素晴らしい",
+            "furigana": "すばらしい"
+        },
+        "image": "images/tomomicat/like.png"
+    },
+    {
         "english": "sad",
         "japanese": {
             "kanji": "悲しい",
@@ -22,14 +46,6 @@
             "furigana": "おなかすいた"
         },
         "image": "images/tomomicat/hungry.png"
-    },
-    {
-        "english": "excited",
-        "japanese": {
-            "kanji": "興奮した",
-            "furigana": "こうふんした"
-        },
-        "image": "images/tomomicat/excited.png"
     },
     {
         "english": "tired",
@@ -54,6 +70,14 @@
             "furigana": "おこっている"
         },
         "image": "images/tomomicat/angry.png"
+    },
+    {
+        "english": "excited",
+        "japanese": {
+            "kanji": "興奮した",
+            "furigana": "こうふんした"
+        },
+        "image": "images/tomomicat/excited.png"
     },
     {
         "english": "surprised",
