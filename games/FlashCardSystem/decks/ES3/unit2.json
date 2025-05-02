@@ -86,5 +86,13 @@
             "furigana": "おどろいた"
         },
         "image": "images/tomomicat/surprised.png"
+    },
+    {
+        "english": "sick",
+        "japanese": {
+            "kanji": "病気",
+            "furigana": "びょうき"
+        },
+        "image": "images/tomomicat/sick.png"
     }
 ]
