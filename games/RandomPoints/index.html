@@ -10,7 +10,7 @@
 
     <style>
       body {
-        font-family: 'Merriweather', serif;
+        font-family: "Merriweather", serif;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -36,7 +36,89 @@
       .home-button img:hover {
         transform: scale(1.1);
       }
-      
+
+      /* Settings Button (Top Right Corner) */
+      .settings-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        z-index: 1000;
+      }
+      .settings-button img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.2s ease-in-out;
+      }
+      .settings-button img:hover {
+        transform: scale(1.1);
+      }
+
+      /* Setting Menu Styling */
+      .settings-menu {
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        padding: 20px 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 220px;
+        text-align: left;
+        z-index: 1000;
+        font-family: "Merriweather", serif;
+      }
+
+      .settings-menu h3 {
+        margin-bottom: 25px;
+        font-size: 24px;
+        text-align: center;
+      }
+
+      .settings-menu label {
+        display: flex;
+        align-items: center;
+        margin: 8px 0;
+        gap: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .settings-menu input[type="checkbox"] {
+        accent-color: #28a745;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+      }
+
+      .settings-menu button {
+        display: block;
+        padding: 10px 15px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .settings-menu button:hover {
+        transform: scale(1.05);
+        background: #218838;
+      }
+
+      .menu-hidden {
+        display: none !important;
+      }
+
       #grid-container {
         display: flex;
         flex-direction: column;
@@ -116,11 +198,34 @@
     </style>
   </head>
 
-  <a href="/TaiyakiEduGames/index.html" class="home-button">
-    <img src="../../assets/home-icon.png" alt="Home" />
-  </a>
-
   <body>
+    <!-- Back Button -->
+    <a href="/TaiyakiEduGames/index.html" class="home-button">
+      <img src="../../assets/home-icon.png" alt="Home" />
+    </a>
+
+    <!-- Settings Button -->
+    <div class="settings-button" onclick="toggleSettingsMenu()">
+      <img src="../../assets/settings-icon.png" alt="Settings" />
+    </div>
+
+    <!-- Settings Pop-Up -->
+    <div id="settings-menu" class="settings-menu menu-hidden">
+      <h3>Settings</h3>
+      <label
+        ><input type="checkbox" id="allow-negatives" checked /> Negative
+        Points</label
+      >
+      <label><input type="checkbox" id="double-points" /> Double Points</label>
+      <label
+        ><input type="checkbox" id="special-cards" checked /> Special
+        Cards</label
+      >
+      <button id="apply-settings">Apply</button>
+      <button id="taiyaki-toggle">Taiyaki Free</button>
+    </div>
+
+    <!-- The actual card grid -->
     <h1>Random Points Game</h1>
     <div id="grid-container">
       <div id="grid-labels">
@@ -138,30 +243,41 @@
       <button id="reveal-all">See All</button>
     </div>
 
-    <div>
-      <p>
-        <b>Rules:</b>
-      </p>
-      <ol>
-        <li>From -25 to 25</li>
-        <li>1-5 'Swap' cards</li>
-        <li>1 'Lose All' card</li>
-        <li>1 50 points card</li>
-        <li>No 0 point cards</li>
-        <li>Random everytime!</li>
-      </ol>
-    </div>
-
-    <div>
-      <button id="taiyaki-toggle">Taiyaki Free</button>
-    </div>
-
+    <!-- Scripts -->
     <script>
       const grid = document.getElementById("grid");
       const resetButton = document.getElementById("reset");
       const revealAllButton = document.getElementById("reveal-all");
       const taiyakiButton = document.getElementById("taiyaki-toggle");
       let isTaiyaki = true; // Default image is Taiyaki
+
+      const allowNegativesCheckbox = document.getElementById("allow-negatives");
+      const doublePointsCheckbox = document.getElementById("double-points");
+      const specialCardsCheckbox = document.getElementById("special-cards");
+
+      const settingsMenu = document.getElementById("settings-menu");
+      const applySettingsButton = document.getElementById("apply-settings");
+
+      function toggleSettingsMenu() {
+        settingsMenu.classList.toggle("menu-hidden");
+      }
+
+      applySettingsButton.addEventListener("click", () => {
+        const params = new URLSearchParams();
+        if (allowNegativesCheckbox.checked) params.set("neg", "1");
+        if (doublePointsCheckbox.checked) params.set("dbl", "1");
+        if (specialCardsCheckbox.checked) params.set("spc", "1");
+        location.search = params.toString(); // Reload with updated query
+      });
+
+      function getSettingsFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        allowNegativesCheckbox.checked = params.get("neg") === "1";
+        doublePointsCheckbox.checked = params.get("dbl") === "1";
+        specialCardsCheckbox.checked = params.get("spc") === "1";
+      }
+
+      getSettingsFromURL(); // Sync checkboxes on load
 
       function playSound(type) {
         let soundPath;
@@ -189,70 +305,89 @@
       }
 
       function generateGrid() {
-        grid.innerHTML = ""; // Clear the grid
+        grid.innerHTML = "";
+
+        const allowNegatives = allowNegativesCheckbox.checked;
+        const doublePoints = doublePointsCheckbox.checked;
+        const allowSpecialCards = specialCardsCheckbox.checked;
 
         let numbers = [];
-        let swapCount = Math.floor(Math.random() * 5) + 1; // 1 to 5 swap cards
-        let loseAllPoints = 1;
-        let positiveCount = 14; // More positive numbers
-        let negativeCount = 10 - swapCount - loseAllPoints; // Remaining slots
+        let swapCount = allowSpecialCards
+          ? Math.floor(Math.random() * 5) + 1
+          : 0;
+        let totalCells = 25;
+        let specialCards = allowSpecialCards ? swapCount + 1 + 1 : 1; // Swap + Lose All + 50-point
+        let availableSlots = totalCells - specialCards;
 
-        // Add positive numbers (multiples of 5 between 5 and 25)
+        let positiveCount = allowNegatives
+          ? Math.floor(availableSlots * 0.6)
+          : availableSlots;
+        let negativeCount = allowNegatives ? availableSlots - positiveCount : 0;
+
+        // Add positive points
         for (let i = 0; i < positiveCount; i++) {
-          numbers.push(5 * (Math.floor(Math.random() * 5) + 1));
+          let val = 5 * (Math.floor(Math.random() * 5) + 1);
+          numbers.push(doublePoints ? val * 2 : val);
         }
 
-        // Add one +50 point box
-        numbers.push(50);
+        // Add 50 points (or 100 if doubled)
+        numbers.push(doublePoints ? 100 : 50);
 
-        // Add negative numbers (multiples of 5 between -5 and -25)
-        for (let i = 0; i < negativeCount; i++) {
-          numbers.push(-5 * (Math.floor(Math.random() * 5) + 1));
-        }
-
-        // Add "Swap" boxes with randomized types
-        for (let i = 0; i < swapCount; i++) {
-          let swapType = Math.random();
-          if (swapType < 0.45) {
-            numbers.push("Swap Up");
-          } else if (swapType < 0.9) {
-            numbers.push("Swap Down");
-          } else {
-            numbers.push("Swap Choice"); // Very rare occurrence
+        // Add negative points
+        if (allowNegatives) {
+          for (let i = 0; i < negativeCount; i++) {
+            let val = -5 * (Math.floor(Math.random() * 5) + 1);
+            numbers.push(doublePoints ? val * 2 : val);
           }
         }
 
-        // Add "Lose all points" box
-        numbers.push("Lose All");
+        // Add swap cards if allowed
+        if (allowSpecialCards) {
+          for (let i = 0; i < swapCount; i++) {
+            let swapType = Math.random();
+            if (swapType < 0.45) {
+              numbers.push("Swap Up");
+            } else if (swapType < 0.9) {
+              numbers.push("Swap Down");
+            } else {
+              numbers.push("Swap Choice");
+            }
+          }
+        }
 
-        // Shuffle numbers
+        // Add one "Lose All" card if special cards are enabled
+        if (allowSpecialCards) {
+          numbers.push("Lose All");
+        }
+
+        // Shuffle
         numbers.sort(() => Math.random() - 0.5);
 
-        // Populate the grid
+        // Build grid
         let index = 0;
         for (let i = 0; i < 5; i++) {
           const rowLabel = document.createElement("div");
           rowLabel.classList.add("row-label");
-          rowLabel.textContent = i + 1; // Row numbers
+          rowLabel.textContent = i + 1;
           grid.appendChild(rowLabel);
 
           for (let j = 0; j < 5; j++) {
             const cell = document.createElement("div");
             cell.classList.add("grid-item", "hidden");
-            cell.dataset.value = numbers[index]; // Assign a value from the shuffled list
+            cell.dataset.value = numbers[index];
             cell.style.backgroundImage = isTaiyaki
-              ? "url('../../assets/card-backs/card_back5.jpg')" // Default Taiyaki image
-              : "url('../../assets/card-backs/card_back0.JPG')"; // Alternative image
+              ? "url('../../assets/card-backs/card_back5.jpg')"
+              : "url('../../assets/card-backs/card_back0.JPG')";
             index++;
 
             cell.addEventListener("click", () => {
               if (cell.classList.contains("hidden")) {
-                const value = cell.dataset.value; // Value is always a string
+                const value = cell.dataset.value;
                 if (value.includes("Swap")) {
                   playSound("swap");
                 } else if (value === "Lose All") {
                   playSound("lose-all");
-                } else if (parseInt(value, 10) === 50) {
+                } else if (parseInt(value, 10) === (doublePoints ? 100 : 50)) {
                   playSound("fifty");
                 } else if (parseInt(value, 10) > 0) {
                   playSound("positive");
@@ -261,7 +396,7 @@
                 }
                 cell.classList.remove("hidden");
                 cell.textContent = value;
-                cell.style.backgroundImage = "none"; // Remove the background image
+                cell.style.backgroundImage = "none";
               }
             });
 
