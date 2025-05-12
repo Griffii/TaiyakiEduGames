@@ -1,0 +1,146 @@
+[
+    {
+        "english": "beef",
+        "japanese": {
+            "kanji": "牛肉",
+            "furigana": "ぎゅうにく"
+        },
+        "image": "images/PD/ingredients/beef.png"
+    },
+    {
+        "english": "chicken",
+        "japanese": {
+            "kanji": "鶏肉",
+            "furigana": "とりにく"
+        },
+        "image": "images/PD/ingredients/chicken.png"
+    },
+    {
+        "english": "egg",
+        "japanese": {
+            "kanji": "卵",
+            "furigana": "たまご"
+        },
+        "image": "images/PD/ingredients/egg.png"
+    },
+    {
+        "english": "fish",
+        "japanese": {
+            "kanji": "魚",
+            "furigana": "さかな"
+        },
+        "image": "images/PD/ingredients/fish.png"
+    },
+    {
+        "english": "pork",
+        "japanese": {
+            "kanji": "豚肉",
+            "furigana": "ぶたにく"
+        },
+        "image": "images/PD/ingredients/pork.png"
+    },
+    {
+        "english": "rice",
+        "japanese": {
+            "kanji": "ご飯",
+            "furigana": "ごはん"
+        },
+        "image": "images/PD/food/rice.png"
+    },
+    {
+        "english": "bread",
+        "japanese": {
+            "kanji": "パン",
+            "furigana": ""
+        },
+        "image": "images/PD/food/bread.png"
+    },
+    {
+        "english": "curry and rice",
+        "japanese": {
+            "kanji": "カレーライス",
+            "furigana": ""
+        },
+        "image": "images/PD/food/curryandrice.png"
+    },
+    {
+        "english": "french fries",
+        "japanese": {
+            "kanji": "フライドポテト",
+            "furigana": ""
+        },
+        "image": "images/PD/food/frenchfries.png"
+    },
+    {
+        "english": "fried chicken",
+        "japanese": {
+            "kanji": "唐揚げ",
+            "furigana": "からあげ"
+        },
+        "image": "images/PD/food/friedchicken.png"
+    },
+    {
+        "english": "hamburger",
+        "japanese": {
+            "kanji": "ハンバーガー",
+            "furigana": ""
+        },
+        "image": "images/PD/food/hamburger.png"
+    },
+    {
+        "english": "omelet",
+        "japanese": {
+            "kanji": "オムレツ",
+            "furigana": ""
+        },
+        "image": "images/PD/food/omelet.png"
+    },
+    {
+        "english": "pizza",
+        "japanese": {
+            "kanji": "ピザ",
+            "furigana": ""
+        },
+        "image": "images/PD/food/pizza.png"
+    },
+    {
+        "english": "rice ball",
+        "japanese": {
+            "kanji": "おにぎり",
+            "furigana": ""
+        },
+        "image": "images/PD/food/riceball.png"
+    },
+    {
+        "english": "salad",
+        "japanese": {
+            "kanji": "サラダ",
+            "furigana": ""
+        },
+        "image": "images/PD/food/salad.png"
+    },
+    {
+        "english": "sandwich",
+        "japanese": {
+            "kanji": "サンドイッチ",
+            "furigana": ""
+        },
+        "image": "images/PD/food/sandwich.png"
+    },
+    {
+        "english": "spaghetti",
+        "japanese": {
+            "kanji": "スパゲッティ",
+            "furigana": ""
+        },
+        "image": "images/PD/food/spaghetti.png"
+    },
+    {
+        "english": "steak",
+        "japanese": {
+            "kanji": "ステーキ",
+            "furigana": ""
+        },
+        "image": "images/PD/food/steak.png"
+    }
+]

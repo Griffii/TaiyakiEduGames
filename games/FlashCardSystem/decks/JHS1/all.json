@@ -1,0 +1,1334 @@
+[
+  {
+    "english": "subjects",
+    "japanese": {
+      "kanji": "教科",
+      "furigana": "きょうか"
+    },
+    "image": "images/PD/subjects/subjects.png"
+  },
+  {
+    "english": "Japanese",
+    "japanese": {
+      "kanji": "国語",
+      "furigana": "こくご"
+    },
+    "image": "images/PD/subjects/japanese.png"
+  },
+  {
+    "english": "English",
+    "japanese": {
+      "kanji": "英語",
+      "furigana": "えいご"
+    },
+    "image": "images/PD/subjects/english.png"
+  },
+  {
+    "english": "math",
+    "japanese": {
+      "kanji": "数学",
+      "furigana": "すうがく"
+    },
+    "image": "images/PD/subjects/math.png"
+  },
+  {
+    "english": "science",
+    "japanese": {
+      "kanji": "理科",
+      "furigana": "りか"
+    },
+    "image": "images/PD/subjects/science.png"
+  },
+  {
+    "english": "social studies",
+    "japanese": {
+      "kanji": "社会",
+      "furigana": "しゃかい"
+    },
+    "image": "images/PD/subjects/socialstudies.png"
+  },
+
+  {
+    "english": "music",
+    "japanese": {
+      "kanji": "音楽",
+      "furigana": "おんがく"
+    },
+    "image": "images/PD/subjects/music.png"
+  },
+  {
+    "english": "P.E.",
+    "japanese": {
+      "kanji": "体育",
+      "furigana": "たいいく"
+    },
+    "image": "images/PD/subjects/pe.png"
+  },
+  {
+    "english": "art",
+    "japanese": {
+      "kanji": "図工",
+      "furigana": "ずこう"
+    },
+    "image": "images/PD/subjects/artsandcrafts.png"
+  },
+  {
+    "english": "moral education",
+    "japanese": {
+      "kanji": "道徳",
+      "furigana": "どうとく"
+    },
+    "image": "images/PD/subjects/moraleducation.png"
+  },
+  {
+    "english": "home economics",
+    "japanese": {
+      "kanji": "家庭科",
+      "furigana": "かていか"
+    },
+    "image": "images/PD/subjects/homeeconomics.png"
+  },
+  {
+    "english": "homeroom",
+    "japanese": {
+      "kanji": "ホームルーム",
+      "furigana": ""
+    },
+    "image": "images/PD/subjects/bonuswords/homeroom.png"
+  },
+  {
+    "english": "beef",
+    "japanese": {
+      "kanji": "牛肉",
+      "furigana": "ぎゅうにく"
+    },
+    "image": "images/PD/ingredients/beef.png"
+  },
+  {
+    "english": "chicken",
+    "japanese": {
+      "kanji": "鶏肉",
+      "furigana": "とりにく"
+    },
+    "image": "images/PD/ingredients/chicken.png"
+  },
+  {
+    "english": "egg",
+    "japanese": {
+      "kanji": "卵",
+      "furigana": "たまご"
+    },
+    "image": "images/PD/ingredients/egg.png"
+  },
+  {
+    "english": "fish",
+    "japanese": {
+      "kanji": "魚",
+      "furigana": "さかな"
+    },
+    "image": "images/PD/ingredients/fish.png"
+  },
+  {
+    "english": "pork",
+    "japanese": {
+      "kanji": "豚肉",
+      "furigana": "ぶたにく"
+    },
+    "image": "images/PD/ingredients/pork.png"
+  },
+  {
+    "english": "rice",
+    "japanese": {
+      "kanji": "ご飯",
+      "furigana": "ごはん"
+    },
+    "image": "images/PD/food/rice.png"
+  },
+  {
+    "english": "bread",
+    "japanese": {
+      "kanji": "パン",
+      "furigana": ""
+    },
+    "image": "images/PD/food/bread.png"
+  },
+  {
+    "english": "curry and rice",
+    "japanese": {
+      "kanji": "カレーライス",
+      "furigana": ""
+    },
+    "image": "images/PD/food/curryandrice.png"
+  },
+  {
+    "english": "french fries",
+    "japanese": {
+      "kanji": "フライドポテト",
+      "furigana": ""
+    },
+    "image": "images/PD/food/frenchfries.png"
+  },
+  {
+    "english": "fried chicken",
+    "japanese": {
+      "kanji": "唐揚げ",
+      "furigana": "からあげ"
+    },
+    "image": "images/PD/food/friedchicken.png"
+  },
+  {
+    "english": "hamburger",
+    "japanese": {
+      "kanji": "ハンバーガー",
+      "furigana": ""
+    },
+    "image": "images/PD/food/hamburger.png"
+  },
+  {
+    "english": "omelet",
+    "japanese": {
+      "kanji": "オムレツ",
+      "furigana": ""
+    },
+    "image": "images/PD/food/omelet.png"
+  },
+  {
+    "english": "pizza",
+    "japanese": {
+      "kanji": "ピザ",
+      "furigana": ""
+    },
+    "image": "images/PD/food/pizza.png"
+  },
+  {
+    "english": "rice ball",
+    "japanese": {
+      "kanji": "おにぎり",
+      "furigana": ""
+    },
+    "image": "images/PD/food/riceball.png"
+  },
+  {
+    "english": "salad",
+    "japanese": {
+      "kanji": "サラダ",
+      "furigana": ""
+    },
+    "image": "images/PD/food/salad.png"
+  },
+  {
+    "english": "sandwich",
+    "japanese": {
+      "kanji": "サンドイッチ",
+      "furigana": ""
+    },
+    "image": "images/PD/food/sandwich.png"
+  },
+  {
+    "english": "spaghetti",
+    "japanese": {
+      "kanji": "スパゲッティ",
+      "furigana": ""
+    },
+    "image": "images/PD/food/spaghetti.png"
+  },
+  {
+    "english": "steak",
+    "japanese": {
+      "kanji": "ステーキ",
+      "furigana": ""
+    },
+    "image": "images/PD/food/steak.png"
+  },
+  {
+    "english": "fruit",
+    "japanese": {
+      "kanji": "果物",
+      "furigana": "くだもの"
+    },
+    "image": "images/PD/fruitsandveggies/fruit.png"
+  },
+  {
+    "english": "vegetables",
+    "japanese": {
+      "kanji": "野菜",
+      "furigana": "やさい"
+    },
+    "image": "images/PD/fruitsandveggies/vegetables.png"
+  },
+  {
+    "english": "apple",
+    "japanese": {
+      "kanji": "りんご",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/apple.png"
+  },
+  {
+    "english": "banana",
+    "japanese": {
+      "kanji": "バナナ",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/banana.png"
+  },
+  {
+    "english": "carrot",
+    "japanese": {
+      "kanji": "にんじん",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/carrot.png"
+  },
+  {
+    "english": "cherry",
+    "japanese": {
+      "kanji": "さくらんぼ",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/cherry.png"
+  },
+  {
+    "english": "grapes",
+    "japanese": {
+      "kanji": "ぶどう",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/grapes.png"
+  },
+  {
+    "english": "lemon",
+    "japanese": {
+      "kanji": "レモン",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/lemon.png"
+  },
+  {
+    "english": "orange",
+    "japanese": {
+      "kanji": "オレンジ",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/orange.png"
+  },
+  {
+    "english": "peach",
+    "japanese": {
+      "kanji": "桃",
+      "furigana": "もも"
+    },
+    "image": "images/PD/fruitsandveggies/peach.png"
+  },
+  {
+    "english": "pineapple",
+    "japanese": {
+      "kanji": "パイナップル",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/pineapple.png"
+  },
+  {
+    "english": "potato",
+    "japanese": {
+      "kanji": "じゃがいも",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/potato.png"
+  },
+  {
+    "english": "tomato",
+    "japanese": {
+      "kanji": "トマト",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/tomato.png"
+  },
+  {
+    "english": "watermelon",
+    "japanese": {
+      "kanji": "スイカ",
+      "furigana": ""
+    },
+    "image": "images/PD/fruitsandveggies/watermelon.png"
+  },
+  {
+    "english": "cake",
+    "japanese": {
+      "kanji": "ケーキ",
+      "furigana": ""
+    },
+    "image": "images/PD/dessert/cake.png"
+  },
+  {
+    "english": "chocolate",
+    "japanese": {
+      "kanji": "チョコレート",
+      "furigana": ""
+    },
+    "image": "images/PD/dessert/chocolate.png"
+  },
+  {
+    "english": "ice cream",
+    "japanese": {
+      "kanji": "アイスクリーム",
+      "furigana": ""
+    },
+    "image": "images/PD/dessert/icecream.png"
+  },
+  {
+    "english": "pie",
+    "japanese": {
+      "kanji": "パイ",
+      "furigana": ""
+    },
+    "image": "images/PD/food/pie.png"
+  },
+  {
+    "english": "popcorn",
+    "japanese": {
+      "kanji": "ポップコーン",
+      "furigana": ""
+    },
+    "image": "images/PD/dessert/popcorn.png"
+  },
+  {
+    "english": "pudding",
+    "japanese": {
+      "kanji": "プリン",
+      "furigana": ""
+    },
+    "image": "images/PD/dessert/pudding.png"
+  },
+  {
+    "english": "coffee",
+    "japanese": {
+      "kanji": "コーヒー",
+      "furigana": ""
+    },
+    "image": "images/PD/drinks/coffee.png"
+  },
+  {
+    "english": "green tea",
+    "japanese": {
+      "kanji": "緑茶",
+      "furigana": "りょくちゃ"
+    },
+    "image": "images/PD/drinks/greentea.png"
+  },
+  {
+    "english": "juice",
+    "japanese": {
+      "kanji": "ジュース",
+      "furigana": ""
+    },
+    "image": "images/PD/drinks/juice.png"
+  },
+  {
+    "english": "milk",
+    "japanese": {
+      "kanji": "牛乳",
+      "furigana": "ぎゅうにゅう"
+    },
+    "image": "images/PD/drinks/milk.png"
+  },
+  {
+    "english": "tea",
+    "japanese": {
+      "kanji": "お茶",
+      "furigana": "おちゃ"
+    },
+    "image": "images/PD/drinks/tea.png"
+  },
+  {
+    "english": "water",
+    "japanese": {
+      "kanji": "水",
+      "furigana": "みず"
+    },
+    "image": "images/PD/drinks/water.png"
+  },
+  {
+    "english": "sports",
+    "japanese": {
+      "kanji": "スポーツ",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/sports.png"
+  },
+  {
+    "english": "badminton",
+    "japanese": {
+      "kanji": "バドミントン",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/badminton.png"
+  },
+  {
+    "english": "baseball",
+    "japanese": {
+      "kanji": "野球",
+      "furigana": "やきゅう"
+    },
+    "image": "images/PD/sports/baseball.png"
+  },
+  {
+    "english": "basketball",
+    "japanese": {
+      "kanji": "バスケットボール",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/basketball.png"
+  },
+  {
+    "english": "judo",
+    "japanese": {
+      "kanji": "柔道",
+      "furigana": "じゅうどう"
+    },
+    "image": "images/PD/sports/judo.png"
+  },
+  {
+    "english": "rugby",
+    "japanese": {
+      "kanji": "ラグビー",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/rugby.png"
+  },
+  {
+    "english": "skateboarding",
+    "japanese": {
+      "kanji": "スケートボード",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/skateboarding.png"
+  },
+  {
+    "english": "skiing",
+    "japanese": {
+      "kanji": "スキー",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/skiing.png"
+  },
+  {
+    "english": "soccer",
+    "japanese": {
+      "kanji": "サッカー",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/soccer.png"
+  },
+  {
+    "english": "table tennis",
+    "japanese": {
+      "kanji": "卓球",
+      "furigana": "たっきゅう"
+    },
+    "image": "images/PD/sports/tabletennis.png"
+  },
+  {
+    "english": "tennis",
+    "japanese": {
+      "kanji": "テニス",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/tennis.png"
+  },
+  {
+    "english": "volleyball",
+    "japanese": {
+      "kanji": "バレーボール",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/volleyball.png"
+  },
+  {
+    "english": "wrestling",
+    "japanese": {
+      "kanji": "レスリング",
+      "furigana": ""
+    },
+    "image": "images/PD/sports/wrestling.png"
+  },
+  {
+    "english": "wheelchair basketball",
+    "japanese": {
+      "kanji": "車いすバスケットボール",
+      "furigana": "くるまいすばすけっとばーる"
+    },
+    "image": "images/JHS/sports/wheelchairbasketball.png"
+  },
+  {
+    "english": "animals",
+    "japanese": {
+      "kanji": "動物",
+      "furigana": "どうぶつ"
+    },
+    "image": "images/PD/animals/animals.png"
+  },
+  {
+    "english": "bear",
+    "japanese": {
+      "kanji": "熊",
+      "furigana": "くま"
+    },
+    "image": "images/PD/animals/bear.png"
+  },
+  {
+    "english": "bird",
+    "japanese": {
+      "kanji": "鳥",
+      "furigana": "とり"
+    },
+    "image": "images/PD/animals/bird.png"
+  },
+  {
+    "english": "cat",
+    "japanese": {
+      "kanji": "猫",
+      "furigana": "ねこ"
+    },
+    "image": "images/PD/animals/cat.png"
+  },
+  {
+    "english": "dog",
+    "japanese": {
+      "kanji": "犬",
+      "furigana": "いぬ"
+    },
+    "image": "images/PD/animals/dog.png"
+  },
+  {
+    "english": "fish",
+    "japanese": {
+      "kanji": "魚",
+      "furigana": "さかな"
+    },
+    "image": "images/PD/seaanimals/fish.png"
+  },
+  {
+    "english": "fox",
+    "japanese": {
+      "kanji": "狐",
+      "furigana": "きつね"
+    },
+    "image": "images/PD/animals/fox.png"
+  },
+  {
+    "english": "lion",
+    "japanese": {
+      "kanji": "ライオン",
+      "furigana": ""
+    },
+    "image": "images/PD/animals/lion.png"
+  },
+  {
+    "english": "monkey",
+    "japanese": {
+      "kanji": "猿",
+      "furigana": "さる"
+    },
+    "image": "images/PD/animals/monkey.png"
+  },
+  {
+    "english": "panda",
+    "japanese": {
+      "kanji": "パンダ",
+      "furigana": ""
+    },
+    "image": "images/PD/animals/panda.png"
+  },
+  {
+    "english": "pig",
+    "japanese": {
+      "kanji": "豚",
+      "furigana": "ぶた"
+    },
+    "image": "images/JHS/animals/pig.png"
+  },
+  {
+    "english": "tiger",
+    "japanese": {
+      "kanji": "虎",
+      "furigana": "とら"
+    },
+    "image": "images/PD/animals/tiger.png"
+  },
+  {
+    "english": "zebra",
+    "japanese": {
+      "kanji": "シマウマ",
+      "furigana": ""
+    },
+    "image": "images/PD/animals/zebra.png"
+  },
+
+  {
+    "english": "cow",
+    "japanese": {
+      "kanji": "牛",
+      "furigana": "うし"
+    },
+    "image": "images/PD/animals/bonuswords/cow.png"
+  },
+  {
+    "english": "gorilla",
+    "japanese": {
+      "kanji": "ゴリラ",
+      "furigana": ""
+    },
+    "image": "images/JHS/animals/bonuswords/gorilla.png"
+  },
+  {
+    "english": "mouse",
+    "japanese": {
+      "kanji": "鼠",
+      "furigana": "ねずみ"
+    },
+    "image": "images/JHS/animals/bonuswords/mouse.png"
+  },
+  {
+    "english": "dolphin",
+    "japanese": {
+      "kanji": "イルカ",
+      "furigana": ""
+    },
+    "image": "images/JHS/animals/bonuswords/dolphin.png"
+  },
+  {
+    "english": "horse",
+    "japanese": {
+      "kanji": "馬",
+      "furigana": "うま"
+    },
+    "image": "images/JHS/animals/bonuswords/horse.png"
+  },
+  {
+    "english": "penguin",
+    "japanese": {
+      "kanji": "ペンギン",
+      "furigana": ""
+    },
+    "image": "images/JHS/animals/bonuswords/penguin.png"
+  },
+  {
+    "english": "elephant",
+    "japanese": {
+      "kanji": "象",
+      "furigana": "ぞう"
+    },
+    "image": "images/JHS/animals/bonuswords/elephant.png"
+  },
+  {
+    "english": "koala",
+    "japanese": {
+      "kanji": "コアラ",
+      "furigana": ""
+    },
+    "image": "images/JHS/animals/bonuswords/koala.png"
+  },
+  {
+    "english": "snake",
+    "japanese": {
+      "kanji": "蛇",
+      "furigana": "へび"
+    },
+    "image": "images/JHS/animals/bonuswords/snake.png"
+  },
+  {
+    "english": "shapes",
+    "japanese": {
+      "kanji": "形",
+      "furigana": "かたち"
+    },
+    "image": "images/ES3/shapes/shapes.png"
+  },
+  {
+    "english": "circle",
+    "japanese": {
+      "kanji": "丸",
+      "furigana": "まる"
+    },
+    "image": "images/ES3/shapes/circle.png"
+  },
+  {
+    "english": "rectangle",
+    "japanese": {
+      "kanji": "長方形",
+      "furigana": "ちょうほうけい"
+    },
+    "image": "images/ES3/shapes/rectangle.png"
+  },
+  {
+    "english": "square",
+    "japanese": {
+      "kanji": "四角",
+      "furigana": "しかく"
+    },
+    "image": "images/ES3/shapes/square.png"
+  },
+  {
+    "english": "star",
+    "japanese": {
+      "kanji": "星形",
+      "furigana": "ほしがた"
+    },
+    "image": "images/ES3/shapes/star.png"
+  },
+  {
+    "english": "triangle",
+    "japanese": {
+      "kanji": "三角",
+      "furigana": "さんかく"
+    },
+    "image": "images/ES3/shapes/triangle.png"
+  },
+  {
+    "english": "big",
+    "japanese": {
+      "kanji": "大きい",
+      "furigana": "おおきい"
+    },
+    "image": "images/PD/descriptors/big.png"
+  },
+  {
+    "english": "small",
+    "japanese": {
+      "kanji": "小さい",
+      "furigana": "ちいさい"
+    },
+    "image": "images/PD/descriptors/small.png"
+  },
+  {
+    "english": "long",
+    "japanese": {
+      "kanji": "長い",
+      "furigana": "ながい"
+    },
+    "image": "images/ES3/descriptors/long.png"
+  },
+  {
+    "english": "short",
+    "japanese": {
+      "kanji": "短い",
+      "furigana": "みじかい"
+    },
+    "image": "images/ES3/descriptors/short.png"
+  },
+  {
+    "english": "old",
+    "japanese": {
+      "kanji": "古い",
+      "furigana": "ふるい"
+    },
+    "image": "images/PD/descriptors/old.png"
+  },
+  {
+    "english": "new",
+    "japanese": {
+      "kanji": "新しい",
+      "furigana": "あたらしい"
+    },
+    "image": "images/PD/descriptors/new.png"
+  },
+  {
+    "english": "hard",
+    "japanese": {
+      "kanji": "硬い",
+      "furigana": "かたい"
+    },
+    "image": "images/PD/descriptors/bonuswords/hard.png"
+  },
+  {
+    "english": "soft",
+    "japanese": {
+      "kanji": "柔らかい",
+      "furigana": "やわらかい"
+    },
+    "image": "images/PD/descriptors/bonuswords/soft.png"
+  },
+  {
+    "english": "fast",
+    "japanese": {
+      "kanji": "速い",
+      "furigana": "はやい"
+    },
+    "image": "images/PD/descriptors/fast.png"
+  },
+  {
+    "english": "slow",
+    "japanese": {
+      "kanji": "遅い",
+      "furigana": "おそい"
+    },
+    "image": "images/PD/descriptors/slow.png"
+  },
+  {
+    "english": "beautiful",
+    "japanese": {
+      "kanji": "美しい",
+      "furigana": "うつくしい"
+    },
+    "image": "images/PD/adjectives/beautiful.png"
+  },
+  {
+    "english": "nice",
+    "japanese": {
+      "kanji": "素敵な",
+      "furigana": "すてきな"
+    },
+    "image": "images/PD/adjectives/nice.png"
+  },
+  {
+    "english": "black",
+    "japanese": {
+      "kanji": "黒",
+      "furigana": "くろ"
+    },
+    "image": "images/ES3/colors/black.png"
+  },
+  {
+    "english": "blue",
+    "japanese": {
+      "kanji": "青",
+      "furigana": "あお"
+    },
+    "image": "images/ES3/colors/blue.png"
+  },
+  {
+    "english": "brown",
+    "japanese": {
+      "kanji": "茶色",
+      "furigana": "ちゃいろ"
+    },
+    "image": "images/ES3/colors/brown.png"
+  },
+  {
+    "english": "green",
+    "japanese": {
+      "kanji": "緑",
+      "furigana": "みどり"
+    },
+    "image": "images/ES3/colors/green.png"
+  },
+
+  {
+    "english": "orange",
+    "japanese": {
+      "kanji": "オレンジ",
+      "furigana": ""
+    },
+    "image": "images/ES3/colors/orange.png"
+  },
+  {
+    "english": "pink",
+    "japanese": {
+      "kanji": "桃色",
+      "furigana": "ももいろ"
+    },
+    "image": "images/ES3/colors/pink.png"
+  },
+  {
+    "english": "purple",
+    "japanese": {
+      "kanji": "紫",
+      "furigana": "むらさき"
+    },
+    "image": "images/ES3/colors/purple.png"
+  },
+
+  {
+    "english": "red",
+    "japanese": {
+      "kanji": "赤",
+      "furigana": "あか"
+    },
+    "image": "images/ES3/colors/red.png"
+  },
+  {
+    "english": "white",
+    "japanese": {
+      "kanji": "白",
+      "furigana": "しろ"
+    },
+    "image": "images/ES3/colors/white.png"
+  },
+  {
+    "english": "yellow",
+    "japanese": {
+      "kanji": "黄色",
+      "furigana": "きいろ"
+    },
+    "image": "images/ES3/colors/yellow.png"
+  },
+  {
+    "english": "gray",
+    "japanese": {
+      "kanji": "灰色",
+      "furigana": "はいいろ"
+    },
+    "image": "images/ES3/colors/bonuswords/gray.png"
+  },
+  {
+    "english": "silver",
+    "japanese": {
+      "kanji": "銀",
+      "furigana": "ぎん"
+    },
+    "image": "images/ES3/colors/bonuswords/silver.png"
+  },
+  {
+    "english": "gold",
+    "japanese": {
+      "kanji": "金",
+      "furigana": "きん"
+    },
+    "image": "images/ES3/colors/bonuswords/gold.png"
+  },
+  {
+    "english": "cool",
+    "japanese": {
+      "kanji": "かっこいい",
+      "furigana": ""
+    },
+    "image": "images/PD/adjectives/cool.png"
+  },
+  {
+    "english": "cute",
+    "japanese": {
+      "kanji": "かわいい",
+      "furigana": ""
+    },
+    "image": "images/PD/adjectives/cute.png"
+  },
+  {
+    "english": "famous",
+    "japanese": {
+      "kanji": "有名な",
+      "furigana": "ゆうめいな"
+    },
+    "image": "images/PD/adjectives/famous.png"
+  },
+  {
+    "english": "friendly",
+    "japanese": {
+      "kanji": "友好的",
+      "furigana": "ゆうこうてき"
+    },
+    "image": "images/PD/personalities/friendly.png"
+  },
+  {
+    "english": "kind",
+    "japanese": {
+      "kanji": "優しい",
+      "furigana": "やさしい"
+    },
+    "image": "images/PD/personalities/kind.png"
+  },
+  {
+    "english": "strong",
+    "japanese": {
+      "kanji": "強い",
+      "furigana": "つよい"
+    },
+    "image": "images/PD/personalities/strong.png"
+  },
+  {
+    "english": "brave",
+    "japanese": {
+      "kanji": "勇敢",
+      "furigana": "ゆうかん"
+    },
+    "image": "images/PD/personalities/brave.png"
+  },
+  {
+    "english": "funny",
+    "japanese": {
+      "kanji": "面白い",
+      "furigana": "おもしろい"
+    },
+    "image": "images/PD/personalities/funny.png"
+  },
+  {
+    "english": "smart",
+    "japanese": {
+      "kanji": "賢い",
+      "furigana": "かしこい"
+    },
+    "image": "images/PD/personalities/smart.png"
+  },
+  {
+    "english": "salty",
+    "japanese": {
+      "kanji": "塩辛い",
+      "furigana": "しおからい"
+    },
+    "image": "images/PD/flavors/salty.png"
+  },
+  {
+    "english": "sour",
+    "japanese": {
+      "kanji": "酸っぱい",
+      "furigana": "すっぱい"
+    },
+    "image": "images/PD/flavors/sour.png"
+  },
+  {
+    "english": "spicy",
+    "japanese": {
+      "kanji": "辛い",
+      "furigana": "からい"
+    },
+    "image": "images/PD/flavors/spicy.png"
+  },
+  {
+    "english": "hot",
+    "japanese": {
+      "kanji": "熱い",
+      "furigana": "あつい"
+    },
+    "image": "images/PD/flavors/hot.png"
+  },
+  {
+    "english": "cold",
+    "japanese": {
+      "kanji": "冷たい",
+      "furigana": "つめたい"
+    },
+    "image": "images/PD/flavors/cold.png"
+  },
+  {
+    "english": "delicious",
+    "japanese": {
+      "kanji": "美味しい",
+      "furigana": "おいしい"
+    },
+    "image": "images/PD/flavors/delicious.png"
+  },
+  {
+    "english": "bitter",
+    "japanese": {
+      "kanji": "苦い",
+      "furigana": "にがい"
+    },
+    "image": "images/PD/flavors/bitter.png"
+  },
+  {
+    "english": "fresh",
+    "japanese": {
+      "kanji": "新鮮な",
+      "furigana": "しんせんな"
+    },
+    "image": "images/JHS/food/bonuswords/fresh.png"
+  },
+  {
+    "english": "sweet",
+    "japanese": {
+      "kanji": "甘い",
+      "furigana": "あまい"
+    },
+    "image": "images/PD/flavors/sweet.png"
+  },
+  {
+    "english": "exciting",
+    "japanese": {
+      "kanji": "わくわくする",
+      "furigana": ""
+    },
+    "image": "images/PD/adjectives/exciting.png"
+  },
+  {
+    "english": "fine",
+    "japanese": {
+      "kanji": "元気",
+      "furigana": "げんき"
+    },
+    "image": "images/PD/feelings/fine.png"
+  },
+  {
+    "english": "fun",
+    "japanese": {
+      "kanji": "楽しい",
+      "furigana": "たのしい"
+    },
+    "image": "images/PD/adjectives/fun.png"
+  },
+  {
+    "english": "good",
+    "japanese": {
+      "kanji": "良い",
+      "furigana": "よい"
+    },
+    "image": "images/PD/feelings/good.png"
+  },
+  {
+    "english": "great",
+    "japanese": {
+      "kanji": "素晴らしい",
+      "furigana": "すばらしい"
+    },
+    "image": "images/PD/feelings/great.png"
+  },
+  {
+    "english": "interesting",
+    "japanese": {
+      "kanji": "面白い",
+      "furigana": "おもしろい"
+    },
+    "image": "images/PD/adjectives/interesting.png"
+  },
+  {
+    "english": "angry",
+    "japanese": {
+      "kanji": "怒っている",
+      "furigana": "おこっている"
+    },
+    "image": "images/PD/feelings/bonuswords/angry.png"
+  },
+  {
+    "english": "happy",
+    "japanese": {
+      "kanji": "嬉しい",
+      "furigana": "うれしい"
+    },
+    "image": "images/PD/feelings/happy.png"
+  },
+  {
+    "english": "hungry",
+    "japanese": {
+      "kanji": "お腹空いた",
+      "furigana": "おなかすいた"
+    },
+    "image": "images/PD/feelings/hungry.png"
+  },
+  {
+    "english": "sad",
+    "japanese": {
+      "kanji": "悲しい",
+      "furigana": "かなしい"
+    },
+    "image": "images/PD/feelings/sad.png"
+  },
+  {
+    "english": "sleepy",
+    "japanese": {
+      "kanji": "眠い",
+      "furigana": "ねむい"
+    },
+    "image": "images/PD/feelings/sleepy.png"
+  },
+  {
+    "english": "thirsty",
+    "japanese": {
+      "kanji": "喉が渇いた",
+      "furigana": "のどがかわいた"
+    },
+    "image": "images/PD/feelings/thirsty.png"
+  },
+  {
+    "english": "always",
+    "japanese": {
+      "kanji": "いつも",
+      "furigana": ""
+    },
+    "image": "images/PD/frequency/always.png"
+  },
+  {
+    "english": "usually",
+    "japanese": {
+      "kanji": "たいてい",
+      "furigana": ""
+    },
+    "image": "images/PD/frequency/usually.png"
+  },
+  {
+    "english": "sometimes",
+    "japanese": {
+      "kanji": "時々",
+      "furigana": "ときどき"
+    },
+    "image": "images/PD/frequency/sometimes.png"
+  },
+  {
+    "english": "never",
+    "japanese": {
+      "kanji": "全然",
+      "furigana": "ぜんぜん"
+    },
+    "image": "images/PD/frequency/never.png"
+  },
+  {
+    "english": "morning",
+    "japanese": {
+      "kanji": "朝",
+      "furigana": "あさ"
+    },
+    "image": "images/PD/dailyactivities/morning.png"
+  },
+  {
+    "english": "afternoon",
+    "japanese": {
+      "kanji": "昼",
+      "furigana": "ひる"
+    },
+    "image": "images/PD/dailyactivities/afternoon.png"
+  },
+  {
+    "english": "evening",
+    "japanese": {
+      "kanji": "夕方",
+      "furigana": "ゆうがた"
+    },
+    "image": "images/PD/dailyactivities/evening.png"
+  },
+  {
+    "english": "night",
+    "japanese": {
+      "kanji": "夜",
+      "furigana": "よる"
+    },
+    "image": "images/PD/dailyactivities/night.png"
+  },
+  {
+    "english": "seasons",
+    "japanese": {
+      "kanji": "季節",
+      "furigana": "きせつ"
+    },
+    "image": "images/PD/seasons/seasons.png"
+  },
+  {
+    "english": "spring",
+    "japanese": {
+      "kanji": "春",
+      "furigana": "はる"
+    },
+    "image": "images/PD/seasons/spring.png"
+  },
+  {
+    "english": "summer",
+    "japanese": {
+      "kanji": "夏",
+      "furigana": "なつ"
+    },
+    "image": "images/PD/seasons/summer.png"
+  },
+  {
+    "english": "fall",
+    "japanese": {
+      "kanji": "秋",
+      "furigana": "あき"
+    },
+    "image": "images/PD/seasons/fall.png"
+  },
+  {
+    "english": "winter",
+    "japanese": {
+      "kanji": "冬",
+      "furigana": "ふゆ"
+    },
+    "image": "images/PD/seasons/winter.png"
+  }
+]

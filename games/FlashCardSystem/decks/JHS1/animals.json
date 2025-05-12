@@ -1,0 +1,180 @@
+[
+    {
+        "english": "animals",
+        "japanese": {
+            "kanji": "動物",
+            "furigana": "どうぶつ"
+        },
+        "image": "images/PD/animals/animals.png"
+    },
+    {
+        "english": "bear",
+        "japanese": {
+            "kanji": "熊",
+            "furigana": "くま"
+        },
+        "image": "images/PD/animals/bear.png"
+    },
+    {
+        "english": "bird",
+        "japanese": {
+            "kanji": "鳥",
+            "furigana": "とり"
+        },
+        "image": "images/PD/animals/bird.png"
+    },
+    {
+        "english": "cat",
+        "japanese": {
+            "kanji": "猫",
+            "furigana": "ねこ"
+        },
+        "image": "images/PD/animals/cat.png"
+    },
+    {
+        "english": "dog",
+        "japanese": {
+            "kanji": "犬",
+            "furigana": "いぬ"
+        },
+        "image": "images/PD/animals/dog.png"
+    },
+    {
+        "english": "fish",
+        "japanese": {
+            "kanji": "魚",
+            "furigana": "さかな"
+        },
+        "image": "images/PD/seaanimals/fish.png"
+    },
+    {
+        "english": "fox",
+        "japanese": {
+            "kanji": "狐",
+            "furigana": "きつね"
+        },
+        "image": "images/PD/animals/fox.png"
+    },
+    {
+        "english": "lion",
+        "japanese": {
+            "kanji": "ライオン",
+            "furigana": ""
+        },
+        "image": "images/PD/animals/lion.png"
+    },
+    {
+        "english": "monkey",
+        "japanese": {
+            "kanji": "猿",
+            "furigana": "さる"
+        },
+        "image": "images/PD/animals/monkey.png"
+    },
+    {
+        "english": "panda",
+        "japanese": {
+            "kanji": "パンダ",
+            "furigana": ""
+        },
+        "image": "images/PD/animals/panda.png"
+    },
+    {
+        "english": "pig",
+        "japanese": {
+            "kanji": "豚",
+            "furigana": "ぶた"
+        },
+        "image": "images/JHS/animals/pig.png"
+    },
+    {
+        "english": "tiger",
+        "japanese": {
+            "kanji": "虎",
+            "furigana": "とら"
+        },
+        "image": "images/PD/animals/tiger.png"
+    },
+    {
+        "english": "zebra",
+        "japanese": {
+            "kanji": "シマウマ",
+            "furigana": ""
+        },
+        "image": "images/PD/animals/zebra.png"
+    },
+
+
+    {
+        "english": "cow",
+        "japanese": {
+            "kanji": "牛",
+            "furigana": "うし"
+        },
+        "image": "images/PD/animals/bonuswords/cow.png"
+    },
+    {
+        "english": "gorilla",
+        "japanese": {
+            "kanji": "ゴリラ",
+            "furigana": ""
+        },
+        "image": "images/JHS/animals/bonuswords/gorilla.png"
+    },
+    {
+        "english": "mouse",
+        "japanese": {
+            "kanji": "鼠",
+            "furigana": "ねずみ"
+        },
+        "image": "images/JHS/animals/bonuswords/mouse.png"
+    },
+    {
+        "english": "dolphin",
+        "japanese": {
+            "kanji": "イルカ",
+            "furigana": ""
+        },
+        "image": "images/JHS/animals/bonuswords/dolphin.png"
+    },
+    {
+        "english": "horse",
+        "japanese": {
+            "kanji": "馬",
+            "furigana": "うま"
+        },
+        "image": "images/JHS/animals/bonuswords/horse.png"
+    },
+    {
+        "english": "penguin",
+        "japanese": {
+            "kanji": "ペンギン",
+            "furigana": ""
+        },
+        "image": "images/JHS/animals/bonuswords/penguin.png"
+    },
+    {
+        "english": "elephant",
+        "japanese": {
+            "kanji": "象",
+            "furigana": "ぞう"
+        },
+        "image": "images/JHS/animals/bonuswords/elephant.png"
+    },
+    {
+        "english": "koala",
+        "japanese": {
+            "kanji": "コアラ",
+            "furigana": ""
+        },
+        "image": "images/JHS/animals/bonuswords/koala.png"
+    },
+    {
+        "english": "snake",
+        "japanese": {
+            "kanji": "蛇",
+            "furigana": "へび"
+        },
+        "image": "images/JHS/animals/bonuswords/snake.png"
+    }
+]

@@ -96,6 +96,13 @@ button:hover {
     margin-top: 10px;
 }
 
+.subtext {
+    font-size: 0.8em;
+    color: #e67e22;
+    font-weight: normal;
+}
+
+
 /* ───────────────────────────────────────────────────────── */
 /* ─────────── DECK SELECTION PAGE (UNIT SELECTION) ──────── */
 /* ───────────────────────────────────────────────────────── */

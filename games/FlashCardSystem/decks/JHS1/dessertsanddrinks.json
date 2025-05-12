@@ -1,0 +1,98 @@
+[
+    {
+        "english": "cake",
+        "japanese": {
+            "kanji": "ケーキ",
+            "furigana": ""
+        },
+        "image": "images/PD/dessert/cake.png"
+    },
+    {
+        "english": "chocolate",
+        "japanese": {
+            "kanji": "チョコレート",
+            "furigana": ""
+        },
+        "image": "images/PD/dessert/chocolate.png"
+    },
+    {
+        "english": "ice cream",
+        "japanese": {
+            "kanji": "アイスクリーム",
+            "furigana": ""
+        },
+        "image": "images/PD/dessert/icecream.png"
+    },
+    {
+        "english": "pie",
+        "japanese": {
+            "kanji": "パイ",
+            "furigana": ""
+        },
+        "image": "images/PD/food/pie.png"
+    },
+    {
+        "english": "popcorn",
+        "japanese": {
+            "kanji": "ポップコーン",
+            "furigana": ""
+        },
+        "image": "images/PD/dessert/popcorn.png"
+    },
+    {
+        "english": "pudding",
+        "japanese": {
+            "kanji": "プリン",
+            "furigana": ""
+        },
+        "image": "images/PD/dessert/pudding.png"
+    },
+    {
+        "english": "coffee",
+        "japanese": {
+            "kanji": "コーヒー",
+            "furigana": ""
+        },
+        "image": "images/PD/drinks/coffee.png"
+    },
+    {
+        "english": "green tea",
+        "japanese": {
+            "kanji": "緑茶",
+            "furigana": "りょくちゃ"
+        },
+        "image": "images/PD/drinks/greentea.png"
+    },
+    {
+        "english": "juice",
+        "japanese": {
+            "kanji": "ジュース",
+            "furigana": ""
+        },
+        "image": "images/PD/drinks/juice.png"
+    },
+    {
+        "english": "milk",
+        "japanese": {
+            "kanji": "牛乳",
+            "furigana": "ぎゅうにゅう"
+        },
+        "image": "images/PD/drinks/milk.png"
+    },
+    {
+        "english": "tea",
+        "japanese": {
+            "kanji": "お茶",
+            "furigana": "おちゃ"
+        },
+        "image": "images/PD/drinks/tea.png"
+    },
+    {
+        "english": "water",
+        "japanese": {
+            "kanji": "水",
+            "furigana": "みず"
+        },
+        "image": "images/PD/drinks/water.png"
+    }
+]
