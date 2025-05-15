@@ -1,0 +1,106 @@
+[
+  {
+    "english": "club activities",
+    "japanese": {
+      "kanji": "部活動",
+      "furigana": "ぶかつどう"
+    },
+    "image": "images/PD/clubactivities/clubactivities.png"
+  },
+  {
+    "english": "art club",
+    "japanese": {
+      "kanji": "美術部",
+      "furigana": "びじゅつぶ"
+    },
+    "image": "images/PD/clubactivities/artclub.png"
+  },
+  {
+    "english": "brass band",
+    "japanese": {
+      "kanji": "吹奏楽部",
+      "furigana": "すいそうがくぶ"
+    },
+    "image": "images/PD/clubactivities/brassband.png"
+  },
+  {
+    "english": "calligraphy",
+    "japanese": {
+      "kanji": "書道",
+      "furigana": "しょどう"
+    },
+    "image": "images/PD/subjects/calligraphy.png"
+  },
+  {
+    "english": "chorus",
+    "japanese": {
+      "kanji": "合唱部",
+      "furigana": "がっしょうぶ"
+    },
+    "image": "images/PD/clubactivities/chorus.png"
+  },
+  {
+    "english": "computer club",
+    "japanese": {
+      "kanji": "コンピュータ部",
+      "furigana": ""
+    },
+    "image": "images/PD/clubactivities/bonuswords/computerclub.png"
+  },
+  {
+    "english": "cooking club",
+    "japanese": {
+      "kanji": "料理部",
+      "furigana": "りょうりぶ"
+    },
+    "image": "images/PD/clubactivities/cookingclub.png"
+  },
+  {
+    "english": "dance",
+    "japanese": {
+      "kanji": "ダンス",
+      "furigana": ""
+    },
+    "image": "images/PD/clubactivities/danceteam.png"
+  },
+  {
+    "english": "drama club",
+    "japanese": {
+      "kanji": "演劇部",
+      "furigana": "えんげきぶ"
+    },
+    "image": "images/PD/clubactivities/dramaclub.png"
+  },
+  {
+    "english": "English club",
+    "japanese": {
+      "kanji": "英語部",
+      "furigana": "えいごぶ"
+    },
+    "image": "images/PD/clubactivities/bonuswords/englishclub.png"
+  },
+  {
+    "english": "newspaper club",
+    "japanese": {
+      "kanji": "新聞部",
+      "furigana": "しんぶんぶ"
+    },
+    "image": "images/PD/clubactivities/newspaperclub.png"
+  },
+  {
+    "english": "science club",
+    "japanese": {
+      "kanji": "科学部",
+      "furigana": "かがくぶ"
+    },
+    "image": "images/PD/clubactivities/bonuswords/scienceclub.png"
+  },
+  {
+    "english": "swimming",
+    "japanese": {
+      "kanji": "水泳",
+      "furigana": "すいえい"
+    },
+    "image": "images/PD/sports/swimming.png"
+  }
+]

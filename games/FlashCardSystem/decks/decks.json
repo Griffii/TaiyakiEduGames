@@ -439,6 +439,26 @@
       "Seasons": {
         "path": "decks/JHS1/seasons.json",
         "image": "images/PD/seasons/seasons.png"
+      },
+      "Daily Life": {
+        "path": "decks/JHS1/dailylife.json",
+        "image": "images/PD/dailyactivities/gotoschool.png"
+      },
+      "Activities": {
+        "path": "decks/JHS1/activities.json",
+        "image": "images/PD/activities/reading.png"
+      },
+      "Clubs": {
+        "path": "decks/JHS1/clubs.json",
+        "image": "images/PD/clubactivities/artclub.png"
+      },
+      "Instruments": {
+        "path": "decks/JHS1/instruments.json",
+        "image": "images/PD/instruments/guitar.png"
+      },
+      "Days": {
+        "path": "decks/JHS1/days.json",
+        "image": "images/PD/weekdays/monday.png"
       }
     }
   }
