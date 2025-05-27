@@ -1,0 +1,162 @@
+[
+    {
+        "english": "Australia",
+        "japanese": {
+            "kanji": "オーストラリア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/australia.png"
+    },
+    {
+        "english": "Brazil",
+        "japanese": {
+            "kanji": "ブラジル",
+            "furigana": ""
+        },
+        "image": "images/PD/world/brazil.png"
+    },
+    {
+        "english": "Canada",
+        "japanese": {
+            "kanji": "カナダ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/canada.png"
+    },
+{
+        "english": "Egypt",
+        "japanese": {
+            "kanji": "エジプト",
+            "furigana": ""
+        },
+        "image": "images/PD/world/egypt.png"
+    },
+{
+        "english": "France",
+        "japanese": {
+            "kanji": "フランス",
+            "furigana": ""
+        },
+        "image": "images/PD/world/france.png"
+    },
+{
+        "english": "India",
+        "japanese": {
+            "kanji": "インド",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/india.png"
+    },
+    {
+        "english": "Japan",
+        "japanese": {
+            "kanji": "日本",
+            "furigana": "にほん"
+        },
+        "image": "images/PD/world/japan.png"
+    },
+    {
+        "english": "South Korea",
+        "japanese": {
+            "kanji": "韓国",
+            "furigana": "かんこく"
+        },
+        "image": "images/PD/world/bonuswords/korea.png"
+    },
+    {
+        "english": "Spain",
+        "japanese": {
+            "kanji": "スペイン",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/spain.png"
+    },
+    {
+        "english": "The U.K.",
+        "japanese": {
+            "kanji": "イギリス",
+            "furigana": ""
+        },
+        "image": "images/PD/world/united-kingdom.png"
+    },
+    {
+        "english": "The U.S.A.",
+        "japanese": {
+            "kanji": "アメリカ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/america.png"
+    },
+    {
+        "english": "Germany",
+        "japanese": {
+            "kanji": "ドイツ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/germany.png"
+    },
+    {
+        "english": "Ghana",
+        "japanese": {
+            "kanji": "ガーナ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/ghana.png"
+    },
+    {
+        "english": "Italy",
+        "japanese": {
+            "kanji": "イタリア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/italy.png"
+    },
+    {
+        "english": "Kenya",
+        "japanese": {
+            "kanji": "ケニア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/kenya.png"
+    },
+    {
+        "english": "Peru",
+        "japanese": {
+            "kanji": "ペルー",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/peru.png"
+    },
+    {
+        "english": "Russia",
+        "japanese": {
+            "kanji": "ロシア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/russia.png"
+    },
+    {
+        "english": "Singapore",
+        "japanese": {
+            "kanji": "シンガポール",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/singapore.png"
+    },
+    {
+        "english": "Thailand",
+        "japanese": {
+            "kanji": "タイ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/thailand.png"
+    },
+    {
+        "english": "Turkey",
+        "japanese": {
+            "kanji": "トルコ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/turkey.png"
+    }
+]

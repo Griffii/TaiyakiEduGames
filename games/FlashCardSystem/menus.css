@@ -427,11 +427,11 @@ button:hover {
   }
   .border-left {
     left: 0;
-    background-image: url("../../assets/Cherry_Border_01_Left.png");
+    
   }
   .border-right {
     right: 0;
-    background-image: url("../../assets/Cherry_Border_01_Right.png");
+   
   }
 
   /*

@@ -1,3 +1,218 @@
 [
-    
+    {
+        "english": "cook",
+        "japanese": {
+            "kanji": "料理する",
+            "furigana": "りょうりする"
+        },
+        "image": "images/PD/actions/cook.png"
+    },
+    {
+        "english": "draw pictures",
+        "japanese": {
+            "kanji": "絵を描く",
+            "furigana": "えをかく"
+        },
+        "image": "images/PD/actions/bonuswords/draw.png"
+    },
+    {
+        "english": "drink tea",
+        "japanese": {
+            "kanji": "お茶を飲む",
+            "furigana": "おちゃをのむ"
+        },
+        "image": "images/PD/actions/drink.png"
+    },
+    {
+        "english": "go to the library",
+        "japanese": {
+            "kanji": "図書館へ行く",
+            "furigana": "としょかんへへいく"
+        },
+        "image": "images/PD/actions/go.png"
+    },
+{
+        "english": "go to the park",
+        "japanese": {
+            "kanji": "公園へ行く",
+            "furigana": "こうえんへいく"
+        },
+        "image": "images/PD/actions/go.png"
+    },
+    {
+        "english": "listen to music",
+        "japanese": {
+            "kanji": "音楽を聞く",
+            "furigana": "おんがくをきく"
+        },
+        "image": "images/PD/actions/listen.png"
+    },
+    {
+        "english": "make a cake",
+        "japanese": {
+            "kanji": "ケーキを作る",
+            "furigana": "けーきをつくる"
+        },
+        "image": "images/PD/actions/make.png"
+    },
+    {
+        "english": "play the guitar",
+        "japanese": {
+            "kanji": "ギターを引く",
+            "furigana": "ぎたーをひく"
+        },
+        "image": "images/PD/instruments/guitar.png"
+    },
+    {
+        "english": "read books",
+        "japanese": {
+            "kanji": "本を読む",
+            "furigana": "ほんをよむ"
+        },
+        "image": "images/PD/actions/read.png"
+    },
+{
+        "english": "ride a bike",
+        "japanese": {
+            "kanji": "自転車を乗る",
+            "furigana": "じてんしゃをのる"
+        },
+        "image": "images/PD/town/bike.png"
+    },
+    {
+        "english": "run",
+        "japanese": {
+            "kanji": "走る",
+            "furigana": "はしる"
+        },
+        "image": "images/PD/actions/run.png"
+    },
+    {
+        "english": "see a movie",
+        "japanese": {
+            "kanji": "映画を見る",
+            "furigana": "えいがをみる"
+        },
+        "image": "images/PD/activities/watchingmovies.png"
+    },
+    {
+        "english": "sing",
+        "japanese": {
+            "kanji": "歌う",
+            "furigana": "うたう"
+        },
+        "image": "images/PD/actions/sing.png"
+    },
+    {
+        "english": "swim",
+        "japanese": {
+            "kanji": "泳ぐ",
+            "furigana": "およぐ"
+        },
+        "image": "images/PD/actions/swim.png"
+    },
+    {
+        "english": "talk with a friend",
+        "japanese": {
+            "kanji": "話す",
+            "furigana": "はなす"
+        },
+        "image": "images/PD/actions/talk.png"
+    },
+    {
+        "english": "use my computer",
+        "japanese": {
+            "kanji": "",
+            "furigana": ""
+        },
+        "image": "images/JHS1/"
+    },
+    {
+        "english": "watch TV",
+        "japanese": {
+            "kanji": "見る",
+            "furigana": "みる"
+        },
+        "image": "images/PD/actions/watch.png"
+    },
+    {
+        "english": "write a letter",
+        "japanese": {
+            "kanji": "書く",
+            "furigana": "かく"
+        },
+        "image": "images/PD/actions/bonuswords/write.png"
+    },
+    {
+        "english": "play cards",
+        "japanese": {
+            "kanji": "トランプ",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/cards.png"
+    },
+    {
+        "english": "jump rope",
+        "japanese": {
+            "kanji": "縄跳び",
+            "furigana": "なわとび"
+        },
+        "image": "images/PD/activities/jumprope.png"
+    },
+    {
+        "english": "do a fun quiz",
+        "japanese": {
+            "kanji": "",
+            "furigana": ""
+        },
+        "image": "images/JHS1/"
+    },
+    {
+        "english": "camping",
+        "japanese": {
+            "kanji": "キャンプ",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/camping.png"
+    },
+    {
+        "english": "fishing",
+        "japanese": {
+            "kanji": "釣り",
+            "furigana": "つり"
+        },
+        "image": "images/PD/activities/fishing.png"
+    },
+    {
+        "english": "hiking",
+        "japanese": {
+            "kanji": "ハイキング",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/hiking.png"
+    },
+    {
+        "english": "jogging",
+        "japanese": {
+            "kanji": "ジョギング",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/jogging.png"
+    },
+    {
+        "english": "shopping",
+        "japanese": {
+            "kanji": "買い物",
+            "furigana": "かいもの"
+        },
+        "image": "images/PD/activities/shopping.png"
+    },
+    {
+        "english": "surfing",
+        "japanese": {
+            "kanji": "サーフィン",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/surfing.png"
+    }
 ]

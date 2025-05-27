@@ -459,6 +459,22 @@
       "Days": {
         "path": "decks/JHS1/days.json",
         "image": "images/PD/weekdays/monday.png"
+      },
+      "Nature": {
+        "path": "decks/JHS1/nature.json",
+        "image": "images/PD/nature/nature.png"
+      },
+      "Countries": {
+        "path": "decks/JHS1/countries.json",
+        "image": "images/PD/world//japan.png"
+      },
+      "Things in my bag": {
+        "path": "decks/JHS1/things.json",
+        "image": "images/PD/things/bag.png"
+      },
+      "Places": {
+        "path": "decks/JHS1/places.json",
+        "image": "images/PD/town/juniorhighschool.png"
       }
     }
   }

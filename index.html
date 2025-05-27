@@ -10,10 +10,9 @@
     />
     <!-- Favicon link -->
     <link rel="icon" href="favicon.png" type="image/png" />
-    <script src="js/fallingcherryblossoms.js"></script>
+
     <script src="js/analytics.js"></script>
     <script src="js/fullscreen.js"></script>
-
 
     <style>
       .title-board {
@@ -66,6 +65,34 @@
       a {
         color: #333; /* Darker link color */
         text-decoration: none;
+      }
+
+      #theme-dropdown {
+        background-color: blanchedalmond;
+        border: 2px solid #8b5e3c;
+        border-radius: 5px;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        margin-bottom: 5px; /* space between button and dropdown */
+        width: 160px;
+        display: none;
+        position: absolute;
+        bottom: 100%;
+        z-index: 1000;
+      }
+
+      #theme-dropdown div {
+        padding: 6px 10px;
+        text-align: left;
+        font-size: 18px;
+        font-weight: bold;
+        color: #222;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      #theme-dropdown div:hover {
+        background-color: #f8d7a6;
       }
 
       .game-list {
@@ -137,7 +164,8 @@
         justify-content: center;
       }
       .credits-btn,
-      .donations-btn {
+      .donations-btn,
+      .theme-btn {
         display: block;
         margin-top: 20px;
         border-radius: 5px;
@@ -149,7 +177,8 @@
         transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
       .credits-btn:hover,
-      .donations-btn:hover {
+      .donations-btn:hover,
+      .theme-btn:hover {
         background-color: rgb(248, 215, 166);
         scale: 1.1;
       }
@@ -186,11 +215,9 @@
       }
       .border-left {
         left: 0;
-        background-image: url("assets/Cherry_Border_03_Left.png");
       }
       .border-right {
         right: 0;
-        background-image: url("assets/Cherry_Border_03_Right.png");
       }
 
       /*
@@ -227,17 +254,15 @@
 
   <body>
     <div class="page-wrapper">
-      <div class="title-board">
-        Taiyaki-Sensei's Education Games
-        <h2>~ Welcome back to school! ~</h2>
-      </div>
+      <div class="title-board">Taiyaki-Sensei's Education Games</div>
 
-      <!-- Seasonal Border -->
+      <!-- Background border images -->
       <div class="border">
         <div class="border-left"></div>
         <div class="border-right"></div>
       </div>
 
+      <!-- Grid of game cards -->
       <div class="game-list">
         <script>
           // List of available games (Manually add games here)
@@ -256,6 +281,10 @@
             {
               name: "Number Picker Wheel",
               path: "games/NumberPickerWheel/index.html",
+            },
+            {
+              name: "Weather Wheel",
+              path: "games/WeatherWheel/index.html",
             },
             {
               name: "English Omikuji",
@@ -283,6 +312,7 @@
         </script>
       </div>
 
+      <!-- Page Footer -->
       <section id="footer">
         <div class="credits-div">
           <button class="credits-btn">
@@ -299,6 +329,17 @@
           </button>
         </div>
 
+        <!-- 
+        <div
+          class="credits-div"
+          style="position: relative"
+          id="theme-container"
+        >
+          <button id="theme-btn" class="theme-btn">Theme Select</button>
+          <div id="theme-dropdown"></div>
+        </div>
+        -->
+
         <p>Version 1.16</p>
         <p>
           &copy; 2025 -
@@ -306,5 +347,9 @@
         </p>
       </section>
     </div>
+
+    <!-- 
+    <script src="js/themeManager.js"></script>
+    -->
   </body>
 </html>
