@@ -469,7 +469,7 @@
         "image": "images/PD/world//japan.png"
       },
       "Things in my bag": {
-        "path": "decks/JHS1/things.json",
+        "path": "decks/JHS1/thingsinmybag.json",
         "image": "images/PD/things/bag.png"
       },
       "Places": {

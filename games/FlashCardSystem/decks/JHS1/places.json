@@ -1,0 +1,114 @@
+[
+    {
+        "english": "amusement park",
+        "japanese": {
+            "kanji": "遊園地",
+            "furigana": "ゆうえんち"
+        },
+        "image": "images/PD/town/amusementpark.png"
+    },
+    {
+        "english": "aquarium",
+        "japanese": {
+            "kanji": "水族館",
+            "furigana": "すいぞくかん"
+        },
+        "image": "images/PD/town/aquarium.png"
+    },
+    {
+        "english": "castle",
+        "japanese": {
+            "kanji": "城",
+            "furigana": "しろ"
+        },
+        "image": "images/PD/town/castle.png"
+    },
+    {
+        "english": "hospital",
+        "japanese": {
+            "kanji": "病院",
+            "furigana": "びょういん"
+        },
+        "image": "images/PD/town/hospital.png"
+    },
+    {
+        "english": "house",
+        "japanese": {
+            "kanji": "家",
+            "furigana": "いえ"
+        },
+        "image": "images/PD/town/house.png"
+    },
+    {
+        "english": "museum",
+        "japanese": {
+            "kanji": "博物館",
+            "furigana": "はくぶつかん"
+        },
+        "image": "images/PD/town/museum.png"
+    },
+    {
+        "english": "restaurant",
+        "japanese": {
+            "kanji": "レストラン",
+            "furigana": ""
+        },
+        "image": "images/PD/town/restaurant.png"
+    },
+    {
+        "english": "shrine",
+        "japanese": {
+            "kanji": "神社",
+            "furigana": "じんじゃ"
+        },
+        "image": "images/PD/town/shrine.png"
+    },
+    {
+        "english": "stadium",
+        "japanese": {
+            "kanji": "スタジアム",
+            "furigana": ""
+        },
+        "image": "images/PD/town/stadium.png"
+    },
+    {
+        "english": "station",
+        "japanese": {
+            "kanji": "駅",
+            "furigana": "えき"
+        },
+        "image": "images/PD/town/station.png"
+    },
+    {
+        "english": "temple",
+        "japanese": {
+            "kanji": "お寺",
+            "furigana": "おてら"
+        },
+        "image": "images/PD/town/temple.png"
+    },
+    {
+        "english": "zoo",
+        "japanese": {
+            "kanji": "動物園",
+            "furigana": "どうぶつえん"
+        },
+        "image": "images/PD/town/zoo.png"
+    },
+    {
+        "english": "elementary school",
+        "japanese": {
+            "kanji": "小学校",
+            "furigana": "しょうがっこう"
+        },
+        "image": "images/PD/town/elementaryschool.png"
+    },
+    {
+        "english": "junior high school",
+        "japanese": {
+            "kanji": "中学校",
+            "furigana": "ちゅうがっこう"
+        },
+        "image": "images/PD/town/juniorhighschool.png"
+    }
+]

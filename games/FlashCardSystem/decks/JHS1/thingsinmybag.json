@@ -1,0 +1,148 @@
+[
+  {
+    "english": "bag",
+    "japanese": {
+      "kanji": "かばん",
+      "furigana": ""
+    },
+    "image": "images/PD/things/bag.png"
+  },
+  {
+    "english": "book",
+    "japanese": {
+      "kanji": "本",
+      "furigana": "ほん"
+    },
+    "image": "images/PD/things/bonuswords/book.png"
+  },
+  {
+    "english": "clock",
+    "japanese": {
+      "kanji": "時計",
+      "furigana": "とけい"
+    },
+    "image": "images/PD/things/bonuswords/clock.png"
+  },
+  {
+    "english": "computer",
+    "japanese": {
+      "kanji": "コンピューター",
+      "furigana": ""
+    },
+    "image": "images/PD/things/computer.png"
+  },
+{
+        "english": "hat",
+        "japanese": {
+            "kanji": "帽子",
+            "furigana": "ぼうし"
+        },
+        "image": "images/PD/clothing/hat.png"
+    },
+  {
+        "english": "notebook",
+        "japanese": {
+            "kanji": "ノート",
+            "furigana": ""
+        },
+        "image": "images/ES3/stationary/notebook.png"
+    },
+  {
+    "english": "pen",
+    "japanese": {
+      "kanji": "ペン",
+      "furigana": ""
+    },
+    "image": "images/ES3/stationary/pen.png"
+  },
+  {
+    "english": "pencil",
+    "japanese": {
+      "kanji": "鉛筆",
+      "furigana": "えんぴつ"
+    },
+    "image": "images/ES3/stationary/pencil.png"
+  },
+  {
+        "english": "pencil case",
+        "japanese": {
+            "kanji": "筆箱",
+            "furigana": "ふでばこ"
+        },
+        "image": "images/ES3/stationary/pencilcase.png"
+    },
+    {
+        "english": "ruler",
+        "japanese": {
+            "kanji": "もの刺し",
+            "furigana": "ものざし"
+        },
+        "image": "images/ES3/stationary/ruler.png"
+    },
+{
+        "english": "scissors",
+        "japanese": {
+            "kanji": "鋏",
+            "furigana": "はさみ"
+        },
+        "image": "images/JHS/things/scissors.png"
+    },
+    {
+        "english": "watch",
+        "japanese": {
+            "kanji": "腕時計",
+            "furigana": "うでとけい"
+        },
+        "image": "images/JHS/things/wristwatch.png"
+    },
+
+    {
+        "english": "cap",
+        "japanese": {
+            "kanji": "帽子",
+            "furigana": "ぼうし"
+        },
+        "image": "images/ES3/clothing/hat.png"
+    },
+{
+        "english": "cup",
+        "japanese": {
+            "kanji": "カップ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/cup.png"
+    },
+
+    {
+        "english": "eraser",
+        "japanese": {
+            "kanji": "消しゴム",
+            "furigana": "けしごむ"
+        },
+        "image": "images/ES3/stationary/eraser.png"
+    },
+    {
+        "english": "pants",
+        "japanese": {
+            "kanji": "ズボン",
+            "furigana": ""
+        },
+        "image": "images/PD/clothing/pants.png"
+    },
+    {
+        "english": "shoes",
+        "japanese": {
+            "kanji": "靴",
+            "furigana": "くつ"
+        },
+        "image": "images/PD/clothing/shoes.png"
+    },
+    {
+        "english": "T-shirt",
+        "japanese": {
+            "kanji": "Tシャツ",
+            "furigana": ""
+        },
+        "image": "images/PD/clothing/tshirt.png"
+    }
+]
