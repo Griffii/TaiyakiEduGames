@@ -41,6 +41,7 @@
         border-radius: 5px;
         background: linear-gradient(to right, #6dd5fa, #3498db);
         color: white;
+        border: solid #3498db;
         cursor: pointer;
         transition: 0.3s;
         box-shadow: 0 4px 6px rgba(255, 255, 255, 0.2);
@@ -49,7 +50,7 @@
 
       #spinButton:hover {
         background: linear-gradient(to right, #3498db, #6dd5fa);
-        transform: scale(1.05);
+        transform: scale(1.10);
       }
 
       .home-button {
@@ -122,9 +123,19 @@
           "
         ></div>
         <canvas id="wheelCanvas" width="600" height="600"></canvas>
+      
+        <div
+      id="currentLabel"
+      style="font-size: 36px; font-weight: bold; margin-top: 20px; margin-bottom: 20px;"
+    >
+      Cold
+    </div>
+      
       </div>
       <button id="spinButton" onclick="spinWheel()">SPIN</button>
     </div>
+
+    
 
     <div id="popup">
       <h2 id="popupText"></h2>
@@ -143,7 +154,7 @@
         "images/windy.png",
         "images/snowy.png",
         "images/hot.png",
-        "images/cold.png"
+        "images/cold.png",
       ];
       const images = imagePaths.map((src) => {
         const img = new Image();
@@ -218,9 +229,14 @@
       }
 
       function getTopIndex() {
-        const sliceAngle = (2 * Math.PI) / totalSlices;
+        const totalSlices = imagePaths.length;
+        const sliceAngle = 360 / totalSlices;
         let angleDeg = ((-currentAngle * 180) / Math.PI + 360) % 360;
-        let index = Math.floor((angleDeg + sliceAngle / 2) / sliceAngle) % totalSlices;
+
+        let diff = (angleDeg - 115 + 360) % 360;
+
+        let index =
+          Math.floor((diff + sliceAngle / 2) / sliceAngle) % totalSlices;
         return index;
       }
 
@@ -242,6 +258,14 @@
           requestAnimationFrame(animateSpin);
         } else {
           spinning = false;
+
+          let index = getTopIndex();
+
+          let imageName = imagePaths[index].split("/").pop().split(".")[0];
+
+          document.getElementById("currentLabel").innerText =
+            imageName.charAt(0).toUpperCase() +
+            imageName.slice(1);
         }
       }
 
