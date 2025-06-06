@@ -41,7 +41,7 @@
         border-radius: 5px;
         background: linear-gradient(to right, #6dd5fa, #3498db);
         color: white;
-        border: solid #3498db;
+        border: solid, #3498db;
         cursor: pointer;
         transition: 0.3s;
         box-shadow: 0 4px 6px rgba(255, 255, 255, 0.2);
@@ -50,7 +50,7 @@
 
       #spinButton:hover {
         background: linear-gradient(to right, #3498db, #6dd5fa);
-        transform: scale(1.10);
+        transform: scale(1.05);
       }
 
       .home-button {
@@ -122,7 +122,7 @@
             z-index: 10;
           "
         ></div>
-        <canvas id="wheelCanvas" width="600" height="600"></canvas>
+        <canvas id="wheelCanvas" width="500" height="500"></canvas>
       
         <div
       id="currentLabel"
@@ -178,7 +178,7 @@
         const sliceAngle = (2 * Math.PI) / totalSlices;
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
-        const radius = 290;
+        const radius = 240;
 
         for (let i = 0; i < totalSlices; i++) {
           const angleStart = currentAngle + i * sliceAngle;
@@ -197,7 +197,7 @@
           ctx.rotate(centerAngle);
 
           const img = images[i];
-          const imgSize = 140;
+          const imgSize = 110;
           if (img.complete) {
             const w = img.width;
             const h = img.height;
