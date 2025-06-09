@@ -3,7 +3,7 @@
         "english": "cook",
         "japanese": {
             "kanji": "料理する",
-            "furigana": "りょうりする"
+            "furigana": ""
         },
         "image": "images/PD/actions/cook.png"
     },
@@ -11,7 +11,7 @@
         "english": "draw pictures",
         "japanese": {
             "kanji": "絵を描く",
-            "furigana": "えをかく"
+            "furigana": ""
         },
         "image": "images/PD/actions/bonuswords/draw.png"
     },
@@ -19,7 +19,7 @@
         "english": "drink tea",
         "japanese": {
             "kanji": "お茶を飲む",
-            "furigana": "おちゃをのむ"
+            "furigana": ""
         },
         "image": "images/JHS/activities/drink_tea.png"
     },
@@ -27,7 +27,7 @@
         "english": "go to the library",
         "japanese": {
             "kanji": "図書館へ行く",
-            "furigana": "としょかんへへいく"
+            "furigana": ""
         },
         "image": "images/PD/actions/go.png"
     },
@@ -35,7 +35,7 @@
         "english": "go to the park",
         "japanese": {
             "kanji": "公園へ行く",
-            "furigana": "こうえんへいく"
+            "furigana": ""
         },
         "image": "images/PD/actions/go.png"
     },
@@ -43,7 +43,7 @@
         "english": "listen to music",
         "japanese": {
             "kanji": "音楽を聞く",
-            "furigana": "おんがくをきく"
+            "furigana": ""
         },
         "image": "images/PD/actions/listen.png"
     },
@@ -51,7 +51,7 @@
         "english": "make a cake",
         "japanese": {
             "kanji": "ケーキを作る",
-            "furigana": "けーきをつくる"
+            "furigana": ""
         },
         "image": "images/PD/actions/make.png"
     },
@@ -59,7 +59,7 @@
         "english": "play the guitar",
         "japanese": {
             "kanji": "ギターを引く",
-            "furigana": "ぎたーをひく"
+            "furigana": ""
         },
         "image": "images/PD/instruments/guitar.png"
     },
@@ -67,7 +67,7 @@
         "english": "read books",
         "japanese": {
             "kanji": "本を読む",
-            "furigana": "ほんをよむ"
+            "furigana": ""
         },
         "image": "images/PD/actions/read.png"
     },
@@ -75,7 +75,7 @@
         "english": "ride a bike",
         "japanese": {
             "kanji": "自転車を乗る",
-            "furigana": "じてんしゃをのる"
+            "furigana": ""
         },
         "image": "images/PD/town/bike.png"
     },
@@ -83,7 +83,7 @@
         "english": "run",
         "japanese": {
             "kanji": "走る",
-            "furigana": "はしる"
+            "furigana": ""
         },
         "image": "images/PD/actions/run.png"
     },
@@ -91,7 +91,7 @@
         "english": "see a movie",
         "japanese": {
             "kanji": "映画を見る",
-            "furigana": "えいがをみる"
+            "furigana": ""
         },
         "image": "images/PD/activities/watchingmovies.png"
     },
@@ -99,7 +99,7 @@
         "english": "sing",
         "japanese": {
             "kanji": "歌う",
-            "furigana": "うたう"
+            "furigana": ""
         },
         "image": "images/PD/actions/sing.png"
     },
@@ -107,46 +107,46 @@
         "english": "swim",
         "japanese": {
             "kanji": "泳ぐ",
-            "furigana": "およぐ"
+            "furigana": ""
         },
         "image": "images/PD/actions/swim.png"
     },
     {
         "english": "talk with a friend",
         "japanese": {
-            "kanji": "話す",
-            "furigana": "はなす"
+            "kanji": "友達と話す",
+            "furigana": ""
         },
         "image": "images/PD/actions/talk.png"
     },
     {
         "english": "use my computer",
         "japanese": {
-            "kanji": "",
+            "kanji": "コンピューターを使う",
             "furigana": ""
         },
-        "image": "images/JHS1/"
+        "image": "images/JHS/activities/computer.png"
     },
     {
         "english": "watch TV",
         "japanese": {
-            "kanji": "見る",
-            "furigana": "みる"
+            "kanji": "テレビを見る",
+            "furigana": ""
         },
         "image": "images/PD/actions/watch.png"
     },
     {
         "english": "write a letter",
         "japanese": {
-            "kanji": "書く",
-            "furigana": "かく"
+            "kanji": "手紙を書く",
+            "furigana": ""
         },
         "image": "images/PD/actions/bonuswords/write.png"
     },
     {
         "english": "play cards",
         "japanese": {
-            "kanji": "トランプ",
+            "kanji": "トランプするする",
             "furigana": ""
         },
         "image": "images/PD/activities/cards.png"
@@ -155,17 +155,17 @@
         "english": "jump rope",
         "japanese": {
             "kanji": "縄跳び",
-            "furigana": "なわとび"
+            "furigana": ""
         },
         "image": "images/PD/activities/jumprope.png"
     },
     {
         "english": "do a fun quiz",
         "japanese": {
-            "kanji": "",
+            "kanji": "楽しいクイズををする",
             "furigana": ""
         },
-        "image": "images/JHS1/"
+        "image": "images/JHS/activities/quiz.png"
     },
     {
         "english": "camping",
@@ -179,7 +179,7 @@
         "english": "fishing",
         "japanese": {
             "kanji": "釣り",
-            "furigana": "つり"
+            "furigana": ""
         },
         "image": "images/PD/activities/fishing.png"
     },
@@ -203,7 +203,7 @@
         "english": "shopping",
         "japanese": {
             "kanji": "買い物",
-            "furigana": "かいもの"
+            "furigana": ""
         },
         "image": "images/PD/activities/shopping.png"
     },

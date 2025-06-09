@@ -1330,5 +1330,1040 @@
       "furigana": "ふゆ"
     },
     "image": "images/PD/seasons/winter.png"
-  }
+  },
+  {
+    "english": "get up",
+    "japanese": {
+      "kanji": "起きる",
+      "furigana": "おきる"
+    },
+    "image": "images/PD/dailyactivities/getup.png"
+  },
+  {
+    "english": "wash my face",
+    "japanese": {
+      "kanji": "顔を洗う",
+      "furigana": "かおをあらう"
+    },
+    "image": "images/PD/dailyactivities/washmyface.png"
+  },
+  {
+    "english": "brush my teeth",
+    "japanese": {
+      "kanji": "歯を磨く",
+      "furigana": "はをみがく"
+    },
+    "image": "images/PD/dailyactivities/brushmyteeth.png"
+  },
+  {
+    "english": "eat breakfast",
+    "japanese": {
+      "kanji": "朝ご飯を食べる",
+      "furigana": "あさごはんをたべる"
+    },
+    "image": "images/PD/dailyactivities/havebreakfast.png"
+  },
+  {
+    "english": "take out the garbage",
+    "japanese": {
+      "kanji": "ゴミを出す",
+      "furigana": ""
+    },
+    "image": "images/PD/dailyactivities/takeoutthegarbage.png"
+  },
+  {
+    "english": "leave home",
+    "japanese": {
+      "kanji": "家を出る",
+      "furigana": "いえをでる"
+    },
+    "image": "images/PD/dailyactivities/leavehome.png"
+  },
+  {
+    "english": "go to school",
+    "japanese": {
+      "kanji": "学校へ行く",
+      "furigana": "がっこうへいく"
+    },
+    "image": "images/PD/dailyactivities/gotoschool.png"
+  },
+  {
+    "english": "study math",
+    "japanese": {
+      "kanji": "算数を勉強する",
+      "furigana": "さんすうをべんきょうする"
+    },
+    "image": "images/PD/dailyactivities/studymath.png"
+  },
+  {
+    "english": "eat lunch",
+    "japanese": {
+      "kanji": "昼ご飯を食べる",
+      "furigana": "ひるごはんをたべる"
+    },
+    "image": "images/PD/dailyactivities/havelunch.png"
+  },
+{
+    "english": "clean the classroom",
+    "japanese": {
+      "kanji": "教室を掃除する",
+      "furigana": "きょうしつをそうじする"
+    },
+    "image": "images/PD/dailyactivities/cleaning.png"
+  },
+  {
+    "english": "play soccer",
+    "japanese": {
+      "kanji": "サッカーをする",
+      "furigana": ""
+    },
+    "image": "images/PD/dailyactivities/playsoccer.png"
+  },
+  {
+    "english": "go home",
+    "japanese": {
+      "kanji": "家に帰る",
+      "furigana": "いえにかえる"
+    },
+    "image": "images/PD/dailyactivities/gohome.png"
+  },
+  {
+    "english": "do my homework",
+    "japanese": {
+      "kanji": "宿題をする",
+      "furigana": "しゅくだいをする"
+    },
+    "image": "images/PD/dailyactivities/domyhomework.png"
+  },
+  {
+    "english": "walk my dog",
+    "japanese": {
+      "kanji": "犬の散歩をする",
+      "furigana": "いぬのさんぽをする"
+    },
+    "image": "images/PD/dailyactivities/walkmydog.png"
+  },
+  {
+    "english": "eat dinner",
+    "japanese": {
+      "kanji": "夕ご飯を食べる",
+      "furigana": "ゆうごはんをたべる"
+    },
+    "image": "images/PD/dailyactivities/havedinner.png"
+  },
+  {
+    "english": "wash the dishes",
+    "japanese": {
+      "kanji": "皿を洗う",
+      "furigana": "さらをあらう"
+    },
+    "image": "images/PD/dailyactivities/washthedishes.png"
+  },
+  {
+    "english": "take a bath",
+    "japanese": {
+      "kanji": "お風呂に入る",
+      "furigana": "おふろにはいる"
+    },
+    "image": "images/PD/dailyactivities/takeabath.png"
+  },
+  {
+    "english": "go to bed",
+    "japanese": {
+      "kanji": "寝る",
+      "furigana": "ねる"
+    },
+    "image": "images/PD/dailyactivities/gotobed.png"
+  },
+  {
+        "english": "cook",
+        "japanese": {
+            "kanji": "料理する",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/cook.png"
+    },
+    {
+        "english": "draw pictures",
+        "japanese": {
+            "kanji": "絵を描く",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/bonuswords/draw.png"
+    },
+    {
+        "english": "drink tea",
+        "japanese": {
+            "kanji": "お茶を飲む",
+            "furigana": ""
+        },
+        "image": "images/JHS/activities/drink_tea.png"
+    },
+    {
+        "english": "go to the library",
+        "japanese": {
+            "kanji": "図書館へ行く",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/go.png"
+    },
+{
+        "english": "go to the park",
+        "japanese": {
+            "kanji": "公園へ行く",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/go.png"
+    },
+    {
+        "english": "listen to music",
+        "japanese": {
+            "kanji": "音楽を聞く",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/listen.png"
+    },
+    {
+        "english": "make a cake",
+        "japanese": {
+            "kanji": "ケーキを作る",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/make.png"
+    },
+    {
+        "english": "play the guitar",
+        "japanese": {
+            "kanji": "ギターを引く",
+            "furigana": ""
+        },
+        "image": "images/PD/instruments/guitar.png"
+    },
+    {
+        "english": "read books",
+        "japanese": {
+            "kanji": "本を読む",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/read.png"
+    },
+{
+        "english": "ride a bike",
+        "japanese": {
+            "kanji": "自転車を乗る",
+            "furigana": ""
+        },
+        "image": "images/PD/town/bike.png"
+    },
+    {
+        "english": "run",
+        "japanese": {
+            "kanji": "走る",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/run.png"
+    },
+    {
+        "english": "see a movie",
+        "japanese": {
+            "kanji": "映画を見る",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/watchingmovies.png"
+    },
+    {
+        "english": "sing",
+        "japanese": {
+            "kanji": "歌う",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/sing.png"
+    },
+    {
+        "english": "swim",
+        "japanese": {
+            "kanji": "泳ぐ",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/swim.png"
+    },
+    {
+        "english": "talk with a friend",
+        "japanese": {
+            "kanji": "友達と話す",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/talk.png"
+    },
+    {
+        "english": "use my computer",
+        "japanese": {
+            "kanji": "コンピューターを使う",
+            "furigana": ""
+        },
+        "image": "images/JHS/activities/computer.png"
+    },
+    {
+        "english": "watch TV",
+        "japanese": {
+            "kanji": "テレビを見る",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/watch.png"
+    },
+    {
+        "english": "write a letter",
+        "japanese": {
+            "kanji": "手紙を書く",
+            "furigana": ""
+        },
+        "image": "images/PD/actions/bonuswords/write.png"
+    },
+    {
+        "english": "play cards",
+        "japanese": {
+            "kanji": "トランプするする",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/cards.png"
+    },
+    {
+        "english": "jump rope",
+        "japanese": {
+            "kanji": "縄跳び",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/jumprope.png"
+    },
+    {
+        "english": "do a fun quiz",
+        "japanese": {
+            "kanji": "楽しいクイズををする",
+            "furigana": ""
+        },
+        "image": "images/JHS/activities/quiz.png"
+    },
+    {
+        "english": "camping",
+        "japanese": {
+            "kanji": "キャンプ",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/camping.png"
+    },
+    {
+        "english": "fishing",
+        "japanese": {
+            "kanji": "釣り",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/fishing.png"
+    },
+    {
+        "english": "hiking",
+        "japanese": {
+            "kanji": "ハイキング",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/hiking.png"
+    },
+    {
+        "english": "jogging",
+        "japanese": {
+            "kanji": "ジョギング",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/jogging.png"
+    },
+    {
+        "english": "shopping",
+        "japanese": {
+            "kanji": "買い物",
+            "furigana": ""
+        },
+        "image": "images/PD/activities/shopping.png"
+    },
+    {
+        "english": "surfing",
+        "japanese": {
+            "kanji": "サーフィン",
+            "furigana": ""
+        },
+        "image": "images/PD/sports/surfing.png"
+    },
+    {
+    "english": "club activities",
+    "japanese": {
+      "kanji": "部活動",
+      "furigana": "ぶかつどう"
+    },
+    "image": "images/PD/clubactivities/clubactivities.png"
+  },
+  {
+    "english": "art club",
+    "japanese": {
+      "kanji": "美術部",
+      "furigana": "びじゅつぶ"
+    },
+    "image": "images/PD/clubactivities/artclub.png"
+  },
+  {
+    "english": "brass band",
+    "japanese": {
+      "kanji": "吹奏楽部",
+      "furigana": "すいそうがくぶ"
+    },
+    "image": "images/PD/clubactivities/brassband.png"
+  },
+  {
+    "english": "calligraphy",
+    "japanese": {
+      "kanji": "書道",
+      "furigana": "しょどう"
+    },
+    "image": "images/PD/subjects/calligraphy.png"
+  },
+  {
+    "english": "chorus",
+    "japanese": {
+      "kanji": "合唱部",
+      "furigana": "がっしょうぶ"
+    },
+    "image": "images/PD/clubactivities/chorus.png"
+  },
+  {
+    "english": "computer club",
+    "japanese": {
+      "kanji": "コンピュータ部",
+      "furigana": ""
+    },
+    "image": "images/PD/clubactivities/bonuswords/computerclub.png"
+  },
+  {
+    "english": "cooking club",
+    "japanese": {
+      "kanji": "料理部",
+      "furigana": "りょうりぶ"
+    },
+    "image": "images/PD/clubactivities/cookingclub.png"
+  },
+  {
+    "english": "dance",
+    "japanese": {
+      "kanji": "ダンス",
+      "furigana": ""
+    },
+    "image": "images/PD/clubactivities/danceteam.png"
+  },
+  {
+    "english": "drama club",
+    "japanese": {
+      "kanji": "演劇部",
+      "furigana": "えんげきぶ"
+    },
+    "image": "images/PD/clubactivities/dramaclub.png"
+  },
+  {
+    "english": "English club",
+    "japanese": {
+      "kanji": "英語部",
+      "furigana": "えいごぶ"
+    },
+    "image": "images/PD/clubactivities/bonuswords/englishclub.png"
+  },
+  {
+    "english": "newspaper club",
+    "japanese": {
+      "kanji": "新聞部",
+      "furigana": "しんぶんぶ"
+    },
+    "image": "images/PD/clubactivities/newspaperclub.png"
+  },
+  {
+    "english": "science club",
+    "japanese": {
+      "kanji": "科学部",
+      "furigana": "かがくぶ"
+    },
+    "image": "images/PD/clubactivities/bonuswords/scienceclub.png"
+  },
+  {
+    "english": "swimming",
+    "japanese": {
+      "kanji": "水泳",
+      "furigana": "すいえい"
+    },
+    "image": "images/PD/sports/swimming.png"
+  },
+  {
+        "english": "drum",
+        "japanese": {
+            "kanji": "ドラム",
+            "furigana": ""
+        },
+        "image": "images/PD/instruments/drum.png"
+    },
+     {
+        "english": "guitar",
+        "japanese": {
+            "kanji": "ギター",
+            "furigana": ""
+        },
+        "image": "images/PD/instruments/guitar.png"
+    },
+    {
+        "english": "piano",
+        "japanese": {
+            "kanji": "ピアノ",
+            "furigana": ""
+        },
+        "image": "images/PD/instruments/piano.png"
+    },
+    {
+        "english": "recorder",
+        "japanese": {
+            "kanji": "リコーダー",
+            "furigana": ""
+        },
+        "image": "images/PD/instruments/recorder.png"
+    },
+    {
+        "english": "trumpet",
+        "japanese": {
+            "kanji": "トランペット",
+            "furigana": ""
+        },
+        "image": "images/PD/instruments/trumpet.png"
+    },
+    {
+        "english": "violin",
+        "japanese": {
+            "kanji": "バイオリン",
+            "furigana": ""
+        },
+        "image": "images/PD/instruments/violin.png"
+    },
+    {
+        "english": "Monday",
+        "japanese": {
+            "kanji": "月曜日",
+            "furigana": "げつようび"
+        },
+        "image": "images/PD/weekdays/monday.png"
+    },
+    {
+        "english": "Tuesday",
+        "japanese": {
+            "kanji": "火曜日",
+            "furigana": "かようび"
+        },
+        "image": "images/PD/weekdays/tuesday.png"
+    },
+    {
+        "english": "Wednesday",
+        "japanese": {
+            "kanji": "水曜日",
+            "furigana": "すいようび"
+        },
+        "image": "images/PD/weekdays/wednesday.png"
+    },
+    {
+        "english": "Thursday",
+        "japanese": {
+            "kanji": "木曜日",
+            "furigana": "もくようび"
+        },
+        "image": "images/PD/weekdays/thursday.png"
+    },
+    {
+        "english": "Friday",
+        "japanese": {
+            "kanji": "金曜日",
+            "furigana": "きんようび"
+        },
+        "image": "images/PD/weekdays/friday.png"
+    },
+    {
+        "english": "Saturday",
+        "japanese": {
+            "kanji": "土曜日",
+            "furigana": "どようび"
+        },
+        "image": "images/PD/weekdays/saturday.png"
+    },
+    {
+        "english": "Sunday",
+        "japanese": {
+            "kanji": "日曜日",
+            "furigana": "にちようび"
+        },
+        "image": "images/PD/weekdays/sunday.png"
+    },
+    {
+        "english": "beach",
+        "japanese": {
+            "kanji": "海岸",
+            "furigana": "かいがん"
+        },
+        "image": "images/PD/nature/bonuswords/beach.png"
+    },
+    {
+        "english": "flower",
+        "japanese": {
+            "kanji": "花",
+            "furigana": "はな"
+        },
+        "image": "images/PD/nature/bonuswords/flower.png"
+    },
+    {
+        "english": "lake",
+        "japanese": {
+            "kanji": "湖",
+            "furigana": "みずうみ"
+        },
+        "image": "images/PD/nature/lake.png"
+    },
+    {
+        "english": "mountain",
+        "japanese": {
+            "kanji": "山",
+            "furigana": "やま"
+        },
+        "image": "images/PD/nature/mountain.png"
+    },
+    {
+        "english": "river",
+        "japanese": {
+            "kanji": "川",
+            "furigana": "かわ"
+        },
+        "image": "images/PD/nature/river.png"
+    },
+    {
+        "english": "sea",
+        "japanese": {
+            "kanji": "海",
+            "furigana": "うみ"
+        },
+        "image": "images/PD/nature/sea.png"
+    },
+    {
+        "english": "Australia",
+        "japanese": {
+            "kanji": "オーストラリア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/australia.png"
+    },
+    {
+        "english": "Brazil",
+        "japanese": {
+            "kanji": "ブラジル",
+            "furigana": ""
+        },
+        "image": "images/PD/world/brazil.png"
+    },
+    {
+        "english": "Canada",
+        "japanese": {
+            "kanji": "カナダ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/canada.png"
+    },
+{
+        "english": "Egypt",
+        "japanese": {
+            "kanji": "エジプト",
+            "furigana": ""
+        },
+        "image": "images/PD/world/egypt.png"
+    },
+{
+        "english": "France",
+        "japanese": {
+            "kanji": "フランス",
+            "furigana": ""
+        },
+        "image": "images/PD/world/france.png"
+    },
+{
+        "english": "India",
+        "japanese": {
+            "kanji": "インド",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/india.png"
+    },
+    {
+        "english": "Japan",
+        "japanese": {
+            "kanji": "日本",
+            "furigana": "にほん"
+        },
+        "image": "images/PD/world/japan.png"
+    },
+    {
+        "english": "South Korea",
+        "japanese": {
+            "kanji": "韓国",
+            "furigana": "かんこく"
+        },
+        "image": "images/PD/world/bonuswords/korea.png"
+    },
+    {
+        "english": "Spain",
+        "japanese": {
+            "kanji": "スペイン",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/spain.png"
+    },
+    {
+        "english": "The U.K.",
+        "japanese": {
+            "kanji": "イギリス",
+            "furigana": ""
+        },
+        "image": "images/PD/world/united-kingdom.png"
+    },
+    {
+        "english": "The U.S.A.",
+        "japanese": {
+            "kanji": "アメリカ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/america.png"
+    },
+    {
+        "english": "Germany",
+        "japanese": {
+            "kanji": "ドイツ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/germany.png"
+    },
+    {
+        "english": "Ghana",
+        "japanese": {
+            "kanji": "ガーナ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/ghana.png"
+    },
+    {
+        "english": "Italy",
+        "japanese": {
+            "kanji": "イタリア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/italy.png"
+    },
+    {
+        "english": "Kenya",
+        "japanese": {
+            "kanji": "ケニア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/kenya.png"
+    },
+    {
+        "english": "Peru",
+        "japanese": {
+            "kanji": "ペルー",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/peru.png"
+    },
+    {
+        "english": "Russia",
+        "japanese": {
+            "kanji": "ロシア",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/russia.png"
+    },
+    {
+        "english": "Singapore",
+        "japanese": {
+            "kanji": "シンガポール",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/singapore.png"
+    },
+    {
+        "english": "Thailand",
+        "japanese": {
+            "kanji": "タイ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/thailand.png"
+    },
+    {
+        "english": "Turkey",
+        "japanese": {
+            "kanji": "トルコ",
+            "furigana": ""
+        },
+        "image": "images/PD/world/bonuswords/turkey.png"
+    },
+    {
+    "english": "bag",
+    "japanese": {
+      "kanji": "かばん",
+      "furigana": ""
+    },
+    "image": "images/PD/things/bag.png"
+  },
+  {
+    "english": "book",
+    "japanese": {
+      "kanji": "本",
+      "furigana": "ほん"
+    },
+    "image": "images/PD/things/bonuswords/book.png"
+  },
+  {
+    "english": "clock",
+    "japanese": {
+      "kanji": "時計",
+      "furigana": "とけい"
+    },
+    "image": "images/PD/things/bonuswords/clock.png"
+  },
+  {
+    "english": "computer",
+    "japanese": {
+      "kanji": "コンピューター",
+      "furigana": ""
+    },
+    "image": "images/PD/things/computer.png"
+  },
+{
+        "english": "hat",
+        "japanese": {
+            "kanji": "帽子",
+            "furigana": "ぼうし"
+        },
+        "image": "images/PD/clothing/hat.png"
+    },
+  {
+        "english": "notebook",
+        "japanese": {
+            "kanji": "ノート",
+            "furigana": ""
+        },
+        "image": "images/ES3/stationary/notebook.png"
+    },
+  {
+    "english": "pen",
+    "japanese": {
+      "kanji": "ペン",
+      "furigana": ""
+    },
+    "image": "images/ES3/stationary/pen.png"
+  },
+  {
+    "english": "pencil",
+    "japanese": {
+      "kanji": "鉛筆",
+      "furigana": "えんぴつ"
+    },
+    "image": "images/ES3/stationary/pencil.png"
+  },
+  {
+        "english": "pencil case",
+        "japanese": {
+            "kanji": "筆箱",
+            "furigana": "ふでばこ"
+        },
+        "image": "images/ES3/stationary/pencilcase.png"
+    },
+    {
+        "english": "ruler",
+        "japanese": {
+            "kanji": "もの刺し",
+            "furigana": "ものざし"
+        },
+        "image": "images/ES3/stationary/ruler.png"
+    },
+{
+        "english": "scissors",
+        "japanese": {
+            "kanji": "鋏",
+            "furigana": "はさみ"
+        },
+        "image": "images/JHS/things/scissors.png"
+    },
+    {
+        "english": "watch",
+        "japanese": {
+            "kanji": "腕時計",
+            "furigana": "うでとけい"
+        },
+        "image": "images/JHS/things/wristwatch.png"
+    },
+
+    {
+        "english": "cap",
+        "japanese": {
+            "kanji": "帽子",
+            "furigana": "ぼうし"
+        },
+        "image": "images/ES3/clothing/hat.png"
+    },
+{
+        "english": "cup",
+        "japanese": {
+            "kanji": "カップ",
+            "furigana": ""
+        },
+        "image": "images/PD/things/bonuswords/cup.png"
+    },
+
+    {
+        "english": "eraser",
+        "japanese": {
+            "kanji": "消しゴム",
+            "furigana": "けしごむ"
+        },
+        "image": "images/ES3/stationary/eraser.png"
+    },
+    {
+        "english": "pants",
+        "japanese": {
+            "kanji": "ズボン",
+            "furigana": ""
+        },
+        "image": "images/PD/clothing/pants.png"
+    },
+    {
+        "english": "shoes",
+        "japanese": {
+            "kanji": "靴",
+            "furigana": "くつ"
+        },
+        "image": "images/PD/clothing/shoes.png"
+    },
+    {
+        "english": "T-shirt",
+        "japanese": {
+            "kanji": "Tシャツ",
+            "furigana": ""
+        },
+        "image": "images/PD/clothing/tshirt.png"
+    },
+     {
+        "english": "amusement park",
+        "japanese": {
+            "kanji": "遊園地",
+            "furigana": "ゆうえんち"
+        },
+        "image": "images/PD/town/amusementpark.png"
+    },
+    {
+        "english": "aquarium",
+        "japanese": {
+            "kanji": "水族館",
+            "furigana": "すいぞくかん"
+        },
+        "image": "images/PD/town/aquarium.png"
+    },
+    {
+        "english": "castle",
+        "japanese": {
+            "kanji": "城",
+            "furigana": "しろ"
+        },
+        "image": "images/PD/town/castle.png"
+    },
+    {
+        "english": "hospital",
+        "japanese": {
+            "kanji": "病院",
+            "furigana": "びょういん"
+        },
+        "image": "images/PD/town/hospital.png"
+    },
+    {
+        "english": "house",
+        "japanese": {
+            "kanji": "家",
+            "furigana": "いえ"
+        },
+        "image": "images/PD/town/house.png"
+    },
+    {
+        "english": "museum",
+        "japanese": {
+            "kanji": "博物館",
+            "furigana": "はくぶつかん"
+        },
+        "image": "images/PD/town/museum.png"
+    },
+    {
+        "english": "restaurant",
+        "japanese": {
+            "kanji": "レストラン",
+            "furigana": ""
+        },
+        "image": "images/PD/town/restaurant.png"
+    },
+    {
+        "english": "shrine",
+        "japanese": {
+            "kanji": "神社",
+            "furigana": "じんじゃ"
+        },
+        "image": "images/PD/town/shrine.png"
+    },
+    {
+        "english": "stadium",
+        "japanese": {
+            "kanji": "スタジアム",
+            "furigana": ""
+        },
+        "image": "images/PD/town/stadium.png"
+    },
+    {
+        "english": "station",
+        "japanese": {
+            "kanji": "駅",
+            "furigana": "えき"
+        },
+        "image": "images/PD/town/station.png"
+    },
+    {
+        "english": "temple",
+        "japanese": {
+            "kanji": "お寺",
+            "furigana": "おてら"
+        },
+        "image": "images/PD/town/temple.png"
+    },
+    {
+        "english": "zoo",
+        "japanese": {
+            "kanji": "動物園",
+            "furigana": "どうぶつえん"
+        },
+        "image": "images/PD/town/zoo.png"
+    },
+    {
+        "english": "elementary school",
+        "japanese": {
+            "kanji": "小学校",
+            "furigana": "しょうがっこう"
+        },
+        "image": "images/PD/town/elementaryschool.png"
+    },
+    {
+        "english": "junior high school",
+        "japanese": {
+            "kanji": "中学校",
+            "furigana": "ちゅうがっこう"
+        },
+        "image": "images/PD/town/juniorhighschool.png"
+    }
+  
 ]

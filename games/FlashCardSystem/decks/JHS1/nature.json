@@ -1,0 +1,50 @@
+[
+    {
+        "english": "beach",
+        "japanese": {
+            "kanji": "海岸",
+            "furigana": "かいがん"
+        },
+        "image": "images/PD/nature/bonuswords/beach.png"
+    },
+    {
+        "english": "flower",
+        "japanese": {
+            "kanji": "花",
+            "furigana": "はな"
+        },
+        "image": "images/PD/nature/bonuswords/flower.png"
+    },
+    {
+        "english": "lake",
+        "japanese": {
+            "kanji": "湖",
+            "furigana": "みずうみ"
+        },
+        "image": "images/PD/nature/lake.png"
+    },
+    {
+        "english": "mountain",
+        "japanese": {
+            "kanji": "山",
+            "furigana": "やま"
+        },
+        "image": "images/PD/nature/mountain.png"
+    },
+    {
+        "english": "river",
+        "japanese": {
+            "kanji": "川",
+            "furigana": "かわ"
+        },
+        "image": "images/PD/nature/river.png"
+    },
+    {
+        "english": "sea",
+        "japanese": {
+            "kanji": "海",
+            "furigana": "うみ"
+        },
+        "image": "images/PD/nature/sea.png"
+    }
+]

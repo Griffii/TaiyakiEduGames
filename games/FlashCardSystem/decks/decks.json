@@ -381,7 +381,7 @@
       "全部": { "path": "decks/PD/all.json", "image": "images/taiyaki.png" }
     }
   },
-  "New Crown 1 <br> <i>~Coming Soon~<i>": {
+  "New Crown 1": {
     "image": "images/textbooks/new_crown_1.png",
     "decks": {
       "All": {
@@ -432,7 +432,7 @@
         "path": "decks/JHS1/feelings.json",
         "image": "images/PD/feelings/great.png"
       },
-      "Time": {
+      "Frequency & Time": {
         "path": "decks/JHS1/time.json",
         "image": "images/PD/frequency/usually.png"
       },
