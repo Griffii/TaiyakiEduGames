@@ -7,13 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
     <link rel="icon" href="../../favicon.png" type="image/png" />
     <link rel="stylesheet" href="menus.css" />
-    <!-- 
-    <script src="../../js/themeManager.js"></script>
-    -->
+    
     <script src="../../js/analytics.js"></script>
     <script src="../../js/fullscreen.js"></script>
 
-    <script>
+    <script> // Script for loading data into the decks from json files
       async function loadDecks() {
         const urlParams = new URLSearchParams(window.location.search);
         let selectedGrade =
@@ -81,6 +79,7 @@
 
       document.addEventListener("DOMContentLoaded", loadDecks);
     </script>
+
   </head>
   <body>
     <!-- Home Button -->
@@ -88,7 +87,7 @@
       <img src="../../assets/home-icon.png" alt="Home" />
     </a>
 
-    <!-- Seasonal Border -->
+    <!-- Border Images -->
     <div class="border">
       <div class="border-left"></div>
       <div class="border-right"></div>

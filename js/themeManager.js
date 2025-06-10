@@ -1,40 +1,22 @@
 // Available themes and their settings
 const themes = {
   classroom: {
-    bg: "linear-gradient(to top, #ffe4f0, #f5e9ff)",
+    bg: "linear-gradient(to top, #fff0f5, #ffe4f0)",
     leftBorder: "",
     rightBorder: "",
     script: null,
   },
   sakura: {
-    bg: "linear-gradient(to top, #fff0f5, #ffe4f0)",
+    bg: "linear-gradient(to top, #ffe4f0, #f5e9ff)",
     leftBorder: "assets/Cherry_Border_03_Left.png",
     rightBorder: "assets/Cherry_Border_03_Right.png",
     script: "js/fallingcherryblossoms.js",
-  },
-  winter: {
-    bg: "linear-gradient(to top, #e0f7fa, #ffffff)",
-    leftBorder: "assets/Snow_Border_Left.png",
-    rightBorder: "assets/Snow_Border_Right.png",
-    script: null,
-  },
-  summer: {
-    bg: "linear-gradient(to top, #dfffdc, #ffffcc)",
-    leftBorder: "assets/Summer_Border_Left.png",
-    rightBorder: "assets/Summer_Border_Right.png",
-    script: null,
-  },
-  fall: {
-    bg: "linear-gradient(to top, #ffe5b4, #fff2cc)",
-    leftBorder: "assets/Fall_Border_Left.png",
-    rightBorder: "assets/Fall_Border_Right.png",
-    script: null,
   },
 };
 
 // Load and apply theme
 function applyTheme() {
-  const themeName = localStorage.getItem("selectedTheme") || "standard";
+  const themeName = localStorage.getItem("selectedTheme") || "sakura";
   const theme = themes[themeName];
 
   // Apply background
@@ -48,7 +30,7 @@ function applyTheme() {
     right.style.backgroundImage = `url(${theme.rightBorder})`;
   }
 
-  // Load seasonal script
+  // Load script
   if (theme.script) {
     const script = document.createElement("script");
     script.src = theme.script;
@@ -91,7 +73,6 @@ function createThemeDropdown() {
     }
   });
 }
-
 
 
 window.addEventListener("DOMContentLoaded", () => {
