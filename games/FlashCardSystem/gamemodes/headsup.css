@@ -215,6 +215,7 @@ body {
   padding: 15px;
   font-size: 3vw;
   cursor: pointer;
+  width: 15vw;
 }
 .pass-btn:hover {
   scale: 1.05;
@@ -227,6 +228,7 @@ body {
   padding: 15px;
   font-size: 3vw;
   cursor: pointer;
+  width: 15vw;
 }
 .get-btn:hover {
   scale: 1.05;
