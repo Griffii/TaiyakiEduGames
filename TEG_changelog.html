@@ -18,6 +18,27 @@
         color: #d35400;
         text-align: center;
       }
+
+      .home-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 30px;
+        height: 30px;
+        z-index: 1000; /* Ensures it stays on top */
+      }
+
+      .home-button img {
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .home-button img:hover {
+        transform: scale(1.1);
+      }
+
       .changelog {
         max-width: 800px;
         margin: 0 auto;
@@ -52,16 +73,30 @@
     </style>
   </head>
 
-  <!-- Navigation Bar -->
-  <div id="globalHeader"></div>
+   <!-- Home Button -->
+    <a class="home-button" href="/TaiyakiEduGames/credits.html">
+      <img src="assets/home-icon.png" alt="Home" />
+    </a>
 
   <body>
     <h1>Taiyaki Edu Games - Changelog</h1>
 
     <div class="changelog">
       <div class="version">
+        <h2>v1.17</h2>
+        <div class="date">Released: [2025-06-10]</div>
+        <ul>
+          <li>Theme Manager Implemented</li>
+          <li>Added this changelog page</li>
+          <li>Weather Wheel added</li>
+          <li>Made Heads Up game buttons relative and consistent sizes</li>
+          <li>Finished adding vocab cards for the Junior High New Crown 1 textbook</li>
+        </ul>
+      </div>
+      
+      <div class="version">
         <h2>v1.16</h2>
-        <div class="date">Released: [YYYY-MM-DD]</div>
+        <div class="date">Released: [2025-05-28]</div>
         <ul>
           <li>Updated the <b>Random Points Game</b></li>
           <ul>
@@ -77,6 +112,7 @@
           </ul>
           <br>
           <li>Added a changelog page</li>
+          <li>Cherry Blossom theme removed</li>
         </ul>
       </div>
 
@@ -133,4 +169,7 @@
 
     
   </body>
+
+  <!-- Footer Bar -->
+  
 </html>
