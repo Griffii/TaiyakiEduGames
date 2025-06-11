@@ -1,9 +1,9 @@
 // Available themes and their settings
 const themes = {
   classroom: {
-    bg: "linear-gradient(to top, #fff0f5, #ffe4f0)",
-    leftBorder: "",
-    rightBorder: "",
+    bg: "url('assets/asfalt-light.png'), linear-gradient(to bottom, #1e2b1f, #2f4f2f)",
+    leftBorder: "assets/hand-chalk-01.png",
+    rightBorder: "assets/hand-chalk-02.png",
     script: null,
   },
   sakura: {
@@ -12,11 +12,17 @@ const themes = {
     rightBorder: "assets/Cherry_Border_03_Right.png",
     script: "js/fallingcherryblossoms.js",
   },
+  rain:{
+    bg: "linear-gradient(to top, #5c6e7e, #a3b1bd)",
+    leftBorder: "",
+    rightBorder: "",
+    script: "js/fallingrain.js",
+  },
 };
 
 // Load and apply theme
 function applyTheme() {
-  const themeName = localStorage.getItem("selectedTheme") || "sakura";
+  const themeName = localStorage.getItem("selectedTheme") || "classroom";
   const theme = themes[themeName];
 
   // Apply background

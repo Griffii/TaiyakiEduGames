@@ -2,10 +2,6 @@ function createSakuraPetal() {
     const petal = document.createElement("div");
     petal.classList.add("sakura");
 
-    // 🔀 Randomly choose between sakura_01.png and sakura_02.png
-    //const imageIndex = Math.random() < 0.5 ? "01" : "02";
-    //petal.style.backgroundImage = `url("assets/sakura_${imageIndex}.png")`;
-
     // Random horizontal position (0% to 100% of screen width)
     petal.style.left = Math.random() * 100 + "vw";
 
