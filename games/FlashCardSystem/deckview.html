@@ -228,6 +228,8 @@
           window.location.href = "matching.html";
         } else if (gameMode === "headsup") {
           window.location.href = "headsup.html";
+        } else if (gameMode === "sharknado") {
+          window.location.href = "sharknado.html"
         }
       }
 
@@ -314,6 +316,10 @@
         <button class="headsup-game-btn" onclick="startGame('headsup')">
           <p>Heads Up</p>
           <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/heads-up.png"></img>
+        </button>
+        <button class="sharknado-game-btn" onclick="startGame('sharknado')">
+          <p>Sharknado!</p>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/sharknado.png"></img>
         </button>
       </div>
       <button class="cancel-btn" onclick="closeGameMenu()">Cancel</button>

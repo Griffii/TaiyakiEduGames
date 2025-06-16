@@ -366,6 +366,15 @@ button:hover {
     scale: 1.05;
 }
 
+.sharknado-game-btn {
+    background-color: purple;
+    width: 200px;
+}
+.sharknado-game-btn:hover {
+    background-color: lightskyblue;
+    scale: 1.05;
+}
+
 .cancel-btn {
     margin-top: 10px;
     width: 150px;

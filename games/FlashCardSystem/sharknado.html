@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sharknado Game</title>
+  <link rel="icon" href="../../favicon.png" type="image/png" />
+  <link rel="stylesheet" href="gamemodes/sharknado.css" />
+  <script src="../../js/analytics.js"></script>
+  <script src="gamemodes/sharknado.js"></script>
+  <script src="../../js/fullscreen.js"></script>
+</head>
+
+<body>
+  <!-- Home Button -->
+  <a href="deckview.html" class="home-button">
+    <img src="../../assets/home-icon.png" alt="Home" />
+  </a>
+
+  <!-- Settings Button -->
+  <div class="settings-button" onclick="toggleSettingsMenu()">
+    <img src="../../assets/settings-icon.png" alt="Settings" />
+  </div>
+
+  <!-- Settings Pop-Up -->
+  <div id="settings-menu" class="settings-menu hidden">
+    <h3>Game Settings</h3>
+
+    <!-- Number of Displayed Cards -->
+    <label for="display-card-limit">Number of Cards:</label>
+    <input type="number" id="display-card-limit" min="1" value="21" />
+
+    <!-- Toggle English Text Button -->
+    <button id="toggle-english-btn" onclick="toggleEnglishText()">
+      English: ON
+    </button>
+
+    <!-- New Sharknado Options -->
+    <label><input type="checkbox" id="toggle-tornado" checked /> Tornadoes</label>
+    <label><input type="checkbox" id="toggle-shark" checked /> Sharks</label>
+    <label><input type="checkbox" id="double-points" /> Double Points</label>
+
+    <!-- Settings Buttons -->
+    <button class="apply-btn" onclick="applySettings()">Apply</button>
+    <button class="reselect-btn" onclick="reselectCards()">Restart</button>
+    <button class="cancel-btn" onclick="toggleSettingsMenu()">Cancel</button>
+  </div>
+
+  <h1>Sharknado Game!</h1>
+
+  <!-- Card Grid -->
+  <div id="card-grid" class="card-grid"></div>
+
+  <!-- Audio -->
+  <audio id="select-sound" src="../../assets/sounds/arcade_beep_01.mp3"></audio>
+  <audio id="tornado-sound" src="../../assets/sounds/spinning_sfx.mp3"></audio>
+  <audio id="shark-sound" src="../../assets/sounds/shark_sfx.mp3"></audio>
+</body>
+</html>
