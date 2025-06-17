@@ -1,192 +1,197 @@
-let allCards = [];
-let cards = [];
-let displayedCards = [];
-let ngCard = null;
-let maxCardsDisplayed = 21;
-let gamePhase = "select-ng"; // "select-ng" or "guess"
+function updateGameTitle() {
+  const title = document.getElementById("game-title");
+  const bombMode = sessionStorage.getItem("bombMode") === "true";
 
-// Load cards from sessionStorage
-// Load cards from sessionStorage
-document.addEventListener("DOMContentLoaded", () => {
-  const storedCards = sessionStorage.getItem("selectedCards");
-  if (storedCards) {
-    allCards = JSON.parse(storedCards);
-    cards =
-      allCards.length > maxCardsDisplayed
-        ? getRandomSubset(allCards, maxCardsDisplayed)
-        : allCards;
-    displayCards();
-  } else {
-    console.error("No cards found. Redirecting back to deck view.");
-    window.location.href = "deckview.html";
-  }
+  title.textContent = bombMode ? "Where's the Bomb?!" : "Find Taiyaki-Sensei!";
+}
 
-  // Ensure the English toggle button is set correctly when the page loads
+
+function toggleSettingsMenu() {
+  document.getElementById("settings-menu").classList.toggle("hidden");
+}
+
+function toggleEnglishText() {
+  let showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+  let newState = !showEnglish;
+
+  // Save new state
+  sessionStorage.setItem("showEnglishText", newState);
+
+  // Update button appearance
   updateEnglishToggleButton();
-});
 
-// Display cards on the grid
-function displayCards() {
-  let cardGrid = document.getElementById("card-grid");
-  cardGrid.innerHTML = "";
-
-  displayedCards = [...cards];
-
-  // Check if English text should be displayed (stored in sessionStorage)
+  // Toggle visibility on current cards
+  document.querySelectorAll(".card-text").forEach((text) => {
+    text.style.display = newState ? "block" : "none";
+  });
+}
+function updateEnglishToggleButton() {
+  let button = document.getElementById("toggle-english-btn");
   let showEnglish = sessionStorage.getItem("showEnglishText") === "true";
 
-  displayedCards.forEach((card, index) => {
-    let cardElement = document.createElement("div");
-    cardElement.classList.add("card");
-    cardElement.dataset.index = index;
+  button.textContent = `English: ${showEnglish ? "ON" : "OFF"}`;
+  button.classList.toggle("off", !showEnglish);
+}
 
-    // Display card with optional English text
-    cardElement.innerHTML = `
-          <div class="card-content">
-              <img src="${card.image}" alt="${card.english}">
-              ${showEnglish ? `<p class="card-text">${card.english}</p>` : ""}
-          </div>
-      `;
+function toggleBombMode() {
+  let bombOn = sessionStorage.getItem("bombMode") === "true";
+  let newState = !bombOn;
+  sessionStorage.setItem("bombMode", newState);
+  updateBombModeButton();
+  updateGameTitle();
+  renderGame();
+}
+function updateBombModeButton() {
+  const btn = document.getElementById("bomb-mode-btn");
+  const bombOn = sessionStorage.getItem("bombMode") === "true";
 
-    // Card click behavior based on the phase
-    cardElement.addEventListener("click", () => {
-      if (gamePhase === "select-ng") {
-        document.getElementById("select-sound").play();
-        ngCard = card;
-        gamePhase = "guess";
+  btn.textContent = `Bomb Mode: ${bombOn ? "ON" : "OFF"}`;
+  btn.classList.toggle("off", !bombOn);
+}
 
-        // Visual feedback: Flash red when NG card is selected
-        cardElement.classList.add("ng-flash");
 
-        // Remove flash class after animation ends
-        setTimeout(() => {
-          cardElement.classList.remove("ng-flash");
-        }, 500);
-      } else if (gamePhase === "guess") {
-        handleCardSelection(cardElement, card);
-      }
-    });
+function getSettings() {
+  return {
+    limit: parseInt(document.getElementById("display-card-limit").value) || 21,
+    bombMode: sessionStorage.getItem("bombMode") === "true",
+    showEnglish: sessionStorage.getItem("showEnglishText") === "true"
+  };
+}
+function applySettings() {
+  const bombMode = document.getElementById("bomb-mode-toggle")?.checked || false;
+  sessionStorage.setItem("bombMode", bombMode);
 
-    cardGrid.appendChild(cardElement);
+  toggleSettingsMenu();
+  updateGameTitle(); // <- Add here
+  renderGame();
+}
+
+
+function restart() {
+  // Force reload page to get a new selection of cards
+  location.reload();
+}
+
+function updateCardText() {
+  const showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+  document.querySelectorAll(".card-text").forEach((el) => {
+    el.style.display = showEnglish ? "block" : "none";
   });
 }
 
-// Handle card selection after NG word has been set
-function handleCardSelection(cardElement, selectedCard) {
-  if (selectedCard === ngCard) {
-    revealCard(cardElement, "images/bomb.png", "bomb-sound");
-  } else {
-    revealCard(cardElement, "images/safe.png", "correct-sound");
-  }
-}
-
-// Reveal card with the respective image and sound
-function revealCard(cardElement, imagePath, soundId) {
-  let sound = document.getElementById(soundId);
-  if (soundId === "correct-sound") {
-    sound.volume = 0.5;
-  }
-  sound.play();
-
-  cardElement.classList.add("revealed");
-  cardElement.innerHTML = `<img src="${imagePath}" alt="Revealed">`;
-
-  // If the revealed image is the safe card, clear it after 1 second
-  if (imagePath.includes("safe.png")) {
-    setTimeout(() => {
-      cardElement.innerHTML = ""; // Clear the image
-      cardElement.classList.remove("revealed"); // Reset visual state
-    }, 1000);
-  }
-
-  // If the bomb card is selected, clear all cards after 1 second
-  if (imagePath.includes("bomb.png")) {
-    setTimeout(() => {
-      clearAllCards();
-    }, 2000);
-  }
-}
-
-// Clears the image from every card
-function clearAllCards() {
-  let cardElements = document.querySelectorAll(".card");
-  cardElements.forEach((card) => {
-    card.innerHTML = ""; // Clear the image
-    card.classList.remove("revealed"); // Reset visual state
-  });
-}
-
-// Utility Functions
-function shuffleArray(array) {
+function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
 }
 
-function getRandomSubset(array, limit) {
-  let shuffled = shuffleArray([...array]);
-  return shuffled.slice(0, limit);
+function renderGame() {
+  const grid = document.getElementById("card-grid");
+  grid.innerHTML = "";
+
+  const settings = getSettings();
+  const selectedCards =
+    JSON.parse(sessionStorage.getItem("selectedCards")) || [];
+
+  if (selectedCards.length === 0) {
+    alert("No cards selected. Please go back and choose a deck.");
+    return;
+  }
+
+  const cardCount = Math.min(settings.limit, selectedCards.length);
+  const cards = shuffle([...selectedCards]).slice(0, cardCount);
+  const bombIndex = Math.floor(Math.random() * cardCount);
+
+  cards.forEach((cardData, index) => {
+    const isBomb = index === bombIndex;
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.isBomb = isBomb;
+
+    card.innerHTML = `
+  <div class="card-inner">
+    <div class="card-front">
+      <img src="${cardData.image}" alt="Vocab Image" />
+      <div class="card-text" style="display: ${
+        sessionStorage.getItem("showEnglishText") === "true" && cardData.english
+          ? "block"
+          : "none"
+      };">
+        ${cardData.english || ""}
+      </div>
+    </div>
+    <div class="card-back">
+      <div class="card-result"></div>
+    </div>
+  </div>
+`;
+
+    card.onclick = () => handleCardClick(card, settings);
+    grid.appendChild(card);
+  });
 }
 
-// Settings Menu Functions
-function toggleSettingsMenu() {
-  document.getElementById("settings-menu").classList.toggle("hidden");
-}
+function handleCardClick(card, settings) {
+  if (card.classList.contains("revealed")) return;
 
-function applySettings() {
-  let displayLimitInput = parseInt(
-    document.getElementById("display-card-limit").value
-  );
+  card.classList.add("revealed");
 
-  // Ensure the value is within valid range
-  maxCardsDisplayed = Math.min(Math.max(displayLimitInput, 1), allCards.length);
+  const isBomb = card.dataset.isBomb === "true";
+  const back = card.querySelector(".card-back");
 
-  // Store settings
-  sessionStorage.setItem("maxCardsDisplayed", maxCardsDisplayed);
-
-  // Reselect new cards and refresh the display
-  reselectCards();
-}
-
-function reselectCards() {
-  if (allCards.length > 0) {
-    cards =
-      allCards.length > maxCardsDisplayed
-        ? getRandomSubset(allCards, maxCardsDisplayed)
-        : allCards;
-
-    displayCards();
-    toggleSettingsMenu();
+  if (isBomb) {
+    if (settings.bombMode) {
+      back.innerHTML = `<img src="images/bomb.png" alt="Bomb" style="width: 60%;" />`;
+      document.getElementById("bomb-sound")?.play();
+      setTimeout(() => revealAllCards(card), 2000);
+    } else {
+      back.innerHTML = `<img src="images/taiyaki.png" alt="Taiyaki" style="width: 60%;" />`;
+      document.getElementById("taiyaki-sound")?.play();
+      card.classList.add("taiyaki-hit");
+      setTimeout(() => card.classList.remove("taiyaki-hit"), 1000);
+    }
+  } else {
+    if (settings.bombMode) {
+      back.innerHTML = `<img src="images/safe.png" alt="" style="width: 50%;" />`;
+    } else {
+      back.innerHTML = `<img src="images/x.png" alt="" style="width: 50%;" />`;
+    }
+    document.getElementById("select-sound")?.play();
   }
 }
 
-function restart() {
-  location.reload();
+function revealAllCards(exceptCard) {
+  const allCards = document.querySelectorAll(".card");
+
+  allCards.forEach((c) => {
+    if (c === exceptCard) return;
+
+    c.classList.add("revealed");
+    const back = c.querySelector(".card-back");
+  });
 }
 
-// Function to update the English toggle button text and color
-function updateEnglishToggleButton() {
-  let button = document.getElementById("toggle-english-btn");
-  let showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+window.onload = () => {
+  if (sessionStorage.getItem("showEnglishText") === null) {
+    sessionStorage.setItem("showEnglishText", "false");
+  }
 
-  // Set the button text and class correctly
-  button.textContent = `English: ${showEnglish ? "ON" : "OFF"}`;
-  button.classList.toggle("off", !showEnglish);
-}
+  if (sessionStorage.getItem("bombMode") === null) {
+    sessionStorage.setItem("bombMode", "false");
+  }
 
-// Toggle English text visibility
-function toggleEnglishText() {
-  let currentState = sessionStorage.getItem("showEnglishText") === "true";
+  const bombToggle = document.getElementById("bomb-mode-toggle");
+  if (bombToggle) {
+    bombToggle.checked = sessionStorage.getItem("bombMode") === "true";
+  }
 
-  // Toggle the state
-  let newState = !currentState;
-  sessionStorage.setItem("showEnglishText", newState);
-
-  // Update button appearance correctly
   updateEnglishToggleButton();
+  updateBombModeButton();
+  updateGameTitle();
+  renderGame();
+};
 
-  // Immediately refresh the cards to reflect the new setting
-  displayCards();
-}
+

@@ -1,29 +1,50 @@
-let englishOn = true;
-
 function toggleSettingsMenu() {
   document.getElementById("settings-menu").classList.toggle("hidden");
 }
 
+// Toggle English text on and off
 function toggleEnglishText() {
-  englishOn = !englishOn;
-  const btn = document.getElementById("toggle-english-btn");
-  btn.classList.toggle("off");
-  btn.textContent = `English: ${englishOn ? "ON" : "OFF"}`;
-  updateCardText();
+  const current = sessionStorage.getItem("showEnglishText") === "true";
+  const newState = !current;
+  sessionStorage.setItem("showEnglishText", newState);
+
+  updateEnglishToggleButton();
+
+  // Update visibility of English text on all cards
+  document.querySelectorAll(".card-text").forEach((el) => {
+    el.style.display = newState ? "block" : "none";
+  });
+}
+
+// Update the English toggle button text and color
+function updateEnglishToggleButton() {
+  let button = document.getElementById("toggle-english-btn");
+  let showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+
+  button.textContent = `English: ${showEnglish ? "ON" : "OFF"}`;
+  button.classList.toggle("off", !showEnglish);
 }
 
 function applySettings() {
   const limit = parseInt(document.getElementById("display-card-limit").value);
   sessionStorage.setItem("cardLimit", limit);
-  sessionStorage.setItem("includeTornado", document.getElementById("toggle-tornado").checked);
-  sessionStorage.setItem("includeShark", document.getElementById("toggle-shark").checked);
-  sessionStorage.setItem("doublePoints", document.getElementById("double-points").checked);
+  sessionStorage.setItem(
+    "includeTornado",
+    document.getElementById("toggle-tornado").checked
+  );
+  sessionStorage.setItem(
+    "includeShark",
+    document.getElementById("toggle-shark").checked
+  );
+  sessionStorage.setItem(
+    "doublePoints",
+    document.getElementById("double-points").checked
+  );
   toggleSettingsMenu();
   renderGame();
 }
 
-function reselectCards() {
-  sessionStorage.removeItem("selectedCards");
+function restart() {
   location.reload();
 }
 
@@ -45,8 +66,10 @@ function renderGame() {
   const grid = document.getElementById("card-grid");
   grid.innerHTML = "";
 
-  const { cardLimit, includeTornado, includeShark, doublePoints } = getSettings();
-  const selectedCards = JSON.parse(sessionStorage.getItem("selectedCards")) || [];
+  const { cardLimit, includeTornado, includeShark, doublePoints } =
+    getSettings();
+  const selectedCards =
+    JSON.parse(sessionStorage.getItem("selectedCards")) || [];
 
   if (selectedCards.length === 0) {
     alert("No cards selected. Please return to deck selection.");
@@ -57,7 +80,7 @@ function renderGame() {
   const displayCards = shuffle([...selectedCards]).slice(0, cardLimit);
 
   // Step 1: Create cards with vocab + point effect
-  let cards = displayCards.map(vocab => {
+  let cards = displayCards.map((vocab) => {
     return {
       vocab: vocab,
       effect: "points",
@@ -83,19 +106,27 @@ function renderGame() {
   shuffle(cards); // Shuffle again so effects are randomized
 
   // Step 3: Display each card
-  cards.forEach(card => {
+  cards.forEach((card) => {
     const div = document.createElement("div");
     div.classList.add("card");
 
+    const showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+    const englishText = card.vocab.english || "";
+    const textDisplay = showEnglish && englishText ? "block" : "none";
+
     div.innerHTML = `
+    <div class="card-inner">
       <div class="card-front">
-        <img src="${card.vocab.image}" alt="Vocab Image" />
-        <div class="card-text" style="display: ${englishOn && card.vocab.english ? "block" : "none"};">
-          ${card.vocab.english || ""}
+        <img src="${card.vocab.image}" alt="Card Image" />
+        <div class="card-text" style="display: ${textDisplay};">
+          ${englishText}
         </div>
       </div>
-      <div class="card-result" style="display: none;"></div>
-    `;
+      <div class="card-back">
+        <div class="card-result"></div>
+      </div>
+    </div>
+  `;
 
     div.onclick = () => handleCardClick(div, card);
     document.getElementById("card-grid").appendChild(div);
@@ -106,11 +137,10 @@ function handleCardClick(cardDiv, cardData) {
   if (cardDiv.classList.contains("revealed")) return;
   cardDiv.classList.add("revealed");
 
-  const front = cardDiv.querySelector(".card-front");
-  const result = cardDiv.querySelector(".card-result");
+  const inner = cardDiv.querySelector(".card-inner");
+  inner.classList.add("flipped");
 
-  front.style.display = "none";       // Hide vocab image and text
-  result.style.display = "flex";      // Show result
+  const result = cardDiv.querySelector(".card-result");
 
   if (cardData.effect === "tornado") {
     document.getElementById("tornado-sound").play();
@@ -125,8 +155,9 @@ function handleCardClick(cardDiv, cardData) {
 }
 
 function updateCardText() {
-  document.querySelectorAll(".card-text").forEach(el => {
-    el.style.display = englishOn ? "block" : "none";
+  const showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+  document.querySelectorAll(".card-text").forEach((el) => {
+    el.style.display = showEnglish ? "block" : "none";
   });
 }
 
@@ -138,4 +169,12 @@ function shuffle(array) {
   return array;
 }
 
-window.onload = renderGame;
+window.onload = () => {
+  // Default to false if no setting exists
+  if (sessionStorage.getItem("showEnglishText") === null) {
+    sessionStorage.setItem("showEnglishText", "false");
+  }
+
+  updateEnglishToggleButton();
+  renderGame();
+};

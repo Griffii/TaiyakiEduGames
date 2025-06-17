@@ -3,12 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bomb Game</title>
+    <title>Find the Taiyaki</title>
     <link rel="icon" href="../../favicon.png" type="image/png" />
     <link rel="stylesheet" href="gamemodes/ngword.css" />
     <script src="../../js/analytics.js"></script>
     <script src="../../js/fullscreen.js"></script>
-
   </head>
   <body>
     <!-- Home Button -->
@@ -21,7 +20,7 @@
       <img src="../../assets/settings-icon.png" alt="Settings" />
     </div>
 
-    <h1>Bomb Game</h1>
+    <h1 id="game-title">Find the Taiyaki!</h1>
 
     <!-- Card Grid -->
     <div id="card-grid" class="card-grid"></div>
@@ -39,30 +38,29 @@
         English: OFF
       </button>
 
+      <!-- Toggle Taiyaki Mode -->
+      <button id="bomb-mode-btn" onclick="toggleBombMode()">Bomb Mode: OFF</button>
+
+
       <!-- Settings Buttons -->
-      <button class="apply-btn" onclick="applySettings()">
-        Apply
-      </button>
-      <button class="reselect-btn" onclick="restart()">
-        Restart
-      </button>
-      <button class="cancel-btn" onclick="toggleSettingsMenu()">
-        Cancel
-      </button>
+      <button class="apply-btn" onclick="applySettings()">Apply</button>
+      <button class="restart-btn" onclick="restart()">Restart</button>
+      <button class="cancel-btn" onclick="toggleSettingsMenu()">Cancel</button>
     </div>
 
     <!-- Audio Elements -->
     <audio
-      id="correct-sound"
-      src="../../assets/sounds/fortunegame/chukichi.mp3"
+      id="select-sound"
+      src="../../assets/sounds/arcade_beep_01.mp3"
     ></audio>
-    <audio 
-      id="bomb-sound" 
-      src="../../assets/sounds/bomb.mp3">
-    </audio>
+    <audio id="bomb-sound" src="../../assets/sounds/bomb.mp3"></audio>
     <audio
       id="select-sound"
       src="../../assets/sounds/arcade_beep_01.mp3"
+    ></audio>
+    <audio
+      id="taiyaki-sound"
+      src="../../assets/sounds/fortunegame/daikichi.mp3"
     ></audio>
 
     <script src="gamemodes/ngword.js"></script>

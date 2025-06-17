@@ -6,7 +6,6 @@ let secondCard = null;
 let lockBoard = false;
 let pairsToMatch = 10; // Default number of pairs
 
-
 // Load cards from sessionStorage and prepare the game
 document.addEventListener("DOMContentLoaded", () => {
   const storedCards = sessionStorage.getItem("selectedCards");
@@ -63,9 +62,13 @@ function displayCards() {
             <div class="card-inner">
                 <div class="card-front">
                     <img src="${card.image}" alt="${card.english}">
-                    <p class="card-text ${showEnglishText ? "" : "hidden"}">${
-      card.english
-    }</p>
+                    <p class="card-text" style="display: ${
+                      sessionStorage.getItem("showEnglishText") === "true"
+                        ? "block"
+                        : "none"
+                    };">${card.english}</p>
+
+
                 </div>
                 <div class="card-back"></div>
             </div>
@@ -154,16 +157,11 @@ function toggleSettingsMenu() {
   if (document.getElementById("settings-menu").classList.contains("hidden")) {
     document.getElementById("settings-menu").classList.remove("hidden");
 
-    // Update English Toggle Button State
-    let button = document.getElementById("toggle-english-btn");
-    let showEnglish = sessionStorage.getItem("showEnglishText") === "true";
-    button.textContent = `English: ${showEnglish ? "ON" : "OFF"}`;
-    button.classList.toggle("off", !showEnglish);
+    updateEnglishToggleButton();
   } else {
     document.getElementById("settings-menu").classList.add("hidden");
   }
 }
-
 function applySettings() {
   let pairCountInput = parseInt(document.getElementById("pair-count").value);
 
@@ -182,17 +180,30 @@ function reselectCards() {
 }
 
 function toggleEnglishText() {
-  let button = document.getElementById("toggle-english-btn");
-  let currentState = sessionStorage.getItem("showEnglishText") === "true";
-
-  // Toggle state
-  let newState = !currentState;
+  const current = sessionStorage.getItem("showEnglishText") === "true";
+  const newState = !current;
   sessionStorage.setItem("showEnglishText", newState);
 
-  // Update button appearance
-  button.textContent = `English: ${newState ? "ON" : "OFF"}`;
-  button.classList.toggle("off", !newState);
+  updateEnglishToggleButton();
 
-  // Immediately refresh the cards to reflect the new setting
-  displayCards();
+  // Show/hide text on currently flipped cards
+  document.querySelectorAll(".card-text").forEach((el) => {
+    el.style.display = newState ? "block" : "none";
+  });
 }
+
+function updateEnglishToggleButton() {
+  const button = document.getElementById("toggle-english-btn");
+  const showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+
+  button.textContent = `English: ${showEnglish ? "ON" : "OFF"}`;
+  button.classList.toggle("off", !showEnglish);
+}
+
+function updateCardText() {
+  const showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+  document.querySelectorAll(".card-text").forEach((el) => {
+    el.style.display = showEnglish ? "block" : "none";
+  });
+}
+

@@ -324,11 +324,11 @@ button:hover {
 
 /*---------- Games Menu Button Styling ------------ */
 .missing-game-btn {
-    background-color: brown;
+    background-color: blue;
     width: 200px;
 }
 .missing-game-btn:hover {
-    background-color: lightsalmon;
+    background-color: lightskyblue;
     scale: 1.05;
 }
 
@@ -341,24 +341,24 @@ button:hover {
     scale: 1.05;
 }
 
-.tornado-game-btn {
+.sharknado-game-btn {
     width: 200px;
 }
-.tornado-game-btn:hover {
+.sharknado-game-btn:hover {
     scale: 1.05;
 }
 
 .matching-game-btn {
-    background-color: blue;
+    background-color: crimson;
     width: 200px;
 }
 .matching-game-btn:hover {
-    background-color: lightskyblue;
+    background-color: lightcoral;
     scale: 1.05;
 }
 
 .headsup-game-btn {
-    background-color: orangered;
+    background-color: red;
     width: 200px;
 }
 .headsup-game-btn:hover {
@@ -366,14 +366,7 @@ button:hover {
     scale: 1.05;
 }
 
-.sharknado-game-btn {
-    background-color: purple;
-    width: 200px;
-}
-.sharknado-game-btn:hover {
-    background-color: lightskyblue;
-    scale: 1.05;
-}
+
 
 .cancel-btn {
     margin-top: 10px;

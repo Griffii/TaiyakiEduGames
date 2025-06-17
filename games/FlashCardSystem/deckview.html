@@ -222,8 +222,6 @@
           window.location.href = "whatsmissing.html";
         } else if (gameMode === "ngword") {
           window.location.href = "ngword.html";
-        } else if (gameMode === "tornado") {
-          window.location.href = "tornado.html";
         } else if (gameMode === "matching") {
           window.location.href = "matching.html";
         } else if (gameMode === "headsup") {
@@ -258,6 +256,8 @@
       });
     </script>
   </head>
+  
+  
   <body>
     <!-- Home Button -->
     <a href="deckselection.html" class="home-button">
@@ -297,30 +297,39 @@
     <div id="game-menu" class="game-popup hidden">
       <h3>Select a Game Mode</h3>
       <div class="button-container">
+
         <button class="missing-game-btn" onclick="startGame('missing')">
           <p>What's Missing?</p>
           <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/missing-game.png"></img>
         </button>
+        
         <button class="ng-game-btn" onclick="startGame('ngword')">
-          <p>Bomb Game</p>
-          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/ng-game.png"></img>
+          <p>Taiyaki /<br>Bomb Game</p>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/taiyaki-icon.png"></img>
         </button>
-        <button class="tornado-game-btn" onclick="startGame('tornado')">
-          <p>Tornado Game</p>
-          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/tornado.png"></img>
-        </button>
-        <button class="matching-game-btn" onclick="startGame('matching')">
-          <p>Matching Game</p>
-          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/matching-game.png"></img>
-        </button>
-        <button class="headsup-game-btn" onclick="startGame('headsup')">
-          <p>Heads Up</p>
-          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/heads-up.png"></img>
-        </button>
+
         <button class="sharknado-game-btn" onclick="startGame('sharknado')">
           <p>Sharknado!</p>
           <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/sharknado.png"></img>
         </button>
+
+        <!--
+        <button class="tornado-game-btn" onclick="startGame('tornado')">
+          <p>Tornado Game</p>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/tornado.png"></img>
+        </button>
+        -->
+
+        <button class="matching-game-btn" onclick="startGame('matching')">
+          <p>Matching Game</p>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/matching-game.png"></img>
+        </button>
+        
+        <button class="headsup-game-btn" onclick="startGame('headsup')">
+          <p>Heads Up</p>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/heads-up.png"></img>
+        </button>
+
       </div>
       <button class="cancel-btn" onclick="closeGameMenu()">Cancel</button>
     </div>
