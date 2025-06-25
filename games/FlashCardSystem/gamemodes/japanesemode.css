@@ -1,371 +1,363 @@
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #a6c3a0;
+  margin: 0;
+  padding: 20px;
+  position: relative;
+}
+
+/* Home Button */
+.home-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  z-index: 1000;
+}
+.home-button img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+.home-button img:hover {
+  transform: scale(1.1);
+}
+
+/* Settings Button (Top Right Corner) */
+.settings-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1000;
+}
+.settings-button img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.2s ease-in-out;
+}
+.settings-button img:hover {
+  transform: scale(1.1);
+}
+
+/* Settings Menu Styling */
+.settings-menu {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+  width: 180px;
+  text-align: center;
+}
+
+/* Settings Buttons */
+.settings-menu button {
+  /* Deep teal */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+/* Hover Effects */
+.settings-menu button:hover {
+  transform: scale(1.05);
+}
+
+/* Toggle Buttons */
+.toggle-btn {
+  background-color: lightcoral;
+}
+
+.toggle-btn.off {
+  background-color: #0288d1;
+}
+
+.toggle-btn:hover {
+  background-color: coral;
+}
+
+.toggle-btn.off:hover {
+  background-color: lightcoral;
+}
+
+/* Auto Mode Button - Default State */
+#auto-mode-btn {
+  background-color: red;
+}
+
+/* Auto Mode OFF (Red) */
+#auto-mode-btn.on {
+  background-color: green;
+}
+
+/* Ensure hidden elements are non-clickable */
+.hidden {
+  display: none;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.screen-half {
+  position: fixed;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+}
+
+#left-screen {
+  left: 0;
+}
+
+#right-screen {
+  right: 0;
+}
+
+/* Flashcard Layout */
+.flashcard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  user-select: none;
+  overflow: hidden; /* Ensures content stays inside the container */
+  z-index: 10;
+}
+
+/* Main Card Layout: Image & Text */
+.card-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  height: 80%; /* Ensures this section takes 80% of the card height */
+  padding: 20px;
+}
+
+/* English Text Section */
+.english-container {
+  font-family: "Comic Sans MS";
+  font-weight: bold;
+  background-color: lightblue; /* Light blue banner */
+  width: 100%;
+  height: 20%; /* Ensures bottom section always takes 20% of the card */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensures only the text disappears, not the blue banner */
+.english.hidden {
+  visibility: hidden; /* Hides text but keeps banner */
+}
+
+/* English Text */
+.english {
+  color: #1b3b6f;
+  text-align: center;
+}
+
+/* Image Container */
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-container img {
+  height: auto;
+}
+
+/* Japanese Text Container */
+.japanese-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "UG Digi Kyokasho NK-B";
+  font-weight: bold;
+}
+
+/* Furigana Text (Ruby Annotations) */
+#furigana {
+  color: #7a7a7a; /* Gray */
+}
+
+/* Adjust Layout When Image or Japanese is Hidden */
+.image-hidden .image-container {
+  display: none;
+}
+.japanese-hidden .japanese-container {
+  display: none;
+}
+.image-hidden .japanese-container,
+.japanese-hidden .image-container {
+  flex: 2;
+  justify-content: center;
+}
+
+/* Fade animation for entire flashcard */
+.fade {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+/* Button styling */
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #007777;
+}
+
+/* ───────────────────────────────────────────────────────── */
+/* ──── VERY LARGE FLASHCARDS (for screens above 1440px) ─── */
+/* ───────────────────────────────────────────────────────── */
+@media (min-width: 1440px) {
+  .flashcard-container {
+    width: 80vw; /* Use viewport width for dynamic scaling */
+    height: 85vh; /* Use viewport height for fullscreen scaling */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background-color: #a6c3a0;
-    margin: 0;
-    padding: 20px;
-    position: relative;
-  }
-  
-  /* Home Button */
-  .home-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 30px;
-    height: 30px;
-    z-index: 1000;
-  }
-  .home-button img {
-    width: 100%;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-  }
-  .home-button img:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Settings Button (Top Right Corner) */
-  .settings-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    z-index: 1000;
-  }
-  .settings-button img {
-    width: 100%;
-    height: auto;
-    transition: transform 0.2s ease-in-out;
-  }
-  .settings-button img:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Settings Menu Styling */
-  .settings-menu {
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 1000;
-    width: 180px;
-    text-align: center;
-  }
-  
-  /* Settings Buttons */
-  .settings-menu button {
-     /* Deep teal */
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-  }
-  
-  /* Hover Effects */
-  .settings-menu button:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Toggle Buttons */
-  .toggle-btn {
-    background-color: lightcoral;
-  }
-  
-  .toggle-btn.off {
-    background-color: #0288d1; 
-  }
-  
-  .toggle-btn:hover {
-    background-color: coral;
-  }
-  
-  .toggle-btn.off:hover {
-    background-color: lightcoral;
-  }
-  
-  /* Auto Mode Button - Default State */
-  #auto-mode-btn {
-    background-color: red;
-  }
-  
-  /* Auto Mode OFF (Red) */
-  #auto-mode-btn.on {
-    background-color: green;
-  }
-  
-  /* Ensure hidden elements are non-clickable */
-  .hidden {
-    display: none;
-    pointer-events: none;
-    opacity: 0;
-  }
-  
-  
-  
-  .screen-half {
-    position: fixed;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    z-index: 1;
-  }
-  
-  #left-screen {
-    left: 0;
-  }
-  
-  #right-screen {
-    right: 0; 
   }
 
-  
-  /* Flashcard Layout */
+  .image-container img {
+    max-width: 50vw;
+    max-height: 50vh;
+  }
+
+  .japanese-container {
+    font-size: 6vw; /* Scales with screen */
+  }
+
+  .english {
+    font-size: 4vw;
+  }
+
+  button {
+    font-size: 3vw;
+  }
+}
+
+/* ───────────────────────────────────────────────────────── */
+/* ───────── LARGE FLASHCARDS (for screens above 1000px) ─── */
+/* ───────────────────────────────────────────────────────── */
+@media (min-width: 1000px) {
   .flashcard-container {
-    display: flex;
+    width: 70vw;
+    height: 75vh;
+  }
+
+  .image-container img {
+    max-width: 50vw;
+    max-height: 50vh;
+  }
+
+  .japanese-container {
+    font-size: 5vw;
+  }
+
+  .english {
+    font-size: 3.5vw;
+  }
+
+  button {
+    font-size: 2vw;
+  }
+}
+
+/* ───────────────────────────────────────────────────────── */
+/* ─────── MEDIUM FLASHCARDS (for screens 600px - 999px) ─── */
+/* ───────────────────────────────────────────────────────── */
+@media (min-width: 600px) and (max-width: 999px) {
+  .flashcard-container {
+    width: 85vw;
+    height: 65vh;
+  }
+
+  .image-container img {
+    max-width: 45vw;
+    max-height: 40vh;
+  }
+
+  .japanese-container {
+    font-size: 4vw;
+  }
+
+  .english {
+    font-size: 3vw;
+  }
+
+  button {
+    font-size: 1.8vw;
+  }
+}
+
+/* ───────────────────────────────────────────────────────── */
+/* ─────── SMALL FLASHCARDS (for screens below 600px) ────── */
+/* ───────────────────────────────────────────────────────── */
+@media (max-width: 599px) {
+  .flashcard-container {
+    width: 90vw;
+    max-height: 90vh; /* Prevent overflow */
+  }
+
+  .image-container img {
+    max-width: 75vw;
+    max-height: 35vh;
+  }
+
+  .japanese-container {
+    font-size: 6vw;
+  }
+
+  .english {
+    font-size: 5vw;
+  }
+
+  button {
+    font-size: 4vw;
+  }
+
+  /* Ensure proper stacking on very small screens */
+  .card-content {
     flex-direction: column;
     align-items: center;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    user-select: none;
-    overflow: hidden; /* Ensures content stays inside rounded corners */
-    z-index: 10;
   }
-  
-  /* Main Card Layout: Image & Text */
-  .card-content {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    height: 80%; /* Ensures this section takes 80% of the card height */
-    padding: 20px;
-  }
-  
-  /* English Text Section */
-  .english-container {
-    font-family: "Comic Sans MS";
-    font-weight: bold;
-    background-color: lightblue; /* Light blue banner */
-    width: 100%;
-    height: 20%; /* Ensures bottom section always takes 20% of the card */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Ensures only the text disappears, not the blue banner */
-  .english.hidden {
-    visibility: hidden; /* Hides text but keeps banner */
-  }
-  
-  /* English Text */
-  .english {
-    color: #1b3b6f;
-    text-align: center;
-  }
-  
-  /* Image Container */
-  .image-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .image-container img {
-    height: auto;
-  }
-  
-  /* Japanese Text Container */
-  .japanese-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-family: "UG Digi Kyokasho NK-B";
-    font-weight: bold;
-  }
-  
-  /* Furigana Text (Ruby Annotations) */
-  #furigana {
-    color: #7a7a7a; /* Gray */
-  }
-  
-  /* Adjust Layout When Image or Japanese is Hidden */
-  .image-hidden .image-container {
-    display: none;
-  }
-  .japanese-hidden .japanese-container {
-    display: none;
-  }
-  .image-hidden .japanese-container,
-  .japanese-hidden .image-container {
-    flex: 2;
-    justify-content: center;
-  }
-  
-  /* Fade animation for entire flashcard */
-  .fade {
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-  }
-  
-  .hidden {
-    opacity: 0;
-  }
-  
-  /* Button styling */
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: teal;
-    color: white;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  button:hover {
-    background-color: #007777;
-  }
-  
-  
-  
-  
-  /* ───────────────────────────────────────────────────────── */
-  /* ──── VERY LARGE FLASHCARDS (for screens above 1440px) ─── */
-  /* ───────────────────────────────────────────────────────── */
-  @media (min-width: 1440px) {
-    .flashcard-container {
-      width: 80vw; /* Use viewport width for dynamic scaling */
-      height: 85vh; /* Use viewport height for fullscreen scaling */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-  
-    .image-container img {
-      max-width: 50vw;
-      max-height: 50vh;
-    }
-  
-    .japanese-container {
-      font-size: 6vw; /* Scales with screen */
-    }
-  
-    .english {
-      font-size: 4vw;
-    }
-  
-    button {
-      font-size: 3vw;
-    }
-  }
-  
-  /* ───────────────────────────────────────────────────────── */
-  /* ───────── LARGE FLASHCARDS (for screens above 1000px) ─── */
-  /* ───────────────────────────────────────────────────────── */
-  @media (min-width: 1000px) {
-    .flashcard-container {
-      width: 70vw;
-      height: 75vh;
-    }
-  
-    .image-container img {
-      max-width: 50vw;
-      max-height: 50vh;
-    }
-  
-    .japanese-container {
-      font-size: 5vw;
-    }
-  
-    .english {
-      font-size: 3.5vw;
-    }
-  
-    button {
-      font-size: 2vw;
-    }
-  }
-  
-  /* ───────────────────────────────────────────────────────── */
-  /* ─────── MEDIUM FLASHCARDS (for screens 600px - 999px) ─── */
-  /* ───────────────────────────────────────────────────────── */
-  @media (min-width: 600px) and (max-width: 999px) {
-    .flashcard-container {
-      width: 85vw;
-      height: 65vh;
-    }
-  
-    .image-container img {
-      max-width: 45vw;
-      max-height: 40vh;
-    }
-  
-    .japanese-container {
-      font-size: 4vw;
-    }
-  
-    .english {
-      font-size: 3vw;
-    }
-  
-    button {
-      font-size: 1.8vw;
-    }
-  }
-  
-  /* ───────────────────────────────────────────────────────── */
-  /* ─────── SMALL FLASHCARDS (for screens below 600px) ────── */
-  /* ───────────────────────────────────────────────────────── */
-  @media (max-width: 599px) {
-    .flashcard-container {
-      width: 90vw;
-      max-height: 90vh; /* Prevent overflow */
-    }
-  
-    .image-container img {
-      max-width: 75vw;
-      max-height: 35vh;
-    }
-  
-    .japanese-container {
-      font-size: 6vw;
-    }
-  
-    .english {
-      font-size: 5vw;
-    }
-  
-    button {
-      font-size: 4vw;
-    }
-  
-    /* Ensure proper stacking on very small screens */
-    .card-content {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-  
-  
+}

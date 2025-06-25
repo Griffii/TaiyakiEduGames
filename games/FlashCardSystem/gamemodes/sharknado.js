@@ -1,3 +1,29 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // Default values
+  const defaults = {
+    toggleShark: true,
+    toggleTornado: true,
+    doublePoints: false
+  };
+
+  // Load from sessionStorage or fall back to default
+  const toggleShark = sessionStorage.getItem("toggleShark");
+  const toggleTornado = sessionStorage.getItem("toggleTornado");
+  const doublePoints = sessionStorage.getItem("doublePoints");
+
+  // Set checkbox states
+  document.getElementById("toggle-shark").checked =
+    toggleShark !== null ? toggleShark === "true" : defaults.toggleShark;
+
+  document.getElementById("toggle-tornado").checked =
+    toggleTornado !== null ? toggleTornado === "true" : defaults.toggleTornado;
+
+  document.getElementById("double-points").checked =
+    doublePoints !== null ? doublePoints === "true" : defaults.doublePoints;
+});
+
+
+
 function toggleSettingsMenu() {
   document.getElementById("settings-menu").classList.toggle("hidden");
 }
@@ -26,23 +52,20 @@ function updateEnglishToggleButton() {
 }
 
 function applySettings() {
-  const limit = parseInt(document.getElementById("display-card-limit").value);
-  sessionStorage.setItem("cardLimit", limit);
-  sessionStorage.setItem(
-    "includeTornado",
-    document.getElementById("toggle-tornado").checked
-  );
-  sessionStorage.setItem(
-    "includeShark",
-    document.getElementById("toggle-shark").checked
-  );
-  sessionStorage.setItem(
-    "doublePoints",
-    document.getElementById("double-points").checked
-  );
+  const sharkEnabled = document.getElementById("toggle-shark").checked;
+  const tornadoEnabled = document.getElementById("toggle-tornado").checked;
+  const doublePointsEnabled = document.getElementById("double-points").checked;
+
+  // Save to sessionStorage
+  sessionStorage.setItem("toggleShark", sharkEnabled);
+  sessionStorage.setItem("toggleTornado", tornadoEnabled);
+  sessionStorage.setItem("doublePoints", doublePointsEnabled);
+
+  // Apply other settings here as needed
   toggleSettingsMenu();
-  renderGame();
+  restart();
 }
+
 
 function restart() {
   location.reload();
@@ -145,9 +168,11 @@ function handleCardClick(cardDiv, cardData) {
   if (cardData.effect === "tornado") {
     document.getElementById("tornado-sound").play();
     result.textContent = "🌪️";
+    send_tornado()
   } else if (cardData.effect === "shark") {
     document.getElementById("shark-sound").play();
     result.textContent = "🦈";
+    swimSharkOnce();
   } else {
     document.getElementById("select-sound").play();
     result.textContent = `+${cardData.value}`;
@@ -178,3 +203,5 @@ window.onload = () => {
   updateEnglishToggleButton();
   renderGame();
 };
+
+

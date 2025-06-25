@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     alert("No cards selected. Returning to deck view.");
     window.location.href = "deckview.html";
   }
+
+  applyStoredSettings()
 });
 
 // Display the current card
@@ -48,8 +50,8 @@ function displayCard() {
 
 // "Get" Button - Remove card & Increase Score
 function getCard() {
-  let sound = document.getElementById('correct-sound');
-  sound.play()
+  let sound = document.getElementById("correct-sound");
+  sound.play();
 
   score++;
   document.getElementById("live-score").textContent = score; // Update live score
@@ -59,8 +61,8 @@ function getCard() {
 
 // "Pass" Button - Shuffle the card back in
 function passCard() {
-  let sound = document.getElementById('pass-sound');
-  sound.play()
+  let sound = document.getElementById("pass-sound");
+  sound.play();
 
   cards.push(cards.splice(currentIndex, 1)[0]);
   displayCard();
@@ -98,8 +100,8 @@ function startGame() {
 function endGame() {
   toggleSettingsMenu();
 
-  let sound = document.getElementById('timeup-sound');
-  sound.play()
+  let sound = document.getElementById("timeup-sound");
+  sound.play();
 
   clearInterval(timer); // Stop the timer
   document.getElementById("final-score").textContent = score; // Display final score
@@ -126,49 +128,74 @@ function toggleSettingsMenu() {
 }
 
 function toggleImage() {
-  let imageContainer = document.querySelector(".image-container");
-  let button = document.getElementById("toggle-image-btn");
+  const container = document.querySelector(".image-container");
+  const button = document.getElementById("toggle-image-btn");
 
-  if (imageContainer) {
-    let isHidden = imageContainer.style.display === "none";
-    imageContainer.style.display = isHidden ? "flex" : "none";
-
-    button.textContent = isHidden ? "Hide Image" : "Show Image";
+  if (container && button) {
+    const isHidden = container.style.display === "none";
+    container.style.display = isHidden ? "flex" : "none";
+    const newState = isHidden ? "Hide Image" : "Show Image";
+    button.textContent = newState;
+    sessionStorage.setItem("headsup_image", newState);
   }
 }
 
 function toggleJapanese() {
-  let japaneseContainer = document.querySelector(".japanese-container");
-  let button = document.getElementById("toggle-japanese-btn");
+  const container = document.querySelector(".japanese-container");
+  const button = document.getElementById("toggle-japanese-btn");
 
-  if (japaneseContainer) {
-    let isHidden = japaneseContainer.style.display === "none";
-    japaneseContainer.style.display = isHidden ? "flex" : "none";
-
-    button.textContent = isHidden ? "Hide Japanese" : "Show Japanese";
+  if (container && button) {
+    const isHidden = container.style.display === "none";
+    container.style.display = isHidden ? "flex" : "none";
+    const newState = isHidden ? "Hide Japanese" : "Show Japanese";
+    button.textContent = newState;
+    sessionStorage.setItem("headsup_japanese", newState);
   }
 }
 
 function toggleEnglish() {
-  let englishContainer = document.querySelector(".english-container");
-  let button = document.getElementById("toggle-english-btn");
+  const container = document.querySelector(".english-container");
+  const button = document.getElementById("toggle-english-btn");
 
-  if (englishContainer) {
-    let isHidden = englishContainer.style.display === "none";
-    englishContainer.style.display = isHidden ? "flex" : "none";
-
-    button.textContent = isHidden ? "Hide English" : "Show English";
+  if (container && button) {
+    const isHidden = container.style.display === "none";
+    container.style.display = isHidden ? "flex" : "none";
+    const newState = isHidden ? "Hide English" : "Show English";
+    button.textContent = newState;
+    sessionStorage.setItem("headsup_english", newState);
   }
 }
 
 function toggleScore() {
-  let scoreContainer = document.querySelector(".score-display");
-  let button = document.getElementById("toggle-score-btn");
+  const container = document.querySelector(".score-display");
+  const button = document.getElementById("toggle-score-btn");
 
-  if (scoreContainer) {
-    let isHidden = scoreContainer.style.display === "none";
-    scoreContainer.style.display = isHidden ? "flex" : "none";
-
-    button.textContent = isHidden ? "Hide Score" : "Show Score";
+  if (container && button) {
+    const isHidden = container.style.display === "none";
+    container.style.display = isHidden ? "flex" : "none";
+    const newState = isHidden ? "Hide Score" : "Show Score";
+    button.textContent = newState;
+    sessionStorage.setItem("headsup_score", newState);
   }
+}
+
+
+function applyStoredSettings() {
+  const settings = [
+    { key: "headsup_image", container: ".image-container", button: "toggle-image-btn", defaultText: "Hide Image" },
+    { key: "headsup_japanese", container: ".japanese-container", button: "toggle-japanese-btn", defaultText: "Hide Japanese" },
+    { key: "headsup_english", container: ".english-container", button: "toggle-english-btn", defaultText: "Hide English" },
+    { key: "headsup_score", container: ".score-display", button: "toggle-score-btn", defaultText: "Hide Score" },
+  ];
+
+  settings.forEach(({ key, container, button, defaultText }) => {
+    const value = sessionStorage.getItem(key) || defaultText;
+    const containerEl = document.querySelector(container);
+    const buttonEl = document.getElementById(button);
+
+    if (containerEl && buttonEl) {
+      buttonEl.textContent = value;
+      containerEl.style.display = value.startsWith("Hide") ? "flex" : "none";
+    }
+  });
 }

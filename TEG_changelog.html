@@ -43,13 +43,13 @@
       .changelog {
         max-width: 800px;
         margin: 0 auto;
+      }
+      .version {
+        margin-bottom: 20px;
         background: #fff;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      .version {
-        margin-bottom: 20px;
       }
       .version h2 {
         margin: 0;
@@ -74,59 +74,147 @@
     </style>
   </head>
 
-   <!-- Back Button -->
-    <a class="home-button" href="/TaiyakiEduGames/credits.html">
-      <img src="assets/home-icon.png" alt="Home" />
-    </a>
+  <!-- Back Button -->
+  <a class="home-button" href="/TaiyakiEduGames/credits.html">
+    <img src="assets/home-icon.png" alt="Home" />
+  </a>
 
   <body>
     <h1>Taiyaki Edu Games - Changelog</h1>
 
     <div class="changelog">
+      
+      <div class="version">
+        <h2>v1.19</h2>
+        <div class="date">Released: [2025-06-25]</div>
+        <ul>
+          <li><u>Flashcard System</u></li>
+          <ul>
+            <li>
+              Added shark and tornado visual effects to the
+              <b>Sharknado game</b>.
+            </li>
+            <br>
+            <li>
+              Changed <b>Sharknado game</b> settings to load from session
+              storage, to remain consistent through reloads.
+            </li>
+            <br>
+            <li>
+              Fixed the Select/Deselect all button in the <b>Deck View</b> page.
+              Now you don't have to double click a card to select it after using
+              the deselct all button.
+            </li>
+            <br>
+            <li>
+              Fixed <b>Deck View</b> so that if a menu is open and a user clicks
+              outside the menu the menu closes.
+            </li>
+            <br />
+            <li><b>Review Mode</b> - Flashcard Fixes</li>
+            <ul>
+              <li>End card now triggers properly in Japanese Mode</li>
+              <li>
+                The user can now properly
+                <b>traverse forward and backward</b> through the flashcards by
+                <b>clicking the right and left side of the screen</b> (outside
+                the flashcard).
+              </li>
+              <li>
+                Settings are now saved and loaded from session storage to remain
+                consitent through reloads.
+              </li>
+            </ul>
+            <br />
+            <li><b>Heads Up Game</b></li>
+            <ul>
+              <li>Adjusted the <b>responsive scaling</b> to prevent English text from getting cut off on smaller screens.</li>
+              <li>Updated settings to load from session storage.</li>
+            </ul>
+          </ul>
+          <br />
+
+          <li>
+            Updated <b>Random Points Game</b> so that the
+            <b>Lose All Points</b> card only appears when both 'Special Cards'
+            and 'Negative Points' are toggled on.
+          </li>
+          <li>
+            Added a simple card flip animation to the <b>Random Points Game</b>.
+          </li>
+          <br>
+          <li>Removed the <b>Dice Simulator</b>.</li>
+          <br>
+          <li>Updated the <b>Who is it?</b> game icon.</li>
+          <br>
+          <li>Added <b>Taiyaki Pizzeria</b> teaser.</li>
+        </ul>
+      </div>
 
       <div class="version">
         <h2>v1.18</h2>
         <div class="date">Released: [2025-06-17]</div>
         <ul>
-          <li>Flashcard System</li>
+          <li><u>Flashcard System</u></li>
           <ul>
             <li>Added <b>Sharknado</b> Game</li>
             <ul>
               <li>This is the tornado game and bomb game combined</li>
-              <li>Each card is assigned random points, a tornado, or a shark</li>
+              <li>
+                Each card is assigned random points, a tornado, or a shark
+              </li>
               <li>Added settings to remove sharks or tornadoes</li>
               <li>Added a double points setting</li>
-              
             </ul>
-            <br>
+            <br />
             <li>Removed <b>Tornado</b> Game</li>
             <ul>
-              <li>It's functionality has been rolled into the Sharknado game</li>
+              <li>
+                It's functionality has been rolled into the Sharknado game
+              </li>
             </ul>
-            <br>
+            <br />
             <li>Changed <b>Bomb Game</b> to <b>Taiyaki Game</b></li>
             <ul>
               <li>Changed default mode to <b>Find Taiyaki-Sensei</b></li>
               <li>Added a <b>Bomb Mode</b> for the traditional bomb game</li>
-              <li>Removed user selection of bomb location, it is now all random and automatic</li>
+              <li>
+                Removed user selection of bomb location, it is now all random
+                and automatic
+              </li>
             </ul>
-            <br>
-            <li>Added new vocabulary to Let's Try 2 - Unit 3 and All Units decks</li>
+            <br />
+            <li>
+              Added new vocabulary to Let's Try 2 - Unit 3 and All Units decks
+            </li>
             <ul>
-              <li>play, study, go, swim, friends, English, day, week, weekend, weekday</li>
+              <li>
+                play, study, go, swim, friends, English, day, week, weekend,
+                weekday
+              </li>
             </ul>
-              <br>
-            <li>Fixed <b>Toggle English</b> button in all games to work in real time</li>
-            <br>
-            <li>Reordered buttons in Game Menu and changed some button colors</li>
-            <br>
-            <li>Made game settings load from cached storage, so they will persist through reloads</li>
+            <br />
+            <li>
+              Fixed <b>Toggle English</b> button in all games to work in real
+              time
+            </li>
+            <br />
+            <li>
+              Reordered buttons in Game Menu and changed some button colors
+            </li>
+            <br />
+            <li>
+              Made game settings load from cached storage, so they will persist
+              through reloads
+            </li>
           </ul>
-          <br>
-          
-          <br>
-          <li>Removed unused icons/images from old games, like the old memory game</li>
-          <li>Removed Tornado Game code</li> 
+          <br />
+
+          <br />
+          <li>
+            Removed unused icons/images from old games, like the old memory game
+          </li>
+          <li>Removed Tornado Game code</li>
         </ul>
       </div>
 
@@ -134,33 +222,41 @@
         <h2>v1.17</h2>
         <div class="date">Released: [2025-06-10]</div>
         <ul>
-          <li>Flashcard System</li>
+          <li><u>Flashcard System</u></li>
           <ul>
-            <li>Finished adding vocab cards for the Junior High <b>New Crown 1</b> textbook</li>
-            <li>Made Heads Up game 'Pass' and 'Get' buttons the same size</li>          
+            <li>
+              Finished adding vocab cards for the Junior High
+              <b>New Crown 1</b> textbook
+            </li>
+            <li>Made Heads Up game 'Pass' and 'Get' buttons the same size</li>
           </ul>
-          <br>
+          <br />
           <li>"Theme Manager" implemented</li>
           <ul>
-            <li>Added <b>"Change Theme" button</b> to homepage (at the bottom)</li>
+            <li>
+              Added <b>"Change Theme" button</b> to homepage (at the bottom)
+            </li>
             <li>Added Classroom, Sakura, and Rain themes</li>
           </ul>
-          <br>
+          <br />
           <li>Added this <b>changelog page</b></li>
-          <li>Added <b>Weather Wheel</b></li> 
+          <li>Added <b>Weather Wheel</b></li>
         </ul>
       </div>
-      
+
       <div class="version">
         <h2>v1.16</h2>
         <div class="date">Released: [2025-05-28]</div>
         <ul>
-          <li>Flashcard System</li>
+          <li><u>Flashcard System</u></li>
           <ul>
             <li>Added <b>New Crown 1</b></li>
-            <li>Fixed a bug in Japanese Review mode where the cards would looop endlessly and not trigger the end review card</li>
+            <li>
+              Fixed a bug in Japanese Review mode where the cards would looop
+              endlessly and not trigger the end review card
+            </li>
           </ul>
-          <br>
+          <br />
           <li>Updated the <b>Random Points Game</b></li>
           <ul>
             <li>Can toggle negative points</li>
@@ -168,7 +264,7 @@
             <li>Can toggle special cards</li>
             <li>Changed layout to be more widescreen friendly</li>
           </ul>
-          <br>
+          <br />
           <li>Removed Cherry Blossom theme</li>
         </ul>
       </div>
@@ -177,17 +273,26 @@
         <h2>v1.15</h2>
         <div class="date">Released: [2025-04-18]</div>
         <ul>
-          <li>Flashcard System</li>
+          <li><u>Flashcard System</u></li>
           <ul>
             <li>Added <b>Tornado Game</b></li>
-            <li>Fixed hidden image issue in the offline version of the Heads Up game</li>
-            <li>Adjusted some images and translations throughout the flashcard decks</li>
+            <li>
+              Fixed hidden image issue in the offline version of the Heads Up
+              game
+            </li>
+            <li>
+              Adjusted some images and translations throughout the flashcard
+              decks
+            </li>
           </ul>
-          <br>
+          <br />
           <li>Added <b>Spring Cherry Blossom</b> theme</li>
           <li>Fixed some issues in Who Is It?! and Spelling Battle</li>
           <li>Added How to Play pop-ups in Who Is It?! and Spelling Battle</li>
-          <li>Added a universal <b>'Fullscreen' shortcut</b> (the 'F' key) for computers that can't use F11</li>
+          <li>
+            Added a universal <b>'Fullscreen' shortcut</b> (the 'F' key) for
+            computers that can't use F11
+          </li>
         </ul>
       </div>
 
@@ -195,21 +300,32 @@
         <h2>v1.14</h2>
         <div class="date">Released: [2025-04-03]</div>
         <ul>
-          <li>Flashcard System</li>
+          <li><u>Flashcard System</u></li>
           <ul>
             <li>Added <b>New Horizon 1</b></li>
             <li>Added <b>New Horizon 2</b></li>
           </ul>
-          <br>
-          <li><b><u>New Games!</u></b></li>
+          <br />
+          <li>
+            <b><u>New Games!</u></b>
+          </li>
           <ul>
-            <li>Added <b>Spelling Battle</b>, a Harry Potter themed 2 player spelling contest game developed in Godot</li>
-            <li>Added <b>Who Is It?!</b>, a Heads Up style guessing game developed in Godot</li>
+            <li>
+              Added <b>Spelling Battle</b>, a Harry Potter themed 2 player
+              spelling contest game developed in Godot
+            </li>
+            <li>
+              Added <b>Who Is It?!</b>, a Heads Up style guessing game developed
+              in Godot
+            </li>
           </ul>
-          <br>
+          <br />
           <li>Created an offline version of the website for download</li>
-          <li>This <b>Taiyaki Edu Games Desktop app</b> will usually be a version or 2 behind the currently available online build</li>
-          <br>
+          <li>
+            This <b>Taiyaki Edu Games Desktop app</b> will usually be a version
+            or 2 behind the currently available online build
+          </li>
+          <br />
           <li>Removed the old <b>Memory Game</b></li>
         </ul>
       </div>
@@ -218,16 +334,19 @@
         <h2>v1.10</h2>
         <div class="date">Released: [2025-03-08]</div>
         <ul>
-          <li>Flashcard System</li>
+          <li><u>Flashcard System</u></li>
           <ul>
             <li>Added <b>Let's Try 2</b></li>
             <li>Added <b>My Picture Dictionary</b></li>
-            <br>
+            <br />
             <li>Added <b>Bomb Game/NG Word</b> game</li>
             <li>Added <b>Heads Up</b> game</li>
-            <li>Added a new <b>Matching Game</b> that works with the flashcards</li>
+            <li>
+              Added a new <b>Matching Game</b> that works with the flashcards
+            </li>
             <li>Added <b>Japanese Review</b> mode</li>
-          </ul> <br>
+          </ul>
+          <br />
           <li>Added <b>Acknowledgements</b> page</li>
           <li>Reformatted code to host on Github as well as Griffii.com</li>
           <li>Improved sounds, menus, icons, and images</li>
@@ -264,14 +383,9 @@
         </ul>
       </div>
 
-      <a href="index.html" class="home-link"
-        >← Back to Taiyaki Edu Games</a
-      >
+      <a href="index.html" class="home-link">← Back to Taiyaki Edu Games</a>
     </div>
-
-    
   </body>
 
   <!-- Footer Bar -->
-  
 </html>

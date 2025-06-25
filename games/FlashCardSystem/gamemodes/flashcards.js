@@ -1,286 +1,209 @@
 // Get deck name from URL parameters
 const urlParams = new URLSearchParams(window.location.search);
-let selectedDeck = urlParams.get("deck") || sessionStorage.getItem("selectedDeckPath");
+let selectedDeck =
+  urlParams.get("deck") || sessionStorage.getItem("selectedDeckPath");
 let cards = [];
 let currentIndex = 0;
-let reviewedCards = new Set();
 let autoMode = false;
 let autoInterval = null;
 let shuffledOrder = [];
-
-
+let isRevealed = false;
+let japaneseVisible = true;
+let imageVisible = true;
 
 // Load JSON data
 async function loadJSON(path) {
-    try {
-        const response = await fetch(path);
-        if (!response.ok) throw new Error();
-        return await response.json();
-    } catch {
-        return [];
-    }
+  try {
+    const response = await fetch(path);
+    if (!response.ok) throw new Error();
+    return await response.json();
+  } catch {
+    return [];
+  }
 }
-
 // Load the selected deck - only with selected cards
 async function loadDeck() {
-    let selectedCards = JSON.parse(sessionStorage.getItem("selectedCards"));
+  let selectedCards = JSON.parse(sessionStorage.getItem("selectedCards"));
 
-    if (!selectedCards || selectedCards.length === 0) {
-        console.error("No selected cards found. Redirecting to deck selection.");
-        window.location.href = "deckview.html";
-        return;
-    }
+  if (!selectedCards || selectedCards.length === 0) {
+    console.error("No selected cards found. Redirecting to deck selection.");
+    window.location.href = "deckview.html";
+    return;
+  }
 
-    cards = selectedCards;
-    currentIndex = 0;
-    reviewedCards.clear();
+  cards = selectedCards;
+  currentIndex = 0;
 
-    if (sessionStorage.getItem("mode") === "random") {
-        shuffleCards();
-    }
+  toggleImage(true);
+  toggleJapanese(true);
 
-    displayCard();
+  if (sessionStorage.getItem("mode") === "random") {
+    shuffleCards();
+  }
+
+  displayCard();
 }
-
 function shuffleCards() {
-    for (let i = cards.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [cards[i], cards[j]] = [cards[j], cards[i]]; // Swap elements
-    }
+  for (let i = cards.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]]; // Swap elements
+  }
 }
 
 function displayCard() {
-    if (!cards.length) return;
+  const card = cards[currentIndex];
 
-    // Check if all cards have been reviewed
-    if (reviewedCards.size >= cards.length) {
-        updateCardUI("お疲れ様！", "Good Job!", "", "images/taiyaki.png");
-        // Play a sound
-        document.getElementById("finished-sound").play();
-        
-        // Redirect to deck view after 2 seconds
-        setTimeout(() => {
-            returnToDeckView();
-        }, 2000);
-        return;
-    }
+  document.getElementById("card-image").src = card.image;
+  document.getElementById("english-text").textContent = card.english;
+  document.getElementById("kanji").textContent = card.japanese.kanji;
+  document.getElementById("furigana").textContent = card.japanese.furigana;
 
-    // Find the next unreviewed card
-    let attempts = 0;
-    while (reviewedCards.has(currentIndex) && attempts < cards.length) {
-        currentIndex = (currentIndex + 1) % cards.length;
-        attempts++;
-    }
+  // Always hide English initially
+  document.getElementById("english-text").classList.add("hidden");
+  isRevealed = false;
 
-    let card = cards[currentIndex];
-
-    // Auto-toggle Japanese if both kanji and furigana are empty
-    if (!card.japanese.kanji && !card.japanese.furigana) {
-        toggleJapanese(true); // Auto-center image
-    }
-
-    updateCardUI(card.english, card.japanese.kanji, card.japanese.furigana, card.image);
-}
-    // Fade in and out effect - To add put inside displayCard()
-    /*
-    fadeOut(() => {
-        updateCardUI(card.english, card.japanese.kanji, card.japanese.furigana, card.image);
-        fadeIn();
-    });
-    */
-
-
-function updateCardUI(english, kanji, furigana, image) {
-    document.getElementById("card-image").src = image;
-    document.getElementById("kanji").textContent = kanji;
-    document.getElementById("furigana").textContent = furigana;
-    document.getElementById("english-text").textContent = english;
-    
-    // Ensure English starts hidden on new cards
-    document.getElementById("english-text").style.visibility = "hidden";
-}
-
-function nextCard() {
-    if (!cards.length) return;
-
-    let attempts = 0;
-    do {
-        currentIndex = (currentIndex + 1) % cards.length;
-        attempts++;
-    } while (reviewedCards.has(currentIndex) && attempts < cards.length);
-
-    displayCard();
-}
-
-
-// Fade Out & Fade In for entire flashcard
-function fadeOut(callback) {
-    let flashcard = document.getElementById("flashcard");
-    flashcard.classList.add("hidden");
-    setTimeout(() => {
-        callback();
-    }, 450);
-}
-function fadeIn() {
-    let flashcard = document.getElementById("flashcard");
-    setTimeout(() => {
-        flashcard.classList.remove("hidden");
-    }, 100);
+  // Auto-toggle Japanese if both are missing
+  if (!card.japanese.kanji && !card.japanese.furigana) {
+    toggleJapanese(true);
+  }
 }
 
 // Reveal English or Move to Next Card
 function revealOrNextCard() {
-    let englishText = document.getElementById("english-text");
+  const english = document.getElementById("english-text");
 
-    // If no English text exists, immediately go to next card
-    if (!englishText || !englishText.textContent || englishText.textContent.trim() === "") {
-        reviewedCards.add(currentIndex); // Mark current card as reviewed
-        if (reviewedCards.size >= cards.length) { // Check if all cards have been reviewed
-            displayCard();
-            return;
-        }
-        // Move to the next card
-        nextCard();
-        return;
-    }
-
-    if(englishText.style.visibility === "hidden") {
-        // Reveal English text
-        englishText.style.visibility = "visible";
-    } else {
-        // Mark current card as reviewed
-        reviewedCards.add(currentIndex);
-
-        // Check if all cards have been reviewed
-        if (reviewedCards.size >= cards.length) {
-            displayCard();
-            return;
-        }
-
-        // Move to the next card
-        nextCard();
-    }
+  if (!isRevealed) {
+    english.classList.remove("hidden");
+    english.style.visibility = "visible";
+    isRevealed = true;
+  } else {
+    nextCard();
+  }
 }
-
-// Display and hide settings drop down menu
-function toggleSettingsMenu() {
-    let menu = document.getElementById("settings-menu");
-    menu.classList.toggle("hidden");
+function nextCard() {
+  if (currentIndex < cards.length) {
+    currentIndex++;
+    displayCard();
+  } else if (currentIndex <= cards.length) {
+    showEndCard();
+  }
+}
+function previousCard() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    displayCard();
+  }
 }
 
 // Toggle Japanese text visibility
 function toggleJapanese(auto = false) {
-    let japaneseContainer = document.querySelector(".japanese-container");
-    let button = document.getElementById("toggle-japanese-btn");
+  let japaneseContainer = document.querySelector(".japanese-container");
+  let button = document.getElementById("toggle-japanese-btn");
 
-    if (japaneseContainer) {
-        let flashcard = document.getElementById("flashcard");
+  if (japaneseContainer) {
+    let flashcard = document.getElementById("flashcard");
 
-        // Auto-toggle or manual toggle
-        if (auto) {
-            japaneseContainer.style.display = "none";
-            flashcard.classList.add("japanese-hidden");
-        } else {
-            japaneseContainer.style.display = japaneseContainer.style.display === "none" ? "flex" : "none";
-            flashcard.classList.toggle("japanese-hidden");
-        }
-
-        // Update button state
-        let isHidden = japaneseContainer.style.display === "none";
-        button.textContent = isHidden ? "Show Japanese" : "Hide Japanese";
-        button.classList.toggle("off", isHidden);
+    if (auto) {
+      // Set visibility based on sessionStorage
+      japaneseVisible = sessionStorage.getItem("japaneseVisible") !== "false";
+    } else {
+      // Manual toggle
+      japaneseVisible = !japaneseVisible;
+      sessionStorage.setItem("japaneseVisible", japaneseVisible);
     }
+
+    japaneseContainer.style.display = japaneseVisible ? "flex" : "none";
+    flashcard.classList.toggle("japanese-hidden", !japaneseVisible);
+
+    // Update button state
+    button.textContent = japaneseVisible ? "Hide Japanese" : "Show Japanese";
+    button.classList.toggle("off", !japaneseVisible);
+  }
 }
 
 // Toggle Image visibility
-function toggleImage() {
-    let imageContainer = document.querySelector(".image-container");
-    let button = document.getElementById("toggle-image-btn");
+function toggleImage(auto = false) {
+  let imageContainer = document.querySelector(".image-container");
+  let button = document.getElementById("toggle-image-btn");
+  let flashcard = document.getElementById("flashcard");
 
-    if (imageContainer) {
-        let flashcard = document.getElementById("flashcard");
-        imageContainer.style.display = imageContainer.style.display === "none" ? "flex" : "none";
-
-        // If hidden, center the Japanese text
-        let isHidden = imageContainer.style.display === "none";
-        if (isHidden) {
-            flashcard.classList.add("image-hidden");
-        } else {
-            flashcard.classList.remove("image-hidden");
-        }
-
-        // Update button state
-        button.textContent = isHidden ? "Show Image" : "Hide Image";
-        button.classList.toggle("off", isHidden);
+  if (imageContainer) {
+    if (auto) {
+      // Read from sessionStorage
+      imageVisible = sessionStorage.getItem("imageVisible") !== "false";
+    } else {
+      // Manual toggle
+      imageVisible = !imageVisible;
+      sessionStorage.setItem("imageVisible", imageVisible);
     }
+
+    imageContainer.style.display = imageVisible ? "flex" : "none";
+    flashcard.classList.toggle("image-hidden", !imageVisible);
+
+    button.textContent = imageVisible ? "Hide Image" : "Show Image";
+    button.classList.toggle("off", !imageVisible);
+  }
 }
 
 // Toggle Auto Mode
 function toggleAutoMode() {
-    autoMode = !autoMode;
+  autoMode = !autoMode;
 
-    let autoButton = document.getElementById("auto-mode-btn");
-    autoButton.textContent = autoMode ? "Auto Mode: ON" : "Auto Mode: OFF";
+  let autoButton = document.getElementById("auto-mode-btn");
+  autoButton.textContent = autoMode ? "Auto Mode: ON" : "Auto Mode: OFF";
 
-    // Toggle between green (ON) and red (OFF)
-    autoButton.classList.toggle("on", autoMode);
+  // Toggle between green (ON) and red (OFF)
+  autoButton.classList.toggle("on", autoMode);
 
-    if (autoMode) {
-        startAutoMode();
-    } else {
-        stopAutoMode();
-    }
+  if (autoMode) {
+    startAutoMode();
+  } else {
+    stopAutoMode();
+  }
 }
-
-
-
-
 function startAutoMode() {
-    if (autoInterval) return; // Prevent multiple intervals
+  if (autoInterval) return; // Prevent multiple intervals
 
-    autoInterval = setInterval(() => {
-        if (reviewedCards.size >= cards.length) {
-            stopAutoMode();
-            displayCard();
-            return;
-        }
-        revealOrNextCard();
-    }, 2000); // Every 2 seconds
+  autoInterval = setInterval(() => {
+    // If on end card or beyond, stop
+    if (currentIndex >= cards.length) {
+      stopAutoMode();
+      return;
+    }
+    revealOrNextCard();
+  }, 2000); // Every 2 seconds
 }
 function stopAutoMode() {
-    clearInterval(autoInterval);
-    autoInterval = null;
-    autoMode = false;
+  clearInterval(autoInterval);
+  autoInterval = null;
+  autoMode = false;
 
-    let autoButton = document.getElementById("auto-mode-btn");
-    autoButton.textContent = "Auto Mode: OFF";
+  const autoButton = document.getElementById("auto-mode-btn");
+  autoButton.textContent = "Auto Mode: OFF";
+  autoButton.classList.remove("on");
 }
 
+function showEndCard() {
+  document.getElementById("card-image").src = "images/taiyaki.png";
+  document.getElementById("kanji").textContent = "お疲れ様！";
+  document.getElementById("furigana").textContent = "";
+  document.getElementById("english-text").textContent = "Good Job!";
+
+  document.getElementById("finished-sound").play();
+
+  setTimeout(() => {
+    returnToDeckView();
+  }, 2000);
+}
 function returnToDeckView() {
-    window.location.href = "deckview.html"; // Redirect to deck selection
+  window.location.href = "deckview.html"; // Redirect to deck selection
 }
 
-
-function goBackward() {
-    if (!cards.length) return;
-
-    // Move to previous card
-    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-
-    // Display the previous card but do NOT update the reviewedCards tracker
-    let card = cards[currentIndex];
-    updateCardUI(card.english, card.japanese.kanji, card.japanese.furigana, card.image);
-
-    // Ensure English text is visible when moving backward
-    //document.getElementById("english-text").style.visibility = "visible";
+// Display and hide settings drop down menu
+function toggleSettingsMenu() {
+  let menu = document.getElementById("settings-menu");
+  menu.classList.toggle("hidden");
 }
-
-
-
 
 // Load default deck on page load
 document.addEventListener("DOMContentLoaded", loadDeck);
-
-// Check for clicking on the background
-document.getElementById("left-screen").addEventListener("click", goBackward);
-document.getElementById("right-screen").addEventListener("click", revealOrNextCard);

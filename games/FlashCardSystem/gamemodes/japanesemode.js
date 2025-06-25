@@ -1,70 +1,113 @@
-// Get deck name from URL parameters
 const urlParams = new URLSearchParams(window.location.search);
-let selectedDeck =
-  urlParams.get("deck") || sessionStorage.getItem("selectedDeckPath");
+let selectedDeck = urlParams.get("deck") || sessionStorage.getItem("selectedDeckPath");
+
 let cards = [];
 let currentIndex = 0;
-let reviewedCards = new Set();
 let autoMode = false;
 let autoInterval = null;
-let shuffledOrder = [];
+let isRevealed = false;
+let imageShouldStartVisible = false;
 
-// Load JSON data
-async function loadJSON(path) {
-  const response = await fetch(path);
-  return response.json();
-}
-
-// Load deck from sessionStorage
+// Load deck
 async function loadDeck() {
-  let selectedCards = JSON.parse(sessionStorage.getItem("selectedCards"));
+  const selectedCards = JSON.parse(sessionStorage.getItem("selectedCards"));
 
   if (!selectedCards || selectedCards.length === 0) {
-    console.error("No selected cards found. Redirecting...");
+    console.error("No selected cards found. Redirecting to deck selection.");
     window.location.href = "deckview.html";
     return;
   }
 
-  // Shuffle deck before using it
-  cards = shuffleArray(selectedCards);
+  cards = selectedCards;
   currentIndex = 0;
+
+  if (sessionStorage.getItem("mode") === "random") {
+    shuffleCards();
+  }
+
   displayCard();
 }
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+function shuffleCards() {
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
   }
-  return array;
 }
 
-// Display the current card
 function displayCard() {
+  const card = cards[currentIndex];
 
-  // Find the next unreviewed card
-  let attempts = 0;
-  while (reviewedCards.has(currentIndex) && attempts < cards.length) {
-    currentIndex = (currentIndex + 1) % cards.length;
-    attempts++;
+  document.getElementById("card-image").src = card.image;
+  document.getElementById("english-text").textContent = card.english;
+  document.getElementById("kanji").textContent = card.japanese.kanji;
+  document.getElementById("furigana").textContent = card.japanese.furigana;
+
+  // Hide Japanese initially
+  const japanese = document.querySelector(".japanese-container");
+  japanese.classList.add("hidden");
+
+  // Image visibility based on toggle
+  const image = document.querySelector(".image-container");
+  if (imageShouldStartVisible) {
+    image.style.display = "flex";
+    document.getElementById("flashcard").classList.remove("image-hidden");
+  } else {
+    image.style.display = "none";
+    document.getElementById("flashcard").classList.add("image-hidden");
   }
 
-  let card = cards[currentIndex];
-
-  document.getElementById("card-image").src =
-    card.image || "images/taiyaki.png";
-  document.getElementById("english-text").textContent = card.english || "";
-  document.getElementById("kanji").textContent = card.japanese.kanji || "";
-  document.getElementById("furigana").textContent =
-    card.japanese.furigana || "";
-
-  // Hide Japanese and image initially
-  document.querySelector(".japanese-container").classList.add("hidden");
-  document.querySelector(".image-container").style.display = "none";
+  isRevealed = false;
 }
 
-function displayCompletionCard() {
-  updateCardUI("お疲れ様！", "Good Job!", "", "images/taiyaki.png");
+function revealOrNextCard() {
+  const japanese = document.querySelector(".japanese-container");
+  const image = document.querySelector(".image-container");
+
+  if (!isRevealed) {
+    // Reveal Japanese
+    japanese.classList.remove("hidden");
+    japanese.style.visibility = "visible";
+
+    // Reveal image (only if toggle said to start hidden)
+    if (!imageShouldStartVisible) {
+      image.style.display = "flex";
+      document.getElementById("flashcard").classList.remove("image-hidden");
+    }
+
+    isRevealed = true;
+  } else {
+    nextCard();
+  }
+}
+
+
+function nextCard() {
+  currentIndex++;
+  if (currentIndex < cards.length) {
+    displayCard();
+  } else {
+    showEndCard();
+  }
+}
+
+function previousCard() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    displayCard();
+  }
+}
+
+function showEndCard() {
+  document.getElementById("kanji").textContent = "お疲れ様！";
+  document.getElementById("furigana").textContent = "";
+  document.getElementById("english-text").textContent = "Good job!";
+  document.getElementById("card-image").src = "images/taiyaki.png";
+
+  document.querySelector(".japanese-container").style.display = "flex";
+  document.querySelector(".image-container").style.display = "flex";
+
+  isRevealed = true;
   document.getElementById("finished-sound").play();
 
   setTimeout(() => {
@@ -72,73 +115,44 @@ function displayCompletionCard() {
   }, 2000);
 }
 
-
-// Reveal Japanese or move to the next card
-function revealOrNextCard() {
-  let japaneseContainer = document.querySelector(".japanese-container");
-  let imageContainer = document.querySelector(".image-container");
-
-  if (japaneseContainer.classList.contains("hidden")) {
-    // Reveal Japanese text and image
-    revealJapaneseText();
-
-    // ✅ Mark this card as reviewed
-    reviewedCards.add(currentIndex);
-  } else {
-    // Move to the next card
-    nextCard();
-  }
+function returnToDeckView() {
+  window.location.href = "deckview.html";
 }
 
-
-// Move to the next card
-function nextCard() {
-  if (!cards.length) return;
-
-  // ✅ Check if all cards have been reviewed BEFORE trying to move on
-  if (reviewedCards.size >= cards.length) {
-    displayCompletionCard();
-    return;
-  }
-
-  let attempts = 0;
-  do {
-    currentIndex = (currentIndex + 1) % cards.length;
-    attempts++;
-  } while (reviewedCards.has(currentIndex) && attempts < cards.length);
-
-  displayCard();
+// SETTINGS
+function toggleSettingsMenu() {
+  const menu = document.getElementById("settings-menu");
+  menu.classList.toggle("hidden");
 }
 
-
-function revealJapaneseText() {
-  let japaneseContainer = document.querySelector(".japanese-container");
-  let imageContainer = document.querySelector(".image-container");
-
-  japaneseContainer.classList.remove("hidden");
-  imageContainer.style.display = "flex";
-}
-
+// Only toggle startup visibility — reveal still happens on first click
 function toggleImage() {
-  let imageContainer = document.querySelector(".image-container");
-  let button = document.getElementById("toggle-image-btn");
+  imageShouldStartVisible = !imageShouldStartVisible;
 
-  if (imageContainer) {
-    let isHidden = imageContainer.style.display === "none";
-    imageContainer.style.display = isHidden ? "flex" : "none";
+  // Save the new state to session storage
+  sessionStorage.setItem("imageShouldStartVisible", imageShouldStartVisible);
 
-    // Update button text
-    button.textContent = isHidden ? "Hide Image" : "Show Image";
+  const button = document.getElementById("toggle-image-btn");
+  button.textContent = imageShouldStartVisible ? "Hide Image" : "Show Image";
+  button.classList.toggle("off", !imageShouldStartVisible);
 
-    // Store setting in sessionStorage
-    sessionStorage.setItem("showImage", isHidden);
+  // Apply immediately to current card
+  const imageContainer = document.querySelector(".image-container");
+  if (imageShouldStartVisible) {
+    imageContainer.style.display = "flex";
+    document.getElementById("flashcard").classList.remove("image-hidden");
+  } else {
+    imageContainer.style.display = "none";
+    document.getElementById("flashcard").classList.add("image-hidden");
   }
 }
 
-// Auto Mode: Reveal then move to next card
+
+// Toggle Auto Mode
 function toggleAutoMode() {
   autoMode = !autoMode;
-  let autoButton = document.getElementById("auto-mode-btn");
+
+  const autoButton = document.getElementById("auto-mode-btn");
   autoButton.textContent = autoMode ? "Auto Mode: ON" : "Auto Mode: OFF";
   autoButton.classList.toggle("on", autoMode);
 
@@ -150,28 +164,39 @@ function toggleAutoMode() {
 }
 
 function startAutoMode() {
-  if (!autoMode) return;
+  if (autoInterval) return;
 
-  setTimeout(() => {
-    revealJapaneseText();
-    
-    // ✅ Mark the current card as reviewed
-    reviewedCards.add(currentIndex);
-
-    setTimeout(() => {
-      if (autoMode) {
-        nextCard();
-        startAutoMode();
-      }
-    }, 2000);
+  autoInterval = setInterval(() => {
+    if (currentIndex >= cards.length) {
+      stopAutoMode();
+      return;
+    }
+    revealOrNextCard();
   }, 2000);
 }
 
+function stopAutoMode() {
+  clearInterval(autoInterval);
+  autoInterval = null;
+  autoMode = false;
 
-// Settings menu controls
-function toggleSettingsMenu() {
-  document.getElementById("settings-menu").classList.toggle("hidden");
+  const autoButton = document.getElementById("auto-mode-btn");
+  autoButton.textContent = "Auto Mode: OFF";
+  autoButton.classList.remove("on");
 }
 
-// Load the deck on page load
-document.addEventListener("DOMContentLoaded", loadDeck);
+document.addEventListener("DOMContentLoaded", () => {
+  // Load saved image visibility setting (defaults to false if not set)
+  const saved = sessionStorage.getItem("imageShouldStartVisible");
+  imageShouldStartVisible = saved === "true"; // sessionStorage stores strings
+
+  // Set button label and visual state before loading deck
+  const button = document.getElementById("toggle-image-btn");
+  if (button) {
+    button.textContent = imageShouldStartVisible ? "Hide Image" : "Show Image";
+    button.classList.toggle("off", !imageShouldStartVisible);
+  }
+
+  loadDeck();
+});
+

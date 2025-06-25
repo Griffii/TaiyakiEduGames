@@ -13,6 +13,8 @@
     <script>
       let selectedGrade, selectedDeck, deckPath, cardCount;
       let cards = [];
+      let selectedCards = new Set();
+
 
       async function loadDeckData() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -56,7 +58,7 @@
           return;
         }
 
-        let selectedCards = new Set(cards.map((_, index) => index)); // All cards start selected
+        selectedCards = new Set(cards.map((_, index) => index)); // All cards start selected
 
         cards.forEach((card, index) => {
           let cardDiv = document.createElement("div");
@@ -126,7 +128,7 @@
           card.classList.contains("selected")
         );
 
-        let selectedCards = new Set(); // Reset selection tracking
+        selectedCards.clear(); // Correctly reset the global Set
 
         allCards.forEach((card) => {
           let index = parseInt(card.dataset.index);
@@ -134,15 +136,12 @@
             card.classList.remove("selected");
           } else {
             card.classList.add("selected");
-            selectedCards.add(index); // Ensure proper tracking when selecting all
+            selectedCards.add(index);
           }
         });
 
-        // Update ONLY the Toggle All button text
         let toggleAllButton = document.getElementById("toggle-all-btn");
-        toggleAllButton.textContent = allSelected
-          ? "Select All"
-          : "Deselect All";
+        toggleAllButton.textContent = allSelected ? "Select All" : "Deselect All";
       }
 
       function toggleBonusWords() {
@@ -254,6 +253,27 @@
 
         container.style.gridTemplateColumns = `repeat(${columns}, auto)`;
       });
+    
+      document.addEventListener("click", (event) => {
+        const reviewMenu = document.getElementById("review-menu");
+        const gameMenu = document.getElementById("game-menu");
+
+        // If review menu is open and click is outside it
+        if (!reviewMenu.classList.contains("hidden") && !reviewMenu.contains(event.target)) {
+          if (!event.target.matches("button[onclick*='openReviewMenu']")) {
+            closeReviewMenu();
+          }
+        }
+
+        // If game menu is open and click is outside it
+        if (!gameMenu.classList.contains("hidden") && !gameMenu.contains(event.target)) {
+          if (!event.target.matches("button[onclick*='openGameMenu']")) {
+            closeGameMenu();
+          }
+        }
+});
+
+    
     </script>
   </head>
   

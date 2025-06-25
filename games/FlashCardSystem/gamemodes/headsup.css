@@ -99,14 +99,13 @@ body {
 
 /* End Game Button */
 .end-game-btn {
-    background-color: crimson;
-    font-size: 14px;
+  background-color: crimson;
+  font-size: 14px;
 }
 
 .end-game-btn:hover {
-    background-color: darkred;
+  background-color: darkred;
 }
-
 
 /* Timer */
 .timer {
@@ -119,14 +118,16 @@ body {
 .flashcard-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  height: 80vh;           /* Fixed height */
+  width: 90vw;
+  max-width: 1000px;
   background: white;
   border-radius: 10px;
+  overflow: hidden;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  user-select: none;
-  overflow: hidden; /* Ensures content stays inside rounded corners */
-  z-index: 10;
 }
+
 
 /* Main Card Layout: Image & Text */
 .card-content {
@@ -134,26 +135,37 @@ body {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  height: 80%; /* Ensures this section takes 80% of the card height */
+  height: auto; /* Ensures this section takes 80% of the card height */
   padding: 20px;
+  flex: 1 1 auto; /* Fill vertical space */
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 /* English Text Section */
 .english-container {
   font-family: "Comic Sans MS";
   font-weight: bold;
-  background-color: lightblue; /* Light blue banner */
+  background-color: lightblue;
   width: 100%;
-  height: 20%; /* Ensures bottom section always takes 20% of the card */
+  min-height: unset; /* Use min-height instead of fixed height */
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 10px; /* Adds left-right margin inside the banner */
+  box-sizing: border-box;
+  flex-shrink: 0; /* Prevent squishing */
 }
 
 /* English Text */
 .english {
   color: #1b3b6f;
   text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
+  width: 100%;
+  font-size: 5vw;
+  padding: 5px;
 }
 
 /* Image Container */
@@ -164,7 +176,11 @@ body {
   align-items: center;
 }
 .image-container img {
+  max-width: 100%;
+  max-height: 30vh;
+  width: auto;
   height: auto;
+  object-fit: contain;
 }
 
 /* Japanese Text Container */
@@ -324,116 +340,101 @@ body {
 /* ──── VERY LARGE FLASHCARDS (for screens above 1440px) ─── */
 /* ───────────────────────────────────────────────────────── */
 @media (min-width: 1440px) {
-  .flashcard-container {
-    width: 80vw; /* Use viewport width for dynamic scaling */
-    height: 85vh; /* Use viewport height for fullscreen scaling */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
 
   .image-container img {
-    max-width: 60vw;
-    max-height: 60vh;
+    max-width: 100%;
+    max-height: 30vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
   }
 
   .japanese-container {
     font-size: 6vw; /* Scales with screen */
   }
 
-  .english {
-    font-size: 5vw;
-  }
-
   button {
     font-size: 4vw;
   }
+
+
 }
 
 /* ───────────────────────────────────────────────────────── */
 /* ───────── LARGE FLASHCARDS (for screens above 1000px) ─── */
 /* ───────────────────────────────────────────────────────── */
 @media (min-width: 1000px) {
-  .flashcard-container {
-    width: 70vw;
-    height: 75vh;
-  }
+  
 
   .image-container img {
-    max-width: 50vw;
-    max-height: 50vh;
+    max-width: 100%;
+    max-height: 30vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
   }
 
   .japanese-container {
     font-size: 5vw;
   }
 
-  .english {
-    font-size: 5vw;
-  }
-
   button {
     font-size: 4vw;
   }
+
 }
 
 /* ───────────────────────────────────────────────────────── */
 /* ─────── MEDIUM FLASHCARDS (for screens 600px - 999px) ─── */
 /* ───────────────────────────────────────────────────────── */
 @media (min-width: 600px) and (max-width: 999px) {
-  .flashcard-container {
-    width: 85vw;
-    height: 65vh;
-  }
+  
 
   .image-container img {
-    max-width: 45vw;
-    max-height: 40vh;
+    max-width: 100%;
+    max-height: 30vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
   }
 
   .japanese-container {
     font-size: 4vw;
   }
 
-  .english {
-    font-size: 5vw;
-  }
-
   button {
     font-size: 4vw;
   }
+
+
 }
 
 /* ───────────────────────────────────────────────────────── */
 /* ─────── SMALL FLASHCARDS (for screens below 600px) ────── */
 /* ───────────────────────────────────────────────────────── */
 @media (max-width: 599px) {
-  .flashcard-container {
-    width: 90vw;
-    max-height: 90vh; /* Prevent overflow */
-  }
+  
 
   .image-container img {
-    max-width: 75vw;
-    max-height: 35vh;
+    max-width: 100%;
+    max-height: 30vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
   }
 
   .japanese-container {
     font-size: 6vw;
   }
 
-  .english {
-    font-size: 5vw;
-  }
-
   button {
     font-size: 4vw;
   }
 
-  /* Ensure proper stacking on very small screens */
+  /* Ensure vertical stacking on very small screens */
   .card-content {
     flex-direction: column;
     align-items: center;
+    height: auto;
   }
 }

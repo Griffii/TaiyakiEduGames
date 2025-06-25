@@ -3,13 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Review Mode</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <title>English Review Mode</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="../../favicon.png" type="image/png" />
     <link rel="stylesheet" href="gamemodes/flashcards.css" />
+    <script src="gamemodes/flashcards.js"></script>
     <script src="../../js/analytics.js"></script>
     <script src="../../js/fullscreen.js"></script>
-
   </head>
   <body>
     <!-- Home Button -->
@@ -22,7 +25,7 @@
       <img src="../../assets/settings-icon.png" alt="Settings" />
     </div>
 
-    <!-- Dropdown Menu (Hidden by Default) -->
+    <!-- Settings Menu -->
     <div id="settings-menu" class="settings-menu hidden">
       <button
         id="toggle-japanese-btn"
@@ -39,8 +42,9 @@
       </button>
     </div>
 
-    <div id="left-screen" class="screen-half"></div>
-    <div id="right-screen" class="screen-half"></div>
+    <!-- Divs for the left and right of the screen -->
+    <div id="left-screen" class="screen-half" onclick="previousCard()"></div>
+    <div id="right-screen" class="screen-half" onclick="revealOrNextCard()"></div>
 
     <!-- Flashcard -->
     <div
@@ -69,7 +73,5 @@
       id="finished-sound"
       src="../../assets/sounds/fortunegame/kichi.mp3"
     ></audio>
-
-    <script src="gamemodes/flashcards.js"></script>
   </body>
 </html>
