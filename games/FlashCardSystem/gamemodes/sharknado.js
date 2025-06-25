@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const defaults = {
     toggleShark: true,
     toggleTornado: true,
-    doublePoints: false
+    doublePoints: false,
   };
 
   // Load from sessionStorage or fall back to default
@@ -22,11 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
     doublePoints !== null ? doublePoints === "true" : defaults.doublePoints;
 });
 
-
-
 function toggleSettingsMenu() {
-  document.getElementById("settings-menu").classList.toggle("hidden");
+  const menu = document.getElementById("settings-menu");
+  menu.classList.toggle("hidden");
+
+  if (!menu.classList.contains("hidden")) {
+    // Only update when opening the menu
+    const savedLimit = sessionStorage.getItem("cardLimit");
+    const defaultLimit = 21;
+    const input = document.getElementById("display-card-limit");
+    input.value = savedLimit !== null ? savedLimit : defaultLimit;
+  }
 }
+
 
 // Toggle English text on and off
 function toggleEnglishText() {
@@ -55,8 +63,11 @@ function applySettings() {
   const sharkEnabled = document.getElementById("toggle-shark").checked;
   const tornadoEnabled = document.getElementById("toggle-tornado").checked;
   const doublePointsEnabled = document.getElementById("double-points").checked;
+  const cardLimit =
+    parseInt(document.getElementById("display-card-limit").value) || 21;
 
   // Save to sessionStorage
+  sessionStorage.setItem("cardLimit", cardLimit);
   sessionStorage.setItem("toggleShark", sharkEnabled);
   sessionStorage.setItem("toggleTornado", tornadoEnabled);
   sessionStorage.setItem("doublePoints", doublePointsEnabled);
@@ -65,7 +76,6 @@ function applySettings() {
   toggleSettingsMenu();
   restart();
 }
-
 
 function restart() {
   location.reload();
@@ -111,18 +121,24 @@ function renderGame() {
     };
   });
 
-  // Step 2: Inject tornado and shark effects randomly
-  const effectCount = Math.floor(cardLimit / 8);
-  if (includeTornado) {
-    for (let i = 0; i < effectCount && i < cards.length; i++) {
-      cards[i].effect = "tornado";
-      cards[i].value = 0;
+  // Step 2: Insert alternating special effects
+  const specialCount = Math.floor(cardLimit / 5);
+  let effectIndex = 0;
+
+  for (let i = 0; i < specialCount && i < cards.length; i++) {
+    let effect = null;
+    if (includeShark && includeTornado) {
+      effect = i % 2 === 0 ? "shark" : "tornado";
+    } else if (includeShark) {
+      effect = "shark";
+    } else if (includeTornado) {
+      effect = "tornado";
     }
-  }
-  if (includeShark) {
-    for (let i = effectCount; i < effectCount * 2 && i < cards.length; i++) {
-      cards[i].effect = "shark";
-      cards[i].value = 0;
+
+    if (effect) {
+      cards[effectIndex].effect = effect;
+      cards[effectIndex].value = 0;
+      effectIndex++;
     }
   }
 
@@ -168,7 +184,7 @@ function handleCardClick(cardDiv, cardData) {
   if (cardData.effect === "tornado") {
     document.getElementById("tornado-sound").play();
     result.textContent = "🌪️";
-    send_tornado()
+    send_tornado();
   } else if (cardData.effect === "shark") {
     document.getElementById("shark-sound").play();
     result.textContent = "🦈";
@@ -205,3 +221,17 @@ window.onload = () => {
 };
 
 
+document.addEventListener("click", (event) => {
+  const settingsMenu = document.getElementById("settings-menu");
+  const settingsButton = document.querySelector(".settings-button");
+
+  // Only try to close it if it's currently visible
+  if (!settingsMenu.classList.contains("hidden")) {
+    const isClickInsideMenu = settingsMenu.contains(event.target);
+    const isClickOnButton = settingsButton.contains(event.target);
+
+    if (!isClickInsideMenu && !isClickOnButton) {
+      settingsMenu.classList.add("hidden");
+    }
+  }
+});

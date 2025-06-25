@@ -207,3 +207,19 @@ function toggleSettingsMenu() {
 
 // Load default deck on page load
 document.addEventListener("DOMContentLoaded", loadDeck);
+
+
+document.addEventListener("click", (event) => {
+  const settingsMenu = document.getElementById("settings-menu");
+  const settingsButton = document.querySelector(".settings-button");
+
+  // Only try to close it if it's currently visible
+  if (!settingsMenu.classList.contains("hidden")) {
+    const isClickInsideMenu = settingsMenu.contains(event.target);
+    const isClickOnButton = settingsButton.contains(event.target);
+
+    if (!isClickInsideMenu && !isClickOnButton) {
+      settingsMenu.classList.add("hidden");
+    }
+  }
+});

@@ -160,7 +160,16 @@ function checkGuess(selectedCard, buttonElement) {
     let cardGrid = document.getElementById("card-grid");
     let cardElement = document.createElement("div");
     cardElement.classList.add("card");
-    cardElement.innerHTML = `<img src="${selectedCard.image}" alt="${selectedCard.english}">`;
+    const showEnglish = sessionStorage.getItem("showEnglishText") === "true";
+
+    cardElement.innerHTML = `
+  <div class="card-content">
+    <img src="${selectedCard.image}" alt="${selectedCard.english}">
+    <p class="card-text ${showEnglish ? "" : "hidden"}">${
+      selectedCard.english
+    }</p>
+  </div>
+`;
 
     let blankCard = cardGrid.querySelector(".card[style*='background-image']");
     if (blankCard) {
@@ -295,3 +304,18 @@ function updateEnglishToggleButton() {
   button.textContent = `English: ${showEnglish ? "ON" : "OFF"}`;
   button.classList.toggle("off", !showEnglish);
 }
+
+document.addEventListener("click", (event) => {
+  const settingsMenu = document.getElementById("settings-menu");
+  const settingsButton = document.querySelector(".settings-button");
+
+  // Only try to close it if it's currently visible
+  if (!settingsMenu.classList.contains("hidden")) {
+    const isClickInsideMenu = settingsMenu.contains(event.target);
+    const isClickOnButton = settingsButton.contains(event.target);
+
+    if (!isClickInsideMenu && !isClickOnButton) {
+      settingsMenu.classList.add("hidden");
+    }
+  }
+});
