@@ -84,8 +84,8 @@ function restart() {
 function getSettings() {
   return {
     cardLimit: parseInt(sessionStorage.getItem("cardLimit")) || 21,
-    includeTornado: sessionStorage.getItem("includeTornado") === "true",
-    includeShark: sessionStorage.getItem("includeShark") === "true",
+    includeTornado: sessionStorage.getItem("toggleTornado") === "true",
+    includeShark: sessionStorage.getItem("toggleShark") === "true",
     doublePoints: sessionStorage.getItem("doublePoints") === "true",
   };
 }
