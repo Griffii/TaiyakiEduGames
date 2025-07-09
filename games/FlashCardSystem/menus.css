@@ -1,146 +1,144 @@
 /* General Page Styling */
 body {
-    font-family: 'Fredoka', sans-serif;
-    background-color: #f5f5f5;
-    text-align: center;
-    margin: 0;
-    margin-top: 50px;
-    padding: 20px;
+  font-family: "Fredoka", sans-serif;
+  background-color: #f5f5f5;
+  text-align: center;
+  margin: 0;
+  margin-top: 50px;
+  padding: 20px;
 }
 
 /* Page Headers */
 h1 {
-    color: #333;
-    font-size: 32px;
-    margin-bottom: 20px;
+  color: #333;
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
 /* General Button Styling */
 button {
-    background-color: cornflowerblue;
-    color: white;
-    font-size: 18px;
-    font-family: 'Fredoka', sans-serif;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    border: #333 solid 1px;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  background-color: cornflowerblue;
+  color: white;
+  font-size: 18px;
+  font-family: "Fredoka", sans-serif;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  border: #333 solid 1px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background-color: lightblue;
-    scale: 1.05;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+  background-color: lightblue;
+  scale: 1.05;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Home Button */
 .home-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 30px;
-    height: 30px;
-    z-index: 1000;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  z-index: 1000;
 }
 .home-button img {
-    width: 100%;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 .home-button img:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
-
 
 /* ───────────────────────────────────────────────────────── */
 /* ───────── GRADE SELECTION PAGE (TEXTBOOK SELECTION) ───── */
 /* ───────────────────────────────────────────────────────── */
 
 #grade-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 /* Grade Buttons */
 .grade-item {
-    background: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    text-align: center;
-    width: 220px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+  width: 220px;
 }
 
 .grade-item:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .grade-img {
-    max-width: 120px;
-    height: auto;
-    display: block;
-    margin: auto;
+  max-width: 120px;
+  height: auto;
+  display: block;
+  margin: auto;
 }
 
 .grade-item p {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 .subtext {
-    font-size: 0.8em;
-    color: #e67e22;
-    font-weight: normal;
+  font-size: 0.8em;
+  color: #e67e22;
+  font-weight: normal;
 }
-
 
 /* ───────────────────────────────────────────────────────── */
 /* ─────────── DECK SELECTION PAGE (UNIT SELECTION) ──────── */
 /* ───────────────────────────────────────────────────────── */
 
 #deck-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
 }
 
 /* Deck Buttons */
 .deck-item {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    text-align: center;
-    width: 240px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+  width: 240px;
 }
 
 .deck-item:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .deck-img {
-    max-width: 100px;
-    height: auto;
-    display: block;
-    margin: auto;
+  max-width: 100px;
+  height: auto;
+  display: block;
+  margin: auto;
 }
 
 .deck-item p {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 /* ───────────────────────────────────────────────────────── */
@@ -148,239 +146,259 @@ button:hover {
 /* ───────────────────────────────────────────────────────── */
 
 .deck-container {
-    max-width: 900px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Deck Header Buttons */
 .deck-header {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.deck-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
 }
 
 /* Grid Layout for Deck Cards */
 .deck-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  padding: 10px;
 }
 
 /* Individual Deck Card */
 .deck-card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    transition: transform 0.2s ease-in-out;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
 }
 
 .deck-card:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Card Content Layout */
 .card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Card Image */
 .deck-card-img {
-    max-width: 100px;
-    max-height: 100px;
-    height: auto;
-    margin-bottom: 10px;
+  max-width: 100px;
+  max-height: 100px;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 /* Japanese & English Text */
 .card-text p {
-    margin: 5px 0;
-    font-size: 16px;
-    font-weight: bold;
+  margin: 5px 0;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .kanji {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .furigana {
-    font-size: 14px;
-    color: gray;
+  font-size: 14px;
+  color: gray;
 }
 
 .english {
-    font-size: 16px;
-    color: teal;
+  font-size: 16px;
+  color: teal;
 }
 
 .deck-card {
-    border: 3px solid teal;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+  border: 3px solid teal;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
 }
 
 .deck-card.selected {
-    background-color: rgba(0, 128, 128, 0.2);
+  background-color: rgba(0, 128, 128, 0.2);
 }
 
 .deck-card:not(.selected) {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .deck-card:hover {
-    transform: scale(1.02);
+  transform: scale(1.02);
 }
 
 /* Review Popup Menu Styling */
 .popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    z-index: 1000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1000;
 }
 .popup button {
-    display: block;
-    margin: 10px auto;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+  display: block;
+  margin: 10px auto;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 /* Game Popup Menu Styling */
 .game-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    z-index: 1000;
-    width: max-content; /* Adjust width dynamically based on content */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1000;
+  width: max-content; /* Adjust width dynamically based on content */
 }
 .game-popup .button-container {
-    display: grid;
-    gap: 10px; /* Adjust spacing between buttons */
-    justify-content: center;
+  display: grid;
+  gap: 10px; /* Adjust spacing between buttons */
+  justify-content: center;
 }
 /* Ensure buttons take up full space in the grid */
 .game-popup button {
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .hidden {
-    display: none;
+  display: none;
+}
+
+button:disabled,
+button.disabled {
+  background-color: #ccc; /* Light gray background */
+  color: #666; /* Dimmed text */
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.7;
+  border: none;
+}
+
+/* Optional: remove hover styles */
+button:disabled:hover,
+button.disabled:hover {
+  background-color: #ccc;
+  transform: none;
 }
 
 /*---------- Review Menu Button Styling ------------ */
 .normal-review-btn {
-    width: 200px;
-    background-color: darkgoldenrod;
+  width: 200px;
+  background-color: darkgoldenrod;
 }
 .normal-review-btn:hover {
-    scale: 1.05;
-    background-color: darkgreen;
+  scale: 1.05;
+  background-color: darkgreen;
 }
 
-.random-btn{
-    width: 200px;
-    background-color: darkgoldenrod;
+.random-btn {
+  width: 200px;
+  background-color: darkgoldenrod;
 }
 .random-btn:hover {
-    scale: 1.05;
-    background-color: darkgreen;
+  scale: 1.05;
+  background-color: darkgreen;
 }
 
-.japanese-mode-btn{
-    width: 200px;
-    background-color: darkgoldenrod;
+.japanese-mode-btn {
+  width: 200px;
+  background-color: darkgoldenrod;
 }
 .japanese-mode-btn:hover {
-    scale: 1.05;
-    background-color: darkgreen;
+  scale: 1.05;
+  background-color: darkgreen;
 }
-
 
 /*---------- Games Menu Button Styling ------------ */
 .missing-game-btn {
-    background-color: blue;
-    width: 200px;
+  background-color: blue;
+  width: 200px;
 }
 .missing-game-btn:hover {
-    background-color: lightskyblue;
-    scale: 1.05;
+  background-color: lightskyblue;
+  scale: 1.05;
 }
 
 .ng-game-btn {
-    background-color: purple;
-    width: 200px;
+  background-color: purple;
+  width: 200px;
 }
 .ng-game-btn:hover {
-    background-color: lightskyblue;
-    scale: 1.05;
+  background-color: lightskyblue;
+  scale: 1.05;
 }
 
 .sharknado-game-btn {
-    width: 200px;
+  width: 200px;
 }
 .sharknado-game-btn:hover {
-    scale: 1.05;
+  scale: 1.05;
 }
 
 .matching-game-btn {
-    background-color: crimson;
-    width: 200px;
+  background-color: crimson;
+  width: 200px;
 }
 .matching-game-btn:hover {
-    background-color: lightcoral;
-    scale: 1.05;
+  background-color: lightcoral;
+  scale: 1.05;
 }
 
 .headsup-game-btn {
-    background-color: red;
-    width: 200px;
+  background-color: red;
+  width: 200px;
 }
 .headsup-game-btn:hover {
-    background-color: lightsalmon;
-    scale: 1.05;
+  background-color: lightsalmon;
+  scale: 1.05;
 }
-
-
 
 .cancel-btn {
-    margin-top: 10px;
-    width: 150px;
-    background-color: darkred;
+  margin-top: 10px;
+  width: 150px;
+  background-color: darkred;
 }
 .cancel-btn:hover {
-    background-color: red;
-    scale: 1.05;
+  background-color: red;
+  scale: 1.05;
 }
 
 .game-icon {
-    height: 80px;
-    width: 80px;
+  height: 80px;
+  width: 80px;
 }
 
 /* ───────────────────────────────────────────────────────── */
@@ -388,80 +406,78 @@ button:hover {
 /* ───────────────────────────────────────────────────────── */
 
 @media (max-width: 600px) {
-    button {
-        font-size: 16px;
-        padding: 10px 16px;
-    }
+  button {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
 
-    .grade-item, .deck-item {
-        width: 180px;
-    }
+  .grade-item,
+  .deck-item {
+    width: 180px;
+  }
 
-    .grade-img, .deck-img {
-        max-width: 100px;
-    }
+  .grade-img,
+  .deck-img {
+    max-width: 100px;
+  }
 
-    .deck-cards-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    }
+  .deck-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
 }
-
-
 
 /* Left and right border images */
 .border {
-    position: fixed;
-    left: 0;
-    top: 50px;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-  }
-  .border-left,
-  .border-right {
-    position: fixed;
-    top: 50px;
-    width: 500px;
-    height: 100%;
-    background-repeat: repeat-y;
-    z-index: -1;
-  }
-  .border-left {
-    left: 0;
-    
-  }
-  .border-right {
-    right: 0;
-   
-  }
+  position: fixed;
+  left: 0;
+  top: 50px;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+.border-left,
+.border-right {
+  position: fixed;
+  top: 50px;
+  width: 500px;
+  height: 100%;
+  background-repeat: repeat-y;
+  z-index: -1;
+}
+.border-left {
+  left: 0;
+}
+.border-right {
+  right: 0;
+}
 
-  /*
+/*
       Seasonal Effect - Cherry Blossoms Falling
       */
-      .sakura {
-        position: absolute;
-        top: -50px;
-        width: 50px;
-        height: 50px;
-        background-image: url("../../assets/sakura_01.png");
-        background-size: contain;
-        background-repeat: no-repeat;
-        z-index: 0;
-        pointer-events: none;
-      }
+.sakura {
+  position: absolute;
+  top: -50px;
+  width: 50px;
+  height: 50px;
+  background-image: url("../../assets/sakura_01.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
 
-      @keyframes fall {
-        0% {
-          transform: translateX(0px) translateY(-100px) rotate(0deg);
-          opacity: 1;
-        }
-        50% {
-          transform: translateX(30px) translateY(50vh) rotate(180deg);
-          opacity: 1;
-        }
-        100% {
-          transform: translateX(-30px) translateY(100vh) rotate(360deg);
-          opacity: 0;
-        }
-      }
+@keyframes fall {
+  0% {
+    transform: translateX(0px) translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(30px) translateY(50vh) rotate(180deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-30px) translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}

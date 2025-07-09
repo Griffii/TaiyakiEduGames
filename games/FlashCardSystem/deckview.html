@@ -47,6 +47,18 @@
             "<p>Deck not found.</p>";
           document.getElementById("card-count").textContent = "0"; // Show 0 if loading fails
         }
+
+        // Check if saved selection matches the current deck
+      const saved = sessionStorage.getItem("saved_deck");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.deck !== selectedDeck) {
+          sessionStorage.removeItem("saved_deck"); // Clear mismatched saved selection
+        } else {
+          document.getElementById("load-selection-btn").disabled = false;
+        }
+      }
+
       }
 
       function displayCards() {
@@ -159,13 +171,17 @@
         );
 
         bonusCards.forEach((card) => {
-          let index = parseInt(card.dataset.index);
-          if (allBonusSelected) {
-            card.classList.remove("selected");
-          } else {
-            card.classList.add("selected");
-          }
-        });
+        const index = parseInt(card.dataset.index);
+
+        if (allBonusSelected) {
+          card.classList.remove("selected");
+          selectedCards.delete(index); // ✅ update internal set
+        } else {
+          card.classList.add("selected");
+          selectedCards.add(index);    // ✅ update internal set
+  }
+});
+
 
         // Update button text dynamically
         let toggleBonusButton = document.getElementById("toggle-bonus-btn");
@@ -271,9 +287,42 @@
             closeGameMenu();
           }
         }
-});
+      });
 
-    
+      function saveSelection() {
+        const selectedIndices = Array.from(selectedCards);
+        const savedData = {
+          deck: selectedDeck,
+          indices: selectedIndices
+        };
+
+        sessionStorage.setItem("saved_deck", JSON.stringify(savedData));
+        document.getElementById("load-selection-btn").disabled = false;
+      }
+
+      function loadSelection() {
+        const saved = sessionStorage.getItem("saved_deck");
+        if (!saved) return;
+
+        const { deck, indices } = JSON.parse(saved);
+        if (deck !== selectedDeck) return;
+
+        const allCards = document.querySelectorAll(".deck-card");
+
+        selectedCards.clear();
+
+        allCards.forEach((card) => {
+          const index = parseInt(card.dataset.index);
+          if (indices.includes(index)) {
+            card.classList.add("selected");
+            selectedCards.add(index);
+          } else {
+            card.classList.remove("selected");
+          }
+        });
+      }
+
+
     </script>
   </head>
   
@@ -287,15 +336,20 @@
     <h1 id="deck-title"></h1>
 
     <div class="deck-header">
-      <button onclick="openReviewMenu()">Review Mode</button>
-      <button onclick="openGameMenu()">Games</button>
-      <button id="toggle-bonus-btn" onclick="toggleBonusWords()">
-        Deselect Bonus Words
-      </button>
-      <button id="toggle-all-btn" onclick="toggleSelectAll()">
-        Deselect All
-      </button>
+      <div class="deck-header-row">
+        <button onclick="openReviewMenu()">Review Mode</button>
+        <button onclick="openGameMenu()">Games</button>
+      </div>
+      <div class="deck-header-row">
+        <button id="toggle-bonus-btn" onclick="toggleBonusWords()">Deselect Bonus Words</button>
+        <button id="toggle-all-btn" onclick="toggleSelectAll()">Deselect All</button>
+      </div>
+      <div class="deck-header-row">
+        <button onclick="saveSelection()">Save Selection</button>
+        <button id="load-selection-btn" onclick="loadSelection()" disabled>Load Selection</button>
+      </div>
     </div>
+
 
     <!-- Review Selection Pop-Up -->
     <div id="review-menu" class="popup hidden">
@@ -325,7 +379,7 @@
         
         <button class="ng-game-btn" onclick="startGame('ngword')">
           <p>Taiyaki /<br>Bomb Game</p>
-          <img class="game-icon" src="/TaiyakiEduGames/assets/taiyaki-icon.png"></img>
+          <img class="game-icon" src="/TaiyakiEduGames/assets/game-icons/taiyaki-bomb.png"></img>
         </button>
 
         <button class="sharknado-game-btn" onclick="startGame('sharknado')">

@@ -21,10 +21,7 @@ async function loadDeck() {
   cards = selectedCards;
   currentIndex = 0;
 
-  if (sessionStorage.getItem("mode") === "random") {
-    shuffleCards();
-  }
-
+  shuffleCards();
   displayCard();
 }
 
