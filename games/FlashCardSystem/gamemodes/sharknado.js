@@ -7,19 +7,25 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Load from sessionStorage or fall back to default
-  const toggleShark = sessionStorage.getItem("toggleShark");
-  const toggleTornado = sessionStorage.getItem("toggleTornado");
-  const doublePoints = sessionStorage.getItem("doublePoints");
+  const toggleShark =
+    sessionStorage.getItem("toggleShark") ?? String(defaults.toggleShark);
+  const toggleTornado =
+    sessionStorage.getItem("toggleTornado") ?? String(defaults.toggleTornado);
+  const doublePoints =
+    sessionStorage.getItem("doublePoints") ?? String(defaults.doublePoints);
+
+  // Update sessionStorage if nothing was set before
+  if (sessionStorage.getItem("toggleShark") === null)
+    sessionStorage.setItem("toggleShark", toggleShark);
+  if (sessionStorage.getItem("toggleTornado") === null)
+    sessionStorage.setItem("toggleTornado", toggleTornado);
+  if (sessionStorage.getItem("doublePoints") === null)
+    sessionStorage.setItem("doublePoints", doublePoints);
 
   // Set checkbox states
-  document.getElementById("toggle-shark").checked =
-    toggleShark !== null ? toggleShark === "true" : defaults.toggleShark;
-
-  document.getElementById("toggle-tornado").checked =
-    toggleTornado !== null ? toggleTornado === "true" : defaults.toggleTornado;
-
-  document.getElementById("double-points").checked =
-    doublePoints !== null ? doublePoints === "true" : defaults.doublePoints;
+  document.getElementById("toggle-shark").checked = toggleShark === "true";
+  document.getElementById("toggle-tornado").checked = toggleTornado === "true";
+  document.getElementById("double-points").checked = doublePoints === "true";
 });
 
 function toggleSettingsMenu() {
@@ -34,7 +40,6 @@ function toggleSettingsMenu() {
     input.value = savedLimit !== null ? savedLimit : defaultLimit;
   }
 }
-
 
 // Toggle English text on and off
 function toggleEnglishText() {
@@ -59,6 +64,10 @@ function updateEnglishToggleButton() {
   button.classList.toggle("off", !showEnglish);
 }
 
+function restart() {
+  location.reload();
+}
+
 function applySettings() {
   const sharkEnabled = document.getElementById("toggle-shark").checked;
   const tornadoEnabled = document.getElementById("toggle-tornado").checked;
@@ -75,10 +84,6 @@ function applySettings() {
   // Apply other settings here as needed
   toggleSettingsMenu();
   restart();
-}
-
-function restart() {
-  location.reload();
 }
 
 function getSettings() {
@@ -219,7 +224,6 @@ window.onload = () => {
   updateEnglishToggleButton();
   renderGame();
 };
-
 
 document.addEventListener("click", (event) => {
   const settingsMenu = document.getElementById("settings-menu");
