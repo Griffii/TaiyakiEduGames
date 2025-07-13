@@ -81,10 +81,10 @@ function revealOrNextCard() {
   }
 }
 function nextCard() {
+  currentIndex++;
   if (currentIndex < cards.length) {
-    currentIndex++;
     displayCard();
-  } else if (currentIndex <= cards.length) {
+  } else {
     showEndCard();
   }
 }
