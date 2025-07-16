@@ -38,6 +38,10 @@
         "path": "decks/ES3/unit9.json",
         "image": "images/ES3/animals/dragon.png"
       },
+      "Colors": {
+        "path": "decks/ES4/colors.json",
+        "image": "images/ES3/colors/red.png"
+      },
       "All Units": {
         "path": "decks/ES3/allES3.json",
         "image": "images/ES3/food/food.png"
