@@ -80,14 +80,6 @@
         "image": "images/ES3/colors/white.png"
     },
     {
-        "english": "white",
-        "japanese": {
-            "kanji": "白",
-            "furigana": "しろ"
-        },
-        "image": "images/ES3/colors/white.png"
-    },
-    {
         "english": "yellow green",
         "japanese": {
             "kanji": "黄緑",
