@@ -411,10 +411,10 @@
     "image": "images/ES3/times/breakfasttime.png"
   },
   {
-    "english": "class time",
+    "english": "study time",
     "japanese": {
-      "kanji": "授業時間",
-      "furigana": "じゅぎょうじかん"
+      "kanji": "勉強時間",
+      "furigana": "べんきょうじかん"
     },
     "image": "images/ES3/times/classtime.png"
   },
@@ -435,10 +435,10 @@
     "image": "images/ES3/times/snacktime.png"
   },
   {
-    "english": "study time",
+    "english": "homework time",
     "japanese": {
-      "kanji": "勉強時間",
-      "furigana": "べんきょうじかん"
+      "kanji": "宿題時間",
+      "furigana": "しゅくだいじかん"
     },
     "image": "images/ES3/times/studytime.png"
   },
@@ -459,7 +459,7 @@
     "image": "images/ES3/times/bathtime.png"
   },
   {
-    "english": "bedtime",
+    "english": "bed time",
     "japanese": {
       "kanji": "就寝時間",
       "furigana": "しゅうしんじかん"
