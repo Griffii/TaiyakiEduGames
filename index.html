@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-site-verification" content="rLUPhrk8E-mfgWuvSTtWAlBFbFkvcT41_ogkJ6Fp2Jg" />
+    <meta
+      name="google-site-verification"
+      content="rLUPhrk8E-mfgWuvSTtWAlBFbFkvcT41_ogkJ6Fp2Jg"
+    />
     <title>Taiyaki Edu Games</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap"
@@ -251,6 +254,122 @@
           opacity: 0;
         }
       }
+
+      /* Container */
+      .eitake-div {
+        padding: 16px 12px;
+        text-align: center;
+      }
+
+      /* Button with gradient fill + shine sweep */
+      .eitake-btn {
+        display: inline-block;
+        max-width: min(560px, 50vw);
+        padding: 16px 22px;
+        border-radius: 14px;
+
+        /* Fill + polish */
+        background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+        background-size: 160% 160%; /* subtle hover shift */
+        color: #ffffff; /* text pops on the fill */
+        text-decoration: none;
+        border: 0;
+        box-shadow: 0 10px 24px rgba(0, 78, 179, 0.25);
+
+        /* Layout/behavior */
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        line-height: 1.2;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+
+        transition: background-position 0.6s ease,
+          /* gradient drift on hover */ transform 0.15s ease, filter 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      /* Shine sweep (same as before) */
+      .eitake-btn::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.38) 45%,
+          transparent 70%
+        );
+        transform: translateX(-100%);
+        transition: transform 0.6s ease;
+        pointer-events: none;
+      }
+
+      .eitake-btn:hover::after {
+        transform: translateX(100%);
+      }
+
+      /* Hover: slight lift + gradient drift + a hint more saturation */
+      .eitake-btn:hover {
+        transform: translateY(-1px);
+        background-position: 80% 50%;
+        filter: saturate(1.06);
+        box-shadow: 0 14px 28px rgba(0, 78, 179, 0.32);
+      }
+
+      /* Focus ring for keyboard nav */
+      .eitake-btn:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 3px;
+      }
+
+      /* Title / Subtitle (sizes unchanged) */
+      .eitake-btn .title {
+        position: relative;
+        z-index: 1;
+        font-weight: 900;
+        font-size: clamp(20px, 3.5vw, 28px);
+        letter-spacing: 0.2px;
+        color: #ffffff;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.18); /* adds pop */
+      }
+
+      .eitake-btn .subtitle {
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+        margin-top: 4px;
+        font-weight: 600;
+        font-size: clamp(12px, 1.6vw, 14px);
+        color: rgba(255, 255, 255, 0.9); /* slightly faded */
+        transition: color 0.3s ease, opacity 0.3s ease;
+      }
+      .eitake-btn:hover .subtitle {
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      /* Fun gradient on “EiTake” text with a tiny glow for contrast */
+      .eitake-btn .brand {
+        background: linear-gradient(90deg, #ff8a00, #ff3d81);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 0 rgba(0, 0, 0, 0),
+          /* keeps crisp edges */ 0 1px 0 rgba(0, 0, 0, 0.15);
+        transition: filter 0.3s ease;
+      }
+      .eitake-btn:hover .brand {
+        filter: brightness(1.12);
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .eitake-btn,
+        .eitake-btn::after,
+        .eitake-btn .subtitle,
+        .eitake-btn .brand {
+          transition: none;
+        }
+      }
     </style>
   </head>
 
@@ -262,6 +381,20 @@
       <div class="border">
         <div class="border-left"></div>
         <div class="border-right"></div>
+      </div>
+
+      <div class="eitake-div">
+        <a
+          class="eitake-btn"
+          href="https://www.eitake.app"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="title">
+            Check out <span class="brand">EiTake</span>.app </span
+          ><br />
+          <span class="subtitle">(New and improved games!)</span>
+        </a>
       </div>
 
       <!-- Grid of game cards -->
@@ -278,9 +411,9 @@
               path: "games/SpellingBattle/index.html",
             },
             { name: "Who Is It", path: "games/WhoIsIt/index.html" },
-            { 
-              name: "Pizzas & Parfaits", 
-              path: "games/Pizzas&Parfaits/index.html" 
+            {
+              name: "Pizzas & Parfaits",
+              path: "games/Pizzas&Parfaits/index.html",
             },
             { name: "Vocab Othello", path: "games/VocabOthello/index.html" },
             { name: "Random Points", path: "games/RandomPoints/index.html" },
@@ -295,8 +428,7 @@
             {
               name: "English Omikuji",
               path: "games/EnglishOmikuji/index.html",
-            }
-            
+            },
           ];
 
           const gameListDiv = document.querySelector(".game-list");
@@ -325,17 +457,6 @@
           </button>
         </div>
 
-        <!-- 
-        <div class="credits-div">
-          <button class="donations-btn">
-            <a href="https://www.griffiigames.com">
-              Download Page<br />
-              (Offline Version)
-            </a>
-          </button>
-        </div>
-        -->
-        
         <div
           class="credits-div"
           style="position: relative"
@@ -344,7 +465,6 @@
           <button id="theme-btn" class="theme-btn">Theme Select</button>
           <div id="theme-dropdown"></div>
         </div>
-        
 
         <p>Version 1.22</p>
         <p>
@@ -353,9 +473,5 @@
         </p>
       </section>
     </div>
-
-    
-    
-    
   </body>
 </html>
