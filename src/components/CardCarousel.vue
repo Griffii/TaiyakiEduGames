@@ -1,67 +1,105 @@
 <template>
-    <section class="carousel-wrapper" @mouseenter="setHover(true)" @mouseleave="setHover(false)">
-        <div class="cards-stage" @pointerdown="onPointerDown" @pointermove="onPointerMove" @pointerup="onPointerUp"
-            @pointercancel="onPointerUp" @pointerleave="onPointerUp">
-            <article v-for="card in visibleCards" :key="card.originalIndex" class="card" :class="[
-                `offset-${card.offset}`,
-                { 'is-active': card.offset === 0 }
-            ]" :style="{ '--card-bg': card.color || defaultCardColor }" @click="handleCardClick(card, $event)">
-                <!-- Title -->
-                <header class="card-header">
-                    <h3 class="card-title">
-                        {{ card.title }}
-                    </h3>
-                </header>
+  <section
+    class="carousel-wrapper"
+    @mouseenter="setHover(true)"
+    @mouseleave="setHover(false)"
+  >
+    <div
+      class="cards-stage"
+      @pointerdown="onPointerDown"
+      @pointermove="onPointerMove"
+      @pointerup="onPointerUp"
+      @pointercancel="onPointerUp"
+      @pointerleave="onPointerUp"
+    >
+      <article
+        v-for="card in visibleCards"
+        :key="card.originalIndex"
+        class="card"
+        :class="[
+          `offset-${card.offset}`,
+          { 'is-active': card.offset === 0 }
+        ]"
+        :style="{ '--card-bg': card.color || defaultCardColor }"
+        @click="handleCardClick(card, $event)"
+      >
+        <!-- Title -->
+        <header class="card-header">
+          <h3 class="card-title">
+            {{ card.title }}
+          </h3>
+        </header>
 
-                <!-- Body: media only -->
-                <div class="card-body">
-                    <div class="card-media-block" @mouseenter.stop="onMediaHover(true, card)"
-                        @mouseleave.stop="onMediaHover(false, card)">
-                        <div v-if="card.image || card.video" class="media-inner"
-                            :class="{ 'has-both': card.image && card.video }">
-                            <!-- Image layer -->
-                            <img v-if="card.image" :src="card.image" :alt="card.title" :style="imageStyle(card)"
-                                draggable="false" @dragstart.prevent />
+        <!-- Body: media only -->
+        <div class="card-body">
+          <div
+            class="card-media-block"
+            @mouseenter.stop="onMediaHover(true, card)"
+            @mouseleave.stop="onMediaHover(false, card)"
+          >
+            <div
+              v-if="card.image || card.video"
+              class="media-inner"
+              :class="{ 'has-both': card.image && card.video }"
+            >
+              <!-- Image layer -->
+              <img
+                v-if="card.image"
+                :src="card.image"
+                :alt="card.title"
+                :style="imageStyle(card)"
+                draggable="false"
+                @dragstart.prevent
+              />
 
-                            <!-- Video layer -->
-                            <video v-if="card.video" :ref="el => setVideoRef(el, card.originalIndex)" muted loop
-                                playsinline :style="videoStyle(card)" draggable="false" @dragstart.prevent></video>
+              <!-- Video layer -->
+              <video
+                v-if="card.video"
+                :ref="el => setVideoRef(el, card.originalIndex)"
+                muted
+                loop
+                playsinline
+                :style="videoStyle(card)"
+                draggable="false"
+                @dragstart.prevent
+              ></video>
+            </div>
 
-                        </div>
-
-                        <div v-else class="media-placeholder">
-                            <span>NO MEDIA</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
+            <div v-else class="media-placeholder">
+              <span>NO MEDIA</span>
+            </div>
+          </div>
         </div>
-    </section>
+      </article>
+    </div>
+  </section>
 </template>
-
 
 <script setup>
 import {
-    computed,
-    onBeforeUnmount,
-    ref,
-    watch,
+  computed,
+  onBeforeUnmount,
+  ref,
+  watch,
 } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const props = defineProps({
-    items: {
-        type: Array,
-        required: true,
-        // each: { title, link, image, video?, color? }
-    },
-    autoRotate: {
-        type: Boolean,
-        default: false,
-    },
-    autoRotateDelay: {
-        type: Number,
-        default: 5000, // ms
-    },
+  items: {
+    type: Array,
+    required: true,
+    // each: { title, link, image, video?, color? }
+  },
+  autoRotate: {
+    type: Boolean,
+    default: false,
+  },
+  autoRotateDelay: {
+    type: Number,
+    default: 5000, // ms
+  },
 });
 
 const defaultCardColor = "#333a4a";
@@ -73,67 +111,67 @@ const autoTimer = ref(null);
 
 // ---------- Helpers ----------
 const normalizeIndex = (idx) => {
-    const n = props.items.length;
-    if (n === 0) return 0;
-    return ((idx % n) + n) % n;
+  const n = props.items.length;
+  if (n === 0) return 0;
+  return ((idx % n) + n) % n;
 };
 
 // Build the visible cards (-2..2 offsets from active)
 const visibleCards = computed(() => {
-    const n = props.items.length;
-    if (n === 0) return [];
+  const n = props.items.length;
+  if (n === 0) return [];
 
-    const result = [];
-    const maxOffsets = Math.min(2, Math.floor((n - 1) / 2)); // supports <5 items
+  const result = [];
+  const maxOffsets = Math.min(2, Math.floor((n - 1) / 2)); // supports <5 items
 
-    for (let offset = -maxOffsets; offset <= maxOffsets; offset++) {
-        const idx = normalizeIndex(activeIndex.value + offset);
-        const item = props.items[idx];
-        result.push({
-            ...item,
-            originalIndex: idx,
-            offset,
-        });
-    }
-    return result;
+  for (let offset = -maxOffsets; offset <= maxOffsets; offset++) {
+    const idx = normalizeIndex(activeIndex.value + offset);
+    const item = props.items[idx];
+    result.push({
+      ...item,
+      originalIndex: idx,
+      offset,
+    });
+  }
+  return result;
 });
 
 // ---------- Auto-rotate ----------
 const startAuto = () => {
-    stopAuto();
-    if (!props.autoRotate || props.items.length <= 1) return;
+  stopAuto();
+  if (!props.autoRotate || props.items.length <= 1) return;
 
-    autoTimer.value = setInterval(() => {
-        if (!hoverActive.value && props.items.length > 1) {
-            activeIndex.value = normalizeIndex(activeIndex.value + 1);
-        }
-    }, props.autoRotateDelay);
+  autoTimer.value = setInterval(() => {
+    if (!hoverActive.value && props.items.length > 1) {
+      activeIndex.value = normalizeIndex(activeIndex.value + 1);
+    }
+  }, props.autoRotateDelay);
 };
 
 const stopAuto = () => {
-    if (autoTimer.value) {
-        clearInterval(autoTimer.value);
-        autoTimer.value = null;
-    }
+  if (autoTimer.value) {
+    clearInterval(autoTimer.value);
+    autoTimer.value = null;
+  }
 };
 
 const setHover = (val) => {
-    hoverActive.value = val;
-    if (val) stopAuto();
-    else if (props.autoRotate) startAuto();
+  hoverActive.value = val;
+  if (val) stopAuto();
+  else if (props.autoRotate) startAuto();
 };
 
 watch(
-    () => [props.autoRotate, props.autoRotateDelay, props.items.length],
-    () => {
-        stopAuto();
-        if (props.autoRotate) startAuto();
-    },
-    { immediate: true }
+  () => [props.autoRotate, props.autoRotateDelay, props.items.length],
+  () => {
+    stopAuto();
+    if (props.autoRotate) startAuto();
+  },
+  { immediate: true }
 );
 
 onBeforeUnmount(() => {
-    stopAuto();
+  stopAuto();
 });
 
 // ---------- Video + media hover logic ----------
@@ -141,142 +179,153 @@ const videoRefs = ref({}); // { [originalIndex]: HTMLVideoElement }
 const mediaHoverMap = ref({}); // { [originalIndex]: boolean }
 
 const setVideoRef = (el, originalIndex) => {
-    if (!el) {
-        delete videoRefs.value[originalIndex];
-    } else {
-        videoRefs.value[originalIndex] = el;
-    }
+  if (!el) {
+    delete videoRefs.value[originalIndex];
+  } else {
+    videoRefs.value[originalIndex] = el;
+  }
 };
 
 const playVideo = (originalIndex) => {
-    const v = videoRefs.value[originalIndex];
-    if (v) {
-        v.play().catch(() => { });
-    }
+  const v = videoRefs.value[originalIndex];
+  if (v) {
+    v.play().catch(() => {});
+  }
 };
 
 const stopVideo = (originalIndex) => {
-    const v = videoRefs.value[originalIndex];
-    if (v) {
-        v.pause();
-        v.currentTime = 0;
-    }
+  const v = videoRefs.value[originalIndex];
+  if (v) {
+    v.pause();
+    v.currentTime = 0;
+  }
 };
 
 const onMediaHover = (isHovering, card) => {
-    const idx = card.originalIndex;
-    const hasBoth = !!card.image && !!card.video;
-    if (!hasBoth) return;
+  const idx = card.originalIndex;
+  const hasBoth = !!card.image && !!card.video;
+  if (!hasBoth) return;
 
-    mediaHoverMap.value[idx] = isHovering;
-    if (isHovering) playVideo(idx);
-    else stopVideo(idx);
+  mediaHoverMap.value[idx] = isHovering;
+  if (isHovering) playVideo(idx);
+  else stopVideo(idx);
 };
 
 const isMediaHovered = (card) => {
-    return !!mediaHoverMap.value[card.originalIndex];
+  return !!mediaHoverMap.value[card.originalIndex];
 };
 
 const imageStyle = (card) => {
-    if (card.image && card.video) {
-        // With both: fade out image when hovered
-        return {
-            opacity: isMediaHovered(card) ? 0 : 1,
-        };
-    }
-    // Image only
-    return { opacity: 1 };
+  if (card.image && card.video) {
+    // With both: fade out image when hovered
+    return {
+      opacity: isMediaHovered(card) ? 0 : 1,
+    };
+  }
+  // Image only
+  return { opacity: 1 };
 };
 
 const videoStyle = (card) => {
-    if (!card.video) return {};
-    if (card.image && card.video) {
-        // With both: fade in video on hover
-        return {
-            opacity: isMediaHovered(card) ? 1 : 0,
-        };
-    }
-    // Video only
-    return { opacity: 1 };
+  if (!card.video) return {};
+  if (card.image && card.video) {
+    // With both: fade in video on hover
+    return {
+      opacity: isMediaHovered(card) ? 1 : 0,
+    };
+  }
+  // Video only
+  return { opacity: 1 };
 };
 
 // ---------- Drag-to-navigate logic ----------
 const dragState = ref({
-    isDown: false,
-    startX: 0,
-    deltaX: 0,
-    wasDragging: false,
+  isDown: false,
+  startX: 0,
+  deltaX: 0,
+  wasDragging: false,
 });
 
-const DRAG_THRESHOLD = 60;   // how far to drag to trigger slide
+const DRAG_THRESHOLD = 60; // how far to drag to trigger slide
 const DRAG_IGNORE_CLICK = 10; // minimal movement before we consider it a drag
 
 const onPointerDown = (event) => {
-    dragState.value.isDown = true;
-    dragState.value.startX = event.clientX ?? event.touches?.[0]?.clientX ?? 0;
-    dragState.value.deltaX = 0;
-    dragState.value.wasDragging = false;
+  dragState.value.isDown = true;
+  dragState.value.startX =
+    event.clientX ?? event.touches?.[0]?.clientX ?? 0;
+  dragState.value.deltaX = 0;
+  dragState.value.wasDragging = false;
 
-    // pause autoplay while dragging
-    stopAuto();
+  // pause autoplay while dragging
+  stopAuto();
 };
 
 const onPointerMove = (event) => {
-    if (!dragState.value.isDown) return;
-    const currentX = event.clientX ?? event.touches?.[0]?.clientX ?? 0;
-    dragState.value.deltaX = currentX - dragState.value.startX;
+  if (!dragState.value.isDown) return;
+  const currentX =
+    event.clientX ?? event.touches?.[0]?.clientX ?? 0;
+  dragState.value.deltaX = currentX - dragState.value.startX;
 
-    if (Math.abs(dragState.value.deltaX) > DRAG_IGNORE_CLICK) {
-        dragState.value.wasDragging = true;
-    }
+  if (Math.abs(dragState.value.deltaX) > DRAG_IGNORE_CLICK) {
+    dragState.value.wasDragging = true;
+  }
 };
 
 const onPointerUp = () => {
-    if (!dragState.value.isDown) return;
+  if (!dragState.value.isDown) return;
 
-    const total = dragState.value.deltaX;
-    dragState.value.isDown = false;
-    dragState.value.deltaX = 0;
+  const total = dragState.value.deltaX;
+  dragState.value.isDown = false;
+  dragState.value.deltaX = 0;
 
-    if (Math.abs(total) > DRAG_THRESHOLD && props.items.length > 1) {
-        // swipe left -> next, swipe right -> previous
-        if (total < 0) {
-            activeIndex.value = normalizeIndex(activeIndex.value + 1);
-        } else {
-            activeIndex.value = normalizeIndex(activeIndex.value - 1);
-        }
+  if (Math.abs(total) > DRAG_THRESHOLD && props.items.length > 1) {
+    // swipe left -> next, swipe right -> previous
+    if (total < 0) {
+      activeIndex.value = normalizeIndex(activeIndex.value + 1);
+    } else {
+      activeIndex.value = normalizeIndex(activeIndex.value - 1);
     }
+  }
 
-    // resume autoplay if enabled and not hovered
-    if (props.autoRotate && !hoverActive.value) {
-        startAuto();
-    }
+  // resume autoplay if enabled and not hovered
+  if (props.autoRotate && !hoverActive.value) {
+    startAuto();
+  }
 };
 
 // ---------- Click behavior ----------
 const navigateTo = (item) => {
-    if (!item || !item.link) return;
-    // Simple default: full navigation
-    window.location.href = item.link;
+  if (!item || !item.link) return;
+
+  const link = item.link;
+
+  // If absolute URL, leave the app
+  if (/^https?:\/\//i.test(link)) {
+    window.location.href = link;
+  } else {
+    // Let vue-router handle base (/TaiyakiEduGames/) correctly
+    router.push(link);
+  }
 };
 
 const handleCardClick = (card, event) => {
-    // If there was a drag, ignore the click that fires after
-    if (dragState.value.wasDragging) {
-        dragState.value.wasDragging = false;
-        return;
-    }
+  // If there was a drag, ignore the click that fires after
+  if (dragState.value.wasDragging) {
+    dragState.value.wasDragging = false;
+    return;
+  }
 
-    if (card.offset === 0) {
-        // Center card → open link
-        navigateTo(card);
-        return;
-    }
+  if (card.offset === 0) {
+    // Center card → open link
+    navigateTo(card);
+    return;
+  }
 
-    // Side card → make it center (will animate thanks to CSS transitions)
-    activeIndex.value = card.originalIndex;
+  // Side card → make it center (will animate thanks to CSS transitions)
+  activeIndex.value = card.originalIndex;
 };
 </script>
+
 
 
 <style scoped>

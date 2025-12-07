@@ -9,7 +9,7 @@
 
     <h1 class="bubble-title">Flashcard Games</h1>
     <!-- Flashcard Games Carousel -->
-     <CardCarousel :items="flashcardGameCards" :auto-rotate="true" :auto-rotate-delay="6000" />
+    <CardCarousel :items="flashcardGameCards" :auto-rotate="true" :auto-rotate-delay="6000" />
 
     <h1 class="bubble-title">Textbooks</h1>
     <!-- Textbook List -->
