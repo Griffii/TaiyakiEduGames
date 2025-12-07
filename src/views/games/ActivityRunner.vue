@@ -230,22 +230,18 @@ const effectiveSlug = computed(
 )
 
 /** iframe URL priority:
- *  1) DB external_url          (full http(s) URLs, if set)
- *  2) meta external_url
- *  3) ?url= query              (manual override)
- *  4) local Godot export under the app base:
+ *  1) ?url= query (manual override / debugging)
+ *  2) local Godot export under the app base:
  *     <BASE_URL>/godot_games/:slug/index.html
+ *
+ *  We intentionally ignore DB/meta external_url now to stop using games.eitake.app.
  */
 const rawExternal = computed(() => {
-  // 1–3: explicit full URLs, if provided
-  const explicit =
-    dbActivity.value?.external_url ??
-    metaActivity?.external_url ??
-    (route.query.url as string | undefined)
+  // 1) explicit override via ?url=...
+  const override = route.query.url as string | undefined
+  if (override) return override
 
-  if (explicit) return explicit
-
-  // 4: local fallback (public/godot_games/<slug>/index.html)
+  // 2) local fallback (public/godot_games/<slug>/index.html)
   const base = import.meta.env.BASE_URL.replace(/\/+$/, '') // e.g. '/TaiyakiEduGames'
   const slug = effectiveSlug.value || 'activity'
   return `${base}/godot_games/${slug}/index.html`
@@ -262,7 +258,7 @@ function originOf(url: string): string | null {
   }
 }
 
-// Only allow same-origin messages (your GitHub Pages host)
+// Only allow same-origin messages (your GitHub Pages / app origin)
 const ALLOWED_CHILD_ORIGINS = new Set<string>([
   typeof window !== 'undefined' ? window.location.origin : '',
 ])
