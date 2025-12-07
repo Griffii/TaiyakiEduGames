@@ -1,0 +1,314 @@
+/* ============================================================================
+   EiTake Theme Tokens — TRON (Dark + Neon)
+   PURPOSE: Same token names as default; neon-on-dark aesthetic with high contrast.
+   File: tron.css
+   ============================================================================ */
+
+:root {
+  /* =========================
+     THEME META
+     ========================= */
+  --theme-name: "tron-neon-dark";
+  --theme-density: "cozy"; /* cozy | compact | spacious */
+
+  /* =========================
+     CORE PALETTE — SMALL, CONSISTENT
+     (Neutrals + semantic accents)
+     ========================= */
+  /* Neutrals (dark surfaces + readable text) */
+  --neutral-0: #0b0f16;   /* deepest background */
+  --neutral-50: #0f1520;
+  --neutral-100: #121a26;
+  --neutral-200: #172231;
+  --neutral-300: #1c2a3b;
+  --neutral-600: #2c3d53;
+  --neutral-700: #355069;
+  --neutral-800: #b3c8df;  /* light text tier 1 */
+  --neutral-900: #d6e6fb;  /* light text tier 2 */
+  --neutral-950: #eef6ff;  /* lightest text */
+
+  /* Semantic accents (neon) */
+  --accent-primary: #00eaff;   /* cyan electric */
+  --accent-secondary: #8a7dff; /* indigo/violet neon */
+  --accent-success: #00f59f;   /* mint neon */
+  --accent-warning: #ffd34d;   /* amber neon */
+  --accent-danger:  #ff357a;   /* pink/red neon */
+
+  /* Elevation / radii / focus (use soft glows instead of heavy drop-shadows) */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --elevation-1: 0 0 8px rgba(0, 234, 255, 0.10), 0 2px 6px rgba(0, 0, 0, 0.35);
+  --elevation-2: 0 0 14px rgba(138, 125, 255, 0.14), 0 6px 16px rgba(0, 0, 0, 0.45);
+  --elevation-3: 0 0 22px rgba(0, 245, 159, 0.16), 0 12px 28px rgba(0, 0, 0, 0.5);
+
+  --ring-offset: 2px;
+  --focus-ring: 0 0 0 var(--ring-offset) #0b0f16,
+    0 0 0 calc(var(--ring-offset) + 2px) var(--accent-primary);
+
+  /* =========================
+     GLOBAL BACKGROUND (App canvas)
+     ========================= */
+  --bg-app-color: #0a0f18; /* deep blue-black */
+  --bg-app-image: none;    /* no asphalt texture */
+  /* soft cross-fade neon glows from corners */
+  --bg-app-gradient-top: radial-gradient(
+    1200px 700px at 115% -10%,
+    rgba(0, 234, 255, 0.18) 0%,
+    rgba(0, 234, 255, 0.08) 35%,
+    transparent 65%
+  );
+  --bg-app-gradient-bottom: radial-gradient(
+    1000px 600px at -15% 120%,
+    rgba(138, 125, 255, 0.20) 0%,
+    rgba(138, 125, 255, 0.10) 38%,
+    transparent 70%
+  );
+  --bg-app-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  --bg-app-size: auto, auto, auto, auto;
+  --bg-app-blend: screen, screen, normal, normal;
+  --bg-app-attachment: fixed, fixed, fixed, fixed;
+
+  /* =========================
+     MAIN (TEXT OVER GLOBAL BACKGROUND)
+     ========================= */
+  --main-title-color: #eaf6ff;
+  --main-title-font: ui-sans-serif, system-ui, -apple-system, "Inter",
+    "Segoe UI", Roboto, Arial, sans-serif;
+  --main-title-size: clamp(20px, 3.2vw, 36px);
+  --main-title-shadow: 0 0 18px rgba(0, 234, 255, 0.25);
+
+  --main-subtitle-color: color-mix(in srgb, #e2f0ff 88%, transparent);
+  --main-subtitle-font: var(--main-title-font);
+  --main-subtitle-size: clamp(12px, 1.3vw, 16px);
+  --main-subtitle-shadow: 0 0 10px rgba(138, 125, 255, 0.22);
+
+  --main-text-color: #cfe5ff;
+  --main-text-soft: #9db4cf;
+  --main-text-emphasis: var(--accent-secondary);
+  --main-link-color: var(--accent-primary);
+
+  /* =========================
+     MODAL / POP-UP SYSTEM
+     ========================= */
+  --modal-surface: #0f1622;  /* dark panel */
+  --modal-on-surface: #e7f2ff;
+  --modal-on-surface-soft: #a9bfd8;
+  --modal-on-surface-muted: #7e97b2;
+  --modal-border: rgba(0, 234, 255, 0.25);
+  --modal-shadow: var(--elevation-3);
+  --modal-radius: var(--radius-xl);
+
+  --modal-overlay-bg: color-mix(in srgb, #000 60%, transparent);
+  --modal-overlay-filter: blur(3px) saturate(115%);
+
+  --modal-accent: var(--accent-primary);
+  --modal-accent-2: var(--accent-secondary);
+  --modal-danger: var(--accent-danger);
+
+  /* Close button (neon red/pink) */
+  --modal-close-bg: var(--modal-danger);
+  --modal-close-on: #fff;
+  --modal-close-border: color-mix(in srgb, var(--modal-danger) 70%, #000 30%);
+
+  /* =========================
+     TABLES
+     ========================= */
+  --table-surface: #0e1723;
+  --table-on-surface: #e6f2ff;
+  --table-muted: #8aa3bf;
+  --table-header-surface: #111e2d;
+  --table-row-hover: #122337;
+  --table-border: rgba(0, 234, 255, 0.22);
+  --table-zebra: #0f1a28;
+  --table-radius: var(--radius-md);
+  --table-shadow: var(--elevation-1);
+
+  /* =========================
+     FEATURE SECTIONS (Cards)
+     ========================= */
+
+  /* Textbook */
+  --textbook-surface: #0f1826;
+  --textbook-on-surface: #eaf3ff;
+  --textbook-border: rgba(138, 125, 255, 0.35);
+  --textbook-shadow: var(--elevation-1);
+  --textbook-accent: var(--accent-primary);
+  --textbook-chip-bg: color-mix(in srgb, var(--accent-primary) 18%, #0f1826 82%);
+  --textbook-chip-on: #e7fbff;
+
+  /* Activities */
+  --activities-surface: #0f1826;
+  --activities-on-surface: #eaf3ff;
+  --activities-border: rgba(0, 245, 159, 0.35);
+  --activities-shadow: var(--elevation-1);
+  --activities-accent: var(--accent-secondary);
+  --activities-chip-bg: color-mix(in srgb, var(--accent-secondary) 18%, #0f1826 82%);
+  --activities-chip-on: #efeaff;
+  --activities-chip-new: color-mix(in srgb, var(--accent-warning) 55%, var(--accent-success) 45%);
+  --activities-chip-xp:  color-mix(in srgb, var(--accent-primary) 60%, #8b5cf6 40%);
+
+  /* Decks */
+  --decks-surface: #0f1826;
+  --decks-on-surface: #eaf3ff;
+  --decks-border: rgba(255, 211, 77, 0.55);
+  --decks-shadow: var(--elevation-1);
+  --decks-accent: var(--accent-warning);
+
+  --decks-chip-bg: color-mix(in srgb, var(--accent-warning) 22%, #0f1826 78%);
+  --decks-chip-on: #fff3d6;
+
+  --decks-pill-surface: color-mix(in srgb, var(--accent-warning) 28%, #0f1826 72%);
+  --decks-pill-border: color-mix(in srgb, var(--accent-warning) 72%, #0f1826 28%);
+  --decks-pill-on: #fff2cf;
+
+  /* Flashcards */
+  --flashcards-surface: #0f1826;
+  --flashcards-on-surface: #e6f2ff;
+  --flashcards-border: color-mix(in srgb, var(--accent-primary) 58%, var(--accent-secondary) 42%);
+  --flashcards-english: var(--flashcards-border);
+  --flashcards-shadow: var(--elevation-2);
+  --flashcards-accent: var(--accent-secondary);
+  --flashcards-chip-bg: color-mix(in srgb, var(--accent-secondary) 22%, #0f1826 78%);
+  --flashcards-chip-on: #efeaff;
+
+  /* =========================
+     DECK VIEWER
+     ========================= */
+  --deckviewer-button-outline: #00ffd5; /* neon outline for readability */
+  --deckviewer-btn-primary-bg: var(--btn-primary-bg);
+  --deckviewer-btn-primary-bg-hover: color-mix(in srgb, var(--btn-primary-bg) 58%, #ffffff 42%);
+  --deckviewer-btn-primary-on: #04131a;
+  --deckviewer-btn-primary-on-hover: #04131a;
+
+  --deckviewer-btn-disabled-bg: #2a3a50;
+  --deckviewer-btn-disabled-on: #7f98b5;
+
+  --deckviewer-add-btn-bg: color-mix(in srgb, var(--accent-success) 82%, #000 18%);
+  --deckviewer-title-shadow: 0 0 10px rgba(0, 234, 255, 0.35);
+  --deckviewer-shadow-color: #00eaff;
+
+  /* =========================
+     CUSTOM DECK
+     ========================= */
+  --customdeck-button-bg: #00eaff81;
+  --customdeck-button-on: #04131a;
+  --customdeck-button-border: rgba(0, 234, 255, 0.4);
+  --customdeck-dots: #7fffca;
+
+  --customdeck-expand-bg: color-mix(in srgb, var(--accent-secondary) 16%, #0f1826 84%);
+  --customdeck-expand-on: #efeaff;
+  --customdeck-expand-border: color-mix(in srgb, var(--accent-secondary) 45%, #000 55%);
+
+  /* =========================
+     APP HEADER
+     ========================= */
+  --header-surface: linear-gradient(0deg, #0c1320, #111b2d);
+  --header-on-surface: #d9ecff;
+  --header-accent: #00eaff;
+  --header-border-color: var(--header-accent);
+  --header-border-width: 5px;
+  --header-shadow: 0 0 12px rgba(0, 234, 255, 0.25);
+
+  --header-grid-color: color-mix(in srgb, var(--header-on-surface) 16%, transparent);
+
+  --header-btn-bg: #0f1a2a;
+  --header-btn-text: #cfe5ff;
+  --header-btn-text-hover: #ffffff;
+  --header-btn-border-color: var(--header-accent);
+  --header-btn-hover: #16253a;
+
+  /* Header button fill - cyan/indigo neon sweep */
+  --header-btn-fill: linear-gradient(
+    135deg,
+    color(srgb 0 0.92 1),
+    color(srgb 0.44 0.66 1),
+    color(srgb 0.67 0.57 1)
+  );
+
+  /* Logout button */
+  --logout-btn-bg: #122031;
+  --logout-btn-on: #cfe5ff;
+  --logout-btn-on-hover: #001016;
+
+  --logout-fill-start: color-mix(in srgb, var(--accent-danger) 30%, #122031 70%);
+  --logout-fill-mid: var(--accent-danger);
+  --logout-fill-end: color-mix(in srgb, var(--accent-danger) 80%, #320015 20%);
+  --logout-btn-fill: linear-gradient(90deg, var(--logout-fill-start), var(--logout-fill-mid) 60%, var(--logout-fill-end));
+
+  /* Role-specific chips */
+  --chip-dev-bg: color-mix(in srgb, var(--accent-primary) 28%, #0f1826 72%);
+  --chip-dev-on: #e7fbff;
+  --chip-dev-border: color-mix(in srgb, var(--accent-primary) 55%, #000 45%);
+
+  --chip-admin-bg: color-mix(in srgb, var(--accent-secondary) 28%, #0f1826 72%);
+  --chip-admin-on: #efeaff;
+  --chip-admin-border: color-mix(in srgb, var(--accent-secondary) 55%, #000 45%);
+
+  --chip-teacher-bg: color-mix(in srgb, var(--accent-primary) 18%, #111e2d 82%);
+  --chip-teacher-on: #e7fbff;
+  --chip-teacher-border: color-mix(in srgb, var(--accent-primary) 45%, #000 55%);
+
+  --chip-student-bg: color-mix(in srgb, var(--accent-warning) 24%, #0f1826 76%);
+  --chip-student-on: #fff5d9;
+  --chip-student-border: color-mix(in srgb, var(--accent-warning) 55%, #000 45%);
+
+  /* =========================
+     LEVELS (skills + profile ring)
+     ========================= */
+  --level-reading:  #ff357a;
+  --level-writing:  #00f59f;
+  --level-listening:#00eaff;
+  --level-ring-fill: color-mix(in srgb, var(--level-listening) 18%, #0f1826 82%);
+  --level-ring-track: var(--neutral-200);
+
+  /* =========================
+     GLOBAL ELEMENTS (chips, buttons)
+     ========================= */
+  --chip-bg: color-mix(in srgb, var(--accent-secondary) 72%, #0f1826 28%);
+  --chip-on: #efeaff;
+  --chip-border: rgba(0, 234, 255, 0.22);
+
+  /* Buttons (filled neon; ensure readable text) */
+  --btn-primary-bg: var(--accent-primary);
+  --btn-primary-on: #04131a; /* deep cyan-black for contrast on neon */
+  --btn-primary-border: color-mix(in srgb, var(--accent-primary) 60%, #000 40%);
+
+  --btn-secondary-bg: var(--accent-secondary);
+  --btn-secondary-on: #110a2a;
+  --btn-secondary-border: color-mix(in srgb, var(--accent-secondary) 50%, #000 50%);
+
+  --btn-ghost-bg: #0f1a2a;
+  --btn-ghost-on: #cfe5ff;
+  --btn-ghost-border: rgba(0, 234, 255, 0.22);
+
+  --btn-success-bg: var(--accent-success);
+  --btn-success-on: #001a11;
+  --btn-success-border: color-mix(in srgb, var(--accent-success) 50%, #000 50%);
+
+  --btn-danger-bg: var(--accent-danger);
+  --btn-danger-on: #2a0010;
+  --btn-danger-border: color-mix(in srgb, var(--accent-danger) 50%, #000 50%);
+
+  --select-menu-surface: #0f1826;
+  --select-menu-on: #eaf3ff;
+  --select-menu-border: rgba(0, 234, 255, 0.22);
+  --select-menu-hover: #122337;
+}
+
+/* ============================================================================
+   RENDERING HOOKS (same utilities)
+   ============================================================================ */
+
+/* Global app background utility */
+.app-bg {
+  min-height: 100vh;
+  background: var(--bg-app-image), var(--bg-app-gradient-top),
+    var(--bg-app-gradient-bottom), var(--bg-app-color);
+  background-repeat: var(--bg-app-repeat);
+  background-size: var(--bg-app-size);
+  background-blend-mode: var(--bg-app-blend);
+  background-attachment: var(--bg-app-attachment);
+}

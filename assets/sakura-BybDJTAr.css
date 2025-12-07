@@ -1,0 +1,319 @@
+/* ============================================================================
+   EiTake Theme Tokens — SAKURA (Light + Pastel Pink Spring)
+   PURPOSE: Same token names as default; soft, feminine, high-contrast where needed.
+   File: sakura.css
+   ============================================================================ */
+
+:root {
+  /* =========================
+     THEME META
+     ========================= */
+  --theme-name: "sakura-pastel-spring";
+  --theme-density: "cozy"; /* cozy | compact | spacious */
+
+  /* =========================
+     CORE PALETTE — SMALL, CONSISTENT
+     (Neutrals + semantic accents)
+     ========================= */
+  /* Neutrals (light, warm, readable) */
+  --neutral-0: #ffffff;   /* paper white */
+  --neutral-50: #fff7fb;  /* very light blossom */
+  --neutral-100: #ffeef6; /* sakura mist */
+  --neutral-200: #ffe0ec;
+  --neutral-300: #ffd2e2;
+  --neutral-600: #a55c72; /* muted rose-ink */
+  --neutral-700: #7e4658;
+  --neutral-800: #5a3040;
+  --neutral-900: #3c1f29;
+  --neutral-950: #2a151b;
+
+  /* Semantic accents (pastel but saturated enough for contrast) */
+  --accent-primary: #ff6aa3;  /* sakura pink */
+  --accent-secondary: #89e0c3;/* mint blossom */
+  --accent-success: #3dcf8e;  /* spring green */
+  --accent-warning: #ffcf5a;  /* warm mimosa */
+  --accent-danger:  #ff4d6d;  /* rose red */
+
+  /* Elevation / radii / focus (soft shadows like sunlight through petals) */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --elevation-1: 0 4px 12px rgba(255, 106, 163, 0.12);
+  --elevation-2: 0 8px 20px rgba(58, 48, 64, 0.12), 0 0 0 1px rgba(255,106,163,0.10) inset;
+  --elevation-3: 0 14px 36px rgba(58, 48, 64, 0.16), 0 0 0 1px rgba(137,224,195,0.14) inset;
+
+  --ring-offset: 2px;
+  --focus-ring: 0 0 0 var(--ring-offset) #fff,
+    0 0 0 calc(var(--ring-offset) + 2px) var(--accent-primary);
+
+  /* =========================
+     GLOBAL BACKGROUND (App canvas)
+     ========================= */
+  --bg-app-color: #fff4f8; /* soft sakura wash */
+  --bg-app-image: none;    /* no asphalt/chalkboard texture */
+  /* gentle pink & mint bokeh to evoke petals */
+  --bg-app-gradient-top: radial-gradient(
+    1200px 700px at 120% -10%,
+    rgba(255, 170, 204, 0.35) 0%,
+    rgba(255, 170, 204, 0.15) 40%,
+    transparent 70%
+  );
+  --bg-app-gradient-bottom: radial-gradient(
+    1000px 600px at -10% 120%,
+    rgba(137, 224, 195, 0.30) 0%,
+    rgba(137, 224, 195, 0.14) 38%,
+    transparent 70%
+  );
+  --bg-app-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  --bg-app-size: auto, auto, auto, auto;
+  --bg-app-blend: screen, multiply, normal, normal;
+  --bg-app-attachment: fixed, fixed, fixed, fixed;
+
+  /* =========================
+     MAIN (TEXT OVER GLOBAL BACKGROUND)
+     ========================= */
+  --main-title-color: #5a3040; /* deep plum for contrast */
+  --main-title-font: ui-sans-serif, system-ui, -apple-system, "Inter",
+    "Segoe UI", Roboto, Arial, sans-serif;
+  --main-title-size: clamp(20px, 3.2vw, 36px);
+  --main-title-shadow: 0 1px 0 rgba(255,255,255,0.6);
+
+  --main-subtitle-color: color-mix(in srgb, #7e4658 85%, transparent);
+  --main-subtitle-font: var(--main-title-font);
+  --main-subtitle-size: clamp(12px, 1.3vw, 16px);
+  --main-subtitle-shadow: 0 1px 0 rgba(255,255,255,0.6);
+
+  --main-text-color: #5a3040;  /* readable plum */
+  --main-text-soft: #7e4658;   /* softer ink */
+  --main-text-emphasis: var(--accent-primary);
+  --main-link-color: color-mix(in srgb, var(--accent-primary) 80%, #3c1f29 20%);
+
+  /* =========================
+     MODAL / POP-UP SYSTEM
+     ========================= */
+  --modal-surface: #ffffff;
+  --modal-on-surface: #3c1f29;
+  --modal-on-surface-soft: #7e4658;
+  --modal-on-surface-muted: #a55c72;
+  --modal-border: rgba(255, 106, 163, 0.28);
+  --modal-shadow: var(--elevation-3);
+  --modal-radius: var(--radius-xl);
+
+  --modal-overlay-bg: color-mix(in srgb, #000 20%, transparent);
+  --modal-overlay-filter: blur(2px) saturate(108%);
+
+  --modal-accent: var(--accent-primary);
+  --modal-accent-2: var(--accent-secondary);
+  --modal-danger: var(--accent-danger);
+
+  /* Close button */
+  --modal-close-bg: var(--modal-danger);
+  --modal-close-on: #fff;
+  --modal-close-border: color-mix(in srgb, var(--modal-danger) 70%, #000 30%);
+
+  /* =========================
+     TABLES
+     ========================= */
+  --table-surface: #ffffff;
+  --table-on-surface: #3c1f29;
+  --table-muted: #7e4658;
+  --table-header-surface: #fff1f6;
+  --table-row-hover: #ffe8f0;
+  --table-border: rgba(60, 31, 41, 0.12);
+  --table-zebra: #fff7fb;
+  --table-radius: var(--radius-md);
+  --table-shadow: var(--elevation-1);
+
+  /* =========================
+     FEATURE SECTIONS (Cards)
+     ========================= */
+
+  /* Textbook */
+  --textbook-surface: #ffffff;
+  --textbook-on-surface: #3c1f29;
+  --textbook-border: rgba(255, 106, 163, 0.30);
+  --textbook-shadow: var(--elevation-1);
+  --textbook-accent: var(--accent-primary);
+  --textbook-chip-bg: color-mix(in srgb, var(--accent-primary) 14%, #fff 86%);
+  --textbook-chip-on: #3c1f29;
+
+  /* Activities */
+  --activities-surface: #ffffff;
+  --activities-on-surface: #3c1f29;
+  --activities-border: rgba(137, 224, 195, 0.40);
+  --activities-shadow: var(--elevation-1);
+  --activities-accent: var(--accent-secondary);
+  --activities-chip-bg: color-mix(in srgb, var(--accent-secondary) 16%, #fff 84%);
+  --activities-chip-on: #10382d;
+  --activities-chip-new: color-mix(in srgb, var(--accent-warning) 55%, var(--accent-success) 45%);
+  --activities-chip-xp:  color-mix(in srgb, var(--accent-primary) 60%, #8b5cf6 40%);
+
+  /* Decks */
+  --decks-surface: #ffffff;
+  --decks-on-surface: #3c1f29;
+  --decks-border: rgba(255, 188, 32, 0.55);
+  --decks-shadow: var(--elevation-1);
+  --decks-accent: var(--accent-warning);
+
+  --decks-chip-bg: color-mix(in srgb, var(--accent-warning) 16%, #fff 84%);
+  --decks-chip-on: #3a2a00;
+
+  --decks-pill-surface: color-mix(in srgb, var(--accent-warning) 26%, #fff 74%);
+  --decks-pill-border: color-mix(in srgb, var(--accent-warning) 72%, #fff 28%);
+  --decks-pill-on: #3a2a00;
+
+  /* Flashcards */
+  --flashcards-surface: #ffffff;
+  --flashcards-on-surface: #3c1f29;
+  --flashcards-border: color-mix(in srgb, var(--accent-primary) 58%, var(--accent-secondary) 42%);
+  --flashcards-english: var(--flashcards-border);
+  --flashcards-shadow: var(--elevation-2);
+  --flashcards-accent: var(--accent-secondary);
+  --flashcards-chip-bg: color-mix(in srgb, var(--accent-secondary) 18%, #fff 82%);
+  --flashcards-chip-on: #10382d;
+
+  /* =========================
+   DECK VIEWER (tokens scoped to DeckViewer UI)
+   ========================= */
+  --deckviewer-button-outline: #000000; /* high-contrast outline */
+  --deckviewer-btn-primary-bg: var(--btn-primary-bg);
+  --deckviewer-btn-primary-bg-hover: color-mix(in srgb, var(--btn-primary-bg) 50%, #ffffff 50%);
+  --deckviewer-btn-primary-on: #3c1f29;
+  --deckviewer-btn-primary-on-hover: #3c1f29;
+
+  --deckviewer-btn-disabled-bg: var(--neutral-300);
+  --deckviewer-btn-disabled-on: var(--neutral-700);
+
+  --deckviewer-add-btn-bg: color-mix(in srgb, var(--accent-success) 82%, #000 18%);
+  --deckviewer-title-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+  --deckviewer-shadow-color: #ff6aa3;
+
+  /* =========================
+     CUSTOM DECK (special buttons & expands)
+     ========================= */
+  --customdeck-button-bg: #ff6aa3;
+  --customdeck-button-on: #3c1f29;
+  --customdeck-button-border: rgba(255, 106, 163, 0.35);
+  --customdeck-dots: #ffd4e6;
+
+  --customdeck-expand-bg: color-mix(in srgb, var(--accent-secondary) 14%, #fff 86%);
+  --customdeck-expand-on: #10382d;
+  --customdeck-expand-border: color-mix(in srgb, var(--accent-secondary) 35%, #000 65%);
+
+  /* =========================
+   APP HEADER
+   ========================= */
+  --header-surface: linear-gradient(0deg, #ffe7f2, #e7fff6); /* blossom + mint */
+  --header-on-surface: #5a3040;  /* deep plum for readability */
+  --header-accent: #ff6aa3;
+  --header-border-color: var(--header-accent);
+  --header-border-width: 5px;
+  --header-shadow: var(--elevation-1);
+
+  --header-grid-color: color-mix(in srgb, var(--header-on-surface) 12%, transparent);
+
+  --header-btn-bg: var(--neutral-0);
+  --header-btn-text: #5a3040;
+  --header-btn-text-hover: #3c1f29;
+  --header-btn-border-color: var(--header-border-color);
+  --header-btn-hover: var(--neutral-100);
+
+  /* Header button fill - blossom gradient */
+  --header-btn-fill: linear-gradient(
+    135deg,
+    color(srgb 1 0.72 0.84),
+    color(srgb 1 0.82 0.90),
+    color(srgb 1 0.90 0.88)
+  );
+
+  /* Logout button */
+  --logout-btn-bg: var(--neutral-100);
+  --logout-btn-on: #3c1f29;
+  --logout-btn-on-hover: #ffffff;
+
+  --logout-fill-start: color-mix(in srgb, var(--accent-danger) 30%, var(--neutral-0) 70%);
+  --logout-fill-mid: var(--accent-danger);
+  --logout-fill-end: color-mix(in srgb, var(--accent-danger) 80%, var(--neutral-900) 20%);
+  --logout-btn-fill: linear-gradient(
+    90deg,
+    var(--logout-fill-start),
+    var(--logout-fill-mid) 60%,
+    var(--logout-fill-end)
+  );
+
+  /* Role-specific chips */
+  --chip-dev-bg: color-mix(in srgb, var(--accent-primary) 22%, var(--neutral-0) 78%);
+  --chip-dev-on: #3c1f29;
+  --chip-dev-border: color-mix(in srgb, var(--accent-primary) 40%, #000 60%);
+
+  --chip-admin-bg: color-mix(in srgb, var(--accent-secondary) 22%, var(--neutral-0) 78%);
+  --chip-admin-on: #10382d;
+  --chip-admin-border: color-mix(in srgb, var(--accent-secondary) 40%, #000 60%);
+
+  --chip-teacher-bg: color-mix(in srgb, var(--accent-primary) 14%, var(--neutral-100) 86%);
+  --chip-teacher-on: #3c1f29;
+  --chip-teacher-border: color-mix(in srgb, var(--accent-primary) 30%, #000 70%);
+
+  --chip-student-bg: color-mix(in srgb, var(--accent-warning) 18%, var(--neutral-0) 82%);
+  --chip-student-on: #3a2a00;
+  --chip-student-border: color-mix(in srgb, var(--accent-warning) 35%, #000 65%);
+
+  /* =========================
+     LEVELS (skills + profile ring)
+     ========================= */
+  --level-reading:  #ff4d6d; /* rosy */
+  --level-writing:  #3dcf8e; /* green */
+  --level-listening:#ff6aa3; /* pink */
+  --level-ring-fill: color-mix(in srgb, var(--level-listening) 12%, var(--neutral-0) 88%);
+  --level-ring-track: var(--neutral-200);
+
+  /* =========================
+     GLOBAL ELEMENTS (chips, buttons)
+     ========================= */
+  --chip-bg: color-mix(in srgb, var(--accent-secondary) 72%, #fff 28%);
+  --chip-on: #10382d;
+  --chip-border: rgba(60, 31, 41, 0.12);
+
+  /* Buttons */
+  --btn-primary-bg: var(--accent-primary);
+  --btn-primary-on: #3c1f29; /* readable on pink */
+  --btn-primary-border: color-mix(in srgb, var(--accent-primary) 60%, #000 40%);
+
+  --btn-secondary-bg: var(--accent-secondary);
+  --btn-secondary-on: #10382d;
+  --btn-secondary-border: color-mix(in srgb, var(--accent-secondary) 40%, #000 60%);
+
+  --btn-ghost-bg: var(--neutral-100);
+  --btn-ghost-on: #5a3040;
+  --btn-ghost-border: rgba(60, 31, 41, 0.12);
+
+  --btn-success-bg: var(--accent-success);
+  --btn-success-on: #072013;
+  --btn-success-border: color-mix(in srgb, var(--accent-success) 40%, #000 60%);
+
+  --btn-danger-bg: var(--accent-danger);
+  --btn-danger-on: #2a0208;
+  --btn-danger-border: color-mix(in srgb, var(--accent-danger) 40%, #000 60%);
+
+  --select-menu-surface: #ffffff;
+  --select-menu-on: #3c1f29;
+  --select-menu-border: rgba(60, 31, 41, 0.12);
+  --select-menu-hover: #ffeef6;
+}
+
+/* ============================================================================
+   RENDERING HOOKS (same utilities)
+   ============================================================================ */
+
+/* Global app background utility */
+.app-bg {
+  min-height: 100vh;
+  background: var(--bg-app-image), var(--bg-app-gradient-top),
+    var(--bg-app-gradient-bottom), var(--bg-app-color);
+  background-repeat: var(--bg-app-repeat);
+  background-size: var(--bg-app-size);
+  background-blend-mode: var(--bg-app-blend);
+  background-attachment: var(--bg-app-attachment);
+}

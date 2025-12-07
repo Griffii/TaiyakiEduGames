@@ -1,0 +1,9 @@
+# security.txt for EiTake / Griffii Games
+Contact: mailto:info@griffiigames.com
+Contact: https://griffiigames.com/contact
+
+Policy: https://griffiigames.com/security/policy
+Preferred-Languages: en, ja
+Canonical: https://eitake.app/.well-known/security.txt
+
+Expires: 2026-12-31T23:59:59Z
