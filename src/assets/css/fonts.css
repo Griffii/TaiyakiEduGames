@@ -1,0 +1,9 @@
+/* src/assets/fonts.css */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Covered+By+Your+Grace&display=swap');
+
+/* Optional: set a global default */
+:root {
+  --font-body: 'Baloo 2', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-script: 'Covered By Your Grace', cursive;
+  --font-strict: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+}

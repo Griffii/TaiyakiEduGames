@@ -1,0 +1,31 @@
+# public/.htaccess
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # --- Subdomain → apex /org-login redirect ---
+  # Subdomain → apex /org-login, preserving host and next path+query
+  RewriteCond %{HTTP_HOST} !^eitake\.app$ [NC]
+  RewriteCond %{HTTP_HOST} \.eitake\.app$ [NC]
+  # Build the next param: path + (optional) ?query
+  RewriteCond %{QUERY_STRING} (.+) [OR]
+  RewriteCond %{QUERY_STRING} ^$
+  RewriteRule ^ https://eitake.app/org-login?host=%{HTTP_HOST}&next=%{REQUEST_URI}%1 [R=302,L,NE]
+
+
+  # Never rewrite asset requests to index.html (serve or 404)
+  RewriteRule ^assets/ - [L]
+
+  # Serve existing files/directories as-is
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # SPA fallback for all other routes
+  RewriteRule . /index.html [L]
+  RewriteRule ^\.well-known/ - [L]
+</IfModule>
+
+# (Optional) Explicit MIME types
+AddType application/javascript .js
+AddType text/css .css

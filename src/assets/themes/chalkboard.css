@@ -1,0 +1,412 @@
+/* ============================================================================
+   EiTake Theme Tokens — DEFAULT (Chalkboard look, role-based tokens)
+   PURPOSE: Tokens are named by USAGE (on what surface), not by color.
+   Swap-friendly: define the same tokens in other themes; components stay dumb.
+   ============================================================================ */
+
+:root {
+  /* =========================
+     THEME META
+     ========================= */
+  --theme-name: "default-chalkboard";
+  --theme-density: "cozy"; /* cozy | compact | spacious */
+
+  /* =========================
+     CORE PALETTE — SMALL, CONSISTENT
+     (Neutrals + semantic accents shared across sections)
+     ========================= */
+  /* Neutrals (oklch/srgb mix friendly; tune per theme) */
+  --neutral-0: #ffffff;
+  --neutral-50: #f6f7f7;
+  --neutral-100: #ecefef;
+  --neutral-200: #dee3e1;
+  --neutral-300: #c9d1cd;
+  --neutral-600: #5a6a62;
+  --neutral-700: #405048;
+  --neutral-800: #263930;
+  --neutral-900: #18261f;
+  --neutral-950: #0f1915;
+
+  /* Semantic accents (limit to 5 for consistency) */
+  --accent-primary: #2aa9ff; /* links, highlights */
+  --accent-secondary: #00e0b8; /* supportive UI */
+  --accent-success: #21c463;
+  --accent-warning: #ffd200;
+  --accent-danger: #ff2f53;
+
+  /* Elevation / radii / focus */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --elevation-1: 0 3px 10px rgba(0, 0, 0, 0.12);
+  --elevation-2: 0 8px 20px rgba(0, 0, 0, 0.16);
+  --elevation-3: 0 14px 34px rgba(0, 0, 0, 0.18);
+
+  --ring-offset: 2px;
+  --focus-ring: 0 0 0 var(--ring-offset) var(--neutral-0),
+    0 0 0 calc(var(--ring-offset) + 2px) var(--accent-primary);
+
+  /* =========================
+     GLOBAL BACKGROUND (App canvas)
+     User-customizable: can be a textured green board, flat pink, or any image.
+     ========================= */
+  --bg-app-color: #2b5f4a;
+  --bg-app-image: url("@/assets/images/backgrounds/asfalt-light.png"); /* grain */
+  --bg-app-gradient-top: radial-gradient(
+    1100px 600px at 120% -10%,
+    rgba(255, 255, 255, 0.14) 0%,  
+    transparent 60%                
+  );
+  --bg-app-gradient-bottom: radial-gradient(
+    900px 500px at -10% 120%,
+    rgba(255, 255, 255, 0.20) 0%,
+    transparent 50%                
+  );
+  --bg-app-repeat: repeat, no-repeat, no-repeat, no-repeat;
+  --bg-app-size: 440px 440px, auto, auto, auto;
+  --bg-app-blend: soft-light, screen, screen, normal; /* was soft-light, normal, normal, normal */
+  --bg-app-attachment: fixed, fixed, fixed, fixed;
+
+  /* =========================
+     MAIN (TEXT OVER GLOBAL BACKGROUND)
+     Used on views that sit directly on the global background.
+     Controls color, font, size, shadows, etc.
+     ========================= */
+  --main-title-color: #ffffff;
+  --main-title-font: ui-sans-serif, system-ui, -apple-system, "Inter",
+    "Segoe UI", Roboto, Arial, sans-serif;
+  --main-title-size: clamp(20px, 3.2vw, 36px);
+  --main-title-shadow: 0 2px 0 rgba(0, 0, 0, 0.45),
+    0 10px 24px rgba(0, 0, 0, 0.25);
+
+  --main-subtitle-color: color-mix(in srgb, var(--neutral-0) 92%, transparent);
+  --main-subtitle-font: var(--main-title-font);
+  --main-subtitle-size: clamp(12px, 1.3vw, 16px);
+  --main-subtitle-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+
+  --main-text-color: #e7f0ec; /* regular body */
+  --main-text-soft: #a9c2b8; /* lower emphasis */
+  --main-text-emphasis: var(--accent-secondary);
+  --main-link-color: var(--accent-primary);
+
+  /* =========================
+     MODAL / POP-UP SYSTEM
+     (Self-contained for contrast regardless of global bg)
+     ========================= */
+  --modal-surface: var(--neutral-0);
+  --modal-on-surface: #13201a;
+  --modal-on-surface-soft: #536660;
+  --modal-on-surface-muted: #7b8d88;
+  --modal-border: rgba(0, 0, 0, 0.16);
+  --modal-shadow: var(--elevation-3);
+  --modal-radius: var(--radius-xl);
+
+  --modal-overlay-bg: color-mix(in srgb, #000 55%, transparent); /* backdrop */
+  --modal-overlay-filter: blur(2px) saturate(110%);
+
+  /* Pop-up specific accents & destructive */
+  --modal-accent: var(--accent-primary);
+  --modal-accent-2: var(--accent-secondary);
+  --modal-danger: var(--accent-danger);
+
+  /* Close button (red) */
+  --modal-close-bg: var(--modal-danger);
+  --modal-close-on: #fff;
+  --modal-close-border: color-mix(in srgb, var(--modal-danger) 70%, #000 30%);
+
+  /* =========================
+     TABLES (Users list, Admin panel, etc.)
+     ========================= */
+  --table-surface: var(--neutral-0);
+  --table-on-surface: #192822;
+  --table-muted: #6f847c;
+  --table-header-surface: var(--neutral-100);
+  --table-row-hover: var(--neutral-50);
+  --table-border: rgba(0, 0, 0, 0.14);
+  --table-zebra: var(--neutral-50);
+  --table-radius: var(--radius-md);
+  --table-shadow: var(--elevation-1);
+
+  /* =========================
+     FEATURE SECTIONS (Cards)
+     Each has surface, text, border, shadow, chip (pill), and accent.
+     ========================= */
+
+  /* Textbook */
+  --textbook-surface: var(--neutral-0);
+  --textbook-on-surface: #18261f;
+  --textbook-border: rgba(0, 0, 0, 0.14);
+  --textbook-shadow: var(--elevation-1);
+  --textbook-accent: var(--accent-primary);
+  --textbook-chip-bg: color-mix(in srgb, var(--accent-primary) 16%, #fff 84%);
+  --textbook-chip-on: #0f1a16;
+
+  /* Activities */
+  --activities-surface: var(--neutral-0);
+  --activities-on-surface: #18261f;
+  --activities-border: rgb(215, 30, 30);
+  --activities-shadow: var(--elevation-1);
+  --activities-accent: var(--accent-secondary);
+  --activities-chip-bg: color-mix(
+    in srgb,
+    var(--accent-secondary) 16%,
+    #fff 84%
+  );
+  --activities-chip-on: #0f1a16;
+  --activities-chip-new: color-mix(in srgb, var(--accent-warning) 55%, var(--accent-success) 45%); /* yellow-green */
+  --activities-chip-xp:  color-mix(in srgb, var(--accent-primary) 60%, #8b5cf6 40%);   
+
+  /* Decks */
+  --decks-surface: var(--neutral-0);
+  --decks-on-surface: #18261f;
+  --decks-border: rgba(255, 188, 32, 0.68);
+  --decks-shadow: var(--elevation-1);
+  --decks-accent: var(--accent-warning);
+
+  /* Chips (unchanged) */
+  --decks-chip-bg: color-mix(in srgb, var(--accent-warning) 16%, #fff 84%);
+  --decks-chip-on: #3d3300;
+
+  /* Pills (brighter border + stronger contrast) */
+  --decks-pill-surface: color-mix(in srgb, var(--accent-warning) 28%, #fff 72%);
+  --decks-pill-border: color-mix(
+    in srgb,
+    var(--accent-warning) 72%,
+    #fff 28%
+  ); /* brighter edge */
+  --decks-pill-on: #1f1600; /* deeper text for contrast */
+
+  /* Flashcards */
+  --flashcards-surface: var(--neutral-0);
+  --flashcards-on-surface: #0f1412;
+  --flashcards-border: color-mix(
+    in srgb,
+    var(--accent-primary) 58%,
+    var(--accent-secondary) 42%
+  );
+  --flashcards-english: var(--flashcards-border);
+  --flashcards-shadow: var(--elevation-2);
+  --flashcards-accent: var(--accent-secondary);
+  --flashcards-chip-bg: color-mix(
+    in srgb,
+    var(--accent-secondary) 20%,
+    #fff 80%
+  );
+  --flashcards-chip-on: #083a30;
+
+  /* =========================
+   DECK VIEWER (tokens scoped to DeckViewer UI)
+   ========================= */
+  --deckviewer-button-outline: #000000; /* high-contrast outline for buttons/pills */
+  --deckviewer-btn-primary-bg: var(--btn-primary-bg);
+  --deckviewer-btn-primary-bg-hover: color-mix(
+    in srgb,
+    var(--btn-primary-bg) 50%,
+    var(--neutral-0) 50%
+  );
+  --deckviewer-btn-primary-on: #fff;
+  --deckviewer-btn-primary-on-hover: #fff;
+
+  --deckviewer-btn-disabled-bg: var(--neutral-300);
+  --deckviewer-btn-disabled-on: var(--neutral-700);
+
+  --deckviewer-add-btn-bg: color-mix(
+    in srgb,
+    var(--accent-success) 82%,
+    #000 18%
+  ); /* deep green */
+  --deckviewer-title-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+  --deckviewer-shadow-color: #000; /* base color for composite shadows */
+
+  /* =========================
+     CUSTOM DECK (special buttons & expands)
+     ========================= */
+  --customdeck-button-bg: #ff4d5a;
+  --customdeck-button-on: #ffffff;
+  --customdeck-button-border: rgba(0, 0, 0, 0.15);
+  --customdeck-dots: #ffc1c6;
+
+  --customdeck-expand-bg: color-mix(
+    in srgb,
+    var(--accent-secondary) 14%,
+    #fff 86%
+  );
+  --customdeck-expand-on: #0f231f;
+  --customdeck-expand-border: color-mix(
+    in srgb,
+    var(--accent-secondary) 35%,
+    #000 65%
+  );
+
+  /* =========================
+   APP HEADER
+   ========================= */
+  --header-surface: linear-gradient(0deg, #ffe7d1, #d9fff6);
+  --header-on-surface: #3a1f1a;
+  --header-accent: #ffd166;
+  --header-border-color: var(--header-accent);
+  --header-border-width: 5px;
+  --header-shadow: var(--elevation-1);
+
+  /* Two-tone grid overlay line color */
+  --header-grid-color: color-mix(
+    in srgb,
+    var(--header-on-surface) 12%,
+    transparent
+  );
+
+  /* Header buttons (base + hover text) */
+  --header-btn-bg: var(--neutral-0);
+  --header-btn-text: #1c2b25;
+  --header-btn-text-hover: #0f1f19; /* darker ink for hover if the fill gets light */
+  --header-btn-border-color: var(--header-border-color);
+  --header-btn-hover: var(--neutral-300);
+
+  /* Header button fill - rainbow gradient  */
+  --header-btn-fill: linear-gradient(
+    135deg,
+    color(srgb 1 0.71451 0.833922),
+    color(srgb 1 0.861373 0.758431),
+    color(srgb 1 0.938235 0.65),
+    color(srgb 0.65 0.957451 0.902549),
+    color(srgb 0.707647 0.881961 1),
+    color(srgb 0.840784 0.776275 1)
+  );
+
+  /* Logout button: default color + hover fill + text colors */
+  --logout-btn-bg: var(--neutral-100); /* default (non-filled) */
+  --logout-btn-on: #000000;
+  --logout-btn-on-hover: #ffffff;
+
+  --logout-fill-start: color-mix(
+    in srgb,
+    var(--accent-danger) 30%,
+    var(--neutral-0) 70%
+  );
+  --logout-fill-mid: var(--accent-danger);
+  --logout-fill-end: color-mix(
+    in srgb,
+    var(--accent-danger) 80%,
+    var(--neutral-900) 20%
+  );
+  --logout-btn-fill: linear-gradient(
+    90deg,
+    var(--logout-fill-start),
+    var(--logout-fill-mid) 60%,
+    var(--logout-fill-end)
+  );
+
+  /* Role-specific chips (palette-based, distinct per role) */
+  --chip-dev-bg: color-mix(
+    in srgb,
+    var(--accent-primary) 22%,
+    var(--neutral-0) 78%
+  );
+  --chip-dev-on: #0b1620;
+  --chip-dev-border: color-mix(in srgb, var(--accent-primary) 40%, #000 60%);
+
+  --chip-admin-bg: color-mix(
+    in srgb,
+    var(--accent-secondary) 22%,
+    var(--neutral-0) 78%
+  );
+  --chip-admin-on: #07221c;
+  --chip-admin-border: color-mix(
+    in srgb,
+    var(--accent-secondary) 40%,
+    #000 60%
+  );
+
+  --chip-teacher-bg: color-mix(
+    in srgb,
+    var(--accent-primary) 14%,
+    var(--neutral-100) 86%
+  );
+  --chip-teacher-on: #0f2030;
+  --chip-teacher-border: color-mix(
+    in srgb,
+    var(--accent-primary) 30%,
+    #000 70%
+  );
+
+  --chip-student-bg: color-mix(
+    in srgb,
+    var(--accent-warning) 18%,
+    var(--neutral-0) 82%
+  );
+  --chip-student-on: #3a2a00;
+  --chip-student-border: color-mix(
+    in srgb,
+    var(--accent-warning) 35%,
+    #000 65%
+  );
+
+  /* =========================
+     LEVELS (skills + profile ring)
+     ========================= */
+  --level-reading: #ff2f53;
+  --level-writing: #21c463;
+  --level-listening: #2aa9ff;
+  --level-ring-fill: color-mix(
+    in srgb,
+    var(--level-listening) 12%,
+    var(--neutral-0) 88%
+  );
+  --level-ring-track: var(--neutral-200);
+
+  /* =========================
+     GLOBAL ELEMENTS (chips, buttons)
+     Keep variants minimal: primary, secondary, ghost, success, danger
+     ========================= */
+  /* Role chips */
+  --chip-bg: color-mix(in srgb, var(--accent-secondary) 72%, #fff 28%);
+  --chip-on: #0f231f;
+  --chip-border: rgba(0, 0, 0, 0.14);
+
+  /* Buttons */
+  --btn-primary-bg: var(--accent-primary);
+  --btn-primary-on: #0b1220;
+  --btn-primary-border: color-mix(in srgb, var(--accent-primary) 60%, #000 40%);
+
+  --btn-secondary-bg: var(--accent-secondary);
+  --btn-secondary-on: #07221c;
+  --btn-secondary-border: color-mix(
+    in srgb,
+    var(--accent-secondary) 40%,
+    #000 60%
+  );
+
+  --btn-ghost-bg: var(--neutral-100);
+  --btn-ghost-on: #13201a;
+  --btn-ghost-border: rgba(0, 0, 0, 0.12);
+
+  --btn-success-bg: var(--accent-success);
+  --btn-success-on: #072013;
+  --btn-success-border: color-mix(in srgb, var(--accent-success) 40%, #000 60%);
+
+  --btn-danger-bg: var(--accent-danger);
+  --btn-danger-on: #2a0208;
+  --btn-danger-border: color-mix(in srgb, var(--accent-danger) 40%, #000 60%);
+
+  --select-menu-surface: var(--table-surface);
+  --select-menu-on: var(--table-on-surface);
+  --select-menu-border: var(--table-border);
+  --select-menu-hover: var(--table-row-hover);
+}
+
+/* ============================================================================
+   RENDERING HOOKS (small, stable utilities that read the tokens above)
+   ============================================================================ */
+
+/* Global app background utility */
+.app-bg {
+  min-height: 100vh;
+  background: var(--bg-app-image), var(--bg-app-gradient-top),
+    var(--bg-app-gradient-bottom), var(--bg-app-color);
+  background-repeat: var(--bg-app-repeat);
+  background-size: var(--bg-app-size);
+  background-blend-mode: var(--bg-app-blend);
+  background-attachment: var(--bg-app-attachment);
+}

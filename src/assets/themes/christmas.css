@@ -1,0 +1,428 @@
+/* ============================================================================
+   EiTake Theme Tokens — CHRISTMAS CANDY CANE THEME
+   Same token names as default-chalkboard, recolored to red/white/green.
+   ============================================================================ */
+
+:root {
+  /* =========================
+     THEME META
+     ========================= */
+  --theme-name: "christmas-candycane";
+  --theme-density: "cozy"; /* cozy | compact | spacious */
+
+  /* =========================
+     CORE PALETTE — SMALL, CONSISTENT
+     (Neutrals + semantic accents shared across sections)
+     ========================= */
+  /* Neutrals (slightly warm to fit red/white theme) */
+  --neutral-0: #ffffff;
+  --neutral-50: #fdf8f8;
+  --neutral-100: #f8f0f0;
+  --neutral-200: #f0e0e0;
+  --neutral-300: #e1c7c7;
+  --neutral-600: #7a4040;
+  --neutral-700: #5b2c2c;
+  --neutral-800: #3e1c1c;
+  --neutral-900: #271010;
+  --neutral-950: #190808;
+
+  /* Semantic accents – dark Christmas reds + evergreen + gold */
+  --accent-primary: #8b0016; /* deep candy red (main accent) */
+  --accent-secondary: #0b6b3f; /* evergreen */
+  --accent-success: #0fa45b; /* bright holly green */
+  --accent-warning: #f6c447; /* warm Christmas gold */
+  --accent-danger: #b0001c; /* rich wine red */
+
+  /* Elevation / radii / focus */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --elevation-1: 0 3px 10px rgba(0, 0, 0, 0.14);
+  --elevation-2: 0 8px 20px rgba(0, 0, 0, 0.18);
+  --elevation-3: 0 14px 34px rgba(0, 0, 0, 0.22);
+
+  --ring-offset: 2px;
+  --focus-ring: 0 0 0 var(--ring-offset) var(--neutral-0),
+    0 0 0 calc(var(--ring-offset) + 2px) var(--accent-primary);
+
+  /* =========================
+   GLOBAL BACKGROUND — LIGHT RED → PINK CIRCULAR GRADIENT
+   ========================= */
+
+  --bg-app-color: #f7b4c0; /* fallback soft pink-red base */
+
+  --bg-app-image: radial-gradient(
+    circle at center,
+    #ffd6de 0%,
+    /* very light pink center */ #ffadb8 45%,
+    /* soft pink */ #e36b78 80%,
+    /* warm rose red */ #c03b47 100% /* deeper festive red */
+  );
+
+  --bg-app-gradient-top: none;
+  --bg-app-gradient-bottom: none;
+
+  --bg-app-repeat: no-repeat;
+  --bg-app-size: cover;
+  --bg-app-blend: normal;
+  --bg-app-attachment: fixed;
+
+  /* =========================
+     MAIN (TEXT OVER GLOBAL BACKGROUND)
+     ========================= */
+  --main-title-color: #ffffff;
+  --main-title-font: ui-sans-serif, system-ui, -apple-system, "Inter",
+    "Segoe UI", Roboto, Arial, sans-serif;
+  --main-title-size: clamp(20px, 3.2vw, 36px);
+  --main-title-shadow: 0 2px 0 rgba(0, 0, 0, 0.6),
+    0 12px 26px rgba(0, 0, 0, 0.4);
+
+  --main-subtitle-color: color-mix(in srgb, var(--neutral-0) 94%, transparent);
+  --main-subtitle-font: var(--main-title-font);
+  --main-subtitle-size: clamp(12px, 1.3vw, 16px);
+  --main-subtitle-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+
+  --main-text-color: #fff8f8; /* regular body on red bg */
+  --main-text-soft: #f4d3d3; /* lower emphasis */
+  --main-text-emphasis: var(--accent-secondary);
+  --main-link-color: var(--accent-primary);
+
+  /* =========================
+     MODAL / POP-UP SYSTEM
+     ========================= */
+  --modal-surface: var(--neutral-0);
+  --modal-on-surface: #2f1214; /* dark cherry */
+  --modal-on-surface-soft: #7b4a4d; /* muted berry */
+  --modal-on-surface-muted: #a26d6f; /* lighter berry */
+  --modal-border: rgba(139, 0, 22, 0.45); /* clearly red-tinted border */
+  --modal-shadow: var(--elevation-3);
+  --modal-radius: var(--radius-xl);
+
+  --modal-overlay-bg: color-mix(in srgb, #000 55%, transparent); /* backdrop */
+  --modal-overlay-filter: blur(2px) saturate(115%);
+
+  /* Pop-up specific accents & destructive */
+  --modal-accent: var(--accent-primary);
+  --modal-accent-2: var(--accent-secondary);
+  --modal-danger: var(--accent-danger);
+
+  /* Close button (deep red) */
+  --modal-close-bg: var(--modal-danger);
+  --modal-close-on: #ffffff;
+  --modal-close-border: color-mix(in srgb, var(--modal-danger) 70%, #000 30%);
+
+  /* =========================
+     TABLES (Users list, Admin panel, etc.)
+     ========================= */
+  --table-surface: var(--neutral-0);
+  --table-on-surface: #3a1818;
+  --table-muted: #8b5e5e;
+  --table-header-surface: var(--neutral-100);
+  --table-row-hover: var(--neutral-50);
+  --table-border: rgba(139, 0, 22, 0.3); /* red outline */
+  --table-zebra: var(--neutral-50);
+  --table-radius: var(--radius-md);
+  --table-shadow: var(--elevation-1);
+
+  /* =========================
+     FEATURE SECTIONS (Cards)
+     ========================= */
+
+  /* Textbook */
+  --textbook-surface: var(--neutral-0);
+  --textbook-on-surface: #351414;
+  --textbook-border: rgba(139, 0, 22, 0.35); /* red frame */
+  --textbook-shadow: var(--elevation-1);
+  --textbook-accent: var(--accent-primary);
+  --textbook-chip-bg: color-mix(in srgb, var(--accent-primary) 22%, #fff 78%);
+  --textbook-chip-on: #3b1010;
+
+  /* Activities */
+  --activities-surface: var(--neutral-0);
+  --activities-on-surface: #351414;
+  --activities-border: color-mix(
+    in srgb,
+    var(--accent-secondary) 65%,
+    #000 35%
+  );
+  --activities-shadow: var(--elevation-1);
+  --activities-accent: var(--accent-secondary);
+  --activities-chip-bg: color-mix(
+    in srgb,
+    var(--accent-secondary) 20%,
+    #fff 80%
+  );
+  --activities-chip-on: #0f2317;
+  --activities-chip-new: color-mix(
+    in srgb,
+    var(--accent-warning) 60%,
+    var(--accent-success) 40%
+  ); /* gold + green */
+  --activities-chip-xp: color-mix(
+    in srgb,
+    var(--accent-primary) 65%,
+    #7f5af0 35%
+  ); /* red + violet for XP */
+
+  /* Decks */
+  --decks-surface: var(--neutral-0);
+  --decks-on-surface: #351414;
+  --decks-border: color-mix(
+    in srgb,
+    var(--accent-warning) 70%,
+    var(--accent-primary) 30%
+  ); /* gold-red trim */
+  --decks-shadow: var(--elevation-1);
+  --decks-accent: var(--accent-warning);
+
+  /* Chips */
+  --decks-chip-bg: color-mix(in srgb, var(--accent-warning) 24%, #fff 76%);
+  --decks-chip-on: #473000;
+
+  /* Pills */
+  --decks-pill-surface: color-mix(in srgb, var(--accent-warning) 32%, #fff 68%);
+  --decks-pill-border: color-mix(
+    in srgb,
+    var(--accent-warning) 78%,
+    #fff 22%
+  ); /* bright golden edge */
+  --decks-pill-on: #3a2700; /* deeper text for contrast */
+
+  /* Flashcards */
+  --flashcards-surface: var(--neutral-0);
+  --flashcards-on-surface: #2c1313;
+  --flashcards-border: color-mix(
+    in srgb,
+    var(--accent-primary) 60%,
+    var(--accent-secondary) 40%
+  ); /* red + green */
+  --flashcards-english: var(--flashcards-border);
+  --flashcards-shadow: var(--elevation-2);
+  --flashcards-accent: var(--accent-secondary);
+  --flashcards-chip-bg: color-mix(
+    in srgb,
+    var(--accent-secondary) 22%,
+    #fff 78%
+  );
+  --flashcards-chip-on: #0b2416;
+
+  /* =========================
+   DECK VIEWER (tokens scoped to DeckViewer UI)
+   ========================= */
+  --deckviewer-button-outline: #000000; /* high-contrast outline for buttons/pills */
+  --deckviewer-btn-primary-bg: var(--btn-primary-bg);
+  --deckviewer-btn-primary-bg-hover: color-mix(
+    in srgb,
+    var(--btn-primary-bg) 55%,
+    var(--neutral-0) 45%
+  );
+  --deckviewer-btn-primary-on: #ffffff;
+  --deckviewer-btn-primary-on-hover: #ffffff;
+
+  --deckviewer-btn-disabled-bg: var(--neutral-300);
+  --deckviewer-btn-disabled-on: var(--neutral-700);
+
+  --deckviewer-add-btn-bg: color-mix(
+    in srgb,
+    var(--accent-success) 82%,
+    #000 18%
+  ); /* deep festive green */
+  --deckviewer-title-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  --deckviewer-shadow-color: #000; /* base color for composite shadows */
+
+  /* =========================
+     CUSTOM DECK (special buttons & expands)
+     ========================= */
+  --customdeck-button-bg: #8b0016; /* bold candy red */
+  --customdeck-button-on: #ffffff;
+  --customdeck-button-border: rgba(0, 0, 0, 0.18);
+  --customdeck-dots: #ffe0e5; /* pale pink dots */
+
+  --customdeck-expand-bg: color-mix(
+    in srgb,
+    var(--accent-secondary) 24%,
+    #fff 76%
+  );
+  --customdeck-expand-on: #122219;
+  --customdeck-expand-border: color-mix(
+    in srgb,
+    var(--accent-secondary) 42%,
+    #000 58%
+  );
+
+    /* =========================
+     APP HEADER — SOFT WHITE WITH SNOW DOTS
+     ========================= */
+
+  --header-surface: 
+    radial-gradient(circle at 20% 30%, rgba(220, 220, 220, 0.25) 0px, transparent 8px),
+    radial-gradient(circle at 70% 60%, rgba(210, 210, 210, 0.22) 0px, transparent 9px),
+    radial-gradient(circle at 40% 80%, rgba(200, 200, 200, 0.18) 0px, transparent 10px),
+    #ffffff; /* base background */
+
+  /* Text inside banner */
+  --header-on-surface: #381112;
+
+  /* Border + shadow unchanged */
+  --header-border-color: #8b0016;
+  --header-border-width: 5px;
+  --header-shadow: var(--elevation-1);
+
+  /* Snow dot pattern size */
+  --header-bg-size: auto;
+
+  /* =========================
+     HEADER BUTTONS — RED ➜ PINK GRADIENT
+     ========================= */
+
+  --header-btn-fill: linear-gradient(
+    135deg,
+    #cc0022 0%,   /* red */
+    #ff4a6e 45%,  /* medium pink */
+    #ff8faf 100%  /* soft candy pink */
+  );
+
+  --header-btn-bg: var(--neutral-0);
+  --header-btn-text: #3a1616;
+  --header-btn-text-hover: #270d0d;
+  --header-btn-border-color: var(--header-border-color);
+  --header-btn-hover: var(--neutral-200);
+
+  /* Logout button: red gradient */
+  --logout-btn-bg: var(--neutral-100);
+  --logout-btn-on: #2b1010;
+  --logout-btn-on-hover: #ffffff;
+
+  --logout-fill-start: color-mix(
+    in srgb,
+    var(--accent-danger) 30%,
+    var(--neutral-0) 70%
+  );
+  --logout-fill-mid: var(--accent-danger);
+  --logout-fill-end: color-mix(
+    in srgb,
+    var(--accent-danger) 80%,
+    var(--neutral-900) 20%
+  );
+  --logout-btn-fill: linear-gradient(
+    90deg,
+    var(--logout-fill-start),
+    var(--logout-fill-mid) 60%,
+    var(--logout-fill-end)
+  );
+
+  /* Role-specific chips (palette-based, distinct per role) */
+  --chip-dev-bg: color-mix(
+    in srgb,
+    var(--accent-primary) 24%,
+    var(--neutral-0) 76%
+  );
+  --chip-dev-on: #3b1111;
+  --chip-dev-border: color-mix(in srgb, var(--accent-primary) 40%, #000 60%);
+
+  --chip-admin-bg: color-mix(
+    in srgb,
+    var(--accent-secondary) 24%,
+    var(--neutral-0) 76%
+  );
+  --chip-admin-on: #0f2619;
+  --chip-admin-border: color-mix(
+    in srgb,
+    var(--accent-secondary) 40%,
+    #000 60%
+  );
+
+  --chip-teacher-bg: color-mix(
+    in srgb,
+    var(--accent-primary) 16%,
+    var(--neutral-100) 84%
+  );
+  --chip-teacher-on: #3b1818;
+  --chip-teacher-border: color-mix(
+    in srgb,
+    var(--accent-primary) 30%,
+    #000 70%
+  );
+
+  --chip-student-bg: color-mix(
+    in srgb,
+    var(--accent-warning) 20%,
+    var(--neutral-0) 80%
+  );
+  --chip-student-on: #4a3200;
+  --chip-student-border: color-mix(
+    in srgb,
+    var(--accent-warning) 35%,
+    #000 65%
+  );
+
+  /* =========================
+     LEVELS (skills + profile ring)
+     ========================= */
+  --level-reading: #8b0016; /* red */
+  --level-writing: #0fa45b; /* green */
+  --level-listening: #2b86ff; /* cool winter blue */
+  --level-ring-fill: color-mix(
+    in srgb,
+    var(--level-listening) 14%,
+    var(--neutral-0) 86%
+  );
+  --level-ring-track: var(--neutral-200);
+
+  /* =========================
+     GLOBAL ELEMENTS (chips, buttons)
+     ========================= */
+  /* Role chips */
+  --chip-bg: color-mix(in srgb, var(--accent-secondary) 72%, #fff 28%);
+  --chip-on: #0f2319;
+  --chip-border: rgba(0, 0, 0, 0.14);
+
+  /* Buttons */
+  --btn-primary-bg: var(--accent-primary);
+  --btn-primary-on: #ffffff;
+  --btn-primary-border: color-mix(in srgb, var(--accent-primary) 60%, #000 40%);
+
+  --btn-secondary-bg: var(--accent-secondary);
+  --btn-secondary-on: #ffffff;
+  --btn-secondary-border: color-mix(
+    in srgb,
+    var(--accent-secondary) 45%,
+    #000 55%
+  );
+
+  --btn-ghost-bg: var(--neutral-100);
+  --btn-ghost-on: #3b1818;
+  --btn-ghost-border: rgba(0, 0, 0, 0.12);
+
+  --btn-success-bg: var(--accent-success);
+  --btn-success-on: #ffffff;
+  --btn-success-border: color-mix(in srgb, var(--accent-success) 45%, #000 55%);
+
+  --btn-danger-bg: var(--accent-danger);
+  --btn-danger-on: #ffffff;
+  --btn-danger-border: color-mix(in srgb, var(--accent-danger) 45%, #000 55%);
+
+  --select-menu-surface: var(--table-surface);
+  --select-menu-on: var(--table-on-surface);
+  --select-menu-border: var(--table-border);
+  --select-menu-hover: var(--table-row-hover);
+}
+
+/* ============================================================================
+   RENDERING HOOKS (small, stable utilities that read the tokens above)
+   ============================================================================ */
+
+/* Global app background utility */
+.app-bg {
+  min-height: 100vh;
+  background: var(--bg-app-image), var(--bg-app-gradient-top),
+    var(--bg-app-gradient-bottom), var(--bg-app-color);
+  background-repeat: var(--bg-app-repeat);
+  background-size: var(--bg-app-size);
+  background-blend-mode: var(--bg-app-blend);
+  background-attachment: var(--bg-app-attachment);
+  background-position: center center, /* stripes */ center top,
+    /* top glow */ center bottom, /* bottom glow */ center center; /* base color */
+}

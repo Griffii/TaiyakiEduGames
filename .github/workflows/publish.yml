@@ -1,0 +1,44 @@
+name: Build and publish dist to build branch
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Verify env present
+        run: |
+          test -n "$VITE_SUPABASE_URL" && test -n "$VITE_SUPABASE_ANON_KEY" || (echo "::error::Missing VITE_ envs" && exit 1)
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Publish dist/ to build branch
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: build
+          FOLDER: dist
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Build: ({sha}) {msg}"
