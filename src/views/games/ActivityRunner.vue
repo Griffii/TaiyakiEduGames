@@ -71,13 +71,10 @@
 </template>
 
 <script setup lang="ts">
-
 import { onMounted, onBeforeUnmount, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase'
 import type { PostgrestMaybeSingleResponse } from '@supabase/supabase-js'
-
-
 
 type DBActivity = {
   id: string
@@ -94,19 +91,19 @@ type DBActivity = {
   archived_at: string | null
 }
 
-type MetaActivity = Partial<Pick<DBActivity,'slug'|'name'|'external_url'|'url_path'|'tags'>> & { title?: string }
+type MetaActivity = Partial<
+  Pick<DBActivity, 'slug' | 'name' | 'external_url' | 'url_path' | 'tags'>
+> & { title?: string }
 
 const route = useRoute()
 const frameEl = ref<HTMLIFrameElement | null>(null)
 const frameWrap = ref<HTMLElement | null>(null)
 
-
-const GAMES_BASE = (import.meta.env.VITE_GAMES_BASE as string) || 'https://games.eitake.app'
-
 // Route params: support either /activities/:slug or /activities/:id
-const routeSlug = computed(() => (route.params.slug as string | undefined))
-const routeId = computed(() => (route.params.id as string | undefined))
-const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+const routeSlug = computed(() => route.params.slug as string | undefined)
+const routeId = computed(() => route.params.id as string | undefined)
+const uuidRegex =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 // Meta fallback (if a parent set route.meta.activity)
 const meta = (route.meta as Record<string, unknown>) ?? {}
@@ -132,22 +129,26 @@ async function loadActivity() {
   try {
     let resp: PostgrestMaybeSingleResponse<DBActivity>
 
-if (uuidRegex.test(key)) {
-  resp = await supabase
-    .from('activities')
-    .select('id,slug,name,type,url_path,external_url,icon_url,thumbnail_url,tags,launch_params,status,archived_at')
-    .eq('id', key)
-    .maybeSingle()
-} else {
-  resp = await supabase
-    .from('activities')
-    .select('id,slug,name,type,url_path,external_url,icon_url,thumbnail_url,tags,launch_params,status,archived_at')
-    .eq('slug', key)
-    .maybeSingle()
-}
+    if (uuidRegex.test(key)) {
+      resp = await supabase
+        .from('activities')
+        .select(
+          'id,slug,name,type,url_path,external_url,icon_url,thumbnail_url,tags,launch_params,status,archived_at',
+        )
+        .eq('id', key)
+        .maybeSingle()
+    } else {
+      resp = await supabase
+        .from('activities')
+        .select(
+          'id,slug,name,type,url_path,external_url,icon_url,thumbnail_url,tags,launch_params,status,archived_at',
+        )
+        .eq('slug', key)
+        .maybeSingle()
+    }
 
-if (resp.error) throw resp.error
-dbActivity.value = resp.data ?? null
+    if (resp.error) throw resp.error
+    dbActivity.value = resp.data ?? null
 
     if (!dbActivity.value) {
       error.value = 'Activity not found.'
@@ -166,22 +167,31 @@ watch([routeSlug, routeId], () => loadActivity())
 function parseQueryTags(): string[] {
   const q = route.query?.tags
   if (!q) return []
-  if (Array.isArray(q)) return q.flatMap(s => String(s).split(',')).map(s => s.trim()).filter(Boolean)
-  return String(q).split(',').map(s => s.trim()).filter(Boolean)
+  if (Array.isArray(q))
+    return q
+      .flatMap((s) => String(s).split(','))
+      .map((s) => s.trim())
+      .filter(Boolean)
+  return String(q)
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
 }
 
 /** Title: prefer DB name → meta name/title → slug prettified */
-const title = computed(() =>
-  dbActivity.value?.name
-  ?? metaActivity?.name
-  ?? (metaActivity?.title || undefined)
-  ?? (routeSlug.value ? routeSlug.value.replace(/-/g, ' ') : 'Activity')
+const title = computed(
+  () =>
+    dbActivity.value?.name ??
+    metaActivity?.name ??
+    metaActivity?.title ??
+    (routeSlug.value ? routeSlug.value.replace(/-/g, ' ') : 'Activity'),
 )
 
 /** Tags: prefer DB tags → meta tags → query tags */
 const tags = computed<string[]>(() =>
-  (dbActivity.value?.tags ?? metaActivity?.tags ?? parseQueryTags() ?? [])
-    .filter(Boolean)
+  (dbActivity.value?.tags ?? metaActivity?.tags ?? parseQueryTags() ?? []).filter(
+    Boolean,
+  ),
 )
 
 /** Absolute URL normalizer with trailing slash for folders */
@@ -190,16 +200,24 @@ function toAbsoluteExternal(raw?: string | null): string {
   let s = String(raw).trim()
   if (!s) return ''
 
-  if (/^[a-z][a-z0-9+\-.]*:\/\//i.test(s)) return s     // http(s)...
-  if (/^[a-z][a-z0-9+\-.]*:/i.test(s)) return s         // other schemes
-  if (s.startsWith('//')) return (window.location?.protocol || 'https:') + s
+  // Full URLs or other schemes
+  if (/^[a-z][a-z0-9+\-.]*:\/\//i.test(s)) return s // http(s)...
+  if (/^[a-z][a-z0-9+\-.]*:/i.test(s)) return s // other schemes
+
+  // Protocol-relative
+  if (s.startsWith('//'))
+    return (window.location?.protocol || 'https:') + s
+
+  // Domain-like => assume https
   if (/^[\w.-]+\.[a-z]{2,}([/:?#]|$)/i.test(s)) s = 'https://' + s
 
   try {
     const u = new URL(s, window.location.origin)
-    const last = (u.pathname.split('/').pop() || '')
+    const last = u.pathname.split('/').pop() || ''
     const hasExt = /\.[a-z0-9]+$/i.test(last)
-    if (!hasExt && !u.search && !u.hash && !u.pathname.endsWith('/')) u.pathname += '/'
+    if (!hasExt && !u.search && !u.hash && !u.pathname.endsWith('/')) {
+      u.pathname += '/'
+    }
     return u.toString()
   } catch {
     return s
@@ -207,33 +225,48 @@ function toAbsoluteExternal(raw?: string | null): string {
 }
 
 /** Slug for fallback URL derivation */
-const effectiveSlug = computed(() =>
-  dbActivity.value?.slug || routeSlug.value || metaActivity?.slug || 'activity'
+const effectiveSlug = computed(
+  () => dbActivity.value?.slug || routeSlug.value || metaActivity?.slug || 'activity',
 )
 
 /** iframe URL priority:
- *  1) DB external_url
+ *  1) DB external_url          (full http(s) URLs, if set)
  *  2) meta external_url
- *  3) ?url= query
- *  4) derived from slug + GAMES_BASE
+ *  3) ?url= query              (manual override)
+ *  4) local Godot export under the app base:
+ *     <BASE_URL>/godot_games/:slug/index.html
  */
-const rawExternal = computed(() =>
-  dbActivity.value?.external_url
-    ?? metaActivity?.external_url
-    ?? (route.query.url as string | undefined)
-    ?? `${GAMES_BASE.replace(/\/+$/, '')}/${effectiveSlug.value}/`
-)
+const rawExternal = computed(() => {
+  // 1–3: explicit full URLs, if provided
+  const explicit =
+    dbActivity.value?.external_url ??
+    metaActivity?.external_url ??
+    (route.query.url as string | undefined)
+
+  if (explicit) return explicit
+
+  // 4: local fallback (public/godot_games/<slug>/index.html)
+  const base = import.meta.env.BASE_URL.replace(/\/+$/, '') // e.g. '/TaiyakiEduGames'
+  const slug = effectiveSlug.value || 'activity'
+  return `${base}/godot_games/${slug}/index.html`
+})
+
 const iframeSrc = computed(() => toAbsoluteExternal(rawExternal.value))
 
 /** postMessage handshake restrictions */
 function originOf(url: string): string | null {
-  try { return new URL(url).origin } catch { return null }
+  try {
+    return new URL(url).origin
+  } catch {
+    return null
+  }
 }
-const ALLOWED_CHILD_ORIGINS = new Set([
-  'https://games.eitake.app',
-  'http://localhost:8788',
-  'http://127.0.0.1:8788',
+
+// Only allow same-origin messages (your GitHub Pages host)
+const ALLOWED_CHILD_ORIGINS = new Set<string>([
+  typeof window !== 'undefined' ? window.location.origin : '',
 ])
+
 const childOrigin = computed(() => {
   const o = originOf(iframeSrc.value)
   return o && ALLOWED_CHILD_ORIGINS.has(o) ? o : null
@@ -246,7 +279,10 @@ function onFrameLoad() {
     activity_id: dbActivity.value?.id || effectiveSlug.value,
     slug: dbActivity.value?.slug || effectiveSlug.value,
   }
-  frameEl.value?.contentWindow?.postMessage({ type: 'parent:init', payload }, childOrigin.value)
+  frameEl.value?.contentWindow?.postMessage(
+    { type: 'parent:init', payload },
+    childOrigin.value,
+  )
 }
 
 type ChildMessage =
@@ -265,7 +301,10 @@ function onMessage(e: MessageEvent<ChildMessage>) {
 
 function requestFullscreen() {
   const target: any = frameEl.value || frameWrap.value || document.documentElement
-  const req = target.requestFullscreen || target.webkitRequestFullscreen || target.msRequestFullscreen
+  const req =
+    target.requestFullscreen ||
+    target.webkitRequestFullscreen ||
+    target.msRequestFullscreen
   if (req) req.call(target)
 }
 
@@ -307,8 +346,9 @@ onBeforeUnmount(() => window.removeEventListener('message', onMessage as any))
   background: #0f0f10;
   border-radius: 16px;
   overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.18);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
 }
 
 /* iFrame fills the wrapper */
@@ -329,17 +369,26 @@ iframe {
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform .06s ease, box-shadow .2s ease, filter .15s ease;
+  transition:
+    transform 0.06s ease,
+    box-shadow 0.2s ease,
+    filter 0.15s ease;
 }
 .btn.primary {
-  background: #22c55e;               /* filled color */
+  background: #22c55e; /* filled color */
   color: #06110a;
   box-shadow: 0 6px 16px rgba(34, 197, 94, 0.35);
 }
-.btn.primary:hover { filter: brightness(1.06); }
-.btn.primary:active { transform: translateY(1px) scale(0.995); }
+.btn.primary:hover {
+  filter: brightness(1.06);
+}
+.btn.primary:active {
+  transform: translateY(1px) scale(0.995);
+}
 .btn.primary:focus-visible {
-  box-shadow: 0 0 0 3px rgba(34,197,94,0.35), 0 6px 16px rgba(34, 197, 94, 0.35);
+  box-shadow:
+    0 0 0 3px rgba(34, 197, 94, 0.35),
+    0 6px 16px rgba(34, 197, 94, 0.35);
 }
 
 /* Under-frame actions */
@@ -357,12 +406,12 @@ iframe {
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 .chip {
-  font-size: .85rem;
+  font-size: 0.85rem;
   line-height: 1;
-  padding: .5rem .65rem;
+  padding: 0.5rem 0.65rem;
   border-radius: 999px;
   color: #e7eefc;
   background: rgba(64, 129, 255, 0.18);
@@ -373,48 +422,53 @@ iframe {
 /* Achievements placeholder */
 .achievements {
   width: min(80vw, 1200px);
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 .section-title {
   color: #fff;
   font-size: 1rem;
   font-weight: 700;
-  margin: 0 0 .5rem 0;
+  margin: 0 0 0.5rem 0;
 }
 .badges {
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(120px, 1fr) );
-  gap: .75rem;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
 }
 .badge {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: .75rem;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   min-height: 100px;
 }
 .badge .icon {
   font-size: 1.6rem;
-  margin-bottom: .35rem;
+  margin-bottom: 0.35rem;
 }
 .badge .label {
-  font-size: .85rem;
+  font-size: 0.85rem;
   color: #cfd6e6;
 }
-.badge.locked { opacity: 0.78; }
+.badge.locked {
+  opacity: 0.78;
+}
 .note {
   display: block;
-  margin-top: .35rem;
+  margin-top: 0.35rem;
   color: #9aa3b2;
 }
 
 /* Empty state */
 .empty {
-  display: flex; align-items: center; justify-content: center;
-  height: 100%; color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #888;
 }
 </style>
