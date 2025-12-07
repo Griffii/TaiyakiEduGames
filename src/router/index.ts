@@ -9,7 +9,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/', redirect: { name: 'dashboard' } }, // default to dashboard
   { path: '/dashboard', name: 'dashboard', component: () => import('@/views/Dashboard.vue') },
   { path: '/login', name: 'login', component: () => import('@/views/Login.vue') },
-  { path: '/reset-password', name: 'reset-password', component: () => import('@/views/ResetPassword.vue'), },
+  { path: '/reset-password', name: 'reset-password', component: () => import('@/views/ResetPassword.vue') },
 
   // Dev views
   { path: '/users', name: 'users', component: () => import('@/views/UsersList.vue'), meta: { authRequired: true, requiresDev: true } },
@@ -48,12 +48,12 @@ const routes: RouteRecordRaw[] = [
             const parsed = JSON.parse(raw)
             cards = parsed.cards || []
             startMode = (route.query.mode as any) || parsed.startMode || 'easy'
-          } catch { }
+          } catch {}
         }
       }
 
       return { cards, deckId: route.params.id as string, startMode }
-    }
+    },
   },
   {
     path: '/spelling-guesser/:id',
@@ -70,13 +70,12 @@ const routes: RouteRecordRaw[] = [
     name: 'sound-matcher',
     component: () => import('@/views/flashcard-system/SoundMatcher.vue'),
     meta: { hideHeader: true },
-    props: true 
+    props: true,
   },
   { path: '/bingo/:id', name: 'bingo', component: () => import('@/views/flashcard-system/Bingo.vue'), meta: { hideHeader: true } },
 
   // Custom Decks Views
   { path: '/custom-decks', name: 'custom-decks', component: () => import('@/views/flashcard-system/CustomDecks.vue'), meta: { authRequired: true } },
-
 
   // Activity related views
   { path: '/activities', name: 'activities', component: () => import('@/views/ActivitiesGrid.vue') },
@@ -93,7 +92,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL), // ⬅️ changed
   routes,
 })
 
@@ -112,10 +111,7 @@ router.beforeEach(async (to) => {
 
   const store = useUserStore()
 
-  //  Do NOT force sign-out on /login; just allow it.
   if (to.name === 'login') {
-    // Optional: if already authed, bounce to where you want.
-    // if (store.session && store.profile?.setup_complete) return { name: 'dashboard' }
     return true
   }
 
@@ -123,26 +119,21 @@ router.beforeEach(async (to) => {
     await store.ensureIdentityLoaded()
   }
 
-  // If a route explicitly requires auth, gate it
   if (to.meta.requiresAuth && !store.session) {
     return { name: 'login', query: { redirect: to.fullPath } }
   }
 
-  // Load profile once you have a session
   if (store.session && !store.profile && !store.loadingProfile) {
     await store.loadProfile()
   }
 
-  // Consider display_name OR name for setup completeness
   const hasName = !!(store.profile?.display_name || store.profile?.name)
   const needsSetup = !!store.profile && (store.profile.setup_complete === false || !hasName)
 
-  // If authed but setup incomplete → send them to /set-up
   if (store.session && needsSetup && to.name !== 'set-up') {
     return { name: 'set-up' }
   }
 
-  // If setup complete and they try to hit /set-up → dash
   if (store.session && !needsSetup && to.name === 'set-up') {
     return { name: 'dashboard' }
   }
@@ -151,7 +142,6 @@ router.beforeEach(async (to) => {
 })
 
 router.afterEach(() => {
-  // Stop loading logic (exactly once per nav)
   if (navInProgress) {
     navInProgress = false
     popLoading()
