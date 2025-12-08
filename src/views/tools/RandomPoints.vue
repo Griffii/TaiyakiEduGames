@@ -1,42 +1,31 @@
 <!-- src/components/RandomPoints.vue -->
 <template>
-  <section
-    class="random-points-page app-bg"
-    :style="rootVars"
-  >
+  <section class="random-points-page app-bg" :style="rootVars">
     <!-- Top Left: Back -->
     <button class="icon-btn back" type="button" @click="onExit" aria-label="Back" title="Back">
       <img class="icon" src="@/assets/images/icons/back-icon.png" alt="" />
     </button>
 
     <!-- Top Right: Settings -->
-    <button
-      class="icon-btn settings"
-      type="button"
-      @click="toggleSettingsMenu"
-      aria-haspopup="dialog"
-      :aria-expanded="showSettings"
-      aria-controls="settings-menu"
-      aria-label="Open settings"
-      title="Settings"
-    >
+    <button class="icon-btn settings" type="button" @click="toggleSettingsMenu" aria-haspopup="dialog"
+      :aria-expanded="showSettings" aria-controls="settings-menu" aria-label="Open settings" title="Settings">
       <img class="icon" src="@/assets/images/icons/settings-icon.png" alt="" />
     </button>
 
+    <!-- Top Right: Mystery Machine button -->
+    <button class="icon-btn mystery" type="button" @click="showMysteryMachine = true" aria-label="Open Mystery Machine"
+      title="Mystery Machine">
+      <img class="icon" src="@/assets/images/games/mystery-machine/mystery-machine-icon.png" alt="">
+    </button>
+
+    <!-- Mystery Machine Modal -->
+    <MysteryMachine v-if="showMysteryMachine" :maxWager="maxWager" @close="onMysteryClosed" />
+
+
+
     <!-- SETTINGS OVERLAY + MENU -->
-    <div
-      v-if="showSettings"
-      class="settings-overlay"
-      role="presentation"
-      @click="showSettings=false"
-    >
-      <div
-        id="settings-menu"
-        class="settings-menu"
-        role="dialog"
-        aria-modal="true"
-        @click.stop
-      >
+    <div v-if="showSettings" class="settings-overlay" role="presentation" @click="showSettings = false">
+      <div id="settings-menu" class="settings-menu" role="dialog" aria-modal="true" @click.stop>
         <h3 class="menu-title">Settings</h3>
 
         <label class="menu-row">
@@ -51,16 +40,12 @@
 
         <label class="menu-row">
           <input type="checkbox" v-model="allowSpecial" />
-          <span>Special Cards (Swap Up/Down/Choice)</span>
+          <span>Mystery Machine Cards</span>
         </label>
 
         <!-- Single toggle button (no 'SFX' label) -->
         <div class="mute-row">
-          <button
-            class="mute-btn"
-            :aria-pressed="sfxMuted"
-            @click="toggleMute"
-          >
+          <button class="mute-btn" :aria-pressed="sfxMuted" @click="toggleMute">
             {{ sfxMuted ? "Unmute SFX" : "Mute SFX" }}
           </button>
         </div>
@@ -72,41 +57,32 @@
     <h1 class="title">Random Points</h1>
 
     <!-- Column labels -->
-    <div
-      class="labels"
-      :style="labelsInlineStyle"
-    >
+    <div class="labels" :style="labelsInlineStyle">
       <div></div>
       <div v-for="label in columnLabels" :key="label" class="label-cell">{{ label }}</div>
     </div>
 
     <!-- Grid -->
-    <div
-      class="grid"
-      :style="gridInlineStyle"
-    >
+    <div class="grid" :style="gridInlineStyle">
       <template v-for="r in rows" :key="`r-${r}`">
         <!-- Row label -->
         <div class="label-cell row">{{ r }}</div>
 
         <!-- Cards -->
         <div v-for="c in cols" :key="`c-${r}-${c}`" class="grid-item">
-          <div
-            class="card"
-            role="button"
-            tabindex="0"
-            @click.stop="reveal(cellAt(r,c))"
-            @keydown.enter.prevent="reveal(cellAt(r,c))"
-            @keydown.space.prevent="reveal(cellAt(r,c))"
-          >
-            <div class="flip-inner" :class="{ revealed: cellAt(r,c).revealed }">
+          <div class="card" :class="{
+            'mystery-card': isSpecial(cellAt(r, c).value),
+            'mystery-card--revealed': isSpecial(cellAt(r, c).value) && cellAt(r, c).revealed
+          }" role="button" tabindex="0" @click.stop="reveal(cellAt(r, c))"
+            @keydown.enter.prevent="reveal(cellAt(r, c))" @keydown.space.prevent="reveal(cellAt(r, c))">
+            <div class="flip-inner" :class="{ revealed: cellAt(r, c).revealed }">
               <!-- FRONT (green back) -->
               <div class="face front"></div>
 
               <!-- BACK (revealed value) -->
               <div class="face back">
-                <span class="value" :class="valueClass(cellAt(r,c).value)">
-                  {{ cellAt(r,c).display }}
+                <span class="value" :class="valueClass(cellAt(r, c).value)">
+                  {{ cellAt(r, c).display }}
                 </span>
               </div>
             </div>
@@ -119,23 +95,37 @@
       <button class="big-btn" @click="reset">Reset</button>
       <button class="big-btn" @click="revealAll">See All</button>
     </div>
+
   </section>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import { useRouter } from "vue-router";
+import MysteryMachine from "@/components/MysteryMachine.vue";
 
 /* --- SFX --- */
 import sndPositive from "@/assets/sounds/fortunegame/chukichi.mp3";
 import sndNegative from "@/assets/sounds/fortunegame/kyo.mp3";
-import sndSwap from "@/assets/sounds/fortunegame/shokichi.mp3";
-import sndLoseAll from "@/assets/sounds/fortunegame/daikyo.mp3";
+import sndSwap from "@/assets/sounds/fortunegame/shokichi.mp3";   // kept in case you want later
+import sndLoseAll from "@/assets/sounds/fortunegame/daikyo.mp3"; // kept in case you want later
 import sndFifty from "@/assets/sounds/fortunegame/daikichi.mp3";
+import sndMystery from "@/assets/sounds/mystery-machine.mp3";
 
-type Special = "Lose All" | "Swap Up" | "Swap Down" | "Swap Choice";
+type Special = "Mystery Machine";
 type CellValue = number | Special;
 type Cell = { id: number; value: CellValue; display: string; revealed: boolean };
+
+const showMysteryMachine = ref(false);
+
+// Optionally pass a max wager (team score, etc)
+const maxWager = ref<number | null>(null);
+
+// Close handler
+function onMysteryClosed() {
+  showMysteryMachine.value = false;
+}
+
 
 const rows = 4;
 const cols = 6;
@@ -149,6 +139,7 @@ const showSettings = ref(false);
 const allowNegatives = ref(true);
 const doublePoints = ref(false);
 const allowSpecial = ref(true);
+const showMysteryOverlay = ref(false);
 
 /* SFX controls */
 const BASE_SFX_VOL = 0.35;
@@ -225,8 +216,8 @@ function valueClass(v: CellValue) {
   if (typeof v === "number") {
     return v > 0 ? "val-pos" : v < 0 ? "val-neg" : "val-zero";
   }
-  if (v === "Lose All") return "val-lose val-text";
-  return "val-swap val-text";
+  // Only one special type now
+  return "val-mystery val-text";
 }
 function rng(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -239,6 +230,7 @@ const sfx = {
   swap: new Audio(sndSwap),
   loseAll: new Audio(sndLoseAll),
   fifty: new Audio(sndFifty),
+  mystery: new Audio(sndMystery),
 };
 function applySfxVolume() {
   const vol = sfxMuted.value ? 0 : BASE_SFX_VOL;
@@ -247,10 +239,11 @@ function applySfxVolume() {
   sfx.swap.volume = vol;
   sfx.loseAll.volume = vol;
   sfx.fifty.volume = vol;
+  sfx.mystery.volume = vol;
 }
 function play(type: keyof typeof sfx) {
   const a = sfx[type];
-  try { a.currentTime = 0; void a.play(); } catch {}
+  try { a.currentTime = 0; void a.play(); } catch { }
 }
 function toggleMute() {
   sfxMuted.value = !sfxMuted.value;
@@ -265,16 +258,16 @@ function generateValues(): CellValue[] {
   const jackpot = doublePoints.value ? 100 : 50;
   out.push(jackpot);
 
-  if (allowSpecial.value && allowNegatives.value) {
-    out.push("Lose All");
-  }
-
-  const swapCount = allowSpecial.value ? rng(1, 5) : 0;
-  for (let i = 0; i < swapCount; i++) {
-    const r = Math.random();
-    if (r < 0.45) out.push("Swap Up");
-    else if (r < 0.9) out.push("Swap Down");
-    else out.push("Swap Choice");
+  // Mystery Machine specials: aim for 3–6 cards when enabled
+  if (allowSpecial.value) {
+    const available = totalCells - out.length;
+    if (available > 0) {
+      const desired = rng(3, 6);
+      const count = Math.min(desired, available);
+      for (let i = 0; i < count; i++) {
+        out.push("Mystery Machine");
+      }
+    }
   }
 
   const remain = totalCells - out.length;
@@ -318,8 +311,8 @@ function reveal(cell: Cell) {
 
   // sfx first
   if (typeof cell.value === "string") {
-    if (cell.value === "Lose All") play("loseAll");
-    else play("swap");
+    // single special: Mystery Machine
+    play("mystery");
   } else {
     const jackpot = doublePoints.value ? 100 : 50;
     if (cell.value === jackpot) play("fifty");
@@ -366,7 +359,7 @@ onMounted(() => {
       if (typeof saved.allowSpecial === "boolean") allowSpecial.value = saved.allowSpecial;
       if (typeof saved.sfxMuted === "boolean") sfxMuted.value = saved.sfxMuted;
     }
-  } catch {}
+  } catch { }
 
   applySfxVolume();
   buildCells();
@@ -411,14 +404,42 @@ onBeforeUnmount(() => {
   box-sizing: content-box;
   transition: transform .12s ease;
 }
-.icon-btn .icon { width: 100%; height: 100%; object-fit: contain; display: block; }
-.icon-btn.back { top: 12px; left: 12px; right: auto !important; }
-.icon-btn.settings { top: 12px; right: 12px; left: auto !important; }
+
+.icon-btn .icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.icon-btn.back {
+  top: 12px;
+  left: 12px;
+  right: auto !important;
+}
+
+.icon-btn.settings {
+  top: 12px;
+  right: 12px;
+  left: auto !important;
+}
+
+/* Mystery Machine icon – on the right side below settings */
+.icon-btn.mystery {
+  top: 58px;
+  right: 12px;
+  left: auto !important;
+}
 
 /* Hover effects for icons (desktop only) */
 @media (hover:hover) and (pointer:fine) {
-  .icon-btn:hover { transform: scale(1.1); }
-  .icon-btn.settings:hover { transform: scale(1.1) rotate(10deg); }
+  .icon-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .icon-btn.settings:hover {
+    transform: scale(1.1) rotate(10deg);
+  }
 }
 
 /* Settings overlay (backdrop uses modal tokens for consistency) */
@@ -445,12 +466,14 @@ onBeforeUnmount(() => {
   flex-direction: column;
   width: 260px;
 }
+
 .menu-title {
   margin: 2px 0 10px;
   font-size: 20px;
   text-align: center;
   color: var(--modal-on-surface);
 }
+
 .menu-row {
   display: flex;
   align-items: center;
@@ -459,12 +482,18 @@ onBeforeUnmount(() => {
   font-size: 14px;
   color: var(--modal-on-surface);
 }
+
 .menu-row input[type="checkbox"] {
   accent-color: var(--accent-secondary);
 }
 
 /* Single mute toggle row */
-.mute-row { display: flex; justify-content: center; margin-top: 10px; }
+.mute-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
 .mute-btn {
   padding: 8px 12px;
   border: 1px solid var(--btn-ghost-border);
@@ -476,9 +505,14 @@ onBeforeUnmount(() => {
   box-shadow: var(--elevation-1);
   transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease, border-color .12s ease;
 }
+
 @media (hover:hover) and (pointer:fine) {
-  .mute-btn:hover { transform: translateY(-1px); box-shadow: var(--elevation-2); }
+  .mute-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--elevation-2);
+  }
 }
+
 .mute-btn[aria-pressed="true"] {
   background: color-mix(in srgb, var(--accent-danger) 16%, var(--neutral-0) 84%);
   color: var(--modal-on-surface);
@@ -496,6 +530,35 @@ onBeforeUnmount(() => {
   cursor: pointer;
   font-weight: 800;
   box-shadow: var(--elevation-1);
+}
+
+/* Mystery Machine overlay */
+.mystery-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu);
+  background: var(--modal-overlay-bg);
+  backdrop-filter: var(--modal-overlay-filter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mystery-modal {
+  background: var(--modal-surface);
+  color: var(--modal-on-surface);
+  border-radius: var(--modal-radius);
+  box-shadow: var(--modal-shadow);
+  border: 1px solid var(--modal-border);
+  padding: 18px 16px 16px;
+  width: min(360px, 90vw);
+  text-align: center;
+}
+
+.mystery-text {
+  margin: 6px 0 10px;
+  font-size: 0.95rem;
+  color: var(--modal-on-surface-muted);
 }
 
 /* Title + labels (sit over global background) */
@@ -516,8 +579,11 @@ onBeforeUnmount(() => {
   color: var(--main-text-color);
   text-shadow: var(--main-title-shadow);
 }
+
 .label-cell {
-  display: grid; place-items: center; font-weight: 800;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
   color: var(--main-text-color);
   text-shadow: var(--main-title-shadow);
   font-size: clamp(18px, 3.8vw, 28px);
@@ -535,7 +601,7 @@ onBeforeUnmount(() => {
   grid-auto-flow: row;
   user-select: none;
   padding: 5px;
-  overflow: hidden;
+  overflow: visible;
   /* subtle card container contrast over app bg */
   border-radius: var(--table-radius);
 }
@@ -550,10 +616,77 @@ onBeforeUnmount(() => {
   transition: transform .12s ease, box-shadow .12s ease;
   outline: none;
 }
-.card:focus-visible { box-shadow: var(--focus-ring); }
-@media (hover:hover) and (pointer:fine) {
-  .card:hover { transform: scale(1.03); box-shadow: var(--table-shadow); }
+
+.card:focus-visible {
+  box-shadow: var(--focus-ring);
 }
+
+@media (hover:hover) and (pointer:fine) {
+  .card:hover {
+    transform: scale(1.03);
+    box-shadow: var(--table-shadow);
+  }
+}
+
+/* SPECIAL: Mystery Machine visual tweaks 
+.card.mystery-card .face.front {
+  background:
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--accent-primary) 70%, white 30%), transparent 60%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent-primary) 80%, var(--neutral-0) 20%),
+      color-mix(in srgb, var(--accent-primary) 55%, var(--neutral-900) 45%)
+    );
+  border-color: color-mix(in srgb, var(--accent-primary) 65%, var(--neutral-900) 35%);
+}
+  */
+
+/* BIG + OBVIOUS Mystery Machine reveal animation */
+.card.mystery-card--revealed {
+  animation: mystery-pop-big 0.85s ease-out;
+  position: relative;
+  z-index: 999;
+  /* briefly pulls it above surrounding cards */
+}
+
+@keyframes mystery-pop-big {
+  0% {
+    transform: scale(1);
+    box-shadow: none;
+    filter: brightness(1);
+  }
+
+  20% {
+    transform: scale(1.25) rotate(-2deg);
+    box-shadow: 0 0 25px var(--accent-primary);
+    filter: brightness(1.4);
+  }
+
+  40% {
+    transform: scale(1.15) rotate(2deg);
+    box-shadow: 0 0 45px var(--accent-primary);
+    filter: brightness(1.2);
+  }
+
+  60% {
+    transform: scale(1.3) rotate(-1deg);
+    box-shadow: 0 0 60px color-mix(in srgb, var(--accent-primary) 90%, white 20%);
+    filter: brightness(1.6);
+  }
+
+  80% {
+    transform: scale(1.18) rotate(1deg);
+    box-shadow: 0 0 35px var(--accent-primary);
+    filter: brightness(1.3);
+  }
+
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--accent-primary);
+    filter: brightness(1.1);
+  }
+}
+
 
 /* Flipper (true 2-sided flip) */
 .flip-inner {
@@ -561,10 +694,13 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 380ms cubic-bezier(.2,.65,.2,1);
+  transition: transform 380ms cubic-bezier(.2, .65, .2, 1);
   will-change: transform;
 }
-.flip-inner.revealed { transform: rotateY(180deg); }
+
+.flip-inner.revealed {
+  transform: rotateY(180deg);
+}
 
 /* Faces */
 .face {
@@ -583,11 +719,9 @@ onBeforeUnmount(() => {
 /* FRONT: the (green) card back using success accent gradient */
 .face.front {
   background:
-    linear-gradient(
-      135deg,
+    linear-gradient(135deg,
       color-mix(in srgb, var(--accent-success) 86%, var(--neutral-0) 14%),
-      color-mix(in srgb, var(--accent-success) 62%, var(--neutral-900) 38%)
-    );
+      color-mix(in srgb, var(--accent-success) 62%, var(--neutral-900) 38%));
   border-color: color-mix(in srgb, var(--accent-success) 55%, var(--neutral-900) 45%);
   transform: rotateY(0deg);
 }
@@ -609,11 +743,32 @@ onBeforeUnmount(() => {
   user-select: none;
   color: var(--table-on-surface);
 }
-.value.val-pos  { color: var(--accent-success); }
-.value.val-neg  { color: var(--accent-danger); }
-.value.val-lose { color: var(--accent-danger); }
-.value.val-swap { color: var(--accent-primary); }
-.value.val-zero { color: var(--modal-on-surface-muted); }
+
+.value.val-pos {
+  color: var(--accent-success);
+}
+
+.value.val-neg {
+  color: var(--accent-danger);
+}
+
+.value.val-lose {
+  color: var(--accent-danger);
+}
+
+.value.val-swap {
+  color: var(--accent-primary);
+}
+
+.value.val-zero {
+  color: var(--modal-on-surface-muted);
+}
+
+/* New mystery color */
+.value.val-mystery {
+  color: var(--accent-primary);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--accent-primary) 55%, transparent);
+}
 
 /* Special cards: responsive wrapping */
 .value.val-text {
@@ -643,6 +798,7 @@ onBeforeUnmount(() => {
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .big-btn {
   font-size: clamp(16px, 2.6vw, 20px);
   padding: 12px 20px;
@@ -655,11 +811,21 @@ onBeforeUnmount(() => {
   box-shadow: var(--elevation-1);
   transition: transform .15s ease, box-shadow .15s ease;
 }
-.big-btn:hover { transform: translateY(-1px); box-shadow: var(--elevation-2); }
-.big-btn:active { transform: translateY(0); box-shadow: var(--elevation-1); }
+
+.big-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--elevation-2);
+}
+
+.big-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--elevation-1);
+}
 
 /* Tiny tweak for very small screens */
 @media (max-width: 420px) {
-  .title { margin-top: 50px; }
+  .title {
+    margin-top: 50px;
+  }
 }
 </style>
