@@ -1,3 +1,8 @@
+/** A user asked to replace the Mushroom image with a Taiyaki image, like the original
+    So now all text references say "Taiyaki" but all code refrences a mushroom.
+    Sorry abou that. I can't be bothered to change all 30 references to mushroom back to taiyaki.
+**/
+
 <template>
   <section class="bomb-game-page">
     <!-- Back Button -->
@@ -11,7 +16,7 @@
       <img :src="settingsIcon" alt="" />
     </button>
 
-    <h1 id="game-title">{{ mode === 'bomb' ? 'Bomb Game' : 'Find the Mushroom!' }}</h1>
+    <h1 id="game-title">{{ mode === 'bomb' ? 'Bomb Game' : 'Find the Taiyaki!' }}</h1>
 
     <p v-if="!allCards.length" class="muted">No cards loaded. Go back and select some cards.</p>
 
@@ -64,7 +69,7 @@
       </button>
 
       <button id="mode-btn" @click="modeDraft = (modeDraft === 'bomb' ? 'mushroom' : 'bomb')">
-        Mode: {{ modeDraft === 'bomb' ? 'Bomb' : 'Mushroom' }}
+        Mode: {{ modeDraft === 'bomb' ? 'Bomb' : 'Taiyaki' }}
       </button>
 
       <button class="restart-btn" @click="restart">Reset</button>
@@ -133,7 +138,7 @@ const hitIndex = ref<number | null>(null)
 const homeIcon = new URL('@/assets/images/icons/back-icon.png', import.meta.url).toString()
 const settingsIcon = new URL('@/assets/images/icons/settings-icon.png', import.meta.url).toString()
 const imgResultBomb = new URL('@/assets/images/games/bombgame/result-bomb.png', import.meta.url).toString()
-const imgResultMushroom = new URL('@/assets/images/games/bombgame/result-mushroom.png', import.meta.url).toString()
+const imgResultMushroom = new URL('@/assets/images/games/bombgame/result-taiyaki.png', import.meta.url).toString()
 const imgResultSafe = new URL('@/assets/images/games/bombgame/result-safe.png', import.meta.url).toString()
 const imgResultNo = new URL('@/assets/images/games/bombgame/result-no.png', import.meta.url).toString()
 
