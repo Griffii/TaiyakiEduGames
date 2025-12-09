@@ -40,7 +40,7 @@ import AnnouncementBanner from '@/components/AnnouncementBanner.vue'
 const announcements = [
     {
         id: 'announce-1',
-        title: 'Welcome to EiTake!',
+        title: 'Welcome to Taiyaki Edu Games!',
         note: '英語の勉強楽しもう！',
     },
     

@@ -1124,8 +1124,12 @@ onBeforeUnmount(() => {
 }
 
 .prize-btn.has-prize {
-    box-shadow: 0 0 16px color-mix(in srgb, var(--btn-primary-bg) 80%, transparent);
-    animation: prize-pulse 1.6s ease-in-out infinite;
+    /* Much stronger glow + gentle throb */
+    box-shadow:
+        0 0 12px color-mix(in srgb, var(--btn-primary-bg) 55%, transparent),
+        0 0 30px color-mix(in srgb, var(--btn-primary-bg) 85%, transparent),
+        0 0 60px color-mix(in srgb, var(--btn-primary-bg) 100%, transparent);
+    animation: prize-pulse 1.4s ease-in-out infinite;
 }
 
 .prize-btn.has-prize .prize-label {
@@ -1134,17 +1138,28 @@ onBeforeUnmount(() => {
 
 @keyframes prize-pulse {
     0% {
-        box-shadow: 0 0 6px color-mix(in srgb, var(--btn-primary-bg) 40%, transparent);
+        transform: translateX(-50%) scale(1);
+        box-shadow:
+            0 0 10px color-mix(in srgb, var(--btn-primary-bg) 55%, transparent),
+            0 0 24px color-mix(in srgb, var(--btn-primary-bg) 80%, transparent);
     }
 
-    50% {
-        box-shadow: 0 0 22px color-mix(in srgb, var(--btn-primary-bg) 100%, transparent);
+    45% {
+        transform: translateX(-50%) scale(1.12);
+        box-shadow:
+            0 0 16px color-mix(in srgb, var(--btn-primary-bg) 70%, transparent),
+            0 0 42px color-mix(in srgb, var(--btn-primary-bg) 100%, transparent),
+            0 0 72px color-mix(in srgb, var(--btn-primary-bg) 100%, transparent);
     }
 
     100% {
-        box-shadow: 0 0 6px color-mix(in srgb, var(--btn-primary-bg) 40%, transparent);
+        transform: translateX(-50%) scale(1);
+        box-shadow:
+            0 0 10px color-mix(in srgb, var(--btn-primary-bg) 55%, transparent),
+            0 0 24px color-mix(in srgb, var(--btn-primary-bg) 80%, transparent);
     }
 }
+
 
 @keyframes prize-spin {
     0% {

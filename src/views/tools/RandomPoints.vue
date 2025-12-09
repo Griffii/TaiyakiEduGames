@@ -1,6 +1,9 @@
 <!-- src/components/RandomPoints.vue -->
 <template>
   <section class="random-points-page app-bg" :style="rootVars">
+    <!-- Team Points Tracker Component -->
+    <TeamPointsTracker ref="teamTracker" @team-selected="onTeamSelected" />
+
     <!-- Top Left: Back -->
     <button class="icon-btn back" type="button" @click="onExit" aria-label="Back" title="Back">
       <img class="icon" src="@/assets/images/icons/back-icon.png" alt="" />
@@ -19,8 +22,8 @@
     </button>
 
     <!-- Mystery Machine Modal -->
-    <MysteryMachine v-if="showMysteryMachine" :maxWager="maxWager" @close="onMysteryClosed" />
-
+    <MysteryMachine v-if="showMysteryMachine" :maxWager="maxWager" @close="onMysteryClosed"
+      @resolved="onMysteryResolved" />
 
 
     <!-- SETTINGS OVERLAY + MENU -->
@@ -54,7 +57,7 @@
       </div>
     </div>
 
-    <h1 class="title">Random Points</h1>
+    <h1 class="title"></h1>
 
     <!-- Column labels -->
     <div class="labels" :style="labelsInlineStyle">
@@ -103,6 +106,7 @@
 import { computed, onMounted, onBeforeUnmount, ref } from "vue";
 import { useRouter } from "vue-router";
 import MysteryMachine from "@/components/MysteryMachine.vue";
+import TeamPointsTracker from "@/components/TeamPointsTracker.vue";
 
 /* --- SFX --- */
 import sndPositive from "@/assets/sounds/fortunegame/chukichi.mp3";
@@ -118,6 +122,10 @@ type Cell = { id: number; value: CellValue; display: string; revealed: boolean }
 
 const showMysteryMachine = ref(false);
 
+// Team points tracker ref + selection state
+const teamTracker = ref<InstanceType<typeof TeamPointsTracker> | null>(null);
+const hasSelectedTeam = ref(false);
+
 // Optionally pass a max wager (team score, etc)
 const maxWager = ref<number | null>(null);
 
@@ -126,6 +134,29 @@ function onMysteryClosed() {
   showMysteryMachine.value = false;
 }
 
+interface MysteryResultPayload {
+  wager: number;
+  pointsDelta: number;
+  tier: number;
+  wagerOutcome: { type: string; label: string };
+  effect: unknown;
+}
+
+function onMysteryResolved(result: MysteryResultPayload) {
+  if (!result || typeof result.pointsDelta !== "number") return;
+  if (!hasSelectedTeam.value) return;
+
+  const delta = result.pointsDelta;
+  if (delta === 0) return; // nothing to change
+
+  // Reuse the same API we used for card flips
+  teamTracker.value?.applyDeltaToSelected(delta);
+}
+
+
+function onTeamSelected(team: any | null) {
+  hasSelectedTeam.value = !!team;
+}
 
 const rows = 4;
 const cols = 6;
@@ -322,9 +353,19 @@ function reveal(cell: Cell) {
 
   // then flip
   cell.revealed = true;
+
+  // Send value to TeamPointsTracker ONLY for direct flips,
+  // only when a team is selected, and only for numeric values.
+  if (typeof cell.value === "number" && hasSelectedTeam.value) {
+    teamTracker.value?.applyDeltaToSelected(cell.value);
+  }
 }
 
-function revealAll() { for (const c of cells.value) c.revealed = true; }
+// "See All" reveals without sending any score signals
+function revealAll() {
+  for (const c of cells.value) c.revealed = true;
+}
+
 function reset() { buildCells(); }
 function toggleSettingsMenu() { showSettings.value = !showSettings.value; }
 function saveSettings() {
@@ -424,11 +465,15 @@ onBeforeUnmount(() => {
   left: auto !important;
 }
 
-/* Mystery Machine icon – on the right side below settings */
+/* Mystery Machine icon – larger and below the settings overlay */
 .icon-btn.mystery {
   top: 58px;
   right: 12px;
   left: auto !important;
+  width: calc(var(--icon-size) * 1.4) !important;
+  height: calc(var(--icon-size) * 1.4) !important;
+  z-index: 900;
+  /* lower than settings overlay (z-menu = 1001) */
 }
 
 /* Hover effects for icons (desktop only) */
@@ -578,6 +623,7 @@ onBeforeUnmount(() => {
   user-select: none;
   color: var(--main-text-color);
   text-shadow: var(--main-title-shadow);
+  margin-top: 50px;
 }
 
 .label-cell {
