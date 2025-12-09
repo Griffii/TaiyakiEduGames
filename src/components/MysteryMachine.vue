@@ -569,31 +569,31 @@ function buildWagerOutcome(
  * 3D reel styles (sequential stops)
  */
 function reelInnerStyle(reelIndex: number) {
-  const deg = reelRotations.value[reelIndex];
-  const baseTransform = `rotateX(${deg}deg)`;
+    const deg = reelRotations.value[reelIndex];
+    const baseTransform = `rotateX(${deg}deg)`;
 
-  // During reset: snap instantly (no animation)
-  if (isResetting.value) {
+    // During reset: snap instantly (no animation)
+    if (isResetting.value) {
+        return {
+            transform: baseTransform,
+            transition: "transform 0s",
+        } as Record<string, string>;
+    }
+
+    // During spin: use long animated durations
+    if (isSpinning.value) {
+        const duration = REEL_SPIN_DURATIONS[reelIndex] ?? TOTAL_SPIN_MS;
+        return {
+            transform: baseTransform,
+            transition: `transform ${duration}ms cubic-bezier(.2,.8,.3,1.1)`,
+        } as Record<string, string>;
+    }
+
+    // Idle state – small tweak allowed or no transition
     return {
-      transform: baseTransform,
-      transition: "transform 0s",
+        transform: baseTransform,
+        transition: "transform 0s",
     } as Record<string, string>;
-  }
-
-  // During spin: use long animated durations
-  if (isSpinning.value) {
-    const duration = REEL_SPIN_DURATIONS[reelIndex] ?? TOTAL_SPIN_MS;
-    return {
-      transform: baseTransform,
-      transition: `transform ${duration}ms cubic-bezier(.2,.8,.3,1.1)`,
-    } as Record<string, string>;
-  }
-
-  // Idle state – small tweak allowed or no transition
-  return {
-    transform: baseTransform,
-    transition: "transform 0s",
-  } as Record<string, string>;
 }
 
 
@@ -627,77 +627,77 @@ function dismissToast() {
  * Spin logic
  */
 function startSpin() {
-  if (!canSpin.value) return;
+    if (!canSpin.value) return;
 
-  clampWager();
+    clampWager();
 
-  // Clear previous result & toast
-  wagerOutcome.value = null;
-  effect.value = null;
-  pointsDelta.value = 0;
-  showEffectModal.value = false;
-  toastVisible.value = false;
+    // Clear previous result & toast
+    wagerOutcome.value = null;
+    effect.value = null;
+    pointsDelta.value = 0;
+    showEffectModal.value = false;
+    toastVisible.value = false;
 
-  // 1) Determine wager outcome up front
-  const type = pickWeightedOutcome();
-  const { outcome, delta } = buildWagerOutcome(type, wager.value);
+    // 1) Determine wager outcome up front
+    const type = pickWeightedOutcome();
+    const { outcome, delta } = buildWagerOutcome(type, wager.value);
 
-  // 2) Determine tier & special effect
-  const tier = determineTier(wager.value);
-  const eff = pickEffectForTier(tier);
+    // 2) Determine tier & special effect
+    const tier = determineTier(wager.value);
+    const eff = pickEffectForTier(tier);
 
-  // 3) Map outcome => final symbol/face index
-  const symbol = OUTCOME_SYMBOL_MAP[type];
-  const targetIndex = REEL_SYMBOLS.indexOf(symbol);
-  const safeTargetIndex = targetIndex >= 0 ? targetIndex : 0;
+    // 3) Map outcome => final symbol/face index
+    const symbol = OUTCOME_SYMBOL_MAP[type];
+    const targetIndex = REEL_SYMBOLS.indexOf(symbol);
+    const safeTargetIndex = targetIndex >= 0 ? targetIndex : 0;
 
-  // -------- RESET PHASE (no animation) --------
-  isSpinning.value = false;
-  isResetting.value = true;
-  reelRotations.value = [0, 0, 0]; // baseline
+    // -------- RESET PHASE (no animation) --------
+    isSpinning.value = false;
+    isResetting.value = true;
+    reelRotations.value = [0, 0, 0]; // baseline
 
-  // Force layout so the browser actually applies the reset
-  try {
-    // eslint-disable-next-line no-unused-expressions
-    document.body.offsetHeight;
-  } catch {
-    // ignore (SSR safety)
-  }
+    // Force layout so the browser actually applies the reset
+    try {
+        // eslint-disable-next-line no-unused-expressions
+        document.body.offsetHeight;
+    } catch {
+        // ignore (SSR safety)
+    }
 
-  // -------- SPIN PHASE (animated) --------
-  window.requestAnimationFrame(() => {
-    isResetting.value = false;
-    isSpinning.value = true;
+    // -------- SPIN PHASE (animated) --------
+    window.requestAnimationFrame(() => {
+        isResetting.value = false;
+        isSpinning.value = true;
 
-    const baseSpins = 3; // minimum full spins
+        const baseSpins = 3; // minimum full spins
 
-    reelRotations.value = reelRotations.value.map((_, i) => {
-      const extraSpins = baseSpins + i; // 3,4,5 rotations on reels 0/1/2
-      const totalRot = extraSpins * 360 + safeTargetIndex * FACE_ANGLE;
-      return -totalRot; // always spin in same (downward) direction
+        reelRotations.value = reelRotations.value.map((_, i) => {
+            const extraSpins = baseSpins + i; // 3,4,5 rotations on reels 0/1/2
+            const totalRot = extraSpins * 360 + safeTargetIndex * FACE_ANGLE;
+            return -totalRot; // always spin in same (downward) direction
+        });
+
+        const timeoutId = window.setTimeout(() => {
+            wagerOutcome.value = outcome;
+            effect.value = eff;
+            pointsDelta.value = delta;
+            isSpinning.value = false;
+
+            const result: MysteryResult = {
+                wager: wager.value,
+                wagerOutcome: outcome,
+                pointsDelta: delta,
+                tier,
+                effect: eff,
+            };
+            emit("resolved", result);
+
+            // Toast with delta-only label + correct fortune sound
+            showToast(delta, outcome.type);
+        }, TOTAL_SPIN_MS);
+
+        cleanupTimeouts.push(timeoutId);
     });
-
-    const timeoutId = window.setTimeout(() => {
-      wagerOutcome.value = outcome;
-      effect.value = eff;
-      pointsDelta.value = delta;
-      isSpinning.value = false;
-
-      const result: MysteryResult = {
-        wager: wager.value,
-        wagerOutcome: outcome,
-        pointsDelta: delta,
-        tier,
-        effect: eff,
-      };
-      emit("resolved", result);
-
-      // Toast with delta-only label + correct fortune sound
-      showToast(delta, outcome.type);
-    }, TOTAL_SPIN_MS);
-
-    cleanupTimeouts.push(timeoutId);
-  });
 }
 
 
@@ -880,10 +880,26 @@ onBeforeUnmount(() => {
     padding: 10px 16px;
     border-radius: var(--modal-radius);
     background: var(--modal-surface);
-    border: 1px solid var(--modal-border);
     color: var(--modal-on-surface);
     width: 260px;
     box-shadow: var(--modal-shadow);
+
+    /* Border */
+    padding: 6px 14px;
+    border: 6px solid transparent;
+
+    /* Rainbow border using background-clip trick */
+    background:
+        /* inner fill (matches your card surface) */
+        linear-gradient(var(--modal-surface), var(--modal-surface)) padding-box,
+        /* outer gradient for the border */
+        linear-gradient(120deg,
+            var(--accent-primary),
+            var(--accent-secondary),
+            var(--accent-success),
+            var(--accent-warning),
+            var(--accent-danger),
+            var(--accent-primary)) border-box;
 }
 
 .wager-inner {
@@ -961,7 +977,6 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
 }
 
 .wager-amount {
@@ -981,6 +996,23 @@ onBeforeUnmount(() => {
     align-items: center;
     gap: 14px;
     max-width: min(720px, 100vw - 40px);
+
+    /* Border */
+    padding: 6px 14px;
+    border: 6px solid transparent;
+
+    /* Rainbow border using background-clip trick */
+    background:
+        /* inner fill (matches your card surface) */
+        linear-gradient(var(--modal-surface), var(--modal-surface)) padding-box,
+        /* outer gradient for the border */
+        linear-gradient(120deg,
+            var(--accent-primary),
+            var(--accent-secondary),
+            var(--accent-success),
+            var(--accent-warning),
+            var(--accent-danger),
+            var(--accent-primary)) border-box;
 }
 
 .mm-toast-text {
