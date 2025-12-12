@@ -163,6 +163,9 @@ function onOpenActivity(link: string) {
   /* Important for grid children to allow shrinking */
   overflow: auto;
   /* Scroll the list, not the whole page */
+
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .center-area{
