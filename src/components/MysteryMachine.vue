@@ -3,7 +3,7 @@
     <section class="mystery-machine-overlay" role="dialog" aria-modal="true" @click.self="handleBackdropClick">
         <!-- Top-left: Prizes icon button -->
         <button class="overlay-prizes-btn" type="button" @click="showPrizesModal = true" aria-label="View prize tiers">
-            🎁
+            ❓
         </button>
 
         <!-- Top-right: close button -->
@@ -102,17 +102,16 @@
                 <div class="effect-modal" v-if="showEffectModal">
                     <div class="effect-header">
                         <h3 class="effect-title">{{ effect.label }}</h3>
+                        <span class="effect-tier-chip" :class="`tier-${effect.tier}`">
+                            Tier {{ effect.tier }}
+                        </span>
                     </div>
 
                     <div class="effect-body">
                         <p class="effect-description">{{ effectDescription }}</p>
                     </div>
 
-
                     <div class="effect-actions">
-                        <span class="effect-tier-chip" :class="`tier-${effect.tier}`">
-                            Tier {{ effect.tier }}
-                        </span>
                         <button class="pill-btn primary" type="button" @click="closeEffectModal">
                             Close
                         </button>
@@ -121,58 +120,99 @@
             </transition>
         </div>
 
-        <!-- Prizes info modal: large, 4 columns (Outcomes + Tier 1–3) -->
+        <!-- Prizes info modal: colorful grid layout -->
         <div v-if="showPrizesModal" class="effect-modal-overlay" @click.self="showPrizesModal = false">
             <div class="effect-modal info-modal">
-                <h3 class="effect-title">Prizes &amp; Outcomes</h3>
+                <h3 class="effect-title">Outcomes &amp; Prizes</h3>
 
                 <div class="prize-grid">
                     <!-- Column 1: Wager Outcomes -->
-                    <div class="prize-col">
-                        <h4>Wager Outcomes</h4>
-                        <ul class="prize-list">
-                            <li v-for="o in outcomeChances" :key="o.type">
-                                {{ o.name }} — approx {{ o.percent }}%
-                            </li>
-                        </ul>
-                    </div>
+                    <section class="prize-col">
+                        <h4 class="prize-heading">Wager Outcomes</h4>
+                        <div class="outcome-grid">
+                            <div class="outcome-card outcome-bad-1">
+                                <span class="outcome-label">Lose all</span>
+                                <span class="outcome-pct">~22%</span>
+                            </div>
 
-                    <!-- Column 2: Tier 1 -->
-                    <div class="prize-col">
-                        <h4>Tier 1 (10–40)</h4>
-                        <ul class="prize-list">
-                            <li v-for="e in tier1Effects" :key="e.id">
-                                {{ e.label }}
-                            </li>
-                        </ul>
-                    </div>
+                            <div class="outcome-card outcome-bad-2">
+                                <span class="outcome-label">Lose half</span>
+                                <span class="outcome-pct">~18%</span>
+                            </div>
 
-                    <!-- Column 3: Tier 2 -->
-                    <div class="prize-col">
-                        <h4>Tier 2 (50–90)</h4>
-                        <ul class="prize-list">
-                            <li v-for="e in tier2Effects" :key="e.id">
-                                {{ e.label }}
-                            </li>
-                        </ul>
-                    </div>
+                            <div class="outcome-card outcome-neutral">
+                                <span class="outcome-label">No change</span>
+                                <span class="outcome-pct">~25%</span>
+                            </div>
 
-                    <!-- Column 4: Tier 3 -->
-                    <div class="prize-col">
-                        <h4>Tier 3 (100+)</h4>
-                        <ul class="prize-list">
-                            <li v-for="e in tier3Effects" :key="e.id">
-                                {{ e.label }}
-                            </li>
-                        </ul>
-                    </div>
+                            <div class="outcome-card outcome-good">
+                                <span class="outcome-label">2×</span>
+                                <span class="outcome-pct">~18%</span>
+                            </div>
+
+                            <div class="outcome-card outcome-good">
+                                <span class="outcome-label">3×</span>
+                                <span class="outcome-pct">~10%</span>
+                            </div>
+
+                            <div class="outcome-card outcome-good">
+                                <span class="outcome-label">4×</span>
+                                <span class="outcome-pct">~7%</span>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <!-- Column 2: Prize cards by tier -->
+                    <section class="prize-col">
+                        <h4 class="prize-heading">Prize Cards by Tier</h4>
+                        <div class="tier-grid">
+                            <article class="tier-card tier-1">
+                                <header class="tier-header">
+                                    <span class="tier-title">Tier 1: 10+ points</span>
+                                </header>
+                                <ul class="tier-list">
+                                    <li>Re-flip</li>
+                                    <li>Flip 2, pick 1</li>
+                                    <li>Shield (block a bad card)</li>
+                                </ul>
+                            </article>
+
+                            <article class="tier-card tier-2">
+                                <header class="tier-header">
+                                    <span class="tier-title">Tier 2: 50+ points</span>
+                                </header>
+                                <ul class="tier-list">
+                                    <li>Double next card (x2)</li>
+                                    <li>Steal 40 from one team</li>
+                                    <li>Give 40 to one team</li>
+                                </ul>
+                            </article>
+
+                            <article class="tier-card tier-3">
+                                <header class="tier-header">
+                                    <span class="tier-title">Tier 3: 100+ points</span>
+                                </header>
+                                <ul class="tier-list">
+                                    <li>Triple next card (x3)</li>
+                                    <li>Steal 20 from each team</li>
+                                    <li>Swap scores with any team</li>
+                                    <li>Rain of Points (+80 you, +40 others)</li>
+                                </ul>
+                            </article>
+                        </div>
+                    </section>
                 </div>
 
-                <div class="effect-actions info-actions">
-                    <button class="pill-btn primary" type="button" @click="showPrizesModal = false">
-                        Close
-                    </button>
-                </div>
+                <p class="prize-disclaimer">
+                    *All cards except for <strong>Re-flip</strong> and <strong>Flip 2 → 1</strong> are applied
+                    automatically.
+                    If a team has either of those perks, points will <u>not</u> be auto-assigned when a card is flipped.
+                    You can remove perk chips by editing the team or by clicking the 🚫 button at the top right of the
+                    team
+                    tabs
+                    to remove all chips from all teams.
+                </p>
             </div>
         </div>
     </section>
@@ -233,7 +273,6 @@ function playFortuneSound(type: WagerOutcomeType) {
     const src = fortuneSounds.get(type);
     if (!src) return;
     try {
-        // new instance each time so multiple can overlap
         const audio = new Audio(src);
         audio.currentTime = 0;
         void audio.play().catch(() => { });
@@ -284,6 +323,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: "close"): void;
     (e: "resolved", payload: MysteryResult): void;
+    (e: "effect-opened", payload: MysteryResult): void;
 }>();
 
 /**
@@ -313,7 +353,7 @@ const OUTCOME_SYMBOL_MAP: Record<WagerOutcomeType, string> = {
 };
 
 const FACE_ANGLE = 360 / REEL_SYMBOLS.length;
-const REEL_RADIUS = 48; // slightly larger radius for bigger drums
+const REEL_RADIUS = 48;
 
 // Total spin time (~3.5s)
 const TOTAL_SPIN_MS = 3500;
@@ -339,6 +379,7 @@ const handlePulled = ref(false);
 const wagerOutcome = ref<WagerOutcome | null>(null);
 const effect = ref<Effect | null>(null);
 const pointsDelta = ref<number>(0);
+const lastResult = ref<MysteryResult | null>(null);
 
 const showEffectModal = ref(false);
 const showPrizesModal = ref(false);
@@ -348,75 +389,102 @@ const toastMessage = ref("");
 
 /**
  * Tiered effect pools
+ *
+ * Tier 1:
+ *  - Re-flip
+ *  - Flip 2 pick 1
+ *  - Shield (no steals for one round)
+ *
+ * Tier 2:
+ *  - Double next card
+ *  - Steal 40 points (choose team)
+ *  - Give 40 points (choose team)
+ *
+ * Tier 3:
+ *  - Triple next card
+ *  - Steal 10 from each team
+ *  - Swap any team
+ *  - Rain of points (+80 you, +40 another)
  */
 const tier1Effects: Effect[] = [
-    { id: "t1_refip", tier: 1, label: "One re-flip (must take second card)" },
-    { id: "t1_flip2pick1", tier: 1, label: "Flip 2 cards and pick 1" },
-    { id: "t1_steal10_each", tier: 1, label: "Steal 10 points from each team" },
-    { id: "t1_give10_one", tier: 1, label: "Give away 10 points to one team" },
-    { id: "t1_half_next", tier: 1, label: "Your next card's value is halved" },
+    { id: "t1_reflip", tier: 1, label: "Re-flip: must take the second card" },
+    { id: "t1_flip2_pick1", tier: 1, label: "Flip 2 cards and pick 1" },
+    {
+        id: "t1_shield",
+        tier: 1,
+        label: "Shield: no one can steal from you until the next Mystery round",
+    },
 ];
 
 const tier2Effects: Effect[] = [
-    { id: "t2_steal20_each", tier: 2, label: "Steal 20 points from each team" },
-    { id: "t2_double_next", tier: 2, label: "Your next card's value is doubled" },
     {
-        id: "t2_convert_negative",
+        id: "t2_double_next",
         tier: 2,
-        label: "Convert a negative card to a positive card",
+        label: "Double next card: your next card is worth 2x",
     },
-    { id: "t2_swap_second", tier: 2, label: "Swap total points with the 2nd place team" },
-    { id: "t2_give50_one", tier: 2, label: "Choose another team to get 50 points" },
+    {
+        id: "t2_steal40_one",
+        tier: 2,
+        label: "Steal 40 points from one team",
+    },
+    {
+        id: "t2_give40_one",
+        tier: 2,
+        label: "Give 40 points to one team",
+    },
 ];
 
 const tier3Effects: Effect[] = [
-    { id: "t3_steal30_each", tier: 3, label: "Steal 30 points from each team" },
-    { id: "t3_steal50_one", tier: 3, label: "Steal 50 points from one team" },
-    { id: "t3_lose30_others", tier: 3, label: "Every other team loses 30 points" },
-    { id: "t3_flip3_pick2", tier: 3, label: "Flip 3 cards and choose 2 next turn" },
-    { id: "t3_plus50_others", tier: 3, label: "Plus 50 points to every other team" },
-    { id: "t3_give10_others", tier: 3, label: "Give 10 points to every other team" },
+    {
+        id: "t3_triple_next",
+        tier: 3,
+        label: "Triple next card: your next card is worth 3x",
+    },
+    {
+        id: "t3_steal20_each",
+        tier: 3,
+        label: "Steal 20 points from each team",
+    },
+    {
+        id: "t3_swap_any_team",
+        tier: 3,
+        label: "Swap total points with any one team",
+    },
+    {
+        id: "t3_rain_of_points",
+        tier: 3,
+        label: "Rain of points: +80 for you, +40 for all other teams",
+    },
 ];
 
 /**
- * Optional effect descriptions
+ * Optional effect descriptions (for the card text)
  */
 const EFFECT_DESCRIPTIONS: Record<string, string> = {
-    t1_refip:
-        "Use once: if you dislike your next card, flip a new one — but you must take the second card.",
-    t1_flip2pick1:
-        "On a future turn, flip 2 cards instead of 1 and choose which card to keep.",
-    t1_steal10_each:
-        "Immediately steal 10 points from every other team and add them to your own score.",
-    t1_give10_one:
-        "Immediately give 10 of your points to any one team of your choice.",
-    t1_half_next:
-        "Your next card’s value is cut in half!",
+    t1_reflip:
+        "Use once: if you dislike your next card, flip again — but you must keep the second card.",
+    t1_flip2_pick1:
+        "Next time you earn a card, flip 2 cards instead of 1 and choose which one to keep.",
+    t1_shield:
+        "Until the next Mystery round, other teams cannot steal points from you.",
 
-    t2_steal20_each:
-        "Steal 20 points from every other team and add them all to your score.",
     t2_double_next:
-        "The next card you draw will be worth double its normal value.",
-    t2_convert_negative:
-        "Turn a negative card into a positive card of the same value.",
-    t2_swap_second:
-        "Swap your total score with the team currently in 2nd place.",
-    t2_give50_one:
-        "Gift +50 points to any one team.",
+        "Your next card is worth double its normal value. Use it on your next card flip.",
+    t2_steal40_one:
+        "Immediately steal 40 points from any one team of your choice.",
+    t2_give40_one:
+        "Immediately give 40 points to any one team. Use it to help or create alliances.",
 
-    t3_steal30_each:
-        "Steal a huge 30 points from every other team.",
-    t3_steal50_one:
-        "Steal 50 points from any single team.",
-    t3_lose30_others:
-        "Every other team immediately loses 30 points from their total.",
-    t3_flip3_pick2:
-        "On a future turn, flip 3 cards and keep 2 of them. Discard the 3rd.",
-    t3_plus50_others:
-        "Every other team gains +50 points.",
-    t3_give10_others:
-        "Give 10 of your points to every other team.",
+    t3_triple_next:
+        "Your next card is worth triple its normal value. Big risk, big reward.",
+    t3_steal20_each:
+        "Immediately steal 20 points from every other team and add them to your score.",
+    t3_swap_any_team:
+        "Swap your total score with any one team. You choose who trades with you.",
+    t3_rain_of_points:
+        "You gain +80 points, then every other team on the board gains +40 points.",
 };
+
 
 /**
  * Wager outcome probabilities
@@ -444,7 +512,7 @@ const canSpin = computed(() => {
 });
 
 const hasPrize = computed(
-    () => !!effect.value && !!wagerOutcome.value && !isSpinning.value
+    () => !!effect.value && !!wagerOutcome.value && !isSpinning.value,
 );
 
 const currentTier = computed<Tier>(() => determineTier(wager.value));
@@ -506,7 +574,12 @@ function determineTier(w: number): Tier {
 }
 
 function pickEffectForTier(tier: Tier): Effect {
-    const pool = tier === 1 ? tier1Effects : tier === 2 ? tier2Effects : tier3Effects;
+    let pool: Effect[] = [];
+
+    if (tier >= 1) pool = pool.concat(tier1Effects);
+    if (tier >= 2) pool = pool.concat(tier2Effects);
+    if (tier >= 3) pool = pool.concat(tier3Effects);
+
     const idx = Math.floor(Math.random() * pool.length);
     return pool[idx];
 }
@@ -527,7 +600,7 @@ function pickWeightedOutcome(): WagerOutcomeType {
 
 function buildWagerOutcome(
     type: WagerOutcomeType,
-    w: number
+    w: number,
 ): { outcome: WagerOutcome; delta: number } {
     let label = "";
     let delta = 0;
@@ -589,13 +662,12 @@ function reelInnerStyle(reelIndex: number) {
         } as Record<string, string>;
     }
 
-    // Idle state – small tweak allowed or no transition
+    // Idle state – no transition
     return {
         transform: baseTransform,
         transition: "transform 0s",
     } as Record<string, string>;
 }
-
 
 function faceStyle(faceIndex: number) {
     return {
@@ -615,7 +687,6 @@ function showToast(deltaPoints: number, outcomeType: WagerOutcomeType) {
     toastMessage.value = label;
     toastVisible.value = true;
 
-    // Play fortune sound when toast appears
     playFortuneSound(outcomeType);
 }
 
@@ -635,6 +706,7 @@ function startSpin() {
     wagerOutcome.value = null;
     effect.value = null;
     pointsDelta.value = 0;
+    lastResult.value = null;
     showEffectModal.value = false;
     toastVisible.value = false;
 
@@ -654,14 +726,14 @@ function startSpin() {
     // -------- RESET PHASE (no animation) --------
     isSpinning.value = false;
     isResetting.value = true;
-    reelRotations.value = [0, 0, 0]; // baseline
+    reelRotations.value = [0, 0, 0];
 
-    // Force layout so the browser actually applies the reset
     try {
+        // force layout
         // eslint-disable-next-line no-unused-expressions
         document.body.offsetHeight;
     } catch {
-        // ignore (SSR safety)
+        // ignore SSR
     }
 
     // -------- SPIN PHASE (animated) --------
@@ -669,12 +741,12 @@ function startSpin() {
         isResetting.value = false;
         isSpinning.value = true;
 
-        const baseSpins = 3; // minimum full spins
+        const baseSpins = 3;
 
         reelRotations.value = reelRotations.value.map((_, i) => {
-            const extraSpins = baseSpins + i; // 3,4,5 rotations on reels 0/1/2
+            const extraSpins = baseSpins + i; // 3,4,5
             const totalRot = extraSpins * 360 + safeTargetIndex * FACE_ANGLE;
-            return -totalRot; // always spin in same (downward) direction
+            return -totalRot;
         });
 
         const timeoutId = window.setTimeout(() => {
@@ -690,17 +762,16 @@ function startSpin() {
                 tier,
                 effect: eff,
             };
+
+            lastResult.value = result;
             emit("resolved", result);
 
-            // Toast with delta-only label + correct fortune sound
             showToast(delta, outcome.type);
         }, TOTAL_SPIN_MS);
 
         cleanupTimeouts.push(timeoutId);
     });
 }
-
-
 
 /**
  * Arm pull: animate + spin
@@ -735,7 +806,14 @@ function bumpWager(amount: number) {
 function openEffectModal() {
     if (!hasPrize.value || !effect.value) return;
     showEffectModal.value = true;
+
+    // Notify parent that the prize card (with this power up) was opened,
+    // so TeamPointsTracker can auto-handle steal/give/swap/rain, etc.
+    if (lastResult.value) {
+        emit("effect-opened", lastResult.value);
+    }
 }
+
 function closeEffectModal() {
     showEffectModal.value = false;
 }
@@ -758,6 +836,7 @@ onBeforeUnmount(() => {
 });
 </script>
 
+
 <style scoped>
 .mystery-machine-overlay {
     position: fixed;
@@ -769,7 +848,6 @@ onBeforeUnmount(() => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* center, then nudge stage down */
     padding: 16px;
 }
 
@@ -828,7 +906,7 @@ onBeforeUnmount(() => {
     transform: scale(0.96) rotate(-2deg);
 }
 
-/* Stage: nudged slightly down so there's space above for menu + toast */
+/* Stage */
 .mm-stage {
     position: relative;
     width: min(1040px, 100%);
@@ -852,27 +930,22 @@ onBeforeUnmount(() => {
     align-items: center;
 }
 
-/* Wager panel: always visible, behind machine, partially hidden */
+/* Wager panel */
 .mm-top-panel {
     position: absolute;
     left: 50%;
     bottom: calc(100% - 33px);
-    /* slightly into the machine window */
     transform: translateX(-50%);
     z-index: 2;
-    /* behind machine body (3) */
 }
 
-/* Toast panel: separate, above machine */
+/* Toast panel */
 .mm-toast-panel {
     position: absolute;
     left: 50%;
     bottom: calc(100% - 160px);
     transform: translateX(-50%);
     z-index: 4;
-    /* above machine body */
-
-    /* Add accent border maybe */
 }
 
 /* Wager card */
@@ -884,15 +957,11 @@ onBeforeUnmount(() => {
     width: 260px;
     box-shadow: var(--modal-shadow);
 
-    /* Border */
     padding: 6px 14px;
     border: 6px solid transparent;
 
-    /* Rainbow border using background-clip trick */
     background:
-        /* inner fill (matches your card surface) */
         linear-gradient(var(--modal-surface), var(--modal-surface)) padding-box,
-        /* outer gradient for the border */
         linear-gradient(120deg,
             var(--accent-primary),
             var(--accent-secondary),
@@ -997,15 +1066,11 @@ onBeforeUnmount(() => {
     gap: 14px;
     max-width: min(720px, 100vw - 40px);
 
-    /* Border */
     padding: 6px 14px;
     border: 6px solid transparent;
 
-    /* Rainbow border using background-clip trick */
     background:
-        /* inner fill (matches your card surface) */
         linear-gradient(var(--modal-surface), var(--modal-surface)) padding-box,
-        /* outer gradient for the border */
         linear-gradient(120deg,
             var(--accent-primary),
             var(--accent-secondary),
@@ -1038,7 +1103,7 @@ onBeforeUnmount(() => {
     pointer-events: none;
 }
 
-/* Reels layer behind body */
+/* Reels layer */
 .reels-layer {
     position: absolute;
     inset: 0;
@@ -1110,7 +1175,10 @@ onBeforeUnmount(() => {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, opacity 0.15s ease-out;
+    transition:
+        transform 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        opacity 0.15s ease-out;
 }
 
 .prize-btn:hover {
@@ -1124,7 +1192,6 @@ onBeforeUnmount(() => {
 }
 
 .prize-btn.has-prize {
-    /* Much stronger glow + gentle throb */
     box-shadow:
         0 0 12px color-mix(in srgb, var(--btn-primary-bg) 55%, transparent),
         0 0 30px color-mix(in srgb, var(--btn-primary-bg) 85%, transparent),
@@ -1160,7 +1227,6 @@ onBeforeUnmount(() => {
     }
 }
 
-
 @keyframes prize-spin {
     0% {
         transform: rotate(0deg);
@@ -1175,7 +1241,7 @@ onBeforeUnmount(() => {
     }
 }
 
-/* Slot arm: 70° rotation, adjusted position, no opacity change on disabled */
+/* Slot arm */
 .slot-arm-btn {
     position: absolute;
     right: -260px;
@@ -1225,12 +1291,6 @@ onBeforeUnmount(() => {
     color: var(--btn-primary-on);
 }
 
-.pill-btn.secondary {
-    border-color: var(--btn-secondary-border);
-    background: var(--btn-secondary-bg);
-    color: var(--btn-secondary-on);
-}
-
 /* Transparent overlay for modals */
 .effect-modal-overlay {
     position: fixed;
@@ -1243,7 +1303,7 @@ onBeforeUnmount(() => {
     justify-content: center;
 }
 
-/* Prize card: centered, bigger */
+/* Prize card modal */
 .effect-modal {
     width: min(560px, 92vw);
     max-height: 90vh;
@@ -1257,13 +1317,12 @@ onBeforeUnmount(() => {
 }
 
 .effect-modal.info-modal {
-    width: min(1100px, 80vw);
-    /* big info modal */
+    width: min(820px, 80vw);
 }
 
 .effect-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 12px;
     margin-bottom: 12px;
@@ -1322,10 +1381,10 @@ onBeforeUnmount(() => {
     margin-top: 16px;
 }
 
-/* Info modal grid: 4 columns, big text */
+/* Info modal grid: 2 columns */
 .prize-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
     margin-top: 12px;
 }
@@ -1346,7 +1405,7 @@ onBeforeUnmount(() => {
     color: var(--modal-on-surface-soft);
 }
 
-/* Toast slide animation: raise up from behind machine */
+/* Toast slide animation */
 .mm-toast-slide-enter-active,
 .mm-toast-slide-leave-active {
     transition: transform 0.25s ease-out, opacity 0.25s ease-out;
@@ -1354,7 +1413,6 @@ onBeforeUnmount(() => {
 
 .mm-toast-slide-enter-from {
     transform: translateY(120%);
-    /* hidden behind / below machine */
     opacity: 0;
 }
 
@@ -1411,10 +1469,10 @@ onBeforeUnmount(() => {
     }
 }
 
-/* Small screens */
+/* Responsive */
 @media (max-width: 900px) {
     .prize-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1431,9 +1489,97 @@ onBeforeUnmount(() => {
     .mm-machine {
         min-height: 360px;
     }
+}
 
-    .prize-grid {
-        grid-template-columns: 1fr;
-    }
+/* ===== Wager Outcomes: big colored chips ===== */
+
+.outcome-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Big pill chips with large text */
+.outcome-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    box-shadow: var(--elevation-1);
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 800;
+    color: var(--neutral-0);
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Labels + percentages share the big size */
+.outcome-label,
+.outcome-pct {
+    line-height: 1.05;
+}
+
+/* ================================
+   OUTCOME CHIP COLOR SET (DARK)
+   ================================ */
+
+/* Lose all — dark red #1 */
+.outcome-bad-1 {
+    background: linear-gradient(135deg,
+            #b3002b 0%,
+            #7a001f 100%);
+}
+
+/* Lose half — dark red #2 */
+.outcome-bad-2 {
+    background: linear-gradient(135deg,
+            #c51634 0%,
+            #8b0f26 100%);
+}
+
+/* No change — deep blue */
+.outcome-neutral {
+    background: linear-gradient(135deg,
+            #1e4fa3 0%,
+            #10346d 100%);
+}
+
+/* Positive (2×, 3×, 4×) — dark green → gold */
+.outcome-good {
+    background: linear-gradient(135deg,
+            #0e6b2f 0%,
+            #b48a00 100%);
+}
+
+
+/* ===== Tier titles: larger, bold, underlined ===== */
+.tier-title {
+    font-weight: 900;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.prize-disclaimer {
+    margin-top: 18px;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: var(--modal-on-surface-soft);
+    text-align: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.85;
+}
+
+.prize-disclaimer strong {
+    color: var(--accent-primary);
+    font-weight: 700;
+}
+
+.prize-disclaimer u {
+    text-decoration-color: var(--accent-warning);
+    text-decoration-thickness: 2px;
 }
 </style>
