@@ -262,6 +262,9 @@ const isFullscreen = ref(false);
 const isCollapsed = ref(true);
 const showRainOverlay = ref(false);
 
+// Per-team "hidden" flag used for shuffle animation
+const hiddenPoints = ref<boolean[]>([]);
+
 const editForm = reactive<{
   name: string;
   points: number;
@@ -272,8 +275,34 @@ const editForm = reactive<{
   powerUps: [],
 });
 
-
 const editPanelRef = ref<HTMLElement | null>(null);
+
+/* ============================
+   Immediate prize classification
+   ============================ */
+
+const IMMEDIATE_PRIZE_IDS = new Set<string>([
+  // Tier 1 immediate
+  "t1_tip_jar",
+  "t1_party_favor",
+  "t1_donation",
+  "t1_nothing",
+
+  // Tier 2 immediate (picker)
+  "t2_steal40_one",
+  "t2_give40_one",
+
+  // Tier 3 immediate (picker)
+  "t3_swap_any_team",
+
+  // Tier 3 immediate (auto)
+  "t3_rain_of_points",
+  "t3_steal20_each",
+]);
+
+function isImmediatePrizeId(id: string): boolean {
+  return IMMEDIATE_PRIZE_IDS.has(id);
+}
 
 /* ---- Sync from props.teams and initialize ---- */
 watch(
@@ -306,6 +335,22 @@ watch(
 const displayedTeams = computed(() =>
   localTeams.value.slice(0, maxTeamsClamped.value),
 );
+
+/* Keep hiddenPoints aligned with displayed teams count */
+watch(
+  () => displayedTeams.value.length,
+  (len) => {
+    hiddenPoints.value = Array(len).fill(false);
+  },
+  { immediate: true },
+);
+
+function ensureHiddenArrayLength(): void {
+  const len = displayedTeams.value.length;
+  if (hiddenPoints.value.length !== len) {
+    hiddenPoints.value = Array(len).fill(false);
+  }
+}
 
 /* ---- Helpers ---- */
 function getTeamAt(index: number): Team | null {
@@ -349,7 +394,6 @@ function onEditClick(): void {
   }
 }
 
-
 function applyEdit(): void {
   if (
     selectedIndex.value < 0 ||
@@ -370,14 +414,13 @@ function applyEdit(): void {
     ...existing,
     name: editForm.name.trim() || `Team ${idx + 1}`,
     points: cleanPoints,
-    powerUps: [...editForm.powerUps], // ← use edited chips
+    powerUps: [...editForm.powerUps],
   };
 
   localTeams.value = updated;
   emit("update:teams", updated);
   isEditing.value = false;
 }
-
 
 // Close edit panel when clicking outside of it
 function onGlobalPointerDown(evt: PointerEvent): void {
@@ -482,7 +525,6 @@ function removePowerUpAt(puIndex: number): void {
   editForm.powerUps.splice(puIndex, 1);
 }
 
-
 /* -------- Fullscreen helpers -------- */
 
 function toggleFullscreen(): void {
@@ -493,12 +535,8 @@ function closeFullscreen(): void {
   isFullscreen.value = false;
 }
 
-/* -------- Exposed helpers for RandomPoints / scoring -------- */
+/* -------- Exposed helpers for scoring -------- */
 
-/**
- * Simple: just add delta to the selected team.
- * Powers do NOT change scoring (cosmetic only).
- */
 function applyDeltaToSelected(delta: number): void {
   if (!displayedTeams.value.length || !Number.isFinite(delta)) return;
 
@@ -571,10 +609,13 @@ function addHeldPowerUp(
 }
 
 /**
- * For now, all stored powers are treated as round-based chips.
- * On New Round, all chips are cleared.
+ * Adds a chip ONLY for non-immediate prizes.
+ * Immediate prizes are resolved via resolveImmediateMysteryEffect(...) instead.
  */
 function addPrizeToSelected(prize: PrizePayload): void {
+  // IMPORTANT: refuse to store chips for immediate effects (including swap).
+  if (isImmediatePrizeId(prize.id)) return;
+
   const idx = selectedIndex.value;
   if (idx < 0 || idx >= displayedTeams.value.length) return;
 
@@ -583,13 +624,10 @@ function addPrizeToSelected(prize: PrizePayload): void {
     prize.id,
     prize.tier,
     prize.label,
-    "round", // show dashed border and clear on New Round
+    "round",
   );
 }
 
-/**
- * Return a COPY of the held powers for the currently selected team.
- */
 function getHeldPowersForSelected(): HeldPower[] {
   const idx = selectedIndex.value;
   if (idx < 0 || idx >= localTeams.value.length) return [];
@@ -597,9 +635,6 @@ function getHeldPowersForSelected(): HeldPower[] {
   return Array.isArray(team.powerUps) ? [...team.powerUps] : [];
 }
 
-/**
- * Consume a power by id.
- */
 function consumeHeldPower(id: string): void {
   const idx = selectedIndex.value;
   if (idx < 0 || idx >= localTeams.value.length) return;
@@ -620,9 +655,6 @@ function consumeHeldPower(id: string): void {
   updateTeamAt(idx, updatedTeam);
 }
 
-/**
- * Clear ALL power-ups from every team when New Round is pressed.
- */
 function clearRoundPowerUps(): void {
   const updated = localTeams.value.map((t: Team) => ({
     ...t,
@@ -632,17 +664,14 @@ function clearRoundPowerUps(): void {
   emit("update:teams", updated);
 }
 
-/* ----- IMMEDIATE MYSTERY EFFECTS (steal / give / etc.) ----- */
+/* ----- IMMEDIATE MYSTERY EFFECTS (steal / give / swap / etc.) ----- */
 
-type ImmediateMode =
-  | "steal40_one"
-  | "give40_one"
-  | "swap_any_team";
+type ImmediateMode = "steal40_one" | "give40_one" | "swap_any_team";
 
 interface ImmediateEffectState {
   mode: ImmediateMode;
   prize: PrizePayload;
-  sourceIndex: number; // the team that won the prize
+  sourceIndex: number;
 }
 
 const immediateEffectState = ref<ImmediateEffectState | null>(null);
@@ -677,86 +706,103 @@ function triggerRainOfPoints(src: number): void {
   const teams = localTeams.value;
   if (!teams.length) return;
 
-  // Show big label
   showRainOverlay.value = true;
 
-  // After a short delay, apply the points and hide label
   window.setTimeout(() => {
     teams.forEach((_team, i) => {
-      if (i === src) {
-        // Team that drew the card
-        addPoints(i, 80);
-      } else {
-        // All other teams
-        addPoints(i, 40);
-      }
+      if (i === src) addPoints(i, 80);
+      else addPoints(i, 40);
     });
-
     showRainOverlay.value = false;
-  }, 900); // tweak duration if you want
+  }, 900);
 }
 
+/** NEW: used for t1_donation */
+function getLowestTeamIndex(): number {
+  const teams = localTeams.value;
+  if (!teams.length) return -1;
+
+  let min = Infinity;
+  let idx = -1;
+  teams.forEach((t, i) => {
+    if (t.points < min) {
+      min = t.points;
+      idx = i;
+    }
+  });
+  return idx;
+}
 
 /**
- * Entry point called from RandomPoints / MysteryMachine:
- * opens the correct selection overlay or applies auto effects.
+ * Entry point called from MysteryMachine's "effect-opened".
+ * Returns:
+ *  - true  => handled immediately (opened picker or applied auto)
+ *  - false => not an immediate effect; caller may store as a chip
  */
-function resolveImmediateMysteryEffect(prize: PrizePayload): void {
+function resolveImmediateMysteryEffect(prize: PrizePayload): boolean {
   const src = selectedIndex.value;
-  if (src < 0 || src >= displayedTeams.value.length) return;
+  if (src < 0 || src >= displayedTeams.value.length) return false;
 
   switch (prize.id) {
-    case "t2_steal40_one":
-      immediateEffectState.value = {
-        mode: "steal40_one",
-        prize,
-        sourceIndex: src,
-      };
-      return;
 
-    case "t2_give40_one":
-      immediateEffectState.value = {
-        mode: "give40_one",
-        prize,
-        sourceIndex: src,
-      };
-      return;
+    /* ===== TIER 1 (AUTO) ===== */
 
-    case "t3_swap_any_team":
-      // Swap total scores with any one team.
-      immediateEffectState.value = {
-        mode: "swap_any_team",
-        prize,
-        sourceIndex: src,
-      };
-      return;
+    case "t1_tip_jar":
+      addPoints(src, 20);
+      return true;
 
-    case "t3_rain_of_points": {
-      // NEW: automatic, affects all teams
-      triggerRainOfPoints(src);
-      return;
+    case "t1_party_favor":
+      localTeams.value.forEach((_, i) => addPoints(i, 10));
+      return true;
+
+    case "t1_donation": {
+      let lowestIdx = -1;
+      let lowest = Infinity;
+      localTeams.value.forEach((t, i) => {
+        if (t.points < lowest) {
+          lowest = t.points;
+          lowestIdx = i;
+        }
+      });
+      if (lowestIdx !== -1) addPoints(lowestIdx, 20);
+      return true;
     }
 
-    case "t3_steal20_each": {
-      // Immediate effect, no choice: steal 20 from every other team.
-      const teams = localTeams.value;
-      if (teams.length <= 1) return;
+    case "t1_nothing":
+      return true;
 
-      let totalStolen = 0;
-      teams.forEach((_, i) => {
-        if (i === src) return;
-        addPoints(i, -20);
-        totalStolen += 20;
+    /* ===== TIER 2 / 3 (existing logic) ===== */
+
+    case "t2_steal40_one":
+      immediateEffectState.value = { mode: "steal40_one", prize, sourceIndex: src };
+      return true;
+
+    case "t2_give40_one":
+      immediateEffectState.value = { mode: "give40_one", prize, sourceIndex: src };
+      return true;
+
+    case "t3_swap_any_team":
+      immediateEffectState.value = { mode: "swap_any_team", prize, sourceIndex: src };
+      return true;
+
+    case "t3_rain_of_points":
+      triggerRainOfPoints(src);
+      return true;
+
+    case "t3_steal20_each": {
+      let total = 0;
+      localTeams.value.forEach((_, i) => {
+        if (i !== src) {
+          addPoints(i, -20);
+          total += 20;
+        }
       });
-      if (totalStolen !== 0) {
-        addPoints(src, totalStolen);
-      }
-      return;
+      if (total) addPoints(src, total);
+      return true;
     }
 
     default:
-      // Other prizes are stored as chips elsewhere.
-      return;
+      return false;
   }
 }
 
@@ -765,36 +811,32 @@ function cancelImmediateEffect(): void {
   immediateEffectState.value = null;
 }
 
-/**
- * When a team is clicked in the immediate effect overlay.
- */
 function onImmediateEffectTargetClick(targetIndex: number): void {
   const s = immediateEffectState.value;
   if (!s) return;
 
   const src = s.sourceIndex;
   if (targetIndex < 0 || targetIndex >= localTeams.value.length) return;
-
-  // For all of these modes, you cannot select yourself as the target.
-  if (targetIndex === src) return;
+  if (targetIndex === src) return; // cannot target self
 
   switch (s.mode) {
-    case "steal40_one": {
+    case "steal40_one":
       addPoints(targetIndex, -40);
       addPoints(src, 40);
       break;
-    }
-    case "give40_one": {
-      // Give +40 to the chosen team; does NOT cost the source team.
+
+    case "give40_one":
       addPoints(targetIndex, 40);
       break;
-    }
+
     case "swap_any_team": {
       const srcTeam = getTeamAt(src);
       const dstTeam = getTeamAt(targetIndex);
       if (!srcTeam || !dstTeam) break;
+
       const srcPoints = srcTeam.points;
       const dstPoints = dstTeam.points;
+
       setPoints(src, dstPoints);
       setPoints(targetIndex, srcPoints);
       break;
@@ -807,30 +849,72 @@ function onImmediateEffectTargetClick(targetIndex: number): void {
 /* ---- label helper for chips ---- */
 function shortPowerUpLabel(id: string, fallback: string): string {
   switch (id) {
-    case "t1_reflip":
-      return "Re-flip";
-    case "t1_flip2_pick1":
-      return "2→1";
-    case "t1_shield":
-      return "Shield";
     case "t2_double_next":
       return "x2";
     case "t3_triple_next":
       return "x3";
-    case "t2_steal40_one":
-      return "Steal 40";
-    case "t2_give40_one":
-      return "Give 40";
-    case "t3_steal20_each":
-      return "Steal 20 each";
-    case "t3_swap_any_team":
-      return "Swap";
-    case "t3_rain_of_points":
-      return "Rain";
+    case "t1_tip_jar":
+      return "Tip +20";
+    case "t1_party_favor":
+      return "+10 all";
+    case "t1_donation":
+      return "Donate +20";
+    case "t1_nothing":
+      return "No bonus";
     default:
       return fallback;
   }
 }
+
+/**
+ * Shuffle logic
+ */
+async function shuffleAllTeamPoints(): Promise<void> {
+  const teams = [...localTeams.value];
+  const len = teams.length;
+  if (len <= 1) return;
+
+  const currentPoints = teams.map((t) => t.points);
+
+  // Build a derangement of indices using Sattolo's algorithm (single cycle, no fixed points)
+  const idxs = Array.from({ length: len }, (_, i) => i);
+
+  // For 2 teams, this naturally becomes a swap.
+  for (let i = len - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * i); // NOTE: j in [0, i-1] (not i)
+    [idxs[i], idxs[j]] = [idxs[j], idxs[i]];
+  }
+
+  // idxs is now a single cycle permutation => idxs[i] !== i for all i when len > 1
+  const shuffled = idxs.map((srcIndex) => currentPoints[srcIndex]);
+
+  // Safety check (should never fail, but keep it for robustness)
+  const anyFixed = shuffled.some((v, i) => v === currentPoints[i]);
+  if (anyFixed) {
+    // Fallback: simple rotation by 1 guarantees no fixed points for len>1
+    const rotated = currentPoints.slice(1).concat(currentPoints[0]);
+    for (let i = 0; i < len; i++) shuffled[i] = rotated[i];
+  }
+
+  // --- Your existing animation logic ---
+  ensureHiddenArrayLength();
+  hiddenPoints.value = hiddenPoints.value.map(() => true);
+  await new Promise((resolve) => setTimeout(resolve, 260));
+
+  const updated = teams.map((team, i) => ({
+    ...team,
+    points: shuffled[i],
+  }));
+  localTeams.value = updated;
+  emit("update:teams", updated);
+
+  for (let i = 0; i < len; i++) {
+    hiddenPoints.value[i] = false;
+    hiddenPoints.value = [...hiddenPoints.value];
+    await new Promise((resolve) => setTimeout(resolve, 140));
+  }
+}
+
 
 defineExpose({
   addPoints,
@@ -840,20 +924,17 @@ defineExpose({
   getHeldPowersForSelected,
   consumeHeldPower,
   clearRoundPowerUps,
-  resolveImmediateMysteryEffect,
+  resolveImmediateMysteryEffect, // now returns boolean
+  shuffleAllTeamPoints,
 });
 
 /* ---- lifecycle ---- */
 onMounted(() => {
-  window.addEventListener("pointerdown", onGlobalPointerDown, {
-    capture: true,
-  });
+  window.addEventListener("pointerdown", onGlobalPointerDown, { capture: true });
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("pointerdown", onGlobalPointerDown, {
-    capture: true,
-  });
+  window.removeEventListener("pointerdown", onGlobalPointerDown, { capture: true });
 });
 </script>
 
@@ -1469,5 +1550,21 @@ onBeforeUnmount(() => {
   opacity: 1;
   transform: scale(1);
 }
+
+
+/* Smooth fade/slide for points values */
+.team-points,
+.fullscreen-points {
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.team-points.is-hidden,
+.fullscreen-points.is-hidden {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
 
 </style>

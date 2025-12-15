@@ -123,7 +123,7 @@
         <!-- Prizes info modal: colorful grid layout -->
         <div v-if="showPrizesModal" class="effect-modal-overlay" @click.self="showPrizesModal = false">
             <div class="effect-modal info-modal">
-                <h3 class="effect-title">Outcomes &amp; Prizes</h3>
+                <h3 class="effect-title">Mystery Machine: Outcomes &amp; Prizes</h3>
 
                 <div class="prize-grid">
                     <!-- Column 1: Wager Outcomes -->
@@ -172,9 +172,10 @@
                                     <span class="tier-title">Tier 1: 10+ points</span>
                                 </header>
                                 <ul class="tier-list">
-                                    <li>Re-flip</li>
-                                    <li>Flip 2, pick 1</li>
-                                    <li>Shield (block a bad card)</li>
+                                    <li>+20 points</li>
+                                    <li>+10 to every team</li>
+                                    <li>+20 to the lowest team</li>
+                                    <li>Nothing happens</li>
                                 </ul>
                             </article>
 
@@ -185,7 +186,7 @@
                                 <ul class="tier-list">
                                     <li>Double next card (x2)</li>
                                     <li>Steal 40 from one team</li>
-                                    <li>Give 40 to one team</li>
+                                    <li>+40 to one team</li>
                                 </ul>
                             </article>
 
@@ -205,14 +206,10 @@
                 </div>
 
                 <p class="prize-disclaimer">
-                    *All cards except for <strong>Re-flip</strong> and <strong>Flip 2 → 1</strong> are applied
-                    automatically.
-                    If a team has either of those perks, points will <u>not</u> be auto-assigned when a card is flipped.
-                    You can remove perk chips by editing the team or by clicking the 🚫 button at the top right of the
-                    team
-                    tabs
-                    to remove all chips from all teams.
+                    All prizes are applied automatically.
+                    There is no need to manually edit team points to apply prize effects.
                 </p>
+
             </div>
         </div>
     </section>
@@ -391,9 +388,10 @@ const toastMessage = ref("");
  * Tiered effect pools
  *
  * Tier 1:
- *  - Re-flip
- *  - Flip 2 pick 1
- *  - Shield (no steals for one round)
+ *  - Tip Jar
+ *  - Party Favor
+ *  - Donation
+ *  - Nothing
  *
  * Tier 2:
  *  - Double next card
@@ -407,20 +405,34 @@ const toastMessage = ref("");
  *  - Rain of points (+80 you, +40 another)
  */
 const tier1Effects: Effect[] = [
-    { id: "t1_reflip", tier: 1, label: "Re-flip: must take the second card" },
-    { id: "t1_flip2_pick1", tier: 1, label: "Flip 2 cards and pick 1" },
     {
-        id: "t1_shield",
+        id: "t1_tip_jar",
         tier: 1,
-        label: "Shield: no one can steal from you until the next Mystery round",
+        label: "+20 points",
+    },
+    {
+        id: "t1_party_favor",
+        tier: 1,
+        label: "+10 points to every team",
+    },
+    {
+        id: "t1_donation",
+        tier: 1,
+        label: "+20 points to the lowest team",
+    },
+    {
+        id: "t1_nothing",
+        tier: 1,
+        label: "Nothing happens",
     },
 ];
+
 
 const tier2Effects: Effect[] = [
     {
         id: "t2_double_next",
         tier: 2,
-        label: "Double next card: your next card is worth 2x",
+        label: "2x next card",
     },
     {
         id: "t2_steal40_one",
@@ -430,7 +442,7 @@ const tier2Effects: Effect[] = [
     {
         id: "t2_give40_one",
         tier: 2,
-        label: "Give 40 points to one team",
+        label: "+40 points to one team",
     },
 ];
 
@@ -438,7 +450,7 @@ const tier3Effects: Effect[] = [
     {
         id: "t3_triple_next",
         tier: 3,
-        label: "Triple next card: your next card is worth 3x",
+        label: "3x next card",
     },
     {
         id: "t3_steal20_each",
@@ -448,7 +460,7 @@ const tier3Effects: Effect[] = [
     {
         id: "t3_swap_any_team",
         tier: 3,
-        label: "Swap total points with any one team",
+        label: "Swap total points with another team",
     },
     {
         id: "t3_rain_of_points",
@@ -461,28 +473,30 @@ const tier3Effects: Effect[] = [
  * Optional effect descriptions (for the card text)
  */
 const EFFECT_DESCRIPTIONS: Record<string, string> = {
-    t1_reflip:
-        "Use once: if you dislike your next card, flip again — but you must keep the second card.",
-    t1_flip2_pick1:
-        "Next time you earn a card, flip 2 cards instead of 1 and choose which one to keep.",
-    t1_shield:
-        "Until the next Mystery round, other teams cannot steal points from you.",
+    t1_tip_jar:
+        "Your team gains +20 points.",
+    t1_party_favor:
+        "Every team gains +10 points.",
+    t1_donation:
+        "The team with the lowest score gains +20 points.",
+    t1_nothing:
+        "Nothing happens this time.",
 
     t2_double_next:
-        "Your next card is worth double its normal value. Use it on your next card flip.",
+        "Your next card is doubled.",
     t2_steal40_one:
-        "Immediately steal 40 points from any one team of your choice.",
+        "Steal 40 points from anohter team.",
     t2_give40_one:
-        "Immediately give 40 points to any one team. Use it to help or create alliances.",
+        "Plus 40 points to another team.",
 
     t3_triple_next:
-        "Your next card is worth triple its normal value. Big risk, big reward.",
+        "Your next card is tripled!",
     t3_steal20_each:
-        "Immediately steal 20 points from every other team and add them to your score.",
+        "Steal 20 points from ALL other teams.",
     t3_swap_any_team:
-        "Swap your total score with any one team. You choose who trades with you.",
+        "Swap your total score with any team.",
     t3_rain_of_points:
-        "You gain +80 points, then every other team on the board gains +40 points.",
+        "You gain +80 points, every other team gains +40 points.",
 };
 
 
@@ -804,15 +818,26 @@ function bumpWager(amount: number) {
  * Prize modal controls
  */
 function openEffectModal() {
-    if (!hasPrize.value || !effect.value) return;
-    showEffectModal.value = true;
+  if (!hasPrize.value || !effect.value || !wagerOutcome.value) return;
 
-    // Notify parent that the prize card (with this power up) was opened,
-    // so TeamPointsTracker can auto-handle steal/give/swap/rain, etc.
-    if (lastResult.value) {
-        emit("effect-opened", lastResult.value);
-    }
+  showEffectModal.value = true;
+
+  // Always emit a fully-formed payload (even if lastResult is null for any reason)
+  const payload: MysteryResult = lastResult.value ?? {
+    wager: wager.value,
+    wagerOutcome: wagerOutcome.value,
+    pointsDelta: pointsDelta.value,
+    tier: determineTier(wager.value),
+    effect: effect.value,
+  };
+
+  // Debug (remove after confirming)
+  // eslint-disable-next-line no-console
+  console.log("[MysteryMachine] effect-opened", payload.effect.id, payload);
+
+  emit("effect-opened", payload);
 }
+
 
 function closeEffectModal() {
     showEffectModal.value = false;

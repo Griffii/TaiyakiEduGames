@@ -10,53 +10,24 @@
     </button>
 
     <!-- Top Right: Settings -->
-    <button
-      class="icon-btn settings"
-      type="button"
-      @click="toggleSettingsMenu"
-      aria-haspopup="dialog"
-      :aria-expanded="showSettings"
-      aria-controls="settings-menu"
-      aria-label="Open settings"
-      title="Settings"
-    >
+    <button class="icon-btn settings" type="button" @click="toggleSettingsMenu" aria-haspopup="dialog"
+      :aria-expanded="showSettings" aria-controls="settings-menu" aria-label="Open settings" title="Settings">
       <img class="icon" src="@/assets/images/icons/settings-icon.png" alt="" />
     </button>
 
     <!-- Top Right: Mystery Machine button -->
-    <button
-      class="icon-btn mystery"
-      type="button"
-      @click="showMysteryMachine = true"
-      aria-label="Open Mystery Machine"
-      title="Mystery Machine"
-    >
+    <button class="icon-btn mystery" type="button" @click="showMysteryMachine = true" aria-label="Open Mystery Machine"
+      title="Mystery Machine">
       <img class="icon" src="@/assets/images/games/mystery-machine/mystery-machine-icon.png" alt="">
     </button>
 
     <!-- Mystery Machine Modal -->
-    <MysteryMachine
-      v-if="showMysteryMachine"
-      :maxWager="maxWager"
-      @close="onMysteryClosed"
-      @resolved="onMysteryResolved"
-      @effect-opened="onEffectOpened"
-    />
+    <MysteryMachine v-if="showMysteryMachine" :maxWager="maxWager" @close="onMysteryClosed"
+      @resolved="onMysteryResolved" @effect-opened="onEffectOpened" />
 
     <!-- SETTINGS OVERLAY + MENU -->
-    <div
-      v-if="showSettings"
-      class="settings-overlay"
-      role="presentation"
-      @click="showSettings = false"
-    >
-      <div
-        id="settings-menu"
-        class="settings-menu"
-        role="dialog"
-        aria-modal="true"
-        @click.stop
-      >
+    <div v-if="showSettings" class="settings-overlay" role="presentation" @click="showSettings = false">
+      <div id="settings-menu" class="settings-menu" role="dialog" aria-modal="true" @click.stop>
         <h3 class="menu-title">Settings</h3>
 
         <label class="menu-row">
@@ -67,6 +38,12 @@
         <label class="menu-row">
           <input type="checkbox" v-model="doublePoints" />
           <span>Double Points</span>
+        </label>
+
+        <!-- Tornado toggle -->
+        <label class="menu-row">
+          <input type="checkbox" v-model="allowTornado" />
+          <span>Tornado Cards</span>
         </label>
 
         <label class="menu-row">
@@ -85,6 +62,7 @@
       </div>
     </div>
 
+
     <h1 class="title"></h1>
 
     <!-- Column labels -->
@@ -101,18 +79,13 @@
 
         <!-- Cards -->
         <div v-for="c in cols" :key="`c-${r}-${c}`" class="grid-item">
-          <div
-            class="card"
-            :class="{
-              'mystery-card': isSpecial(cellAt(r, c).value),
-              'mystery-card--revealed': isSpecial(cellAt(r, c).value) && cellAt(r, c).revealed
-            }"
-            role="button"
-            tabindex="0"
-            @click.stop="reveal(cellAt(r, c))"
-            @keydown.enter.prevent="reveal(cellAt(r, c))"
-            @keydown.space.prevent="reveal(cellAt(r, c))"
-          >
+          <div class="card" :class="{
+            'mystery-card': isMystery(cellAt(r, c).value),
+            'mystery-card--revealed': isMystery(cellAt(r, c).value) && cellAt(r, c).revealed,
+            'tornado-card': isTornado(cellAt(r, c).value),
+            'tornado-card--revealed': isTornado(cellAt(r, c).value) && cellAt(r, c).revealed
+          }" role="button" tabindex="0" @click.stop="reveal(cellAt(r, c))" @keydown.enter.prevent="reveal(cellAt(r, c))"
+            @keydown.space.prevent="reveal(cellAt(r, c))">
             <div class="flip-inner" :class="{ revealed: cellAt(r, c).revealed }">
               <!-- FRONT (green back) -->
               <div class="face front"></div>
@@ -145,12 +118,12 @@ import TeamPointsTracker from "@/components/TeamPointsTracker.vue";
 /* --- SFX --- */
 import sndPositive from "@/assets/sounds/fortunegame/chukichi.mp3";
 import sndNegative from "@/assets/sounds/fortunegame/kyo.mp3";
-import sndSwap from "@/assets/sounds/fortunegame/shokichi.mp3";   // kept in case you want later
-import sndLoseAll from "@/assets/sounds/fortunegame/daikyo.mp3"; // kept in case you want later
+import sndSwap from "@/assets/sounds/spinning_sfx.mp3";
+import sndLoseAll from "@/assets/sounds/fortunegame/daikyo.mp3";
 import sndJackpot from "@/assets/sounds/fortunegame/daikichi.mp3";
 import sndMystery from "@/assets/sounds/mystery-machine.mp3";
 
-type Special = "Mystery Machine";
+type Special = "Mystery Machine" | "Tornado";
 type CellValue = number | Special;
 type Cell = { id: number; value: CellValue; display: string; revealed: boolean };
 
@@ -203,6 +176,7 @@ const showSettings = ref(false);
 const allowNegatives = ref(true);
 const doublePoints = ref(false);
 const allowSpecial = ref(true);
+const allowTornado = ref(false);
 const showMysteryOverlay = ref(false);
 
 /* SFX controls */
@@ -310,43 +284,28 @@ function onEffectOpened(result: MysteryResultPayload) {
   if (!hasSelectedTeam.value || !teamTracker.value) return;
 
   const tracker: any = teamTracker.value;
-  const effect = result.effect;
-
-  // Effects that must be resolved immediately (no chip):
-  // - Steal 20 from one team
-  // - Give 20 to one team
-  // - Steal 10 from EVERY other team
-  // - Rain of points (+40 you, +20 to all others)
-  // - Swap total points with any one team
-  const immediateIds = new Set<string>([
-    "t2_steal20_one",
-    "t2_give20_one",
-    "t3_steal10_each",
-    "t3_rain_of_points",
-    "t3_swap_any_team",
-  ]);
 
   const payload = {
-    id: effect.id,
-    tier: effect.tier,
-    label: effect.label,
+    id: result.effect.id,
+    tier: result.effect.tier,
+    label: result.effect.label,
     source: "mystery" as const,
     wager: result.wager,
   };
 
-  if (immediateIds.has(effect.id)) {
-    if (typeof tracker.resolveImmediateMysteryEffect === "function") {
-      // Let TeamPointsTracker open the fullscreen grid and apply the effect.
-      tracker.resolveImmediateMysteryEffect(payload);
-    }
-    return;
+  // Let the tracker decide if it's immediate.
+  // If it returns true, it already applied it / opened the picker.
+  if (typeof tracker.resolveImmediateMysteryEffect === "function") {
+    const handled = tracker.resolveImmediateMysteryEffect(payload);
+    if (handled) return;
   }
 
-  // Everything else becomes a held prize chip on the selected team tab
+  // Otherwise store as a held chip (round power-up)
   if (typeof tracker.addPrizeToSelected === "function") {
     tracker.addPrizeToSelected(payload);
   }
 }
+
 
 /**
  * When the MysteryMachine resolves (wager outcome).
@@ -423,14 +382,28 @@ const labelsInlineStyle = computed(() => {
 const cellIndex = (r: number, c: number) => (r - 1) * cols + (c - 1);
 const cellAt = (r: number, c: number) => cells.value[cellIndex(r, c)];
 const isSpecial = (v: CellValue): boolean => typeof v !== "number";
+const isMystery = (v: CellValue): boolean => v === "Mystery Machine";
+const isTornado = (v: CellValue): boolean => v === "Tornado";
+
 
 function valueClass(v: CellValue) {
   if (typeof v === "number") {
     return v > 0 ? "val-pos" : v < 0 ? "val-neg" : "val-zero";
   }
-  // Only one special type now
-  return "val-mystery val-text";
+
+  if (v === "Mystery Machine") {
+    return "val-mystery val-text";
+  }
+
+  if (v === "Tornado") {
+    // Dark grey text, separate from mystery styling
+    return "val-tornado val-text";
+  }
+
+  // fallback for any other future special text
+  return "val-text";
 }
+
 
 function rng(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -483,21 +456,31 @@ function generateValues(): CellValue[] {
   const out: CellValue[] = [];
 
   // Always guarantee at least one max-value positive card.
-  // Base "jackpot" is 100; Double Points doubles all card values as before.
   const jackpotBase = 100;
   const jackpotValue = doublePoints.value ? jackpotBase * 2 : jackpotBase;
   out.push(jackpotValue);
 
-  // Mystery Machine specials: aim for 3–5 cards when enabled
-  if (allowSpecial.value) {
-    const available = totalCells - out.length;
-    if (available > 0) {
-      const desired = rng(2, 5); // 2 - 5 Mystery Machine crds per round
-      const count = Math.min(desired, available);
-      for (let i = 0; i < count; i++) {
-        out.push("Mystery Machine");
-      }
+  // Remaining capacity after jackpot
+  let available = totalCells - out.length;
+
+  // Mystery Machine specials: 2–4 cards when enabled
+  if (allowSpecial.value && available > 0) {
+    const desiredMM = rng(2, 4); // 2–4 Mystery Machine cards
+    const mmCount = Math.min(desiredMM, available);
+    for (let i = 0; i < mmCount; i++) {
+      out.push("Mystery Machine");
     }
+    available = totalCells - out.length;
+  }
+
+  // Tornado specials: 2–4 cards when enabled
+  if (allowTornado.value && available > 0) {
+    const desiredTornado = rng(2, 4); // 2–4 Tornado cards
+    const tCount = Math.min(desiredTornado, available);
+    for (let i = 0; i < tCount; i++) {
+      out.push("Tornado");
+    }
+    available = totalCells - out.length;
   }
 
   const remain = totalCells - out.length;
@@ -534,6 +517,7 @@ function generateValues(): CellValue[] {
 }
 
 
+
 function buildCells() {
   const values = generateValues();
   for (let i = 0; i < totalCells; i++) {
@@ -548,14 +532,20 @@ function buildCells() {
 /* ---------------------------
  * Card actions
  * ------------------------- */
-
 function reveal(cell: Cell) {
+
   if (!cell || cell.revealed) return;
 
   // sfx first
   if (typeof cell.value === "string") {
-    // single special: Mystery Machine
-    play("mystery");
+    if (cell.value === "Mystery Machine") {
+      play("mystery");
+    } else if (cell.value === "Tornado") {
+      // Tornado feels like a "shuffle/swap" sound
+      play("swap");
+    } else {
+      play("mystery");
+    }
   } else {
     // Jackpot sound for the largest card:
     // 100 when Double Points is off, 200 when Double Points is on.
@@ -574,32 +564,36 @@ function reveal(cell: Cell) {
   // then flip
   cell.revealed = true;
 
+  // Special cards: handle side effects & stop (no point delta)
+  if (typeof cell.value === "string") {
+    if (cell.value === "Tornado") {
+      const tracker: any = teamTracker.value;
+      if (tracker && typeof tracker.shuffleAllTeamPoints === "function") {
+        tracker.shuffleAllTeamPoints();
+      } else {
+        console.warn(
+          "[RandomPoints] Tornado card revealed, but TeamPointsTracker.shuffleAllTeamPoints() not found."
+        );
+      }
+    }
+
+    // Mystery Machine card currently has no extra behavior, just reveal + sound.
+    return;
+  }
+
   // Only numeric values affect team scores
-  if (typeof cell.value !== "number") return;
   if (!hasSelectedTeam.value) return;
 
   const tracker: any = teamTracker.value;
   if (!tracker) return;
 
-  // Re-flip / Flip-2-pick-1 powers mean "teacher controls this flow",
-  // so DO NOT auto-assign any points when those powers are active.
-  const hasFlip2Pick1 = selectedTeamHasPower("t1_flip2_pick1");
-  const hasReflip = selectedTeamHasPower("t1_reflip");
-
-  if (hasFlip2Pick1 || hasReflip) {
-    console.debug(
-      "[RandomPoints] Card revealed but points not auto-assigned due to Flip2/Re-flip power.",
-      { hasFlip2Pick1, hasReflip, cellValue: cell.value },
-    );
-    return;
-  }
-
-  // Otherwise auto-assign, applying 2x/3x next-card powers if present.
+  // Auto-assign, applying 2x/3x next-card powers if present.
   const baseValue = cell.value;
   const finalDelta = applyCardPowersToDelta(baseValue);
 
   tracker.applyDeltaToSelected(finalDelta);
 }
+
 
 
 // "See All" reveals without sending any score signals
@@ -626,6 +620,7 @@ function saveSettings() {
       allowNegatives: allowNegatives.value,
       doublePoints: doublePoints.value,
       allowSpecial: allowSpecial.value,
+      allowTornado: allowTornado.value,
       sfxMuted: sfxMuted.value,
     }),
   );
@@ -654,6 +649,7 @@ onMounted(() => {
       if (typeof saved.allowNegatives === "boolean") allowNegatives.value = saved.allowNegatives;
       if (typeof saved.doublePoints === "boolean") doublePoints.value = saved.doublePoints;
       if (typeof saved.allowSpecial === "boolean") allowSpecial.value = saved.allowSpecial;
+      if (typeof saved.allowTornado === "boolean") allowTornado.value = saved.allowTornado;
       if (typeof saved.sfxMuted === "boolean") sfxMuted.value = saved.sfxMuted;
     }
   } catch {
@@ -665,6 +661,7 @@ onMounted(() => {
   handleResize();
   window.addEventListener("resize", handleResize, { passive: true });
 });
+
 
 onBeforeUnmount(() => {
   window.removeEventListener("resize", handleResize);
@@ -980,6 +977,44 @@ onBeforeUnmount(() => {
   }
 }
 
+.card.tornado-card--revealed {
+  animation: tornado-spin 0.9s ease-out;
+  position: relative;
+  z-index: 999;
+}
+
+@keyframes tornado-spin {
+  0% {
+    transform: scale(1) rotate(0deg);
+    box-shadow: none;
+    filter: brightness(1);
+  }
+
+  25% {
+    transform: scale(1.12) rotate(360deg);
+    box-shadow: 0 0 25px color-mix(in srgb, var(--neutral-900) 60%, var(--accent-primary) 40%);
+    filter: brightness(1.2);
+  }
+
+  55% {
+    transform: scale(1.2) rotate(720deg);
+    box-shadow: 0 0 40px color-mix(in srgb, var(--neutral-900) 70%, var(--neutral-0) 30%);
+    filter: brightness(1.3);
+  }
+
+  80% {
+    transform: scale(1.08) rotate(810deg);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--neutral-900) 55%, transparent);
+    filter: brightness(1.15);
+  }
+
+  100% {
+    transform: scale(1.02) rotate(720deg);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--neutral-900) 45%, transparent);
+    filter: brightness(1.05);
+  }
+}
+
 /* Flipper (true 2-sided flip) */
 .flip-inner {
   position: relative;
@@ -1062,6 +1097,13 @@ onBeforeUnmount(() => {
   text-shadow: 0 0 6px color-mix(in srgb, var(--accent-primary) 55%, transparent);
 }
 
+.value.val-tornado {
+  /* Dark gray text – distinct from accent colors */
+  color: color-mix(in srgb, var(--neutral-900) 90%, var(--neutral-0) 10%);
+  text-shadow: 0 0 4px color-mix(in srgb, var(--neutral-900) 45%, transparent);
+}
+
+
 /* Special cards: responsive wrapping */
 .value.val-text {
   font-size: clamp(0.6rem, 3.6vw, 28px);
@@ -1120,5 +1162,4 @@ onBeforeUnmount(() => {
     margin-top: 50px;
   }
 }
-
 </style>
