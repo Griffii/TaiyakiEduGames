@@ -1,0 +1,1 @@
+import{T as e}from"./TextbookList-D7d_xh2l.js";import{i as a,a as o,d as s,k as t,b as c,_ as r}from"./index-wh3CbFb4.js";const _={class:"flashcard-grid-page"},d={class:"center-area"},n=a({__name:"TextbookGridPage",setup(i){return(p,m)=>(c(),o("section",_,[s("div",d,[t(e)])]))}}),b=r(n,[["__scopeId","data-v-d9204b0b"]]);export{b as default};
