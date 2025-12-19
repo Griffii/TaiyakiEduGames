@@ -123,6 +123,12 @@ const flashcardGameCards = [
     image: new URL("@/assets/images/screenshots/flashcard-games/sharknado.png", import.meta.url).href,
     color: "#00D29E", // teal
   },
+  {
+    title: "Memory Game",
+    link: "/textbooks",
+    image: new URL("@/assets/images/screenshots/flashcard-games/memorygame.png", import.meta.url).href,
+    color: "#D4EED1", // green
+  },
 ];
 
 //////// HELPER FUNCTIONS ////////////
