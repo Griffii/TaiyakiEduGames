@@ -1,6 +1,6 @@
 /** A user asked to replace the Mushroom image with a Taiyaki image, like the original
-    So now all text references say "Taiyaki" but all code refrences a mushroom.
-    Sorry abou that. I can't be bothered to change all 30 references to mushroom back to taiyaki.
+So now all text references say "Taiyaki" but all code refrences a mushroom.
+Sorry abou that. I can't be bothered to change all 30 references to mushroom back to taiyaki.
 **/
 
 <template>
@@ -56,27 +56,47 @@
     <div v-show="showSettings" class="settings-backdrop" @click="closeSettingsMenu" />
 
     <!-- Settings panel -->
-    <div id="settings-menu" class="settings-menu" v-show="showSettings" role="dialog" :aria-modal="false" :data-mode="modeDraft"
-      :aria-hidden="!showSettings">
-      <h3>Game Settings</h3>
-
-      <label for="display-card-limit">Number of Cards:</label>
-      <input type="number" id="display-card-limit" min="4" :max="allCards.length || 4"
-        v-model.number="displayLimitDraft" />
-
-      <button id="toggle-english-btn" :class="{ off: !showEnglish }" @click="toggleEnglish">
-        English: {{ showEnglish ? 'ON' : 'OFF' }}
+    <!-- Settings Button + Drop-down -->
+    <div class="settings-wrap" ref="settingsWrap">
+      <button class="settings-button" type="button" @click="toggleSettingsMenu" aria-haspopup="dialog"
+        :aria-expanded="showSettings" aria-controls="settings-menu">
+        <img :src="settingsIcon" alt="" />
       </button>
 
-      <button id="mode-btn" @click="modeDraft = (modeDraft === 'bomb' ? 'mushroom' : 'bomb')">
-        Mode: {{ modeDraft === 'bomb' ? 'Bomb' : 'Taiyaki' }}
-      </button>
+      <!-- Full-screen blurred backdrop (covers game area, not menu) -->
+      <div v-if="showSettings" class="settings-backdrop" @click="closeSettingsMenu" aria-hidden="true"></div>
 
-      <button class="restart-btn" @click="restart">Reset</button>
+      <!-- Drop-down with open/close animation -->
+      <Transition name="settings-drop">
+        <div v-if="showSettings" id="settings-menu" class="settings-dropdown" role="dialog" :aria-modal="false"
+          :data-mode="modeDraft" :aria-hidden="!showSettings">
+          <h3 class="settings-title">Game Settings</h3>
 
-      <button class="apply-btn" @click="applySettings">Apply</button>
+          <div class="settings-row">
+            <label class="settings-label" for="display-card-limit">Number of Cards</label>
+            <input class="settings-input" type="number" id="display-card-limit" min="4" :max="allCards.length || 4"
+              v-model.number="displayLimitDraft" />
+          </div>
 
-      <button class="cancel-btn" @click="closeSettingsMenu">Cancel</button>
+          <div class="settings-actions">
+            <button id="toggle-english-btn" class="btn toggle" :class="{ off: !showEnglish }" @click="toggleEnglish"
+              type="button">
+              English: {{ showEnglish ? "ON" : "OFF" }}
+            </button>
+
+            <button id="mode-btn" class="btn mode" type="button"
+              @click="modeDraft = (modeDraft === 'bomb' ? 'mushroom' : 'bomb')">
+              Mode: {{ modeDraft === "bomb" ? "Bomb" : "Taiyaki" }}
+            </button>
+          </div>
+
+          <div class="settings-actions bottom">
+            <button class="btn ghost restart-btn" type="button" @click="restart">Reset</button>
+            <button class="btn primary apply-btn" type="button" @click="applySettings">Apply</button>
+            <button class="btn danger cancel-btn" type="button" @click="closeSettingsMenu">Cancel</button>
+          </div>
+        </div>
+      </Transition>
     </div>
   </section>
 </template>
@@ -445,8 +465,13 @@ function onExit() {
   z-index: 1000;
 }
 
-.home-button { left: 16px; }
-.settings-button { right: 16px; }
+.home-button {
+  left: 16px;
+}
+
+.settings-button {
+  right: 16px;
+}
 
 .home-button img,
 .settings-button img {
@@ -458,192 +483,176 @@ function onExit() {
   transition: transform .12s ease-in-out;
 }
 
-.home-button:hover img { transform: scale(1.06); }
-.settings-button:hover img { transform: scale(1.06) rotate(6deg); }
-
-/* --- Settings backdrop (theme modal tokens) --- */
-.settings-backdrop {
-  position: fixed;
-  inset: 0;
-  background: var(--modal-overlay-bg);
-  backdrop-filter: var(--modal-overlay-filter);
-  -webkit-backdrop-filter: var(--modal-overlay-filter);
-  z-index: 999;
+.home-button:hover img {
+  transform: scale(1.06);
 }
 
-/* --- Settings panel (modal card) --- */
-.settings-menu {
+.settings-button:hover img {
+  transform: scale(1.06) rotate(6deg);
+}
+
+/* --- Settings backdrop (theme modal tokens) --- */
+/* Wrapper anchored under the settings icon */
+.settings-wrap {
   position: fixed;
-  top: 84px;
+  top: 16px;
   right: 16px;
-  width: 240px;
-  text-align: center;
-  align-items: center;
-
-  background: var(--modal-surface);
-  color: var(--modal-on-surface);
-  border: 1px solid var(--modal-border);
-  border-radius: var(--modal-radius);
-  box-shadow: var(--modal-shadow);
-
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   z-index: 1100;
 }
 
-.settings-menu h3 {
-  margin: 2px 0 6px;
-  font-weight: 800;
+/* Backdrop blur overlay (MemoryGame-style, weak) */
+.settings-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: color-mix(in srgb, #000 16%, transparent);
+  backdrop-filter: blur(4px) saturate(115%);
+  -webkit-backdrop-filter: blur(4px) saturate(115%);
+}
+
+/* Drop-down container (MemoryGame-style) */
+.settings-dropdown {
+  position: absolute;
+  top: 52px;
+  right: 0;
+  width: min(360px, calc(100vw - 18px));
+  border-radius: var(--radius-lg);
+  background: var(--modal-surface);
+  color: var(--modal-on-surface);
+  border: 1px solid var(--modal-border);
+  box-shadow: var(--modal-shadow);
+  overflow: hidden;
+  z-index: 90;
+  padding: 12px;
+  text-align: left;
+}
+
+.settings-title {
+  margin: 0 0 10px;
+  font-weight: 950;
   font-size: 18px;
   color: var(--modal-on-surface);
 }
 
-/* Labels + inputs */
-.settings-menu label {
-  font-weight: 700;
-  color: var(--modal-on-surface);
+/* row */
+.settings-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0 12px;
 }
 
-.settings-menu input[type="number"] {
-  width: 110px;
-  padding: 8px 10px;
-  margin-top: 4px;
-  border-radius: var(--radius-sm);
-  background: var(--modal-surface);
-  color: var(--modal-on-surface);
-  border: 1px solid var(--modal-border);
-  box-shadow: var(--elevation-1);
-  outline: none;
-}
-.settings-menu input[type="number"]:focus-visible {
-  box-shadow: var(--focus-ring);
-}
-
-/* Base style for all menu buttons */
-.settings-menu button {
-  display: block;
-  width: 100%;
-  padding: 10px 14px;
+.settings-label {
+  font-size: 12px;
+  color: var(--modal-on-surface-soft);
   font-weight: 800;
-  border-radius: var(--radius-sm);
+}
+
+.settings-input {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--select-menu-border);
+  background: var(--select-menu-surface);
+  color: var(--select-menu-on);
+  padding: 10px 12px;
+  outline: none;
+}
+.settings-input:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+/* buttons */
+.settings-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+.settings-actions.bottom {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.btn {
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
   cursor: pointer;
-  transform: translateZ(0);
-  transition: transform .12s ease, filter .15s ease, box-shadow .15s ease;
+  font-weight: 900;
+  border: 1px solid transparent;
   box-shadow: var(--elevation-1);
+  transition: transform 140ms ease, filter 140ms ease;
 }
-
-/* Gradient treatment for ALL settings-menu buttons */
-
-/* Apply (accent-primary) */
-.apply-btn {
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--accent-primary) 92%, #fff 8%),
-      color-mix(in srgb, var(--accent-primary) 70%, #000 30%) 85%
-    );
-  color: var(--btn-primary-on);
-  border: 1px solid color-mix(in srgb, var(--accent-primary) 65%, #000 35%);
-  box-shadow: var(--elevation-1);
+.btn:hover {
+  transform: scale(1.03);
+  filter: brightness(1.02);
 }
-
-/* Restart (accent-secondary) */
-.restart-btn {
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--accent-secondary) 92%, #fff 8%),
-      color-mix(in srgb, var(--accent-secondary) 70%, #000 30%) 85%
-    );
-  color: var(--btn-secondary-on);
-  border: 1px solid color-mix(in srgb, var(--accent-secondary) 65%, #000 35%);
-  box-shadow: var(--elevation-1);
-}
-
-/* Cancel (accent-danger) */
-.cancel-btn {
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--accent-danger) 92%, #fff 8%),
-      color-mix(in srgb, var(--accent-danger) 70%, #000 30%) 85%
-    );
-  color: var(--btn-danger-on);
-  border: 1px solid color-mix(in srgb, var(--accent-danger) 65%, #000 35%);
-  box-shadow: var(--elevation-1);
-}
-
-.settings-menu button:hover { transform: scale(1.03); }
-.settings-menu button:active { transform: scale(0.99); }
-.settings-menu button:focus-visible {
+.btn:active { transform: scale(0.99); }
+.btn:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
 
-/* Mode button — background changes by mode (accent colors, not primary/secondary) */
-#mode-btn {
-  border: 1px solid color-mix(in srgb, var(--neutral-300) 70%, #000 30%);
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--neutral-100) 92%, #fff 8%),
-      color-mix(in srgb, var(--neutral-100) 70%, #000 30%) 85%
-    );
-  color: var(--modal-on-surface);
-  box-shadow: var(--elevation-1);
+.btn.primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-on);
+  border-color: var(--btn-primary-border);
 }
-.settings-menu[data-mode="bomb"] #mode-btn {
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--accent-danger) 92%, #fff 8%),
-      color-mix(in srgb, var(--accent-danger) 70%, #000 30%) 85%
-    );
-  border-color: color-mix(in srgb, var(--accent-danger) 65%, #000 35%);
+.btn.ghost {
+  background: var(--btn-ghost-bg);
+  color: var(--btn-ghost-on);
+  border-color: var(--btn-ghost-border);
+}
+.btn.danger {
+  background: color-mix(in srgb, var(--btn-danger-bg) 18%, var(--neutral-0) 82%);
   color: var(--btn-danger-on);
-}
-.settings-menu[data-mode="mushroom"] #mode-btn {
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--accent-success) 92%, #fff 8%),
-      color-mix(in srgb, var(--accent-success) 70%, #000 30%) 85%
-    );
-  border-color: color-mix(in srgb, var(--accent-success) 65%, #000 35%);
-  color: var(--btn-success-on);
+  border-color: var(--btn-danger-border);
 }
 
-/* English toggle — ON uses yellow accent with NO extra border; OFF uses danger-ghost with NO border */
-#toggle-english-btn {
-  border: none;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--accent-warning) 92%, #fff 8%),
-      color-mix(in srgb, var(--accent-warning) 70%, #000 30%) 85%
-    );
+/* Toggle + mode buttons */
+.btn.toggle {
+  background: color-mix(in srgb, var(--accent-warning) 18%, var(--neutral-0) 82%);
   color: var(--modal-on-surface);
-  box-shadow: var(--elevation-1);
+  border-color: color-mix(in srgb, var(--accent-warning) 35%, #000 65%);
 }
-#toggle-english-btn.off {
-  border: none;
+.btn.toggle.off {
   background: color-mix(in srgb, var(--accent-danger) 16%, var(--neutral-0) 84%);
   color: var(--btn-danger-on);
+  border-color: var(--btn-danger-border);
 }
 
-/* Hover/active/focus parity */
-#toggle-english-btn:hover,
-#mode-btn:hover { transform: scale(1.03); }
-#toggle-english-btn:active,
-#mode-btn:active { transform: scale(0.99); }
-#toggle-english-btn:focus-visible,
-#mode-btn:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
+.btn.mode {
+  background: var(--btn-ghost-bg);
+  color: var(--btn-ghost-on);
+  border-color: var(--btn-ghost-border);
+}
+.settings-dropdown[data-mode="bomb"] .btn.mode {
+  background: color-mix(in srgb, var(--accent-danger) 16%, var(--neutral-0) 84%);
+  color: var(--btn-danger-on);
+  border-color: var(--btn-danger-border);
+}
+.settings-dropdown[data-mode="mushroom"] .btn.mode {
+  background: color-mix(in srgb, var(--accent-success) 16%, var(--neutral-0) 84%);
+  color: var(--btn-success-on);
+  border-color: var(--btn-success-border);
 }
 
+/* Open/close animations */
+.settings-drop-enter-active { animation: dropIn 180ms ease-out both; }
+.settings-drop-leave-active { animation: slideUpOut 160ms ease-in both; }
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes slideUpOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-10px) scale(0.98); }
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .settings-row { grid-template-columns: 1fr; }
+  .settings-actions.bottom { grid-template-columns: 1fr; }
+}
 /* --- Grid (match Sharknado) --- */
 .card-grid {
   display: grid;
@@ -663,7 +672,10 @@ function onExit() {
   cursor: pointer;
   background-color: transparent;
 }
-.card:hover { transform: scale(1.03); }
+
+.card:hover {
+  transform: scale(1.03);
+}
 
 .card-inner {
   width: 100%;
@@ -674,7 +686,10 @@ function onExit() {
   border-radius: 12px;
   box-sizing: border-box;
 }
-.card.revealed .card-inner { transform: rotateY(180deg); }
+
+.card.revealed .card-inner {
+  transform: rotateY(180deg);
+}
 
 /* Front/Back panes keep identical padding/borders so size never shifts */
 .card-front,
@@ -687,9 +702,11 @@ function onExit() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;           /* space between image and text */
+  gap: 8px;
+  /* space between image and text */
   border: 2px solid #0f766e;
-  background-color: #ffffff; /* white on front */
+  background-color: #ffffff;
+  /* white on front */
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(2, 6, 23, .08);
   overflow: hidden;
@@ -699,12 +716,14 @@ function onExit() {
 /* FRONT content centered as a group */
 .card-media {
   flex: 0 1 auto;
-  max-height: 72%; /* ensure room for English below when present */
+  max-height: 72%;
+  /* ensure room for English below when present */
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
+
 .card-img,
 .result-img {
   max-width: 100%;
@@ -718,7 +737,8 @@ function onExit() {
 .card-text {
   text-align: center;
   font-weight: 800;
-  font-size: 16px; /* v-fittext can still resize if used */
+  font-size: 16px;
+  /* v-fittext can still resize if used */
   color: #0b1f1d;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .4);
   line-height: 1.12;
@@ -729,17 +749,26 @@ function onExit() {
 /* BACK: keep strong color fill so flipped state is obvious */
 .card-back {
   transform: rotateY(180deg);
-  background-color: #fff2cc; /* default filled back */
+  background-color: #fff2cc;
+  /* default filled back */
 }
+
 .card-back.blank {
-  background-color: #b8f5c6; /* shown for auto-flipped in bomb mode */
+  background-color: #b8f5c6;
+  /* shown for auto-flipped in bomb mode */
 }
 
 /* --- Bomb reveal animation (no size change) --- */
 @keyframes bombRevealShrink {
-  0% { transform: rotateY(180deg) scale(1.15); }
-  100% { transform: rotateY(180deg) scale(1); }
+  0% {
+    transform: rotateY(180deg) scale(1.15);
+  }
+
+  100% {
+    transform: rotateY(180deg) scale(1);
+  }
 }
+
 .bomb-anim {
   animation: bombRevealShrink 2s ease-out forwards;
   transition: none !important;
@@ -747,30 +776,73 @@ function onExit() {
 
 /* --- Mushroom bounce + yellow glow --- */
 @keyframes mushroomBounce {
-  0% { transform: rotateY(180deg) translateY(0) scale(1); }
-  15% { transform: rotateY(180deg) translateY(-8px) scale(1.06); }
-  30% { transform: rotateY(180deg) translateY(0) scale(1.02); }
-  45% { transform: rotateY(180deg) translateY(-6px) scale(1.05); }
-  60% { transform: rotateY(180deg) translateY(0) scale(1.02); }
-  75% { transform: rotateY(180deg) translateY(-3px) scale(1.03); }
-  100% { transform: rotateY(180deg) translateY(0) scale(1); }
+  0% {
+    transform: rotateY(180deg) translateY(0) scale(1);
+  }
+
+  15% {
+    transform: rotateY(180deg) translateY(-8px) scale(1.06);
+  }
+
+  30% {
+    transform: rotateY(180deg) translateY(0) scale(1.02);
+  }
+
+  45% {
+    transform: rotateY(180deg) translateY(-6px) scale(1.05);
+  }
+
+  60% {
+    transform: rotateY(180deg) translateY(0) scale(1.02);
+  }
+
+  75% {
+    transform: rotateY(180deg) translateY(-3px) scale(1.03);
+  }
+
+  100% {
+    transform: rotateY(180deg) translateY(0) scale(1);
+  }
 }
+
 .mushroom-anim {
   animation: mushroomBounce 2s ease-out both;
   transition: none !important;
 }
 
 @keyframes mushroomGlow {
-  0%   { box-shadow: 0 0 0 0 rgba(255, 221, 64, 0.0); }
-  20%  { box-shadow: 0 0 22px 6px rgba(255, 221, 64, 0.9); }
-  50%  { box-shadow: 0 0 14px 4px rgba(255, 221, 64, 0.6); }
-  80%  { box-shadow: 0 0 24px 8px rgba(255, 221, 64, 0.95); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 221, 64, 0.0); }
-}
-.card-back.glow-yellow { animation: mushroomGlow 2s ease-out both; }
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 221, 64, 0.0);
+  }
 
-.card-grid.ended .card .card-inner { transition: transform 0.35s; }
-.card-grid.ended .card:hover { transform: none; }
+  20% {
+    box-shadow: 0 0 22px 6px rgba(255, 221, 64, 0.9);
+  }
+
+  50% {
+    box-shadow: 0 0 14px 4px rgba(255, 221, 64, 0.6);
+  }
+
+  80% {
+    box-shadow: 0 0 24px 8px rgba(255, 221, 64, 0.95);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 221, 64, 0.0);
+  }
+}
+
+.card-back.glow-yellow {
+  animation: mushroomGlow 2s ease-out both;
+}
+
+.card-grid.ended .card .card-inner {
+  transition: transform 0.35s;
+}
+
+.card-grid.ended .card:hover {
+  transform: none;
+}
 
 /* ---------- Responsive (match Sharknado) ---------- */
 @media (max-width: 400px) {
@@ -780,6 +852,7 @@ function onExit() {
     grid-template-columns: repeat(3, minmax(72px, 1fr));
     justify-items: stretch;
   }
+
   .card {
     width: 100%;
     min-width: 72px;
@@ -787,6 +860,7 @@ function onExit() {
     height: auto;
   }
 }
+
 @media (min-width: 401px) and (max-width: 520px) {
   .card-grid {
     gap: 10px;
@@ -794,6 +868,7 @@ function onExit() {
     grid-template-columns: repeat(3, minmax(78px, 1fr));
     justify-items: stretch;
   }
+
   .card {
     width: 100%;
     min-width: 78px;
@@ -801,12 +876,14 @@ function onExit() {
     height: auto;
   }
 }
+
 @media (min-width: 521px) and (max-width: 768px) {
   .card-grid {
     gap: 12px;
     margin: 16px;
     grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
   }
+
   .card {
     width: 100%;
     min-width: 92px;
@@ -814,12 +891,14 @@ function onExit() {
     height: auto;
   }
 }
+
 @media (min-width: 769px) and (max-width: 1023px) {
   .card-grid {
     gap: 14px;
     margin: 18px;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   }
+
   .card {
     width: 100%;
     min-width: 110px;
@@ -827,37 +906,40 @@ function onExit() {
     height: auto;
   }
 }
+
 @media (min-width: 1024px) {
   .card {
     width: 140px;
     height: 180px;
   }
+
   .card-grid {
     gap: 24px;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
 }
+
 @media (min-width: 1440px) {
   .card {
     width: 160px;
     height: 200px;
   }
+
   .card-grid {
     gap: 28px;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 }
+
 @media (min-width: 1920px) {
   .card {
     width: 200px;
     height: 260px;
   }
+
   .card-grid {
     gap: 32px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 </style>
-
-
-

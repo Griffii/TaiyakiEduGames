@@ -21,6 +21,7 @@ export type Mode =
   | 'mushroom'
   | 'listening'
   | 'bingo'
+  | 'memory'
 
 /** Newer code sometimes aliases this; keep it equal to Mode */
 export type GameKind = Mode

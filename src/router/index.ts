@@ -73,6 +73,8 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   { path: '/bingo/:id', name: 'bingo', component: () => import('@/views/flashcard-system/Bingo.vue'), meta: { hideHeader: true } },
+  { path: '/memory/:id', name: 'memory', component: () => import('@/views/flashcard-system/MemoryGame.vue'), meta: { hideHeader: true } },
+
 
   // Custom Decks Views
   { path: '/custom-decks', name: 'custom-decks', component: () => import('@/views/flashcard-system/CustomDecks.vue'), meta: { authRequired: true } },

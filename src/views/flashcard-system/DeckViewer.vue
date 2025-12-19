@@ -48,6 +48,7 @@ import iconSpellingblitz from "@/assets/images/flashcards/game-icons/spellingbli
 import iconSpellingguesser from "@/assets/images/flashcards/game-icons/spelling-guesser.png";
 import iconSoundMatcher from "@/assets/images/flashcards/game-icons/sound-matcher.png";
 import iconBingo from "@/assets/images/flashcards/game-icons/bingo.png";
+import iconMemory from "@/assets/images/flashcards/game-icons/matching.png";
 
 /** Key for each game button/menu entry */
 type GameKey =
@@ -57,7 +58,8 @@ type GameKey =
   | "spellingblitz"
   | "spellingguesser"
   | "soundmatcher"
-  | "bingo";
+  | "bingo"
+  | "memory";
 
 const ICONS: Record<GameKey, string> = {
   bomb: iconBomb,
@@ -67,6 +69,7 @@ const ICONS: Record<GameKey, string> = {
   spellingguesser: iconSpellingguesser,
   soundmatcher: iconSoundMatcher,
   bingo: iconBingo,
+  memory: iconMemory,
 };
 
 /**
@@ -139,10 +142,11 @@ const GAME_TAGS: Record<GameKey, GameTag[]> = {
   bomb: [],
   sharknado: [],
   headsup: [],
-  spellingblitz: ["xp", "new"],
-  spellingguesser: ["xp", "new"],
-  soundmatcher: ["xp", "new"],
-  bingo: ["new"],
+  spellingblitz: ["xp"],
+  spellingguesser: ["xp"],
+  soundmatcher: ["xp"],
+  bingo: [],
+  memory: ["new"],
 };
 const hasGameTag = (k: GameKey, t: GameTag) => (GAME_TAGS[k] || []).includes(t);
 const isGameNew = (k: GameKey) => hasGameTag(k, "new");
@@ -452,7 +456,7 @@ function selectMode(mode: "review" | "random" | "japanese") {
 
 /** Start games */
 async function startGame(
-  kind: "bomb" | "sharknado" | "headsup" | "spellingblitz" | "spellingguesser" | "soundmatcher" | "bingo"
+  kind: "bomb" | "sharknado" | "headsup" | "spellingblitz" | "spellingguesser" | "soundmatcher" | "bingo" | "memory"
 ) {
   closeGameMenu();
 
@@ -532,6 +536,12 @@ async function startGame(
     gameTransit.set({ cards: payload, mode: "bingo", deckName: title.value });
     sessionStorage.setItem("eitake.bingo.transit.v1", JSON.stringify({ cards: payload, deckName: title.value }));
     router.push({ name: "bingo", params: { id: currentDeckId } });
+  } else if (kind === "memory") {
+    const payload = await common(); if (!payload) return;
+    gameTransit.set({ cards: payload, mode: "memory" });
+    sessionStorage.setItem("eitake.memory.transit.v1", JSON.stringify({ cards: payload, mode: "memory" }));
+    router.push({ name: "memory", params: { id: currentDeckId } });
+
   }
 }
 
@@ -854,6 +864,16 @@ async function addSelectionToDeck() {
           </div>
           <p class="game-popup-text">Bingo</p>
           <img class="game-icon" :src="gameIcon('bingo')" alt="Bingo" loading="eager" decoding="async"
+            fetchpriority="high" @error="onIconError" />
+        </button>
+
+        <button class="game-btn memory-btn" type="button" @click="startGame('memory')">
+          <div class="corner-rail">
+            <div v-if="isGameNew('memory')" class="corner tl new"><span>NEW</span></div>
+            <div v-if="isGameXp('memory')" class="corner tr xp"><span>XP</span></div>
+          </div>
+          <p class="game-popup-text">Memory Game</p>
+          <img class="game-icon" :src="gameIcon('memory')" alt="Memory" loading="eager" decoding="async"
             fetchpriority="high" @error="onIconError" />
         </button>
 
