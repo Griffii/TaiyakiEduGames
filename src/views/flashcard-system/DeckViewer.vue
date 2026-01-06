@@ -49,6 +49,7 @@ import iconSpellingguesser from "@/assets/images/flashcards/game-icons/spelling-
 import iconSoundMatcher from "@/assets/images/flashcards/game-icons/sound-matcher.png";
 import iconBingo from "@/assets/images/flashcards/game-icons/bingo.png";
 import iconMemory from "@/assets/images/flashcards/game-icons/matching.png";
+import iconMissing from "@/assets/images/flashcards/game-icons/missing.png"
 
 /** Key for each game button/menu entry */
 type GameKey =
@@ -59,7 +60,8 @@ type GameKey =
   | "spellingguesser"
   | "soundmatcher"
   | "bingo"
-  | "memory";
+  | "memory"
+  | "missing";
 
 const ICONS: Record<GameKey, string> = {
   bomb: iconBomb,
@@ -70,6 +72,7 @@ const ICONS: Record<GameKey, string> = {
   soundmatcher: iconSoundMatcher,
   bingo: iconBingo,
   memory: iconMemory,
+  missing: iconMissing,
 };
 
 /**
@@ -147,6 +150,7 @@ const GAME_TAGS: Record<GameKey, GameTag[]> = {
   soundmatcher: ["xp"],
   bingo: [],
   memory: ["new"],
+  missing: ["new"],
 };
 const hasGameTag = (k: GameKey, t: GameTag) => (GAME_TAGS[k] || []).includes(t);
 const isGameNew = (k: GameKey) => hasGameTag(k, "new");
@@ -456,7 +460,7 @@ function selectMode(mode: "review" | "random" | "japanese") {
 
 /** Start games */
 async function startGame(
-  kind: "bomb" | "sharknado" | "headsup" | "spellingblitz" | "spellingguesser" | "soundmatcher" | "bingo" | "memory"
+  kind: "bomb" | "sharknado" | "headsup" | "spellingblitz" | "spellingguesser" | "soundmatcher" | "bingo" | "memory" | "missing"
 ) {
   closeGameMenu();
 
@@ -536,11 +540,18 @@ async function startGame(
     gameTransit.set({ cards: payload, mode: "bingo", deckName: title.value });
     sessionStorage.setItem("eitake.bingo.transit.v1", JSON.stringify({ cards: payload, deckName: title.value }));
     router.push({ name: "bingo", params: { id: currentDeckId } });
+
   } else if (kind === "memory") {
     const payload = await common(); if (!payload) return;
     gameTransit.set({ cards: payload, mode: "memory" });
     sessionStorage.setItem("eitake.memory.transit.v1", JSON.stringify({ cards: payload, mode: "memory" }));
     router.push({ name: "memory", params: { id: currentDeckId } });
+
+  } else if (kind === "missing") {
+    const payload = await common(); if (!payload) return;
+    gameTransit.set({ cards: payload, mode: "missing" });
+    sessionStorage.setItem("eitake.memory.transit.v1", JSON.stringify({ cards: payload, mode: "missing" }));
+    router.push({ name: "missing", params: { id: currentDeckId } });
 
   }
 }
@@ -877,6 +888,16 @@ async function addSelectionToDeck() {
             fetchpriority="high" @error="onIconError" />
         </button>
 
+        <button class="game-btn missing-btn" type="button" @click="startGame('missing')">
+          <div class="corner-rail">
+            <div v-if="isGameNew('missing')" class="corner tl new"><span>NEW</span></div>
+            <div v-if="isGameXp('missing')" class="corner tr xp"><span>XP</span></div>
+          </div>
+          <p class="game-popup-text">What's Missing?</p>
+          <img class="game-icon" :src="gameIcon('missing')" alt="Missing Game" loading="eager" decoding="async"
+            fetchpriority="high" @error="onIconError" />
+        </button>
+
       </div>
       <button class="cancel-btn" type="button" @click="closeGameMenu()">Cancel</button>
     </div>
@@ -975,7 +996,7 @@ async function addSelectionToDeck() {
 
 <style scoped>
 /* =========================
-   DeckViewer.vue — token-only styling (updated)
+   DeckViewer.vue
    ========================= */
 .deck-page {
   font-family: "Fredoka", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans",
