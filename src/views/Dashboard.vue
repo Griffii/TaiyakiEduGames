@@ -40,8 +40,8 @@ import AnnouncementBanner from '@/components/AnnouncementBanner.vue'
 const announcements = [
     {
         id: 'announce-1',
-        title: '❄️ Merry Christmas! ❄️',
-        note: '🎁 メリークリスマス～！ 🎁',
+        title: '🐴 Happy New Year! 🐴',
+        note: '🎉 明けましておめでとうございます！🎊',
     },
     
 ]
@@ -168,8 +168,7 @@ function onOpenActivity(link: string) {
   min-height: 0;
   /* Important for grid children to allow shrinking */
   overflow: auto;
-  /* Scroll the list, not the whole page */
-
+  
   margin-left: 10px;
   margin-right: 10px;
 }

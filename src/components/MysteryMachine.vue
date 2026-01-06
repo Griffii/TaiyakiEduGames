@@ -223,7 +223,7 @@ import { computed, onBeforeUnmount, ref } from "vue";
  * Asset imports
  */
 import machineBodyPng from "@/assets/images/games/mystery-machine/mystery-machine-body.png";
-import slotArmPng from "@/assets/images/games/mystery-machine/slot-arm-christmas.png";
+import slotArmPng from "@/assets/images/games/mystery-machine/slot-arm.png";
 
 import slotMachineSfx from "@/assets/sounds/slot-machine.mp3";
 import chukichiSfx from "@/assets/sounds/fortunegame/chukichi.mp3";
