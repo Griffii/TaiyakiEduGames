@@ -75,6 +75,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/bingo/:id', name: 'bingo', component: () => import('@/views/flashcard-system/Bingo.vue'), meta: { hideHeader: true } },
   { path: '/memory/:id', name: 'memory', component: () => import('@/views/flashcard-system/MemoryGame.vue'), meta: { hideHeader: true } },
   { path: '/missing/:id', name: 'missing', component: () => import('@/views/flashcard-system/WhatsMissing.vue'), meta: { hideHeader: true } },
+  { path: '/shuffle/:id', name: 'shuffle', component: () => import('@/views/flashcard-system/ShuffleGame.vue'), meta: { hideHeader: true } },
 
   // Custom Decks Views
   { path: '/custom-decks', name: 'custom-decks', component: () => import('@/views/flashcard-system/CustomDecks.vue'), meta: { authRequired: true } },

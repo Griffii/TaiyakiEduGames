@@ -23,6 +23,7 @@ export type Mode =
   | 'bingo'
   | 'memory'
   | 'missing'
+  | 'shuffle'
 
 /** Newer code sometimes aliases this; keep it equal to Mode */
 export type GameKind = Mode

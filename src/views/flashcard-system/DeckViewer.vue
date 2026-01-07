@@ -41,7 +41,7 @@ type CustomDeckLite = {
 /** =========================
  *  Game icons (local bundled)
  *  ========================= */
-import iconBomb from "@/assets/images/flashcards/game-icons/bomb.png";
+import iconBomb from "@/assets/images/flashcards/game-icons/taiyaki-bomb.png";
 import iconSharknado from "@/assets/images/flashcards/game-icons/sharknado.png";
 import iconHeadsup from "@/assets/images/flashcards/game-icons/headsup.png";
 import iconSpellingblitz from "@/assets/images/flashcards/game-icons/spellingblitz.png";
@@ -49,7 +49,8 @@ import iconSpellingguesser from "@/assets/images/flashcards/game-icons/spelling-
 import iconSoundMatcher from "@/assets/images/flashcards/game-icons/sound-matcher.png";
 import iconBingo from "@/assets/images/flashcards/game-icons/bingo.png";
 import iconMemory from "@/assets/images/flashcards/game-icons/matching.png";
-import iconMissing from "@/assets/images/flashcards/game-icons/missing.png"
+import iconMissing from "@/assets/images/flashcards/game-icons/missing.png";
+import iconShuffle from "@/assets/images/flashcards/game-icons/shuffle.png"
 
 /** Key for each game button/menu entry */
 type GameKey =
@@ -61,7 +62,8 @@ type GameKey =
   | "soundmatcher"
   | "bingo"
   | "memory"
-  | "missing";
+  | "missing"
+  | "shuffle";
 
 const ICONS: Record<GameKey, string> = {
   bomb: iconBomb,
@@ -73,6 +75,7 @@ const ICONS: Record<GameKey, string> = {
   bingo: iconBingo,
   memory: iconMemory,
   missing: iconMissing,
+  shuffle: iconShuffle,
 };
 
 /**
@@ -151,6 +154,7 @@ const GAME_TAGS: Record<GameKey, GameTag[]> = {
   bingo: [],
   memory: ["new"],
   missing: ["new"],
+  shuffle: ["new"],
 };
 const hasGameTag = (k: GameKey, t: GameTag) => (GAME_TAGS[k] || []).includes(t);
 const isGameNew = (k: GameKey) => hasGameTag(k, "new");
@@ -460,7 +464,7 @@ function selectMode(mode: "review" | "random" | "japanese") {
 
 /** Start games */
 async function startGame(
-  kind: "bomb" | "sharknado" | "headsup" | "spellingblitz" | "spellingguesser" | "soundmatcher" | "bingo" | "memory" | "missing"
+  kind: "bomb" | "sharknado" | "headsup" | "spellingblitz" | "spellingguesser" | "soundmatcher" | "bingo" | "memory" | "missing" | "shuffle"
 ) {
   closeGameMenu();
 
@@ -552,6 +556,12 @@ async function startGame(
     gameTransit.set({ cards: payload, mode: "missing" });
     sessionStorage.setItem("eitake.memory.transit.v1", JSON.stringify({ cards: payload, mode: "missing" }));
     router.push({ name: "missing", params: { id: currentDeckId } });
+
+  } else if (kind === "shuffle") {
+    const payload = await common(); if (!payload) return;
+    gameTransit.set({ cards: payload, mode: "shuffle" });
+    sessionStorage.setItem("eitake.memory.transit.v1", JSON.stringify({ cards: payload, mode: "shuffle" }));
+    router.push({ name: "shuffle", params: { id: currentDeckId } });
 
   }
 }
@@ -895,6 +905,16 @@ async function addSelectionToDeck() {
           </div>
           <p class="game-popup-text">What's Missing?</p>
           <img class="game-icon" :src="gameIcon('missing')" alt="Missing Game" loading="eager" decoding="async"
+            fetchpriority="high" @error="onIconError" />
+        </button>
+
+        <button class="game-btn shuffle-btn" type="button" @click="startGame('shuffle')">
+          <div class="corner-rail">
+            <div v-if="isGameNew('missing')" class="corner tl new"><span>NEW</span></div>
+            <div v-if="isGameXp('missing')" class="corner tr xp"><span>XP</span></div>
+          </div>
+          <p class="game-popup-text">Shuffle Game</p>
+          <img class="game-icon" :src="gameIcon('shuffle')" alt="Shuffle Game" loading="eager" decoding="async"
             fetchpriority="high" @error="onIconError" />
         </button>
 
@@ -1403,6 +1423,22 @@ button:disabled:hover {
 
 .bingo-btn:hover {
   background: color-mix(in srgb, var(--accent-pink, #ef66a6) 88%, var(--neutral-0) 12%);
+}
+
+.missing-btn {
+  background: var(--accent-primary);
+}
+
+.missing-btn:hover {
+  background: color-mix(in srgb, var(--accent-primary) 88%, var(--neutral-0) 12%);
+}
+
+.shuffle-btn {
+  background: var(--accent-secondary);
+}
+
+.shuffle-btn:hover {
+  background: color-mix(in srgb, var(--accent-secondary) 88%, var(--neutral-0) 12%);
 }
 
 /* Load modal extras */
