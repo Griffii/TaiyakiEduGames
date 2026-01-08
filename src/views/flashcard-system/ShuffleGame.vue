@@ -168,7 +168,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameTransitStore, type Flashcard as TransitCard } from '@/stores/gameTransit'
 
@@ -361,25 +361,15 @@ function computeCardDims(n: number, w: number, h: number) {
 }
 
 function internalLayoutVars(w: number, h: number) {
-  // These control the image area + text area so nothing overlaps and everything stays visible.
-  // - Reserve a text band at the bottom that scales with size, clamped to reasonable bounds.
-  // - Image area becomes (card height - padding*2 - textBand - gap)
   const pad = Math.round(clamp(w * 0.06, 10, 16))
   const gap = Math.round(clamp(h * 0.03, 8, 14))
-  const textBand = Math.round(clamp(h * 0.26, 56, 92)) // bottom area reserved for English
+  const textBand = Math.round(clamp(h * 0.26, 56, 92))
   const mediaH = Math.max(92, h - pad * 2 - textBand - gap)
 
   const font = Math.round(clamp(w * 0.085, 14, 20))
   const line = Math.round(clamp(font * 1.12, 16, 24))
 
-  return {
-    pad,
-    gap,
-    textBand,
-    mediaH,
-    font,
-    line
-  }
+  return { pad, gap, textBand, mediaH, font, line }
 }
 
 function updateCardDims() {
@@ -435,10 +425,7 @@ function randomWaitingPoint() {
   const minY = CH * 0.45
   const maxY = Math.max(minY, h - CH * 0.55)
 
-  return {
-    x: clamp(Math.random() * w, minX, maxX),
-    y: clamp(Math.random() * h, minY, maxY)
-  }
+  return { x: clamp(Math.random() * w, minX, maxX), y: clamp(Math.random() * h, minY, maxY) }
 }
 
 function cardStyle(c: RoundCard) {
@@ -458,10 +445,8 @@ function cardStyle(c: RoundCard) {
     top: `${y ?? stageH.value / 2}px`,
     zIndex: 10 + (c.spotIndex ?? 0),
     '--back-texture': `url("${backTexture}")`,
-
     '--card-w': `${w}px`,
     '--card-h': `${h}px`,
-
     '--card-pad': `${lay.pad}px`,
     '--card-gap': `${lay.gap}px`,
     '--text-band': `${lay.textBand}px`,
@@ -490,7 +475,7 @@ function shuffleInPlace<T>(a: T[]) {
 function speedTuning() {
   if (shuffleSpeed.value === 'easy') return { tickMs: 240, moveMs: 520 }
   if (shuffleSpeed.value === 'impossible') return { tickMs: 70, moveMs: 140 }
-  return { tickMs: 130, moveMs: 260 } // fast
+  return { tickMs: 130, moveMs: 260 }
 }
 
 /** ===== Spot accounting ===== */
@@ -502,7 +487,6 @@ function currentOccupiedSet(exceptId?: string) {
   }
   return s
 }
-
 function vacantSpots(): number[] {
   const n = roundCards.value.length
   const occ = currentOccupiedSet()
@@ -510,17 +494,14 @@ function vacantSpots(): number[] {
   for (let i = 0; i < n; i++) if (!occ.has(i)) out.push(i)
   return out
 }
-
 function assignCardToSpotSafely(card: RoundCard, spot: number) {
   const occ = currentOccupiedSet(card.id)
   if (occ.has(spot)) return false
-
   card.spotIndex = spot
   card.tempX = null
   card.tempY = null
   return true
 }
-
 function moveCardToWaiting(card: RoundCard) {
   const p = randomWaitingPoint()
   card.spotIndex = null
@@ -552,9 +533,7 @@ async function runShuffleSequence() {
   const { tickMs, moveMs } = speedTuning()
   const endAt = performance.now() + 3000
 
-  const movedOnce = new Set<string>()
   let lastMovedId: string | null = null
-
   const mustMoveQueue = shuffleInPlace([...roundCards.value.map(c => c.id)])
 
   function pickNextCardId(): string {
@@ -609,9 +588,7 @@ async function runShuffleSequence() {
       }
     }
 
-    movedOnce.add(card.id)
     lastMovedId = card.id
-
     await sleep(tickMs)
   }
 
@@ -621,9 +598,7 @@ async function runShuffleSequence() {
   shuffleInPlace(remaining)
   for (const c of waiting) {
     const spot = remaining.shift()
-    if (typeof spot === 'number') {
-      assignCardToSpotSafely(c, spot)
-    }
+    if (typeof spot === 'number') assignCardToSpotSafely(c, spot)
   }
 
   const remaining2 = vacantSpots()
@@ -709,16 +684,33 @@ function onExit() {
   }
 }
 
+/** ===== NEW: deck source resolution (prevents session overriding current deck) ===== */
+function hasCards(a: unknown): a is TransitCard[] {
+  return Array.isArray(a) && a.length > 0
+}
+
+function syncCards(source: TransitCard[]) {
+  allCards.value = source
+  persistToSession({ cards: source })
+  if (allCards.value.length) newRound()
+}
+
 /** ===== Mount / Unmount ===== */
 onMounted(() => {
-  hydrateFromSession()
+  // IMPORTANT:
+  // Only use session fallback if neither props nor transit already provide cards.
+  const fromProps = hasCards(props.cards) ? props.cards : null
+  const fromTransit = hasCards(transit.cards) ? transit.cards : null
 
-  const fromProps = Array.isArray(props.cards) && props.cards.length ? props.cards : null
-  const fromTransit = Array.isArray(transit.cards) && transit.cards.length ? transit.cards : null
-  const source = fromProps ?? fromTransit ?? []
-
-  allCards.value = source
-  if (source.length) persistToSession({ cards: source })
+  if (fromProps) {
+    syncCards(fromProps)
+  } else if (fromTransit) {
+    syncCards(fromTransit)
+  } else {
+    hydrateFromSession()
+    const afterHydrate = hasCards(transit.cards) ? transit.cards : []
+    if (afterHydrate.length) syncCards(afterHydrate)
+  }
 
   measureStage()
   if (stageEl.value) {
@@ -734,9 +726,26 @@ onMounted(() => {
   }
   document.addEventListener('mousedown', onDocClick)
   ;(onMounted as any)._shuffle_onDocClick = onDocClick
-
-  if (allCards.value.length) newRound()
 })
+
+/**
+ * If DeckViewer changes the deck while this view is still alive (or the store updates after navigation),
+ * re-sync to the latest cards and start a new round.
+ */
+watch(
+  () => props.cards,
+  nv => {
+    if (hasCards(nv)) syncCards(nv)
+  }
+)
+
+watch(
+  () => transit.cards,
+  nv => {
+    // Only prefer transit when props.cards is not supplying cards.
+    if (!hasCards(props.cards) && hasCards(nv)) syncCards(nv)
+  }
+)
 
 onBeforeUnmount(() => {
   if (ro && stageEl.value) ro.disconnect()
@@ -744,6 +753,7 @@ onBeforeUnmount(() => {
   if (onDocClick) document.removeEventListener('mousedown', onDocClick)
 })
 </script>
+
 
 <style scoped>
 /* --- Page base --- */
