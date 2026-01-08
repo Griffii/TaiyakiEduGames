@@ -5,9 +5,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   plugins: [vue()],
-  base: process.env.GITHUB_PAGES
-    ? '/TaiyakiEduGames/'
-    : '/',
+  base: '/TaiyakiEduGames/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

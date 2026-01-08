@@ -34,6 +34,9 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
+      - name: SPA fallback for Github pages
+        run: cp dist/index.html dist/404.html
+
       - name: Publish dist/ to build branch
         uses: s0/git-publish-subdir-action@develop
         env:
