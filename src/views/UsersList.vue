@@ -472,7 +472,7 @@ function formatLast(lastSeen: string | null, created: string | null): string {
   padding: 2rem 4vw 3rem;
   margin: 0 auto;
   width: min(80vw, 1400px);
-  padding-top: var(--app-header-height);
+  padding-top: 20px;
 }
 @media (max-width: 960px) {
   .page {

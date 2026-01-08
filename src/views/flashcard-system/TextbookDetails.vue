@@ -358,8 +358,6 @@ async function loadCardCountsForDecks() {
   display: grid;
   grid-template-rows: auto 1fr;
   overflow-x: hidden;
-
-  padding-top: var(--app-header-height);
 }
 
 .content {

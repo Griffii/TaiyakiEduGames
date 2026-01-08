@@ -14,14 +14,19 @@ app.use(router)
 
 
 /** Load Themes **/
-import { themeURLs } from '@/lib/themes'
-const saved = (localStorage.getItem('eitake.theme') as keyof typeof themeURLs) || 'Chalkboard'
+import { themeURLs, type ThemeKey } from '@/lib/themes'
+
+const raw = localStorage.getItem('eitake.theme') as ThemeKey | null
+const saved: ThemeKey = raw && raw in themeURLs ? raw : 'EiTake'
+
 const link = document.createElement('link')
 link.id = 'app-theme-css'
 link.rel = 'stylesheet'
 link.href = themeURLs[saved]
 document.head.appendChild(link)
+
 document.documentElement.setAttribute('data-theme', saved)
+
 
 
 // GA4 — vue-gtag v2

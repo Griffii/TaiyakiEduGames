@@ -653,7 +653,7 @@ function onExit() {
   .settings-row { grid-template-columns: 1fr; }
   .settings-actions.bottom { grid-template-columns: 1fr; }
 }
-/* --- Grid (match Sharknado) --- */
+/* --- Grid --- */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -844,7 +844,7 @@ function onExit() {
   transform: none;
 }
 
-/* ---------- Responsive (match Sharknado) ---------- */
+/* ---------- Responsive Card Sizes ---------- */
 @media (max-width: 400px) {
   .card-grid {
     gap: 8px;

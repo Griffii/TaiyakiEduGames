@@ -171,7 +171,7 @@ watch(() => props.actionsEl, async () => {
 </script>
 
 <style scoped>
-.banner-mascots { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.banner-mascots { position: relative; inset: 0; z-index: 3; pointer-events: none; }
 
 /* Theme-driven speech bubble (all tokens overrideable) */
 .talk-bubble {
@@ -208,8 +208,6 @@ watch(() => props.actionsEl, async () => {
 
 /* Shrooms: play animation via class so it completes regardless of hover state */
 .shroom-row{
-  position:absolute; left:50%; bottom:-15px;
-  transform:translateX(calc(-50% + var(--shroom-shift, 0px)));
   display:flex; 
   gap: clamp(2px, 2vw, 10px);
   pointer-events:auto; will-change:transform;

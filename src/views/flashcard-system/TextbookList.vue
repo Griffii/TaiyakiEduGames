@@ -4,7 +4,7 @@
     <header class="head">
       <div class="head-inner">
         <div class="head-text">
-          <!-- Put Title or text here if needed -->
+          <!-- Put text here if needed later -->
         </div>
       </div>
     </header>
@@ -15,29 +15,12 @@
       <p v-else-if="allTextbooks.length === 0" class="muted">No textbooks found.</p>
 
       <!-- Single compact grid of all textbooks -->
-      <section
-        v-else
-        class="grid"
-        aria-label="Textbook list"
-      >
-        <RouterLink
-          v-for="tb in sortedTextbooks"
-          :key="tb.id"
-          class="card"
-          role="listitem"
-          :to="{ name: 'textbook_details', params: { id: tb.id } }"
-          :title="tb.title"
-        >
+      <section v-else class="grid" aria-label="Textbook list">
+        <RouterLink v-for="tb in sortedTextbooks" :key="tb.id" class="card" role="listitem"
+          :to="{ name: 'textbook_details', params: { id: tb.id } }" :title="tb.title">
           <div class="cover-wrap">
-            <img
-              v-if="!isBroken(tb.id) && coverUrl(tb)"
-              class="cover"
-              :src="coverUrl(tb)!"
-              :alt="tb.title"
-              loading="lazy"
-              decoding="async"
-              @error="() => markBroken(tb.id)"
-            />
+            <img v-if="!isBroken(tb.id) && coverUrl(tb)" class="cover" :src="coverUrl(tb)!" :alt="tb.title"
+              loading="lazy" decoding="async" @error="() => markBroken(tb.id)" />
             <div v-else class="cover-fallback">
               <span class="cover-title">{{ tb.title }}</span>
             </div>
@@ -71,15 +54,22 @@
           </div>
         </RouterLink>
       </section>
+
+      <!-- Custom Deck Button -->
+      <section class="cd-centered">
+        <CustomDeckButton />
+      </section>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
+
 import { computed, onMounted, reactive, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 import { withLoading } from '@/utils/withLoading'
+import CustomDeckButton from '@/components/CustomDeckButton.vue'
 
 type Textbook = {
   id: string
@@ -278,10 +268,8 @@ onMounted(async () => {
   display: grid;
   width: 100%;
   max-width: 100%;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(clamp(90px, 14vw, 180px), 1fr)
-  );
+  grid-template-columns: repeat(auto-fit,
+      minmax(clamp(90px, 14vw, 180px), 1fr));
   gap: 12px;
   padding: 8px;
   justify-content: center;
@@ -384,8 +372,7 @@ onMounted(async () => {
   color: var(--textbook-on-surface);
   font-size: 13.5px;
   font-weight: 900;
-  text-shadow: 0 1px 0
-    color-mix(in srgb, var(--neutral-900) 35%, transparent);
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--neutral-900) 35%, transparent);
 }
 
 /* General small text */
@@ -409,6 +396,18 @@ onMounted(async () => {
 .error {
   color: var(--danger);
   font-weight: 600;
+}
+
+/* Custom Deck Button styling */
+.cd-centered {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Small, consistent vertical spacing between sections */
+  margin: 0.35rem 0;
+  padding: 0.35rem 0;
 }
 
 /* Responsive tweaks – just soften fonts a bit on small screens */

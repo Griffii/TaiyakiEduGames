@@ -55,7 +55,7 @@
      GLOBAL BACKGROUND (App canvas)
      ========================= */
   --bg-app-color: #131425; /* night sky indigo */
-  --bg-app-image: none;    /* keep flat for performance/clarity */
+
   --bg-app-gradient-top: radial-gradient(
     1200px 600px at 120% -10%,
     rgba(255, 122, 26, 0.14) 0%,
@@ -66,10 +66,7 @@
     rgba(52, 245, 138, 0.12) 0%,
     transparent 62%
   ); /* faint slime glow */
-  --bg-app-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  --bg-app-size: auto, auto, auto, auto;
-  --bg-app-blend: screen, screen, normal, normal;
-  --bg-app-attachment: fixed, fixed, fixed, fixed;
+
 
   /* =========================
      MAIN (TEXT OVER GLOBAL BACKGROUND)

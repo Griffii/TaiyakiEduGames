@@ -644,14 +644,14 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* ================= AdminPanel → themed via theme tokens ================= */
+/* ================= AdminPanel ================= */
 
 /* Layout */
 .admin-panel {
   min-height: 100dvh;
   padding: 24px 0 56px;
   color: var(--text-main);
-  padding-top: var(--app-header-height);
+  padding-top: 20px;
 }
 
 .inner {

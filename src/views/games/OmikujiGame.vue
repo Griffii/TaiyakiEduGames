@@ -350,6 +350,7 @@ async function drawFortune() {
   }, 3050);
 }
 
+
 function onExit() {
     window.history.back();
 }

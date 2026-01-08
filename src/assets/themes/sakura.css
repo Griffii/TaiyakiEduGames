@@ -51,8 +51,8 @@
   /* =========================
      GLOBAL BACKGROUND (App canvas)
      ========================= */
-  --bg-app-color: #fff4f8; /* soft sakura wash */
-  --bg-app-image: none;    /* no asphalt/chalkboard texture */
+  --bg-app-color: #ff7eae68; /* soft sakura wash */
+
   /* gentle pink & mint bokeh to evoke petals */
   --bg-app-gradient-top: radial-gradient(
     1200px 700px at 120% -10%,
@@ -66,10 +66,7 @@
     rgba(137, 224, 195, 0.14) 38%,
     transparent 70%
   );
-  --bg-app-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  --bg-app-size: auto, auto, auto, auto;
-  --bg-app-blend: screen, multiply, normal, normal;
-  --bg-app-attachment: fixed, fixed, fixed, fixed;
+
 
   /* =========================
      MAIN (TEXT OVER GLOBAL BACKGROUND)

@@ -4,8 +4,10 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
-  base: '/TaiyakiEduGames/',
   plugins: [vue()],
+  base: process.env.GITHUB_PAGES
+    ? '/TaiyakiEduGames/'
+    : '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

@@ -8,24 +8,13 @@
 
     <!-- Settings Button + Drop-down -->
     <div class="settings-wrap" ref="settingsWrap">
-      <button
-        class="settings-button"
-        type="button"
-        @click="openSettings"
-        aria-haspopup="menu"
-        :aria-expanded="showSettings"
-        aria-controls="settings-menu"
-      >
+      <button class="settings-button" type="button" @click="openSettings" aria-haspopup="menu"
+        :aria-expanded="showSettings" aria-controls="settings-menu">
         <img :src="settingsIcon" alt="" />
       </button>
 
       <!-- Full-screen blurred backdrop (covers game area, not menu) -->
-      <div
-        v-if="showSettings"
-        class="settings-backdrop"
-        @click="closeSettings"
-        aria-hidden="true"
-      ></div>
+      <div v-if="showSettings" class="settings-backdrop" @click="closeSettings" aria-hidden="true"></div>
 
       <!-- Drop-down with open/close animation -->
       <Transition name="settings-drop">
@@ -80,29 +69,58 @@
     <!-- Grid -->
     <section class="cards-section">
       <div v-if="gridSlots.length" class="card-grid" aria-live="polite">
-        <div
-          v-for="slot in gridSlots"
-          :key="slot.key"
-          class="card"
-          :class="[{ 'drop-in': slot.dropIn }, { 'wrong-guess': slot.wrongGuess }, { blank: slot.type === 'blank' }]"
-          :style="slot.type === 'blank' ? blankCardStyle : undefined"
-        >
+        <div v-for="slot in gridSlots" :key="slot.key" class="card" :class="[
+          { 'drop-in': slot.dropIn },
+          { 'wrong-guess': slot.wrongGuess },
+          { blank: slot.type === 'blank' && !slot.revealed },
+          { revealed: slot.type === 'blank' && slot.revealed },
+          { pop: slot.type === 'blank' && slot.pop },
+          { 'do-flip': slot.type === 'blank' && slot.revealed && slot.flip }
+        ]">
+
+          <!-- NORMAL CARD -->
           <template v-if="slot.type === 'card' && slot.card">
             <div class="card-content">
               <div class="img-wrap" v-if="slot.card.image_url">
-                <img
-                  :src="slot.card.image_url"
-                  :alt="slot.card.english || 'card'"
-                  loading="lazy"
-                  referrerpolicy="no-referrer"
-                  @error="onImgError($event)"
-                />
+                <img :src="slot.card.image_url" :alt="slot.card.english || 'card'" loading="lazy"
+                  referrerpolicy="no-referrer" @error="onImgError($event)" />
               </div>
               <div class="no-img" v-else>No Image</div>
 
               <p class="card-text" v-if="showEnglish && slot.card.english">
                 {{ slot.card.english }}
               </p>
+            </div>
+          </template>
+
+          <!-- BLANK SLOT  -->
+          <template v-else-if="slot.type === 'blank'">
+            <div class="flip-scene">
+              <!-- Single visible face; we animate the container for a "flip" feel
+                   AFTER the reveal is already shown. -->
+              <div class="flip-plate">
+                <!-- Hidden face (question mark) -->
+                <div v-if="!slot.revealed" class="blank-face" :style="blankFaceStyle">
+                  <span class="sr-only">Hidden card</span>
+                </div>
+
+                <!-- Revealed card (shown BEFORE animation) -->
+                <div v-else class="reveal-face">
+                  <template v-if="slot.revealCard">
+                    <div class="card-content">
+                      <div class="img-wrap" v-if="slot.revealCard.image_url">
+                        <img :src="slot.revealCard.image_url" :alt="slot.revealCard.english || 'card'" loading="lazy"
+                          referrerpolicy="no-referrer" @error="onImgError($event)" />
+                      </div>
+                      <div class="no-img" v-else>No Image</div>
+
+                      <p class="card-text" v-if="showEnglish && slot.revealCard.english">
+                        {{ slot.revealCard.english }}
+                      </p>
+                    </div>
+                  </template>
+                </div>
+              </div>
             </div>
           </template>
         </div>
@@ -115,14 +133,8 @@
     <section class="guess-section" v-if="showGuessSection && cards.length">
       <h2 class="guess-title">What card is missing?</h2>
       <div class="guess-options">
-        <button
-          v-for="c in cards"
-          :key="cardKey(c)"
-          class="guess-btn"
-          type="button"
-          :disabled="disabledGuessKeys.has(cardKey(c)) || allMissingFound"
-          @click="checkGuess(c)"
-        >
+        <button v-for="c in cards" :key="cardKey(c)" class="guess-btn" type="button"
+          :disabled="disabledGuessKeys.has(cardKey(c)) || allMissingFound" @click="checkGuess(c)">
           {{ c.english || "Unknown" }}
         </button>
       </div>
@@ -136,16 +148,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from "vue";
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import { useGameTransitStore, type Flashcard as TransitCard } from "@/stores/gameTransit";
-
-/**
- * Updated to load cards the same way as MemoryGame.vue:
- * - Primary source: props.cards (if provided)
- * - Otherwise: useGameTransitStore().cards
- * - If empty: hydrate from sessionStorage TRANSIT_KEY (same pattern)
- */
 
 const router = useRouter();
 const transit = useGameTransitStore();
@@ -158,7 +163,7 @@ const settingsIcon = new URL("@/assets/images/icons/settings-icon.png", import.m
 const questionMark = new URL("@/assets/images/game-icons/question-mark.png", import.meta.url).toString();
 
 /** SFX */
-const correctSfx = new URL("@/assets/sounds/fortunegame/kichi.mp3", import.meta.url).toString();
+const correctSfx = new URL("@/assets/sounds/harp strum 3.wav", import.meta.url).toString();
 const shuffleSfx = new URL("@/assets/sounds/cards-shuffle-sfx-01.mp3", import.meta.url).toString();
 const selectSfx = new URL("@/assets/sounds/arcade_beep_01.mp3", import.meta.url).toString();
 
@@ -189,15 +194,28 @@ function closeSettings() {
   showSettings.value = false;
 }
 
-/** Pool (from transit / props / session) */
+/** Pool */
 const allCards = ref<TransitCard[]>([]);
 
 /** Game state */
 type GridSlot =
   | { key: string; type: "card"; card: TransitCard; dropIn: boolean; wrongGuess: boolean }
-  | { key: string; type: "blank"; card: null; dropIn: boolean; wrongGuess: boolean };
+  | {
+    key: string;
+    type: "blank";
+    card: null;
+    dropIn: boolean;
+    wrongGuess: boolean;
 
-const cards = ref<TransitCard[]>([]); // selected pool used for this round
+    revealed: boolean; // content visible immediately when true
+    revealCard: TransitCard | null;
+
+    // animation flags
+    flip: boolean; // celebratory flip after reveal
+    pop: boolean; // bounce + glow
+  };
+
+const cards = ref<TransitCard[]>([]);
 const gridSlots = ref<GridSlot[]>([]);
 const missingCards = ref<TransitCard[]>([]);
 const showGuessSection = ref(false);
@@ -219,11 +237,9 @@ const allMissingFound = computed(() => showGuessSection.value && missingCards.va
 /** Options */
 const displayOptions = computed(() => {
   const max = Math.max(1, allCards.value.length || 1);
-  // Reasonable list: 6..max (step 1) but cap UI length if huge
   const start = Math.min(6, max);
-  const end = max;
   const opts: number[] = [];
-  for (let i = start; i <= end; i++) opts.push(i);
+  for (let i = start; i <= max; i++) opts.push(i);
   return opts;
 });
 
@@ -234,8 +250,8 @@ const missingOptions = computed(() => {
   return opts;
 });
 
-/** Blank style */
-const blankCardStyle = computed(() => ({
+/** Blank face style */
+const blankFaceStyle = computed(() => ({
   backgroundColor: "lightgreen",
   backgroundImage: `url('${questionMark}')`,
   backgroundSize: "cover",
@@ -258,7 +274,7 @@ function safePlay(el: HTMLAudioElement | null) {
   }
 }
 
-/** Transit persistence (same pattern as MemoryGame) */
+/** Transit persistence */
 function persistSession() {
   try {
     sessionStorage.setItem(TRANSIT_KEY, JSON.stringify({ cards: allCards.value }));
@@ -301,7 +317,6 @@ function clampInt(n: number, min: number, max: number) {
 }
 
 function cardKey(card: TransitCard) {
-  // Stable key: prefer id, else image_url, else english
   const anyCard: any = card as any;
   return String(anyCard?.id ?? card.image_url ?? card.english ?? Math.random());
 }
@@ -343,7 +358,6 @@ function resetRound(selectNew: boolean) {
 
   cards.value = selectNew ? pickRandomUnique(allCards.value, maxDisplayed) : pickRandomUnique(allCards.value, maxDisplayed);
 
-  // Initial render = all selected cards visible
   gridSlots.value = cards.value.map((c, idx) => ({
     key: `card-${idx}-${cardKey(c)}`,
     type: "card",
@@ -365,7 +379,6 @@ async function shuffleAndRemove() {
   const temp = [...cards.value];
   shuffleInPlace(temp);
 
-  // Remove missing
   const removed: TransitCard[] = [];
   const toRemove = clampInt(missingCount.value, 1, Math.max(1, temp.length - 1));
 
@@ -376,9 +389,7 @@ async function shuffleAndRemove() {
 
   missingCards.value = removed;
 
-  // Deal-in animation
   gridSlots.value = [];
-
   const delay = 50;
 
   for (let i = 0; i < temp.length; i++) {
@@ -403,24 +414,15 @@ async function shuffleAndRemove() {
       card: null,
       dropIn: true,
       wrongGuess: false,
+      revealed: false,
+      revealCard: null,
+      flip: false,
+      pop: false,
     });
   }
 
   showGuessSection.value = true;
   isDealing.value = false;
-}
-
-function replaceFirstBlankWithCard(card: TransitCard) {
-  const blankIdx = gridSlots.value.findIndex((s) => s.type === "blank");
-  if (blankIdx === -1) return;
-
-  gridSlots.value.splice(blankIdx, 1, {
-    key: `reveal-${cardKey(card)}-${Date.now()}`,
-    type: "card",
-    card,
-    dropIn: false,
-    wrongGuess: false,
-  });
 }
 
 function findSlotByImage(url?: string) {
@@ -432,6 +434,36 @@ function disableAllGuessButtons() {
   for (const c of cards.value) disabledGuessKeys.add(cardKey(c));
 }
 
+/**
+ * Reveal FIRST (content visible immediately), then animate.
+ * This matches your request: "reveal before the animation happens."
+ */
+async function revealNextBlankWithCard(card: TransitCard) {
+  const blankIdx = gridSlots.value.findIndex((s) => s.type === "blank" && !s.revealed);
+  if (blankIdx === -1) return;
+
+  const slot = gridSlots.value[blankIdx];
+  if (slot.type !== "blank") return;
+
+  // 1) Set content + revealed immediately (so it shows right away)
+  slot.revealCard = card;
+  slot.revealed = true;
+
+  // Ensure DOM paints the revealed card first
+  await nextTick();
+
+  // 2) Now fire the flip+scale animation (single play)
+  slot.flip = false;
+  await nextTick();
+  slot.flip = true;
+
+  window.setTimeout(() => {
+    const s = gridSlots.value[blankIdx];
+    if (s && s.type === "blank") s.flip = false;
+  }, 620);
+
+}
+
 function checkGuess(selectedCard: TransitCard) {
   const key = cardKey(selectedCard);
   if (disabledGuessKeys.has(key) || allMissingFound.value) return;
@@ -441,7 +473,8 @@ function checkGuess(selectedCard: TransitCard) {
   if (isCorrect) {
     safePlay(correctAudio.value);
 
-    replaceFirstBlankWithCard(selectedCard);
+    void revealNextBlankWithCard(selectedCard);
+
     missingCards.value = missingCards.value.filter((c) => cardKey(c) !== key);
 
     if (missingCards.value.length === 0) {
@@ -452,7 +485,6 @@ function checkGuess(selectedCard: TransitCard) {
   } else {
     safePlay(selectAudio.value);
 
-    // Flash the matching on-grid card yellow, then gray out the guess button
     const idx = findSlotByImage(selectedCard.image_url);
     if (idx !== -1) {
       gridSlots.value[idx].wrongGuess = false;
@@ -490,7 +522,6 @@ function onImgError(e: Event) {
   img.style.display = "none";
 }
 
-/** Keep missing draft within displayed draft */
 watch(displayCountDraft, (val) => {
   const max = Math.max(1, Math.min(allCards.value.length || 1, val));
   if (val !== max) displayCountDraft.value = max;
@@ -498,7 +529,6 @@ watch(displayCountDraft, (val) => {
   if (missingCountDraft.value > maxMissing) missingCountDraft.value = maxMissing;
 });
 
-/** Mount */
 onMounted(() => {
   document.addEventListener("pointerdown", onDocPointerDown);
 
@@ -509,14 +539,12 @@ onMounted(() => {
   allCards.value = Array.isArray(finalSource) ? [...finalSource] : [];
   persistSession();
 
-  // If nothing loaded, show empty UI (no alerts)
   if (!allCards.value.length) {
     cards.value = [];
     gridSlots.value = [];
     return;
   }
 
-  // Clamp defaults to pool
   displayCount.value = clampInt(props.defaultDisplayed, 1, allCards.value.length);
   missingCount.value = clampInt(props.defaultMissing, 1, Math.max(1, displayCount.value - 1));
   displayCountDraft.value = displayCount.value;
@@ -595,6 +623,7 @@ onBeforeUnmount(() => {
 .home-button:hover {
   transform: scale(1.08) rotate(-4deg);
 }
+
 .settings-button:hover {
   transform: scale(1.08) rotate(4deg);
 }
@@ -673,6 +702,7 @@ onBeforeUnmount(() => {
   width: 52px;
   height: 30px;
 }
+
 .switch input {
   opacity: 0;
   width: 0;
@@ -701,11 +731,12 @@ onBeforeUnmount(() => {
   border-radius: 999px;
 }
 
-.switch input:checked + .slider {
+.switch input:checked+.slider {
   background: color-mix(in srgb, var(--btn-secondary-bg) 35%, var(--neutral-0) 65%);
   border-color: var(--btn-secondary-border);
 }
-.switch input:checked + .slider:before {
+
+.switch input:checked+.slider:before {
   transform: translateX(22px);
 }
 
@@ -740,6 +771,7 @@ onBeforeUnmount(() => {
 .settings-drop-enter-active {
   animation: dropIn 180ms ease-out both;
 }
+
 .settings-drop-leave-active {
   animation: slideUpOut 160ms ease-in both;
 }
@@ -749,16 +781,19 @@ onBeforeUnmount(() => {
     opacity: 0;
     transform: translateY(-10px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
+
 @keyframes slideUpOut {
   from {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
   to {
     opacity: 0;
     transform: translateY(-10px) scale(0.98);
@@ -782,10 +817,12 @@ onBeforeUnmount(() => {
   cursor: pointer;
   transition: transform 140ms ease, filter 140ms ease;
 }
+
 .shuffle-btn:hover {
   transform: scale(1.04);
   filter: brightness(1.04);
 }
+
 .shuffle-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
@@ -801,9 +838,10 @@ onBeforeUnmount(() => {
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 18px;
-  width: min(1100px, 100%);
+  gap: 20px;
+  margin: 20px;
   justify-items: center;
+  width: 90%;
 }
 
 .card {
@@ -816,6 +854,8 @@ onBeforeUnmount(() => {
   overflow: hidden;
   display: grid;
   place-items: center;
+  position: relative;
+  transform: translateZ(0);
 }
 
 .card.blank {
@@ -836,6 +876,7 @@ onBeforeUnmount(() => {
   display: grid;
   place-items: center;
 }
+
 .img-wrap img {
   width: 100%;
   height: 100%;
@@ -870,7 +911,103 @@ onBeforeUnmount(() => {
   overflow: hidden;
 }
 
-/* Guess section */
+/* ---------- Reveal + Celebrate (reveal first, then flip/bounce/glow) ---------- */
+.flip-scene {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  perspective: 1100px;
+}
+
+.flip-plate {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+}
+
+.blank-face,
+.reveal-face {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.reveal-face {
+  background: #fff;
+}
+
+
+/* Flip + scale the ENTIRE card (border/shadow included), and do NOT end at 180deg */
+.card.do-flip {
+  transform-style: preserve-3d;
+  transform-origin: center;
+  will-change: transform;
+  animation: revealFlipScale 620ms cubic-bezier(0.18, 0.9, 0.22, 1.05) both;
+}
+
+@keyframes revealFlipScale {
+  0% {
+    transform: rotateY(-90deg) scale(1);
+  }
+  55% {
+    transform: rotateY(0deg) scale(1.12);
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+  }
+}
+
+
+
+/* Existing animations */
+@keyframes dropInCard {
+  from {
+    transform: translateY(-18px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.drop-in {
+  animation: dropInCard 220ms ease-out both;
+}
+
+@keyframes flashYellow {
+  0% {
+    background-color: yellow;
+    transform: scale(1);
+  }
+
+  50% {
+    background-color: yellow;
+    transform: scale(1.08);
+  }
+
+  100% {
+    background-color: white;
+    transform: scale(1);
+  }
+}
+
+.wrong-guess {
+  animation: flashYellow 0.5s ease-in-out;
+}
+
+.muted {
+  text-align: center;
+  color: var(--main-text-soft);
+  padding: 30px 16px;
+}
+
+/* Guess section (kept EXACTLY as you provided) */
 .guess-section {
   padding: 8px 14px 22px;
 }
@@ -881,6 +1018,7 @@ onBeforeUnmount(() => {
   color: var(--main-title-color);
   text-shadow: var(--main-title-shadow);
   font-size: clamp(16px, 2.0vh, 22px);
+  text-align: center;
 }
 
 .guess-options {
@@ -900,52 +1038,15 @@ onBeforeUnmount(() => {
   cursor: pointer;
   transition: transform 140ms ease, filter 140ms ease;
 }
+
 .guess-btn:hover {
   transform: scale(1.04);
   filter: brightness(1.04);
 }
+
 .guess-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-}
-
-/* Animations */
-@keyframes dropInCard {
-  from {
-    transform: translateY(-18px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-.drop-in {
-  animation: dropInCard 220ms ease-out both;
-}
-
-@keyframes flashYellow {
-  0% {
-    background-color: yellow;
-    transform: scale(1);
-  }
-  50% {
-    background-color: yellow;
-    transform: scale(1.08);
-  }
-  100% {
-    background-color: white;
-    transform: scale(1);
-  }
-}
-.wrong-guess {
-  animation: flashYellow 0.5s ease-in-out;
-}
-
-.muted {
-  text-align: center;
-  color: var(--main-text-soft);
-  padding: 30px 16px;
 }
 
 /* Responsive */
@@ -953,15 +1054,129 @@ onBeforeUnmount(() => {
   .settings-row {
     grid-template-columns: 1fr;
   }
+
   .settings-dropdown {
     width: min(360px, calc(100vw - 12px));
   }
-  .card {
-    width: 110px;
-    height: 154px;
+}
+
+/* ---------- Responsive (match Sharknado) ---------- */
+@media (max-width: 400px) {
+  .card-grid {
+    gap: 8px;
+    margin: 12px;
+    grid-template-columns: repeat(3, minmax(72px, 1fr));
+    justify-items: stretch;
   }
+
+  .card {
+    width: 100%;
+    min-width: 72px;
+    aspect-ratio: 5 / 8;
+    height: auto;
+  }
+}
+
+@media (min-width: 401px) and (max-width: 520px) {
+  .card-grid {
+    gap: 10px;
+    margin: 14px;
+    grid-template-columns: repeat(3, minmax(78px, 1fr));
+    justify-items: stretch;
+  }
+
+  .card {
+    width: 100%;
+    min-width: 78px;
+    aspect-ratio: 5 / 8;
+    height: auto;
+  }
+}
+
+@media (min-width: 521px) and (max-width: 768px) {
+  .card-grid {
+    gap: 12px;
+    margin: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  }
+
+  .card {
+    width: 100%;
+    min-width: 92px;
+    aspect-ratio: 5 / 7;
+    height: auto;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
   .card-grid {
     gap: 14px;
+    margin: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   }
+
+  .card {
+    width: 100%;
+    min-width: 110px;
+    aspect-ratio: 5 / 7;
+    height: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    width: 140px;
+    height: 180px;
+  }
+
+  .card-grid {
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    width: 160px;
+    height: 200px;
+  }
+
+  .card-grid {
+    gap: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+@media (min-width: 1920px) {
+  .card {
+    width: 200px;
+    height: 260px;
+  }
+
+  .card-grid {
+    gap: 32px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .card.do-flip {
+    animation: none !important;
+  }
+}
+
+
+/* SR-only utility */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 </style>

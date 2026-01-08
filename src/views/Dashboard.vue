@@ -1,217 +1,424 @@
 <!-- src/views/Dashboard.vue -->
 <template>
-  <main class="dash">
-    <AnnouncementBanner :items="announcements" :auto-rotate="true" rotate-ms="7000" />
+  <main class="dashboard">
+    <div class="dashboard__content">
+      <!-- Bento Grid -->
+      <section class="dashboard__grid" aria-label="Dashboard sections">
+        <!-- Row 1 -->
+        <section class="dashboard__card dashboard__card--wotd" aria-label="Word of the Day">
+          <header class="dashboard__cardHead">
+            <h2 class="dashboard__cardTitle">Word of the Day</h2>
+          </header>
 
-    <h1 class="bubble-title">English Games</h1>
-    <!-- New Card Carousel for Games -->
-    <CardCarousel :items="gameCards" :auto-rotate="true" :auto-rotate-delay="6000" />
+          <div class="dashboard__cardBody dashboard__cardBody--padded">
+            <DailyWord />
+          </div>
+        </section>
 
-    <h1 class="bubble-title">Flashcard Games</h1>
-    <!-- Flashcard Games Carousel -->
-    <CardCarousel :items="flashcardGameCards" :auto-rotate="true" :auto-rotate-delay="6000" />
+        <section class="dashboard__card dashboard__card--games" aria-label="Games">
+          <header class="dashboard__cardHead">
+            <h2 class="dashboard__cardTitle">
+              <RouterLink class="dashboard__titleLink" to="/activities">Games</RouterLink>
+            </h2>
+          </header>
 
-    <h1 class="bubble-title">Textbooks</h1>
-    <!-- Textbook List -->
-    <section class="center-area">
-      <TextbookList />
-    </section>
+          <div class="dashboard__cardBody">
+            <ActivitiesIconGrid mode="games" width="100%" height="100%" />
+          </div>
+        </section>
 
-    <h1 class="bubble-title">Games + Tools</h1>
-    <!-- Activity List -->
-    <ActivityList class="activities" />
+        <section class="dashboard__card dashboard__card--teacherTools" aria-label="Teacher Tools">
+          <header class="dashboard__cardHead">
+            <h2 class="dashboard__cardTitle">
+              <RouterLink class="dashboard__titleLink" to="/activities">Teacher Tools</RouterLink>
+            </h2>
+          </header>
 
+          <div class="dashboard__cardBody">
+            <ActivitiesIconGrid mode="tools" width="100%" height="100%" />
+          </div>
+        </section>
 
+        <!-- Row 2 -->
+        <section class="dashboard__card dashboard__card--textbooks" aria-label="Textbooks">
+          <header class="dashboard__cardHead dashboard__cardHead--split">
+            <h2 class="dashboard__cardTitle">
+              <RouterLink class="dashboard__titleLink" to="/textbooks">Textbooks & Flashcard Games</RouterLink>
+            </h2>
+
+            <div class="dashboard__headRight">
+              <CustomDeckButton :max-height="30" :scale="0.7" />
+            </div>
+          </header>
+
+          <div class="dashboard__cardBody dashboard__cardBody--wall">
+            <ScrollingImageWall
+              :images="textbookImages"
+              :tile-width="200"
+              :tile-height="300"
+              :gap="0"
+              :speed-px-per-sec="30"
+              direction="left"
+              :visible-count="5"
+              :draggable="true"
+            />
+          </div>
+        </section>
+
+        <section class="dashboard__card dashboard__card--tutorials" aria-label="Tutorials">
+          <header class="dashboard__cardHead">
+            <h2 class="dashboard__cardTitle">Tutorials</h2>
+          </header>
+          <div class="dashboard__cardBody">
+            <Tutorials />
+          </div>
+        </section>
+
+        <!-- Row 3 -->
+        <section class="dashboard__card dashboard__card--profile" aria-label="User Profile">
+          <header class="dashboard__cardHead">
+            <h2 class="dashboard__cardTitle">Progress</h2>
+          </header>
+
+          <!-- force full-height content -->
+          <div class="dashboard__cardBody dashboard__cardBody--fill">
+              <UserLevels />
+          </div>
+        </section>
+
+        <section class="dashboard__card dashboard__card--community" aria-label="Community">
+          <header class="dashboard__cardHead">
+            <h2 class="dashboard__cardTitle">Community</h2>
+          </header>
+
+          <div class="dashboard__cardBody ">
+            <CommunityLikesCounter />
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="dashboard__footer" aria-label="Footer">
+      <div class="dashboard__footerLeft">
+        <RouterLink class="dashboard__footerLink" to="/terms">Terms of Service</RouterLink>
+        <span class="dashboard__footerDot" aria-hidden="true">•</span>
+        <RouterLink class="dashboard__footerLink" to="/privacy-policy">Privacy Policy</RouterLink>
+      </div>
+
+      <div class="dashboard__footerRight">
+        <a class="dashboard__brandLink" href="https://griffiigames.com" target="_blank" rel="noopener noreferrer">
+          Griffii Games
+        </a>
+      </div>
+    </footer>
   </main>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
+import DailyWord from '@/components/DailyWord.vue'
+import ScrollingImageWall from '@/components/ScrollingImageWall.vue'
+import CustomDeckButton from '@/components/CustomDeckButton.vue'
+import UserLevels from '@/components/UserLevels.vue'
+import ActivitiesIconGrid from '@/components/ActivitiesIconGrid.vue'
+import CommunityLikesCounter from '@/components/CommunityLikesCounter.vue'
+import Tutorials from '@/components/Tutorials.vue'
 
-import ActivityList from '@/views/ActivitiesGrid.vue'
-import CardCarousel from '@/components/CardCarousel.vue'
-import TextbookList from '@/views/flashcard-system/TextbookList.vue'
-import AnnouncementBanner from '@/components/AnnouncementBanner.vue'
-
-// Announcement Data
-const announcements = [
-    {
-        id: 'announce-1',
-        title: '🐴 Happy New Year! 🐴',
-        note: '🎉 明けましておめでとうございます！🎊',
-    },
-    
+/* ------------------------------------------
+   Textbook Images
+------------------------------------------ */
+const textbookImages = [
+  { src: new URL('@/assets/images/screenshots/textbook-covers/lets-try-1-2018.png', import.meta.url).href },
+  { src: new URL('@/assets/images/screenshots/textbook-covers/lets-try-2-2018.png', import.meta.url).href },
+  { src: new URL('@/assets/images/screenshots/textbook-covers/new-horizon-5-2024.jpg', import.meta.url).href },
+  { src: new URL('@/assets/images/screenshots/textbook-covers/new-horizon-6-2024.jpg', import.meta.url).href },
+  { src: new URL('@/assets/images/screenshots/textbook-covers/my-picture-dictionary-new-horizon-2024.jpg', import.meta.url).href },
+  { src: new URL('@/assets/images/screenshots/textbook-covers/new-crown-1-2025.png', import.meta.url).href },
+  { src: new URL('@/assets/images/screenshots/textbook-covers/holidays.png', import.meta.url).href },
 ]
-
-// Game Carousel Data
-const gameCards = [
-  {
-    title: "Pizzas & Parfaits",
-    link: "/activities/pizzas-and-parfaits",
-    image: new URL("@/assets/images/screenshots/games/PaP_01.png", import.meta.url).href,
-    color: "#FF7A5C", // coral orange
-  },
-  {
-    title: "Who is it?!",
-    link: "/activities/who-is-it",
-    image: new URL("@/assets/images/screenshots/games/who-is-it.png", import.meta.url).href,
-    color: "#6BA3FF", // bright denim blue
-  },
-  {
-    title: "Othello",
-    link: "/othello",
-    image: new URL("@/assets/images/screenshots/games/othello-01.png", import.meta.url).href,
-    color: "#FFB0D8", // cute soft pink
-  },
-  {
-    title: "Spelling Battle",
-    link: "/activities/spelling-battle",
-    image: new URL("@/assets/images/screenshots/games/spelling-battle.png", import.meta.url).href,
-    color: "#8C6BFF", // vivid purple
-  },
-  {
-    title: "Wordle",
-    link: "/wordle",
-    image: new URL("@/assets/images/screenshots/games/wordle-01.png", import.meta.url).href,
-    color: "#FFE56E", // fun sunny yellow
-  },
-  {
-    title: "Directions",
-    link: "/activities/directions",
-    image: new URL("@/assets/images/screenshots/games/directions-game-01.png", import.meta.url).href,
-    color: "#5CD6FF", // bright aqua blue
-  }
-];
-// Flashcard Carousel Games Data
-const flashcardGameCards = [
-  {
-    title: "Flashcard Bingo",
-    link: "/textbooks",
-    image: new URL("@/assets/images/screenshots/flashcard-games/bingo.png", import.meta.url).href,
-    color: "#FFA63F", // warm orange
-  },
-  {
-    title: "Spelling Blitz",
-    link: "/textbooks",
-    image: new URL("@/assets/images/screenshots/flashcard-games/SpellingBlitz.png", import.meta.url).href,
-    color: "#3EC7FF", // sky blue
-  },
-  {
-    title: "Spelling Guesser",
-    link: "/textbooks",
-    image: new URL("@/assets/images/screenshots/flashcard-games/spelling-guesser.png", import.meta.url).href,
-    color: "#B377FF", // soft purple
-  },
-  {
-    title: "Sound Matcher",
-    link: "/textbooks",
-    image: new URL("@/assets/images/screenshots/flashcard-games/sound-matcher.png", import.meta.url).href,
-    color: "#FF6D92", // rose pink
-  },
-  {
-    title: "Bomb Game",
-    link: "/textbooks",
-    image: new URL("@/assets/images/screenshots/flashcard-games/bomb-game.png", import.meta.url).href,
-    color: "#FF4F4F", // strong red
-  },
-  {
-    title: "Sharknado!",
-    link: "/textbooks",
-    image: new URL("@/assets/images/screenshots/flashcard-games/sharknado.png", import.meta.url).href,
-    color: "#00D29E", // teal
-  },
-  {
-    title: "Memory Game",
-    link: "/textbooks",
-    image: new URL("@/assets/images/screenshots/flashcard-games/memorygame.png", import.meta.url).href,
-    color: "#D4EED1", // green
-  },
-];
-
-//////// HELPER FUNCTIONS ////////////
-function onOpenActivity(link: string) {
-  if (!link) {
-    console.warn('onOpenActivity called without a link')
-    return
-  }
-  // If you ever pass absolute URLs, open them; otherwise use router
-  if (/^https?:\/\//i.test(link)) {
-    window.location.href = link
-  } else {
-    router.push(link)
-  }
-}
-
 </script>
 
 <style scoped>
-.dash {
-  /* Fill viewport height */
+/* ==========================================================================
+   Dashboard Layout
+   ========================================================================== */
+
+.dashboard {
   min-block-size: 100dvh;
+  display: flex;
+  flex-direction: column;
 
-  padding-top: var(--app-header-height); /** Leave space fo the tapp header */
+  /* AppHeader is not fixed now; do not reserve header height here */
+  padding-top: 0;
+}
 
-  /* Prevent grid container from forcing inner overflow */
+.dashboard__content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  padding: var(--dashboard-page-pad, 18px);
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Grid
+   ========================================================================== */
+
+.dashboard__grid {
+  width: 100%;
+  max-width: var(--dashboard-max-width, 1200px);
+  margin: 0 auto;
+
+  display: grid;
+  gap: var(--dashboard-gap, 22px);
+
+  grid-template-columns: 1fr;
+  grid-auto-rows: var(--dashboard-row-height, 350px);
+
+  min-height: 0;
+}
+
+@media (min-width: 980px) {
+  .dashboard__grid {
+    width: 80vw;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+/* ==========================================================================
+   Card Base
+   ========================================================================== */
+
+.dashboard__card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+
+  background: var(--table-surface);
+  border: 2px solid var(--table-border);
+  box-shadow: var(--table-shadow);
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+}
+
+.dashboard__cardHead {
+  padding: 14px 16px 5px;
+  border-bottom: 1px solid color-mix(in srgb, var(--table-border) 70%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.dashboard__cardHead--split {
+  justify-content: space-between;
+}
+
+.dashboard__headRight {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dashboard__cardTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--table-on-surface);
+}
+
+.dashboard__titleLink {
+  color: inherit;
+  text-decoration: none;
+}
+.dashboard__titleLink:hover {
+  text-decoration: underline;
+}
+
+.dashboard__cardBody {
+  min-height: 0;
+}
+
+/* padding helper */
+.dashboard__cardBody--padded {
+  padding: 14px 16px;
+}
+
+/* Wall fill */
+.dashboard__cardBody--wall {
+  padding: 0;
   overflow: hidden;
 }
 
-/* Keep centering behavior for the top bands if you want */
-.section {
-  margin-inline: auto;
-}
-
-/* New: let ActivitiesList fill and scroll within its grid area */
-.activities {
+/* Full-height fill helpers (Profile/UserLevels) */
+.dashboard__cardBody--fill {
+  display: flex;
+  align-items: center;
   min-height: 0;
-  /* Important for grid children to allow shrinking */
-  overflow: auto;
-  
-  margin-left: 10px;
-  margin-right: 10px;
+}
+.dashboard__fillWrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.dashboard__fillChild {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
 }
 
-.center-area{
-  width: 60%;
-  max-width: 60%;
-  margin: 0 auto;          /* center horizontally */
-  padding: 12px 0;         /* vertical breathing room */
-  box-sizing: border-box;  /* prevent overflow */
-  display: block;
-}
-/* On small screens, let it use full width */
-@media (max-width: 800px) {
-  .center-area {
-    width: 90%;
-    max-width: 90%;
-  }
-}
-@media (max-width: 600px) {
-  .center-area {
-    width: 100%;
-    max-width: 100%;
-    padding: 8px;
-  }
+/* ==========================================================================
+   Section mappings (12-col bento)
+   ========================================================================== */
+
+@media (min-width: 980px) {
+  .dashboard__card--wotd { grid-column: span 4; }
+  .dashboard__card--games { grid-column: span 4; }
+  .dashboard__card--teacherTools { grid-column: span 4; }
+
+  .dashboard__card--tutorials { grid-column: span 5; }
+  .dashboard__card--textbooks { grid-column: span 7; }
+
+  .dashboard__card--profile { grid-column: span 6; }
+  .dashboard__card--community { grid-column: span 6; }
 }
 
-.bubble-title {
-  font-size: clamp(2.4rem, 5vw, 4rem);
+/* ==========================================================================
+   Theme-token borders per section
+   (Uses existing role tokens where available + core accents where not)
+   ========================================================================== */
+
+/* Games */
+.dashboard__card--games {
+  background: var(--activities-surface);
+  border-color: var(--activities-border);
+  box-shadow: var(--activities-shadow);
+  color: var(--activities-on-surface);
+}
+.dashboard__card--games .dashboard__cardTitle { color: var(--activities-on-surface); }
+
+/* Textbooks */
+.dashboard__card--textbooks {
+  background: var(--textbook-surface);
+  border-color: var(--textbook-border);
+  box-shadow: var(--textbook-shadow);
+  color: var(--textbook-on-surface);
+}
+.dashboard__card--textbooks .dashboard__cardTitle { color: var(--textbook-on-surface); }
+
+/* Everything else: keep table surface/shadow, but theme the borders via accents */
+.dashboard__card--wotd { border-color: color-mix(in srgb, var(--accent-warning) 55%, var(--table-border) 45%); }
+.dashboard__card--teacherTools { border-color: color-mix(in srgb, var(--accent-secondary) 55%, var(--table-border) 45%); }
+.dashboard__card--tutorials { border-color: color-mix(in srgb, var(--accent-primary) 45%, var(--table-border) 55%); }
+.dashboard__card--profile { border-color: color-mix(in srgb, var(--accent-primary) 55%, var(--table-border) 45%); }
+.dashboard__card--community { border-color: color-mix(in srgb, var(--accent-success) 55%, var(--table-border) 45%); }
+
+/* ==========================================================================
+   WOTD placeholder styling
+   ========================================================================== */
+
+.wotd {
+  display: grid;
+  gap: 6px;
+  color: var(--table-on-surface);
+}
+.wotd__word {
+  font-size: 1.4rem;
+  font-weight: 1000;
+  letter-spacing: 0.01em;
+}
+.wotd__pos {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--table-muted);
+}
+.wotd__def,
+.wotd__ex {
+  font-size: 0.98rem;
+  line-height: 1.35;
+  color: var(--table-on-surface);
+}
+
+/* ==========================================================================
+   Community layout: hint top, greeters bottom
+   ========================================================================== */
+
+.dashboard__cardBody--community {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 14px 16px;
+  gap: 10px;
+}
+
+.community__hint {
+  margin: 0;
+  color: var(--table-muted);
+  font-weight: 700;
+}
+
+.community__greeters {
+  margin-top: auto;     /* pins to bottom */
+  min-height: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* ==========================================================================
+   Footer (match AppHeader tokens)
+   ========================================================================== */
+
+.dashboard__footer {
+  width: 100%;
+  margin-top: auto;
+
+  background: var(--header-surface);
+  border-top: var(--header-border-width) solid var(--header-border-color);
+  box-shadow: var(--header-shadow);
+
+  padding: var(--dashboard-footer-pad-y, 12px) var(--dashboard-footer-pad-x, 16px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  box-sizing: border-box;
+}
+
+.dashboard__footerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.dashboard__footerLink {
+  font-size: 0.7rem;
+  color: var(--header-on-surface);
+  text-decoration: none;
+}
+.dashboard__footerLink:hover { text-decoration: underline; }
+
+.dashboard__footerDot {
+  color: color-mix(in srgb, var(--header-on-surface) 45%, transparent);
+}
+
+.dashboard__footerRight {
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.dashboard__brandLink {
+  color: var(--header-on-surface);
+  text-decoration: none;
   font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #ffeefc; /* light bubble fill */
-  text-align: center;
-  margin: 10px auto;
-
-  /* Bubble shadow stack matching card titles */
-  text-shadow:
-    0 0 0 #ffeefc,
-    0.10em 0.10em 0 #ff3a8d,
-    0.18em 0.18em 12px rgba(0, 0, 0, 0.55);
-
-  user-select: none;
 }
-
+.dashboard__brandLink:hover {
+  text-decoration: underline;
+}
 </style>

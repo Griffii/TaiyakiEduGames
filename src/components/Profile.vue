@@ -3,13 +3,16 @@
   <teleport to="body">
     <div v-if="open" class="overlay" @click.self="closePanel">
       <section class="panel" role="dialog" aria-modal="true" aria-label="Profile">
-
         <!-- Header -->
         <header class="header" v-if="profile">
-
           <div class="left">
-            <button class="avatar-button" type="button" @click="showAvatarPicker = true" aria-label="Change avatar"
-              title="Change avatar">
+            <button
+              class="avatar-button"
+              type="button"
+              @click="showAvatarPicker = true"
+              aria-label="Change avatar"
+              title="Change avatar"
+            >
               <div class="avatar">
                 <img v-if="avatarUrl" :src="avatarUrl" alt="User avatar" @error="onImgError" />
                 <div v-else class="avatar-fallback">{{ initials }}</div>
@@ -19,8 +22,13 @@
             <div class="id-block">
               <h2 class="name">
                 <template v-if="isEditing && canEditName">
-                  <input v-model="form.name" class="name-input" type="text" placeholder="Enter display name"
-                    :maxlength="64" />
+                  <input
+                    v-model="form.name"
+                    class="name-input"
+                    type="text"
+                    placeholder="Enter display name"
+                    :maxlength="64"
+                  />
                   <!-- Save lives inline, just to the right of the input -->
                   <button class="save-inline btn" :disabled="saving || !trimmedName" @click="saveEdits">
                     {{ saving ? 'Saving…' : 'Save' }}
@@ -50,9 +58,15 @@
             <div class="actions-bar">
               <!-- Hamburger dropdown -->
               <div class="menu-wrapper" ref="menuRef">
-                <button type="button" class="menu-toggle" :class="{ open: actionsOpen }"
-                  :aria-expanded="actionsOpen ? 'true' : 'false'" aria-haspopup="true" aria-label="Profile menu"
-                  @click.stop="actionsOpen = !actionsOpen">
+                <button
+                  type="button"
+                  class="menu-toggle"
+                  :class="{ open: actionsOpen }"
+                  :aria-expanded="actionsOpen ? 'true' : 'false'"
+                  aria-haspopup="true"
+                  aria-label="Profile menu"
+                  @click.stop="actionsOpen = !actionsOpen"
+                >
                   <span class="menu-line"></span>
                   <span class="menu-line"></span>
                   <span class="menu-line"></span>
@@ -65,31 +79,41 @@
                       Theme Selector
                     </button>
 
-                    <button v-if="!orgMembershipLoaded || !inOrg" class="menu-item" type="button"
-                      @click="onEnterSchoolCode">
+                    <button
+                      v-if="!orgMembershipLoaded || !inOrg"
+                      class="menu-item"
+                      type="button"
+                      @click="onEnterSchoolCode"
+                    >
                       Enter School Code
                     </button>
 
-                    <button v-if="viewerIsStaff" class="menu-item" type="button" :class="{ on: showDevTools }"
-                      @click="showDevTools = !showDevTools">
+                    <button
+                      v-if="viewerIsStaff"
+                      class="menu-item"
+                      type="button"
+                      :class="{ on: showDevTools }"
+                      @click="showDevTools = !showDevTools"
+                    >
                       {{ showDevTools ? 'Hide Dev Tools' : 'Show Dev Tools' }}
                     </button>
 
                     <button v-if="canEditName" class="menu-item" type="button" @click="toggleEdit">
                       {{ isEditing ? 'Cancel Name Edit' : 'Edit Display Name' }}
                     </button>
+
+                    <!-- LAST ITEM: Log Out -->
+                    <button class="menu-item logout-item" type="button" @click="logout">
+                      Log Out
+                    </button>
                   </div>
                 </transition>
               </div>
 
-              <!-- Close button stays visible -->
-              <button class="close-btn" @click="closePanel" aria-label="Close" title="Close">×</button>
+              <!-- Close button removed (click outside closes) -->
             </div>
           </div>
-
-
         </header>
-
 
         <!-- Save feedback (kept for messages only) -->
         <div v-if="isEditing" class="save-messages">
@@ -136,18 +160,22 @@
         </section>
 
         <!-- Avatar picker -->
-        <AvatarSelection v-if="showAvatarPicker" :key="'picker:' + (profile?.id || 'me')"
-          :current-key="profile?.avatar_url || ''" :target-user-id="profile?.id || null" @close="onAvatarClosed"
-          @updated="onAvatarUpdated" @selected="onAvatarUpdated" />
-
-
+        <AvatarSelection
+          v-if="showAvatarPicker"
+          :key="'picker:' + (profile?.id || 'me')"
+          :current-key="profile?.avatar_url || ''"
+          :target-user-id="profile?.id || null"
+          @close="onAvatarClosed"
+          @updated="onAvatarUpdated"
+          @selected="onAvatarUpdated"
+        />
       </section>
 
       <!-- School Code Input -->
       <SchoolCodeInput v-model:open="showSchoolCode" @joined="onJoinedOrg" />
-
     </div>
   </teleport>
+
   <!-- Theme loading overlay -->
   <Teleport to="body">
     <div v-if="themeLoading" class="theme-loading-overlay" role="status" aria-live="polite" aria-label="Applying theme">
@@ -157,13 +185,18 @@
   </Teleport>
 
   <!-- Theme Editor Modal -->
-  <ThemeEditor v-model:open="themeEditorOpen" @close="closeThemeEditor" @applying-theme="beginThemeLoad"
-    @applied="endThemeLoad" />
+  <ThemeEditor
+    v-model:open="themeEditorOpen"
+    @close="closeThemeEditor"
+    @applying-theme="beginThemeLoad"
+    @applied="endThemeLoad"
+  />
 </template>
 
 <script setup lang="ts">
-
-import { computed, defineProps, defineEmits, ref, watch, onBeforeUnmount } from 'vue'
+import { computed, ref, watch, onBeforeUnmount } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/users'
 import { supabase } from '@/lib/supabase'
 import AvatarSelection from '@/components/AvatarSelection.vue'
 import DefaultLogo from '@/assets/images/logos/Mushroom_Avatar.png'
@@ -180,6 +213,9 @@ const emit = defineEmits<{
   (e: 'update:open', value: boolean): void
   (e: 'enterOrgCode'): void
 }>()
+
+const router = useRouter()
+const auth = useUserStore()
 
 const loading = ref(false)
 const error = ref<string | null>(null)
@@ -211,8 +247,13 @@ const orgName = ref<string | null>(null)
 /* Coming Soon popup */
 const soonOpen = ref(false)
 const soonTitle = ref('Coming Soon')
-function openSoon(title: string) { soonTitle.value = title; soonOpen.value = true }
-function closeSoon() { soonOpen.value = false }
+function openSoon(title: string) {
+  soonTitle.value = title
+  soonOpen.value = true
+}
+function closeSoon() {
+  soonOpen.value = false
+}
 
 /* Editing permission */
 const canEditName = computed(() => viewerIsStaff.value || (viewerId.value && viewerId.value === profile.value?.id))
@@ -234,7 +275,6 @@ function onClickOutside(e: MouseEvent) {
   }
 }
 
-
 /* School Code Input Modal */
 import SchoolCodeInput from '@/components/SchoolCodeInput.vue'
 
@@ -249,7 +289,6 @@ function onJoinedOrg() {
   fetchOrgInfo(profile.value?.id || '')
   // Optionally show a toast
 }
-
 
 /* ---------- Theme Editor Modal ---------- */
 const themeEditorOpen = ref(false)
@@ -273,7 +312,6 @@ function endThemeLoad() {
 }
 /* --------------------------------------------------- */
 
-
 /* Avatar URL */
 const avatarUrl = computed(() => {
   const key = profile.value?.avatar_url
@@ -295,29 +333,38 @@ const initials = computed(() => {
 /* UI + data helpers */
 const showAvatarPicker = ref(false)
 function closePanel() {
-  try { props.onClose?.() } finally {
+  try {
+    props.onClose?.()
+  } finally {
     actionsOpen.value = false
     emit('update:open', false)
     emit('close')
   }
 }
-function onImgError(e: Event) { const img = e.target as HTMLImageElement; img.onerror = null; img.src = DefaultLogo }
+function onImgError(e: Event) {
+  const img = e.target as HTMLImageElement
+  img.onerror = null
+  img.src = DefaultLogo
+}
 
 async function resolveTargetUserId(): Promise<string | null> {
   if (props.userId) return props.userId
-  const { data: auth } = await supabase.auth.getUser()
-  return auth.user?.id ?? null
+  const { data: authUser } = await supabase.auth.getUser()
+  return authUser.user?.id ?? null
 }
+
 async function fetchViewerStaff() {
-  const { data: auth } = await supabase.auth.getUser()
-  viewerId.value = auth.user?.id ?? null
+  const { data: authUser } = await supabase.auth.getUser()
+  viewerId.value = authUser.user?.id ?? null
   viewerIsStaff.value = false
   showDevTools.value = false // reset toggle on open
   if (!viewerId.value) return
   try {
     const { data } = await supabase.rpc('is_staff')
     viewerIsStaff.value = !!data
-  } catch { }
+  } catch {
+    /* ignore */
+  }
 }
 
 async function fetchProfile() {
@@ -326,7 +373,10 @@ async function fetchProfile() {
   profile.value = null
   try {
     const uid = await resolveTargetUserId()
-    if (!uid) { error.value = 'No user id available.'; return }
+    if (!uid) {
+      error.value = 'No user id available.'
+      return
+    }
 
     const { data: prof, error: pErr } = await supabase
       .from('profiles')
@@ -347,7 +397,6 @@ async function fetchProfile() {
 
 /* Org info (role + org name) */
 async function fetchOrgInfo(uid: string) {
-
   orgMembershipLoaded.value = false
   inOrg.value = false
   orgRole.value = null
@@ -370,11 +419,7 @@ async function fetchOrgInfo(uid: string) {
       orgRole.value = membership.role || null
 
       if (orgId.value) {
-        const { data: org, error: oErr } = await supabase
-          .from('orgs')
-          .select('name')
-          .eq('id', orgId.value)
-          .single()
+        const { data: org, error: oErr } = await supabase.from('orgs').select('name').eq('id', orgId.value).single()
         if (!oErr && org) orgName.value = org.name ?? null
       }
     }
@@ -400,52 +445,57 @@ function roleClass(role: string) {
 
 /* Save edits */
 async function saveEdits() {
-  if (!profile.value || !canEditName.value) return;
+  if (!profile.value || !canEditName.value) return
 
-  const newName = trimmedName.value;
-  if (!newName) { saveError.value = 'Name cannot be empty.'; return; }
+  const newName = trimmedName.value
+  if (!newName) {
+    saveError.value = 'Name cannot be empty.'
+    return
+  }
 
-  saving.value = true;
-  saveOk.value = false;
-  saveError.value = null;
+  saving.value = true
+  saveOk.value = false
+  saveError.value = null
 
   try {
     // Use the privileged RPC so staff can edit others
-    const targetId = profile.value.id;
+    const targetId = profile.value.id
     const { error: rpcErr } = await supabase.rpc('set_user_display_name', {
       target_user: targetId,
-      new_name: newName,
-    });
-    if (rpcErr) throw rpcErr;
+      new_name: newName
+    })
+    if (rpcErr) throw rpcErr
 
     // Optimistic local update
-    profile.value = { ...profile.value, name: newName };
+    profile.value = { ...profile.value, name: newName }
 
     // Optional mirror to public_profiles (might be blocked by RLS)
     try {
-      await supabase
-        .from('public_profiles')
-        .upsert(
-          {
-            user_id: targetId,
-            display_name: newName,
-            updated_at: new Date().toISOString(),
-          },
-          { onConflict: 'user_id' }
-        );
-    } catch { /* ignore if blocked by RLS */ }
+      await supabase.from('public_profiles').upsert(
+        {
+          user_id: targetId,
+          display_name: newName,
+          updated_at: new Date().toISOString()
+        },
+        { onConflict: 'user_id' }
+      )
+    } catch {
+      /* ignore if blocked by RLS */
+    }
 
-    saveOk.value = true;
-    isEditing.value = false;
+    saveOk.value = true
+    isEditing.value = false
   } catch (e: any) {
-    saveError.value = e?.message ?? String(e);
+    saveError.value = e?.message ?? String(e)
   } finally {
-    saving.value = false;
+    saving.value = false
   }
 }
 
 /* Avatar picker hooks */
-function onAvatarClosed() { showAvatarPicker.value = false; }
+function onAvatarClosed() {
+  showAvatarPicker.value = false
+}
 function onAvatarUpdated(payload?: { key?: string; url?: string } | string) {
   let key: string | undefined
   if (typeof payload === 'string') key = payload
@@ -459,9 +509,35 @@ function onAvatarUpdated(payload?: { key?: string; url?: string } | string) {
   avatarVersion.value = Date.now()
 }
 
+/* Logout (added to hamburger menu; last item) */
+async function logout() {
+  actionsOpen.value = false
+
+  try {
+    if (auth.signOut) {
+      await auth.signOut()
+    } else {
+      await supabase.auth.signOut()
+    }
+  } finally {
+    try {
+      Object.keys(localStorage).forEach(k => {
+        if (k.startsWith('sb-')) localStorage.removeItem(k)
+      })
+      auth.$reset?.()
+    } catch {
+      /* ignore */
+    }
+
+    closePanel()
+    await router.replace('/dashboard')
+  }
+}
 
 /* Close on Escape */
-function onKey(e: KeyboardEvent) { if (e.key === 'Escape') closePanel() }
+function onKey(e: KeyboardEvent) {
+  if (e.key === 'Escape') closePanel()
+}
 
 /* Lifecycle: open/load & react to user change */
 watch(
@@ -473,10 +549,7 @@ watch(
       error.value = null
 
       try {
-        await Promise.all([
-          fetchViewerStaff(),
-          fetchProfile(),
-        ])
+        await Promise.all([fetchViewerStaff(), fetchProfile()])
       } finally {
         initialLoading.value = false
       }
@@ -495,7 +568,6 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKey)
   window.removeEventListener('click', onClickOutside)
 })
-
 </script>
 
 <style scoped>
@@ -520,8 +592,8 @@ onBeforeUnmount(() => {
   border: 2px solid var(--modal-border);
   border-radius: var(--modal-radius);
   box-shadow: var(--modal-shadow);
-  /* Extra right padding so content doesn't sit under the close/hamburger area */
-  padding: 18px 56px 22px 20px;
+  /* OPTIONAL: reclaim right padding now that close button is removed */
+  padding: 18px 20px 22px 20px;
   z-index: 101;
 }
 
@@ -558,14 +630,11 @@ onBeforeUnmount(() => {
 }
 
 /* --- HAMBURGER MENU (updated size + alignment) --- */
-
-/* Wrapper aligned with the close button */
 .menu-wrapper {
   position: absolute;
   top: 14px;
-  /* was 10px → lowers the hamburger slightly */
-  right: 56px;
-  /* space for close btn */
+  /* OPTIONAL: no longer reserve space for close button */
+  right: 10px;
   z-index: 40;
 }
 
@@ -579,13 +648,10 @@ onBeforeUnmount(() => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4px;
-  /* spacing between lines */
-  width: 34px;
-  /* increased size */
-  height: 34px;
-  /* increased size */
-  transition: transform .14s ease, filter .14s ease;
+  gap: 4px; /* spacing between lines */
+  width: 34px; /* increased size */
+  height: 34px; /* increased size */
+  transition: transform 0.14s ease, filter 0.14s ease;
 }
 
 .menu-toggle:hover {
@@ -599,36 +665,29 @@ onBeforeUnmount(() => {
 
 /* Hamburger lines (bigger) */
 .menu-line {
-  width: 22px;
-  /* was 18px */
-  height: 3px;
-  /* was 2px */
+  width: 22px; /* was 18px */
+  height: 3px; /* was 2px */
   border-radius: 999px;
   background: var(--modal-on-surface);
-  transition: transform .18s ease, opacity .18s ease;
+  transition: transform 0.18s ease, opacity 0.18s ease;
   transform-origin: center;
 }
 
 /* Open → X animation */
 .menu-toggle.open .menu-line:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
-  /* adjusted for larger size */
 }
-
 .menu-toggle.open .menu-line:nth-child(2) {
   opacity: 0;
 }
-
 .menu-toggle.open .menu-line:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
-  /* adjusted for larger size */
 }
 
 /* Dropdown unchanged */
 .menu-dropdown {
   position: absolute;
-  top: 46px;
-  /* lowered to match new button height */
+  top: 46px; /* lowered to match new button height */
   right: 0;
   min-width: 190px;
   padding: 8px;
@@ -647,22 +706,16 @@ onBeforeUnmount(() => {
   opacity: 0;
   transform: scaleY(0.8);
 }
-
 .menu-pop-enter-to,
 .menu-pop-leave-from {
   opacity: 1;
   transform: scaleY(1);
 }
-
 .menu-pop-enter-active,
 .menu-pop-leave-active {
   transform-origin: top right; /* expands downward from the button */
-  transition:
-    opacity 150ms ease-out,
-    transform 150ms ease-out;
+  transition: opacity 150ms ease-out, transform 150ms ease-out;
 }
-
-
 
 /* Items inside dropdown */
 .menu-item {
@@ -676,12 +729,12 @@ onBeforeUnmount(() => {
   font-weight: 900;
   padding: 6px 12px;
   cursor: pointer;
-  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
 }
 
 .menu-item:hover {
   transform: translateY(-1px);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.12);
 }
 
 .menu-item.on {
@@ -695,6 +748,13 @@ onBeforeUnmount(() => {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-primary) 40%, transparent);
 }
 
+/* OPTIONAL: make Log Out feel "danger-ish" */
+.logout-item {
+  border-color: var(--btn-danger-border, color-mix(in srgb, var(--accent-danger) 55%, #000 45%));
+  background: color-mix(in srgb, var(--accent-danger) 14%, var(--btn-ghost-bg) 86%);
+  color: color-mix(in srgb, var(--accent-danger) 70%, var(--btn-ghost-on) 30%);
+}
+
 /* ============ BUTTONS (global button tokens) ============ */
 .btn {
   height: 36px;
@@ -706,17 +766,17 @@ onBeforeUnmount(() => {
   font-size: 13px;
   font-weight: 900;
   cursor: pointer;
-  transition: transform .12s ease, box-shadow .12s ease;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, .08);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
 }
 
 .btn:hover {
   transform: scale(1.07);
-  box-shadow: 0 3px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
 }
 
 .btn:active {
-  transform: scale(.97);
+  transform: scale(0.97);
 }
 
 .btn.theme {
@@ -744,13 +804,13 @@ onBeforeUnmount(() => {
 }
 
 /* When editing (aria-pressed="true") show "Cancel" as lighter red using --warning-* */
-.edit-btn[aria-pressed="true"] {
+.edit-btn[aria-pressed='true'] {
   border-color: var(--warning-border, var(--accent-danger));
   background: var(--warning-bg, color-mix(in srgb, var(--accent-danger) 10%, #fff 90%));
   color: var(--warning-on, color-mix(in srgb, var(--accent-danger) 65%, #000 35%));
 }
 
-.edit-btn[aria-pressed="true"]:hover {
+.edit-btn[aria-pressed='true']:hover {
   filter: brightness(1.03);
   transform: scale(1.03);
 }
@@ -760,34 +820,6 @@ onBeforeUnmount(() => {
   border-color: color-mix(in srgb, var(--accent-warning) 40%, #000 60%);
   background: color-mix(in srgb, var(--accent-warning) 18%, #fff 82%);
   color: #3a2a00;
-}
-
-/* Close button: fixed relative to panel, not affected by header layout */
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border-radius: 50%;
-  border: 2px solid var(--modal-close-border);
-  background: var(--modal-close-bg);
-  color: var(--modal-close-on);
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  transition: transform .12s ease, filter .12s ease;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, .15);
-}
-
-.close-btn:hover {
-  transform: scale(1.12);
-  filter: brightness(1.05);
-}
-
-.close-btn:active {
-  transform: scale(.95);
 }
 
 /* ============ AVATAR ============ */
@@ -856,7 +888,7 @@ onBeforeUnmount(() => {
   min-width: 240px;
   background: var(--neutral-0);
   color: var(--modal-on-surface);
-  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .04);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.04);
 }
 
 /* Save inline = success tone */
@@ -954,20 +986,20 @@ onBeforeUnmount(() => {
   word-break: break-word;
   box-sizing: border-box;
   cursor: pointer;
-  transition: transform .12s ease, box-shadow .12s ease;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, .08);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
 }
 
 .action-chip:hover {
   transform: scale(1.04);
-  box-shadow: 0 3px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
 }
 
 .action-chip:active {
-  transform: scale(.98);
+  transform: scale(0.98);
 }
 
-@media (max-width:520px) {
+@media (max-width: 520px) {
   .action-chip {
     flex: 1 1 100%;
   }
@@ -1003,8 +1035,7 @@ onBeforeUnmount(() => {
 
 /* ============ COMING SOON POPUP ============ */
 .soon-pop {
-  position: relative;
-  /* anchor for internal layout */
+  position: relative; /* anchor for internal layout */
   margin-top: 12px;
   border: 2px solid var(--modal-border);
   border-radius: 14px;
@@ -1039,8 +1070,8 @@ onBeforeUnmount(() => {
   font-size: 18px;
   line-height: 1;
   cursor: pointer;
-  transition: transform .12s ease, filter .12s ease;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, .15);
+  transition: transform 0.12s ease, filter 0.12s ease;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
 }
 
 .soon-x:hover {
@@ -1049,7 +1080,7 @@ onBeforeUnmount(() => {
 }
 
 .soon-x:active {
-  transform: scale(.95);
+  transform: scale(0.95);
 }
 
 /* Description text */
@@ -1074,7 +1105,7 @@ onBeforeUnmount(() => {
   border-radius: 50%;
   border: 3px solid var(--modal-border);
   border-top-color: var(--accent-primary);
-  animation: spin .8s linear infinite;
+  animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -1126,9 +1157,9 @@ onBeforeUnmount(() => {
 }
 
 /* ============ RESPONSIVE ============ */
-@media (max-width:720px) {
+@media (max-width: 720px) {
   .panel {
-    padding: 14px 52px 18px 14px;
+    padding: 14px 14px 18px 14px; /* OPTIONAL: reclaim right padding on mobile too */
   }
 
   .avatar {

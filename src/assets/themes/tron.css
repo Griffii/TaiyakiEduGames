@@ -52,7 +52,7 @@
      GLOBAL BACKGROUND (App canvas)
      ========================= */
   --bg-app-color: #0a0f18; /* deep blue-black */
-  --bg-app-image: none;    /* no asphalt texture */
+
   /* soft cross-fade neon glows from corners */
   --bg-app-gradient-top: radial-gradient(
     1200px 700px at 115% -10%,
@@ -66,10 +66,7 @@
     rgba(138, 125, 255, 0.10) 38%,
     transparent 70%
   );
-  --bg-app-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  --bg-app-size: auto, auto, auto, auto;
-  --bg-app-blend: screen, screen, normal, normal;
-  --bg-app-attachment: fixed, fixed, fixed, fixed;
+
 
   /* =========================
      MAIN (TEXT OVER GLOBAL BACKGROUND)

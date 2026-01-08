@@ -1,8 +1,10 @@
+<!-- src/components/CustomDeckButton.vue -->
 <template>
   <!-- Logged-in view -->
   <RouterLink
     v-if="isAuthed"
     class="btn custom-decks"
+    :style="rootStyle"
     to="/custom-decks"
     title="Go to your Custom Decks"
   >
@@ -10,15 +12,34 @@
   </RouterLink>
 
   <!-- Not logged in -->
-  <div v-else class="customdeck-login-msg">
+  <div v-else class="customdeck-login-msg" :style="rootStyle">
     Please log in or sign up to make custom decks.
   </div>
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount, ref } from 'vue'
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { supabase } from '@/lib/supabase'
+
+const props = defineProps({
+  /** Optional max height (px). If set, the button/message will not exceed it. */
+  maxHeight: { type: Number, default: null },
+
+  /**
+   * Optional: scale the button's padding+font a bit when you need it smaller.
+   * 1 = default, 0.9 = slightly smaller, etc.
+   */
+  scale: { type: Number, default: 1 },
+})
+
+const rootStyle = computed(() => {
+  const s = Math.max(0.6, Math.min(1.2, Number(props.scale) || 1))
+  return {
+    '--cdb-max-h': props.maxHeight ? `${props.maxHeight}px` : 'none',
+    '--cdb-scale': String(s),
+  }
+})
 
 const isAuthed = ref(false)
 let authSubscription = null
@@ -32,7 +53,6 @@ onMounted(() => {
   void checkAuth()
 
   const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-    // Fire whenever user logs in / logs out / token refreshed
     isAuthed.value = !!session
   })
 
@@ -54,17 +74,24 @@ onBeforeUnmount(() => {
 .customdeck-login-msg {
   width: 100%;
   text-align: center;
-  padding: 0.85rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
 
+  /* Scale-friendly */
+  padding: calc(0.85rem * var(--cdb-scale, 1)) calc(1rem * var(--cdb-scale, 1));
+  font-size: calc(0.9rem * var(--cdb-scale, 1));
+
+  font-weight: 600;
   color: var(--header-on-surface);
-  background: color-mix(in srgb, var(--header-surface) 75%, var(--neutral-0) 25%);
+  background: var(--neutral-0);
   border: 2px solid var(--header-border-color);
   border-radius: var(--radius-lg);
-
   box-shadow: var(--header-shadow);
   line-height: 1.35;
+
+  /* New: cap height when needed */
+  max-height: var(--cdb-max-h, none);
+  overflow: hidden;
+  display: grid;
+  align-items: center;
 }
 
 /* =========================
@@ -73,14 +100,19 @@ onBeforeUnmount(() => {
 .btn.custom-decks {
   position: relative;
   overflow: hidden;
+
   background: var(--customdeck-button-bg);
   color: var(--customdeck-button-on);
   font-weight: 900;
-  font-size: 1.12rem;
-  padding: 14px 26px;
+
+  /* Scale-friendly */
+  font-size: calc(1.12rem * var(--cdb-scale, 1));
+  padding: calc(14px * var(--cdb-scale, 1)) calc(26px * var(--cdb-scale, 1));
+
   border: 0;
   border-radius: var(--radius-lg);
   text-decoration: none;
+
   text-shadow:
     -1px 0 color-mix(in srgb, var(--neutral-900) 100%, transparent),
     0 1px color-mix(in srgb, var(--neutral-900) 100%, transparent),
@@ -92,11 +124,18 @@ onBeforeUnmount(() => {
     inset 0 0 0 2px color-mix(in srgb, var(--neutral-0) 35%, transparent);
 
   transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+
+  /* New: cap height when needed */
+  max-height: var(--cdb-max-h, none);
+  display: inline-grid;
+  align-items: center;
 }
 
+/* Keep the inner content visible even when capped */
 .btn.custom-decks > * {
   position: relative;
   z-index: 1;
+  line-height: 1.1;
 }
 
 /* Dot layer animation */
@@ -119,21 +158,13 @@ onBeforeUnmount(() => {
 }
 
 @keyframes decks-dots-slower {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 450% 450%;
-  }
+  0% { background-position: 0 0; }
+  100% { background-position: 450% 450%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn.custom-decks::before {
-    animation: none;
-  }
-  .btn.custom-decks:hover {
-    transform: translateY(-2px);
-  }
+  .btn.custom-decks::before { animation: none; }
+  .btn.custom-decks:hover { transform: translateY(-2px); }
 }
 
 .btn.custom-decks:hover {

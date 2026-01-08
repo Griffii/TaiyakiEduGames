@@ -6,7 +6,6 @@ import { useTheme } from '@/utils/useTheme'
 type Emits = {
   (e: 'update:open', v: boolean): void
   (e: 'close'): void
-  (e: 'apply-theme', v: string): void
 }
 const emit = defineEmits<Emits>()
 const props = defineProps<{ open: boolean }>()
@@ -32,7 +31,6 @@ function onKey(e: KeyboardEvent) {
 
 async function onChangeTheme(e: Event) {
   const val = (e.target as HTMLSelectElement).value
-  emit('apply-theme', val)     // let parent show loading overlay
   await applyTheme(val as any) // still apply locally for SSR/standalone use
 }
 

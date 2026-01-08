@@ -10,6 +10,8 @@ const routes: RouteRecordRaw[] = [
   { path: '/dashboard', name: 'dashboard', component: () => import('@/views/Dashboard.vue') },
   { path: '/login', name: 'login', component: () => import('@/views/Login.vue') },
   { path: '/reset-password', name: 'reset-password', component: () => import('@/views/ResetPassword.vue'), },
+  { path: '/terms', name: 'terms', component: () => import('@/views/legal/Terms.vue') },
+  { path: '/privacy-policy', name: 'privacy-policy', component: () => import('@/views/legal/PrivacyPolicy.vue') },
 
   // Dev views
   { path: '/users', name: 'users', component: () => import('@/views/UsersList.vue'), meta: { authRequired: true, requiresDev: true } },
@@ -83,7 +85,7 @@ const routes: RouteRecordRaw[] = [
 
   // Activity related views
   { path: '/activities', name: 'activities', component: () => import('@/views/ActivitiesGrid.vue') },
-  { path: '/activities/:slug', name: 'activity-runner', component: () => import('@/views/games/ActivityRunner.vue') },
+  { path: '/activities/:slug', name: 'activity-runner', component: () => import('@/views/games/ActivityRunner.vue'), meta: { hideHeader: true } },
   { path: '/roulette-wheel', name: 'roulette-wheel', component: () => import('@/views/tools/RouletteWheel.vue'), meta: { hideHeader: true } },
   { path: '/random-points', name: 'random-points', component: () => import('@/views/tools/RandomPoints.vue'), meta: { hideHeader: true } },
   { path: '/random-time', name: 'random-time', component: () => import('@/views/tools/RandomTime.vue'), meta: { hideHeader: true } },

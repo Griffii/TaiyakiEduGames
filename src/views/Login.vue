@@ -407,7 +407,7 @@ async function sendReset() {
   display: grid;
   place-items: center;
   padding: clamp(12px, 3vw, 24px);
-  padding-top: var(--app-header-height);
+  
 }
 
 /* ---------- Shell & Card ---------- */

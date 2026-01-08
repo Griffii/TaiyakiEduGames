@@ -38,12 +38,7 @@
                 >
                   Practice
                 </button>
-                <button
-                  class="btn ghost"
-                  :class="{ active: modeDraft === 'game' }"
-                  type="button"
-                  @click="modeDraft = 'game'"
-                >
+                <button class="btn ghost" :class="{ active: modeDraft === 'game' }" type="button" @click="modeDraft = 'game'">
                   Game
                 </button>
               </div>
@@ -52,35 +47,19 @@
             <div class="menu-block">
               <div class="block-label">Cards</div>
               <div class="block-buttons three">
-                <button class="btn ghost" :class="{ active: countDraft === 3 }" type="button" @click="countDraft = 3">
-                  3
-                </button>
-                <button class="btn ghost" :class="{ active: countDraft === 5 }" type="button" @click="countDraft = 5">
-                  5
-                </button>
-                <button class="btn ghost" :class="{ active: countDraft === 7 }" type="button" @click="countDraft = 7">
-                  7
-                </button>
+                <button class="btn ghost" :class="{ active: countDraft === 3 }" type="button" @click="countDraft = 3">3</button>
+                <button class="btn ghost" :class="{ active: countDraft === 5 }" type="button" @click="countDraft = 5">5</button>
+                <button class="btn ghost" :class="{ active: countDraft === 7 }" type="button" @click="countDraft = 7">7</button>
               </div>
             </div>
 
             <div class="menu-block">
               <div class="block-label">Shuffle speed</div>
               <div class="block-buttons three">
-                <button
-                  class="btn ghost"
-                  :class="{ active: speedDraft === 'easy' }"
-                  type="button"
-                  @click="speedDraft = 'easy'"
-                >
+                <button class="btn ghost" :class="{ active: speedDraft === 'easy' }" type="button" @click="speedDraft = 'easy'">
                   Easy
                 </button>
-                <button
-                  class="btn ghost"
-                  :class="{ active: speedDraft === 'fast' }"
-                  type="button"
-                  @click="speedDraft = 'fast'"
-                >
+                <button class="btn ghost" :class="{ active: speedDraft === 'fast' }" type="button" @click="speedDraft = 'fast'">
                   Fast
                 </button>
                 <button
@@ -142,7 +121,14 @@
 
     <!-- Stage -->
     <div class="stage-wrap">
-      <div ref="stageEl" class="stage" :class="{ busy: isBusy, impossible: shuffleSpeed === 'impossible', easy: shuffleSpeed === 'easy' }">
+      <div
+        ref="stageEl"
+        class="stage"
+        :class="[
+          { busy: isBusy, impossible: shuffleSpeed === 'impossible', easy: shuffleSpeed === 'easy' },
+          `cards-${roundCards.length || count}`
+        ]"
+      >
         <div
           v-for="c in roundCards"
           :key="c.key"
@@ -336,18 +322,85 @@ const stageW = ref(0)
 const stageH = ref(0)
 let ro: ResizeObserver | null = null
 
+/** ===== Dynamic card size + internal layout ===== */
+const cardW = ref(170)
+const cardH = ref(230)
+
+function clamp(v: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, v))
+}
+
+function gapPolicy(n: number, w: number) {
+  if (w >= 1200) return n === 3 ? 30 : n === 5 ? 22 : 16
+  if (w >= 900) return n === 3 ? 24 : n === 5 ? 18 : 14
+  return n === 3 ? 16 : n === 5 ? 14 : 12
+}
+
+function computeCardDims(n: number, w: number, h: number) {
+  const padX = 24
+  const availW = Math.max(320, w - padX * 2)
+
+  const gap = gapPolicy(n, w)
+
+  const desiredW = n === 3 ? 260 : n === 5 ? 210 : 185
+  const desiredH = Math.round(desiredW * (230 / 170))
+
+  const fitMaxW = Math.floor((availW - (n - 1) * gap) / n)
+
+  const fitMaxH = Math.floor(Math.max(240, h * 0.78))
+  const fitMaxWByH = Math.floor((fitMaxH * 170) / 230)
+
+  const maxW = Math.max(140, Math.min(fitMaxW, fitMaxWByH))
+
+  const minW = n === 3 ? 165 : n === 5 ? 150 : 140
+
+  const finalW = clamp(desiredW, minW, maxW)
+  const finalH = Math.round(finalW * (230 / 170))
+
+  return { w: finalW, h: finalH, gap }
+}
+
+function internalLayoutVars(w: number, h: number) {
+  // These control the image area + text area so nothing overlaps and everything stays visible.
+  // - Reserve a text band at the bottom that scales with size, clamped to reasonable bounds.
+  // - Image area becomes (card height - padding*2 - textBand - gap)
+  const pad = Math.round(clamp(w * 0.06, 10, 16))
+  const gap = Math.round(clamp(h * 0.03, 8, 14))
+  const textBand = Math.round(clamp(h * 0.26, 56, 92)) // bottom area reserved for English
+  const mediaH = Math.max(92, h - pad * 2 - textBand - gap)
+
+  const font = Math.round(clamp(w * 0.085, 14, 20))
+  const line = Math.round(clamp(font * 1.12, 16, 24))
+
+  return {
+    pad,
+    gap,
+    textBand,
+    mediaH,
+    font,
+    line
+  }
+}
+
+function updateCardDims() {
+  const n = roundCards.value.length || count.value
+  const w = stageW.value || 1200
+  const h = stageH.value || 680
+  const d = computeCardDims(n, w, h)
+  cardW.value = d.w
+  cardH.value = d.h
+}
+
 function measureStage() {
   const el = stageEl.value
   if (!el) return
   const r = el.getBoundingClientRect()
   stageW.value = r.width
   stageH.value = r.height
+  updateCardDims()
 }
 
 /** ===== Spots ===== */
-const CARD_W = 170
-const CARD_H = 230
-
 function spotPositions(n: number) {
   const w = stageW.value || 1200
   const h = stageH.value || 680
@@ -355,31 +408,32 @@ function spotPositions(n: number) {
   const padX = 10
   const centerY = h * 0.56
 
-  const maxSpan = Math.max(380, w - padX * 2)
-  const idealGap = 20
-  const needed = n * CARD_W + (n - 1) * idealGap
-  const gap = needed <= maxSpan ? idealGap : Math.max(8, Math.floor((maxSpan - n * CARD_W) / Math.max(1, n - 1)))
+  const { w: CW, gap } = computeCardDims(n, w, h)
 
-  const span = n * CARD_W + (n - 1) * gap
-  const startX = (w - span) / 2 + CARD_W / 2
+  const maxSpan = Math.max(380, w - padX * 2)
+
+  const needed = n * CW + (n - 1) * gap
+  const fittedGap = needed <= maxSpan ? gap : Math.max(8, Math.floor((maxSpan - n * CW) / Math.max(1, n - 1)))
+
+  const span = n * CW + (n - 1) * fittedGap
+  const startX = (w - span) / 2 + CW / 2
 
   const out: Array<{ x: number; y: number }> = []
-  for (let i = 0; i < n; i++) out.push({ x: startX + i * (CARD_W + gap), y: centerY })
+  for (let i = 0; i < n; i++) out.push({ x: startX + i * (CW + fittedGap), y: centerY })
   return out
-}
-
-function clamp(v: number, min: number, max: number) {
-  return Math.max(min, Math.min(max, v))
 }
 
 function randomWaitingPoint() {
   const w = stageW.value || 1200
   const h = stageH.value || 680
 
-  const minX = CARD_W * 0.55
-  const maxX = Math.max(minX, w - CARD_W * 0.55)
-  const minY = CARD_H * 0.45
-  const maxY = Math.max(minY, h - CARD_H * 0.55)
+  const CW = cardW.value
+  const CH = cardH.value
+
+  const minX = CW * 0.55
+  const maxX = Math.max(minX, w - CW * 0.55)
+  const minY = CH * 0.45
+  const maxY = Math.max(minY, h - CH * 0.55)
 
   return {
     x: clamp(Math.random() * w, minX, maxX),
@@ -395,11 +449,25 @@ function cardStyle(c: RoundCard) {
   const x = inSpot ? base?.x : c.tempX
   const y = inSpot ? base?.y : c.tempY
 
+  const w = cardW.value
+  const h = cardH.value
+  const lay = internalLayoutVars(w, h)
+
   return {
     left: `${x ?? stageW.value / 2}px`,
     top: `${y ?? stageH.value / 2}px`,
     zIndex: 10 + (c.spotIndex ?? 0),
-    '--back-texture': `url("${backTexture}")`
+    '--back-texture': `url("${backTexture}")`,
+
+    '--card-w': `${w}px`,
+    '--card-h': `${h}px`,
+
+    '--card-pad': `${lay.pad}px`,
+    '--card-gap': `${lay.gap}px`,
+    '--text-band': `${lay.textBand}px`,
+    '--media-h': `${lay.mediaH}px`,
+    '--text-size': `${lay.font}px`,
+    '--text-line': `${lay.line}px`
   } as any
 }
 
@@ -460,13 +528,7 @@ function moveCardToWaiting(card: RoundCard) {
   card.tempY = p.y
 }
 
-/** ===== Shuffle mechanics (updated rules) =====
- * - Total duration: 3000ms
- * - Each move must use a DIFFERENT card than the previous move
- * - Each card must move at least once
- * - If a card is in WAITING, it MUST be moved to an OPEN spot (no 50/50 waiting in that case)
- * - Otherwise: if open spots exist, 50/50 take open spot vs go waiting; if no open spots, go waiting.
- */
+/** ===== Shuffle mechanics (unchanged) ===== */
 async function runShuffleSequence() {
   if (!roundCards.value.length) return
 
@@ -481,41 +543,31 @@ async function runShuffleSequence() {
     targetId.value = null
   }
 
-  // Flip down
   resetAndPlay(flipSfx)
   roundCards.value.forEach(c => (c.isFaceDown = true))
   await sleep(220)
 
-  // Drumroll once
   resetAndPlay(drumrollSfx)
 
   const { tickMs, moveMs } = speedTuning()
   const endAt = performance.now() + 3000
 
-  // Track “each card must move at least once”
   const movedOnce = new Set<string>()
   let lastMovedId: string | null = null
 
-  // Build a deterministic “must-move” order first (so every card moves at least once)
   const mustMoveQueue = shuffleInPlace([...roundCards.value.map(c => c.id)])
 
   function pickNextCardId(): string {
-    // Priority 1: ensure each card moves at least once
-    // Also enforce: not the same as last move (if possible)
     if (mustMoveQueue.length) {
       if (mustMoveQueue[0] !== lastMovedId) return mustMoveQueue.shift() as string
-
-      // if first equals last, try to find another in queue
       const idx = mustMoveQueue.findIndex(id => id !== lastMovedId)
       if (idx >= 0) {
         const [id] = mustMoveQueue.splice(idx, 1)
         return id
       }
-      // unavoidable (only one left)
       return mustMoveQueue.shift() as string
     }
 
-    // Priority 2: random card, but not same as last (if possible)
     const candidates = roundCards.value.filter(c => c.id !== lastMovedId)
     if (candidates.length) return pickRandom(candidates).id
     return pickRandom(roundCards.value).id
@@ -531,23 +583,19 @@ async function runShuffleSequence() {
 
     const open = vacantSpots()
 
-    // Rule: if card is waiting, it MUST go to an open spot (if any exist)
     if (card.spotIndex === null) {
       if (open.length > 0) {
         const spot = open[Math.floor(Math.random() * open.length)]
         const ok = assignCardToSpotSafely(card, spot)
         if (!ok) {
-          // If collision (rare), try any other open spot; otherwise stay waiting (fallback)
           const open2 = vacantSpots()
           const spot2 = open2.length ? open2[Math.floor(Math.random() * open2.length)] : null
           if (typeof spot2 === 'number') assignCardToSpotSafely(card, spot2)
         }
       } else {
-        // no open spots available, keep waiting but still "move" to a new waiting coordinate
         moveCardToWaiting(card)
       }
     } else {
-      // Card currently holds a spot
       if (open.length === 0) {
         moveCardToWaiting(card)
       } else {
@@ -564,11 +612,9 @@ async function runShuffleSequence() {
     movedOnce.add(card.id)
     lastMovedId = card.id
 
-    // Let motion breathe; move duration handled by CSS transitions
     await sleep(tickMs)
   }
 
-  // Final settle: any waiting cards must take remaining vacant spots (unique), all at once
   const remaining = vacantSpots()
   const waiting = roundCards.value.filter(c => c.spotIndex === null)
 
@@ -580,7 +626,6 @@ async function runShuffleSequence() {
     }
   }
 
-  // Ensure absolutely all cards end in a spot (should be true). If not, force assign.
   const remaining2 = vacantSpots()
   for (const c of roundCards.value) {
     if (c.spotIndex === null) {
@@ -589,7 +634,6 @@ async function runShuffleSequence() {
     }
   }
 
-  // Allow the final “everyone moves into place” to finish
   await sleep(Math.max(120, moveMs))
 
   phase.value = mode.value === 'game' ? 'guess' : 'resolved'
@@ -638,7 +682,7 @@ function newRound() {
   const picked = pool.slice(0, n).map((c, i) => ({
     ...c,
     key: `${c.id}-${Math.random().toString(16).slice(2)}`,
-    spotIndex: i, // unique spots
+    spotIndex: i,
     isFaceDown: false,
     tempX: null,
     tempY: null
@@ -811,18 +855,11 @@ onBeforeUnmount(() => {
   font-weight: 900;
   margin-left: 2px;
 }
-.block-sub {
-  font-size: 11px;
-  line-height: 1.2;
-  color: var(--modal-on-surface-soft);
-  padding-right: 6px;
-  box-sizing: border-box;
-}
 
 .block-buttons {
   display: grid;
   gap: 10px;
-  padding-right: 6px; /* keep away from right edge */
+  padding-right: 6px;
   box-sizing: border-box;
 }
 .block-buttons.two {
@@ -921,7 +958,7 @@ onBeforeUnmount(() => {
   }
 }
 
-/* --- Target --- */
+/* --- Target (kept small) --- */
 .target-wrap {
   margin: 10px auto 8px;
   padding: 0;
@@ -942,16 +979,16 @@ onBeforeUnmount(() => {
 }
 .target-card {
   width: 170px;
-  height: 230px;
+  height: 200px;
   border-radius: 12px;
   border: 2px solid var(--accent-primary);
   background: #ffffff;
   box-shadow: 0 6px 16px rgba(2, 6, 23, 0.08);
-  padding: 10px;
   box-sizing: border-box;
   display: grid;
   align-content: center;
   gap: 10px;
+  padding: 10px;
 }
 
 /* --- Controls --- */
@@ -985,8 +1022,8 @@ onBeforeUnmount(() => {
 /* --- Cards --- */
 .card {
   position: absolute;
-  width: 170px;
-  height: 230px;
+  width: var(--card-w, 170px);
+  height: var(--card-h, 230px);
   transform: translate(-50%, -50%);
   perspective: 1000px;
   cursor: default;
@@ -1028,16 +1065,15 @@ onBeforeUnmount(() => {
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   border: 2px solid var(--accent-primary);
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(2, 6, 23, 0.08);
   overflow: hidden;
-  padding: 10px;
+
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--card-gap, 10px);
+  padding: var(--card-pad, 10px);
   box-sizing: border-box;
 }
 .card-front {
@@ -1052,28 +1088,43 @@ onBeforeUnmount(() => {
   background-position: center;
 }
 
-/* Shared media/text */
+/* Media occupies the top row and scales with card size */
 .card-media {
   width: 100%;
-  height: 140px;
+  height: var(--media-h, 140px);
+  min-height: 92px;
   display: grid;
   place-items: center;
+  overflow: visible;
 }
 .card-img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
+
+/* Text occupies the bottom row and never overlaps media */
 .card-text {
+  width: 100%;
   text-align: center;
-  font-weight: 900;
-  font-size: 16px;
+  font-weight: 950;
+  font-size: var(--text-size, 16px);
+  line-height: var(--text-line, 18px);
   color: #0b1f1d;
-  line-height: 1.12;
+
+  /* Fit within the reserved band */
+  max-height: var(--text-band, 72px);
+  overflow: visible;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+
   word-break: break-word;
   padding: 0 6px;
 }
 
+/* Visual feedback */
 .card.correct-hit .card-front {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-success) 55%, transparent);
 }
@@ -1103,13 +1154,24 @@ onBeforeUnmount(() => {
   .shuffle-game-page {
     padding: 20px 14px 30px;
   }
-  .card,
+
+  /* Keep prior small sizing behavior, but still use the non-overlap layout */
+  .card {
+    width: 150px;
+    height: 210px;
+  }
   .target-card {
     width: 150px;
     height: 210px;
   }
   .card-media {
     height: 124px;
+  }
+  .card-text {
+    font-size: 14px;
+    max-height: 56px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 }
 

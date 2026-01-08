@@ -1,7 +1,10 @@
 <!-- src/views/games/ActivityRunner.vue -->
 <template>
   <div class="page activity-runner">
-    <!-- Title (from activities.name) -->
+    <button class="home-button" type="button" @click="goHome" aria-label="Back">
+      <img :src="homeIcon" alt="" />
+    </button>
+    <!-- Title + Home -->
     <header class="head title-head">
       <h1 class="title">{{ title }}</h1>
     </header>
@@ -10,15 +13,9 @@
       <!-- Game Frame -->
       <div class="frame-wrap" ref="frameWrap">
         <template v-if="iframeSrc">
-          <iframe
-            ref="frameEl"
-            :src="iframeSrc"
-            title=""
-            allow="fullscreen; autoplay; gamepad"
-            allowfullscreen
+          <iframe ref="frameEl" :src="iframeSrc" title="" allow="fullscreen; autoplay; gamepad" allowfullscreen
             sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms allow-popups"
-            @load="onFrameLoad"
-          ></iframe>
+            @load="onFrameLoad"></iframe>
         </template>
         <template v-else>
           <div class="empty">
@@ -43,24 +40,24 @@
         </div>
       </section>
 
-      <!-- Achievements (placeholder) -->
+      <!-- Achievements -->
       <section class="achievements">
         <h2 class="section-title">Achievements</h2>
         <div class="badges">
           <div class="badge locked">
-            <div class="icon" aria-hidden="true">🏆</div>
+            <div class="icon">🏆</div>
             <div class="label">Locked</div>
           </div>
           <div class="badge locked">
-            <div class="icon" aria-hidden="true">⭐</div>
+            <div class="icon">⭐</div>
             <div class="label">Locked</div>
           </div>
           <div class="badge locked">
-            <div class="icon" aria-hidden="true">🎯</div>
+            <div class="icon">🎯</div>
             <div class="label">Locked</div>
           </div>
           <div class="badge locked">
-            <div class="icon" aria-hidden="true">⏱️</div>
+            <div class="icon">⏱️</div>
             <div class="label">Locked</div>
           </div>
         </div>
@@ -70,11 +67,20 @@
   </div>
 </template>
 
+
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref, computed, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 import type { PostgrestMaybeSingleResponse } from '@supabase/supabase-js'
+
+const homeIcon = new URL('@/assets/images/icons/back-icon.png', import.meta.url).toString()
+
+const router = useRouter()
+
+function goHome() {
+  router.push('/dashboard')
+}
 
 type DBActivity = {
   id: string
@@ -309,21 +315,54 @@ onBeforeUnmount(() => window.removeEventListener('message', onMessage as any))
 </script>
 
 <style scoped>
-/* Page layout */
+/* Header */
 .title-head {
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  /* more space before iframe per request */
-  padding: 1.25rem 0 2.25rem;
+  justify-content: center;
+  padding-bottom: 1.5rem;
 }
+
+/* Home button */
+.home-button {
+  position: relative;
+  top: 16px;
+  left: 16px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+
+.home-button img {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .25));
+  transition: transform .12s ease-in-out;
+}
+
+.home-button:hover img {
+  transform: scale(1.06);
+}
+
+/* Title with 3D depth */
 .title-head .title {
-  color: #fff;
-  text-align: center;
+  color: var(--main-title-color);
   margin: 0;
   line-height: 1.2;
   font-size: clamp(1.25rem, 2.5vw, 2rem);
-  font-weight: 700;
+  font-weight: 800;
+  text-align: center;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.25),
+    0 2px 0 rgba(0, 0, 0, 0.35),
+    0 6px 14px rgba(0, 0, 0, 0.55);
 }
 
 .runner-content {
@@ -370,17 +409,22 @@ iframe {
     box-shadow 0.2s ease,
     filter 0.15s ease;
 }
+
 .btn.primary {
-  background: #22c55e; /* filled color */
+  background: #22c55e;
+  /* filled color */
   color: #06110a;
   box-shadow: 0 6px 16px rgba(34, 197, 94, 0.35);
 }
+
 .btn.primary:hover {
   filter: brightness(1.06);
 }
+
 .btn.primary:active {
   transform: translateY(1px) scale(0.995);
 }
+
 .btn.primary:focus-visible {
   box-shadow:
     0 0 0 3px rgba(34, 197, 94, 0.35),
@@ -399,11 +443,13 @@ iframe {
   width: min(80vw, 1200px);
   margin-top: 0.25rem;
 }
+
 .chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+
 .chip {
   font-size: 0.85rem;
   line-height: 1;
@@ -420,17 +466,20 @@ iframe {
   width: min(80vw, 1200px);
   margin-top: 0.5rem;
 }
+
 .section-title {
   color: #fff;
   font-size: 1rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
 }
+
 .badges {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.75rem;
 }
+
 .badge {
   display: flex;
   flex-direction: column;
@@ -442,17 +491,21 @@ iframe {
   border-radius: 12px;
   min-height: 100px;
 }
+
 .badge .icon {
   font-size: 1.6rem;
   margin-bottom: 0.35rem;
 }
+
 .badge .label {
   font-size: 0.85rem;
   color: #cfd6e6;
 }
+
 .badge.locked {
   opacity: 0.78;
 }
+
 .note {
   display: block;
   margin-top: 0.35rem;

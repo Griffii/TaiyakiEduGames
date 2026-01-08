@@ -1,13 +1,78 @@
+<!-- src/components/AppHeader.vue -->
 <template>
   <header class="app-header appheader-bg">
     <!-- Decorative header background -->
     <div class="code-bg" aria-hidden="true"></div>
 
     <div class="inner">
-      <!-- Left: Brand text (guest) OR avatar/meta (authed) -->
+      <!-- Left: EiTake brand (always visible, routes to /dashboard) -->
       <div class="left">
-        <template v-if="auth.isAuthenticated">
+        <button class="brand-name" type="button" @click="goDashboard" title="Dashboard">
+          EiTake
+        </button>
+      </div>
+
+      <!-- Right: Nav + Auth (avatar or login) -->
+      <div class="right">
+        <!-- Primary nav (desktop) -->
+        <nav class="actions" aria-label="Primary navigation" ref="actionsEl">
+          <div class="pill-list" role="menubar">
+            <!-- Users button (conditional) — placed left of dropdowns -->
+            <RouterLink
+              v-if="usersAction"
+              class="btn action nav-btn"
+              :class="{ active: isActiveAction(usersAction) }"
+              :to="usersAction.to"
+              role="menuitem"
+              :title="usersAction.title || usersAction.label"
+            >
+              <span v-if="usersAction.icon" class="icon" aria-hidden="true">{{ usersAction.icon }}</span>
+              <span>{{ usersAction.label }}</span>
+            </RouterLink>
+
+            <!-- Dropdowns -->
+            <template v-for="(action, i) in dropdownActions" :key="i">
+              <div class="header-action-dropdown" role="menuitem" :title="action.title || action.label">
+                <ActivityPillList
+                  v-if="action.dropdown.component === 'ActivityPillList'"
+                  variant="dropdown"
+                  v-bind="action.dropdown.props"
+                />
+                <TextbookPillList
+                  v-else
+                  variant="dropdown"
+                  buttonText="Textbooks"
+                  :showSectionTitle="false"
+                  :startOpen="false"
+                  :closeOnSelect="true"
+                  :showCountsInButton="true"
+                />
+              </div>
+            </template>
+          </div>
+
+          <!-- Mobile hamburger -->
           <button
+            class="btn action nav-btn menu-toggle"
+            :class="{ 'is-open': menuOpen }"
+            type="button"
+            :aria-expanded="menuOpen ? 'true' : 'false'"
+            aria-controls="actions-menu"
+            @click="toggleMenu"
+          >
+            <span class="menu-icon" aria-hidden="true">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </span>
+            <span class="menu-label">Menu</span>
+          </button>
+        </nav>
+
+        <!-- Auth: avatar (authed) OR login button (guest) -->
+        <div class="auth-slot">
+          <button
+            v-if="auth.isAuthenticated"
             class="avatar-btn"
             type="button"
             @click="openProfile()"
@@ -17,81 +82,19 @@
             <img class="avatar" :src="avatarSrc" alt="User avatar" @error="onAvatarError" />
           </button>
 
-          <div class="meta">
-            <div class="name">
-              {{ displayName }}
-              <!-- Role chips removed -->
-            </div>
-            <div class="org">Lv. {{ levelLabel }}</div>
-          </div>
-        </template>
-
-        <template v-else>
-          <div class="brand-name" title="EiTake">EiTake</div>
-        </template>
-      </div>
-
-      <!-- Top-right: logo + Login/Logout -->
-      <div class="top-right">
-        <img :src="BrandLogo" alt="EiTake logo" class="brand-logo" title="EiTake" />
-
-        <button
-          v-if="!auth.isAuthenticated"
-          class="btn small auth-btn"
-          type="button"
-          @click="login"
-          aria-label="Log in"
-          title="Log in"
-        >
-          Log in
-        </button>
-
-        <button
-          v-else
-          class="btn logout small auth-btn"
-          type="button"
-          @click="logout"
-          aria-label="Log out"
-          title="Log out"
-        >
-          Log out
-        </button>
-      </div>
-
-      <!-- Bottom-right: primary nav -->
-      <nav class="actions" aria-label="Primary navigation" ref="actionsEl">
-        <div class="pill-list" role="menubar">
-          <RouterLink
-            v-for="(a, i) in headerActions"
-            :key="i"
-            class="btn action small"
-            :class="{ active: $route.path.startsWith(a.to) }"
-            :to="a.to"
-            role="menuitem"
-            :title="a.title || a.label"
+          <button
+            v-else
+            ref="loginBtnEl"
+            class="btn auth-btn nav-btn auth-btn--login"
+            type="button"
+            @click="login"
+            aria-label="Log in"
+            title="Log in"
           >
-            <span v-if="a.icon" class="icon" aria-hidden="true">{{ a.icon }}</span>
-            <span>{{ a.label }}</span>
-          </RouterLink>
+            Login
+          </button>
         </div>
-
-        <!-- Mobile hamburger -->
-        <button
-          class="btn action small menu-toggle"
-          :class="{ 'is-open': menuOpen }"
-          type="button"
-          :aria-expanded="menuOpen ? 'true' : 'false'"
-          aria-controls="actions-menu"
-          @click="toggleMenu"
-        >
-          <span class="menu-icon" aria-hidden="true">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-          </span>
-          <span class="menu-label">Menu</span>
-        </button>
-      </nav>
+      </div>
     </div>
 
     <!-- Mobile dropdown -->
@@ -106,19 +109,39 @@
           @click.self="closeMenu"
         >
           <div class="menu-sheet">
+            <!-- Users (mobile) -->
             <RouterLink
-              v-for="(a, i) in headerActions"
-              :key="i"
-              class="btn action small"
-              :class="{ active: $route.path.startsWith(a.to) }"
-              :to="a.to"
+              v-if="usersAction"
+              class="btn action nav-btn"
+              :class="{ active: isActiveAction(usersAction) }"
+              :to="usersAction.to"
               role="menuitem"
-              :title="a.title || a.label"
+              :title="usersAction.title || usersAction.label"
               @click="closeMenu"
             >
-              <span v-if="a.icon" class="icon" aria-hidden="true">{{ a.icon }}</span>
-              <span>{{ a.label }}</span>
+              <span v-if="usersAction.icon" class="icon" aria-hidden="true">{{ usersAction.icon }}</span>
+              <span>{{ usersAction.label }}</span>
             </RouterLink>
+
+            <!-- Dropdowns (mobile) -->
+            <template v-for="(action, i) in dropdownActions" :key="i">
+              <div class="menu-dropdown-wrap" role="menuitem">
+                <ActivityPillList
+                  v-if="action.dropdown.component === 'ActivityPillList'"
+                  variant="dropdown"
+                  v-bind="action.dropdown.props"
+                />
+                <TextbookPillList
+                  v-else
+                  variant="dropdown"
+                  buttonText="Textbooks"
+                  :showSectionTitle="false"
+                  :startOpen="false"
+                  :closeOnSelect="true"
+                  :showCountsInButton="true"
+                />
+              </div>
+            </template>
           </div>
         </div>
       </Transition>
@@ -146,66 +169,71 @@
   </header>
 </template>
 
-
 <script setup lang="ts">
-import { computed, onMounted, onBeforeUnmount, ref, watch, nextTick, onScopeDispose } from 'vue';
-import { RouterLink, useRoute, useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/users';
-import { supabase } from '@/lib/supabase';
-import type { Subscription } from '@supabase/supabase-js';
+import { computed, onMounted, onBeforeUnmount, ref, watch, nextTick, onScopeDispose } from 'vue'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/users'
+import { supabase } from '@/lib/supabase'
+import type { Subscription } from '@supabase/supabase-js'
 
-import BrandLogo from '@/assets/images/logos/EiTake_Kanji.png';
-import Profile from '@/components/Profile.vue';
-import AvatarSelection from '@/components/AvatarSelection.vue';
-import MushroomGreeters from '@/components/MushroomGreeters.vue';
+import BrandLogo from '@/assets/images/logos/EiTake_Kanji.png'
+import Profile from '@/components/Profile.vue'
+import AvatarSelection from '@/components/AvatarSelection.vue'
+import ActivityPillList from '@/components/ActivityPillList.vue'
+import TextbookPillList from '@/components/TextbookPillList.vue'
 
-const router = useRouter();
-const route = useRoute();
-const auth = useUserStore();
+const router = useRouter()
+const route = useRoute()
+const auth = useUserStore()
 
 /* ─────────────────────────────────────────────────────────────
    Helpers: timeout + guard
 ───────────────────────────────────────────────────────────── */
 function withTimeout<T>(p: PromiseLike<T>, ms = 3500, label = 'op'): Promise<T> {
-  let to: any;
-  const t = new Promise<never>((_, rej) => (to = setTimeout(() => rej(new Error(`${label}:timeout`)), ms)));
-  return Promise.race([p as any, t]).finally(() => clearTimeout(to)) as Promise<T>;
+  let to: any
+  const t = new Promise<never>((_, rej) => (to = setTimeout(() => rej(new Error(`${label}:timeout`)), ms)))
+  return Promise.race([p as any, t]).finally(() => clearTimeout(to)) as Promise<T>
 }
-let mountCancelled = false;
-onScopeDispose(() => { mountCancelled = true; });
+let mountCancelled = false
+onScopeDispose(() => {
+  mountCancelled = true
+})
 
 /* ─────────────────────────────────────────────────────────────
    Focus/visibility re-hydrate
 ───────────────────────────────────────────────────────────── */
 function onFocus() {
-  if (!auth.isAuthenticated) return;
-  void Promise.allSettled([auth.loadProfile?.(), auth.loadXp?.()]);
-  void refreshLevel(true);
+  if (!auth.isAuthenticated) return
+  void Promise.allSettled([auth.loadProfile?.(), auth.loadXp?.()])
+  void refreshLevel(true)
 }
-function onVisibility() { if (document.visibilityState === 'visible') onFocus(); }
+function onVisibility() {
+  if (document.visibilityState === 'visible') onFocus()
+}
 
 /* ─────────────────────────────────────────────────────────────
    Level source #1 (authoritative): v_profile_progress
    Level source #2 (fallback): derive from xp_levels + xp_total
+   (Level is no longer shown in header, but keeping logic intact for other consumers.)
 ───────────────────────────────────────────────────────────── */
-type XpRow = { level: number; min_xp: number };
-const xpLevels = ref<XpRow[]>([]);
-const xpLevelsLoaded = ref(false);
-let xpLevelsLoading = false;
+type XpRow = { level: number; min_xp: number }
+const xpLevels = ref<XpRow[]>([])
+const xpLevelsLoaded = ref(false)
+let xpLevelsLoading = false
 
 function normalizeRows(rows: any[] | null | undefined): XpRow[] {
-  if (!Array.isArray(rows)) return [];
+  if (!Array.isArray(rows)) return []
   const norm = rows
     .map(r => ({ level: Number(r?.level), min_xp: Number(r?.min_xp) }))
     .filter(r => Number.isFinite(r.level) && Number.isFinite(r.min_xp))
-    .sort((a, b) => a.min_xp - b.min_xp);
-  return norm;
+    .sort((a, b) => a.min_xp - b.min_xp)
+  return norm
 }
 
 async function ensureXpLevels(force = false) {
-  if (xpLevelsLoading) return;
-  if (xpLevelsLoaded.value && !force) return;
-  xpLevelsLoading = true;
+  if (xpLevelsLoading) return
+  if (xpLevelsLoaded.value && !force) return
+  xpLevelsLoading = true
   try {
     const res = await withTimeout(
       supabase
@@ -214,226 +242,373 @@ async function ensureXpLevels(force = false) {
         .order('min_xp', { ascending: true }) as unknown as PromiseLike<{ data: any[] | null; error: any }>,
       4000,
       'xp_levels'
-    );
-    if (res.error) { xpLevelsLoaded.value = false; return; }
-    const cleaned = normalizeRows(res.data);
-    xpLevels.value = cleaned;
-    xpLevelsLoaded.value = cleaned.length > 0;
-  } catch { xpLevelsLoaded.value = false; }
-  finally { xpLevelsLoading = false; }
+    )
+    if (res.error) {
+      xpLevelsLoaded.value = false
+      return
+    }
+    const cleaned = normalizeRows(res.data)
+    xpLevels.value = cleaned
+    xpLevelsLoaded.value = cleaned.length > 0
+  } catch {
+    xpLevelsLoaded.value = false
+  } finally {
+    xpLevelsLoading = false
+  }
 }
 
 function deriveLevel(xp: number, rows: XpRow[]): number {
-  if (!rows.length || !Number.isFinite(xp)) return 1;
-  let lvl = rows[0]?.level ?? 1;
-  for (const r of rows) { if (xp >= r.min_xp) lvl = r.level; else break; }
-  return lvl;
+  if (!rows.length || !Number.isFinite(xp)) return 1
+  let lvl = rows[0]?.level ?? 1
+  for (const r of rows) {
+    if (xp >= r.min_xp) lvl = r.level
+    else break
+  }
+  return lvl
 }
 
 /** Primary fetch: use v_profile_progress.level */
 async function fetchLevelFromView(userId: string): Promise<number | null> {
   try {
     const res = await withTimeout(
-      supabase.from('v_profile_progress').select('level').eq('user_id', userId).maybeSingle() as unknown as PromiseLike<{ data: { level?: number } | null; error: any }>,
+      supabase
+        .from('v_profile_progress')
+        .select('level')
+        .eq('user_id', userId)
+        .maybeSingle() as unknown as PromiseLike<{ data: { level?: number } | null; error: any }>,
       3500,
       'v_profile_progress'
-    );
-    if (res?.error) return null;
-    const lvl = Number(res?.data?.level);
-    return Number.isFinite(lvl) && lvl > 0 ? lvl : 1;
+    )
+    if (res?.error) return null
+    const lvl = Number(res?.data?.level)
+    return Number.isFinite(lvl) && lvl > 0 ? lvl : 1
   } catch {
-    return null;
+    return null
   }
 }
 
 /** Orchestrator: try view → fallback to derive */
-const levelValue = ref<number>(1);
+const levelValue = ref<number>(1)
 async function refreshLevel(forceXpLevels = false) {
-  if (!auth.isAuthenticated) { levelValue.value = 1; return; }
-  const uid = auth.profile?.id || (await supabase.auth.getUser()).data?.user?.id || null;
-  if (!uid) { levelValue.value = 1; return; }
+  if (!auth.isAuthenticated) {
+    levelValue.value = 1
+    return
+  }
+  const uid = auth.profile?.id || (await supabase.auth.getUser()).data?.user?.id || null
+  if (!uid) {
+    levelValue.value = 1
+    return
+  }
 
-  // 1) Try the view (authoritative and cheap)
-  const fromView = await fetchLevelFromView(uid);
-  if (fromView != null) { levelValue.value = fromView; return; }
+  const fromView = await fetchLevelFromView(uid)
+  if (fromView != null) {
+    levelValue.value = fromView
+    return
+  }
 
-  // 2) Fallback: derive from xp_total + xp_levels
-  if (!xpLevelsLoaded.value || forceXpLevels) await ensureXpLevels(true);
-  const xp = Number(auth.xpTotal ?? 0);
-  levelValue.value = deriveLevel(xp, xpLevels.value);
+  if (!xpLevelsLoaded.value || forceXpLevels) await ensureXpLevels(true)
+  const xp = Number(auth.xpTotal ?? 0)
+  levelValue.value = deriveLevel(xp, xpLevels.value)
 }
 
-/* Computed label for template */
-const levelLabel = computed(() => (auth.isAuthenticated ? String(levelValue.value) : '—'));
+watch(
+  () => auth.xpTotal,
+  () => {
+    if (auth.isAuthenticated) void refreshLevel()
+  }
+)
 
-/* Keep level fresh when xp changes */
-watch(() => auth.xpTotal, () => { if (auth.isAuthenticated) void refreshLevel(); });
+/* ─────────────────────────────────────────────────────────────
+   Login shimmer gating (one play per hover session)
+───────────────────────────────────────────────────────────── */
+const loginBtnEl = ref<HTMLButtonElement | null>(null)
+
+function onLoginAnimEnd(e: AnimationEvent) {
+  if (e.animationName !== 'loginShimmer') return
+  // Lock shimmer until hover ends
+  loginBtnEl.value?.classList.add('is-shimmered')
+}
+
+function resetLoginShimmerLock() {
+  // Re-arm shimmer for the next fresh hover/focus session
+  loginBtnEl.value?.classList.remove('is-shimmered')
+}
 
 /* ─────────────────────────────────────────────────────────────
    Lifecycle
 ───────────────────────────────────────────────────────────── */
-let authSub: Subscription | null = null;
+let authSub: Subscription | null = null
 
 onMounted(() => {
-  window.addEventListener('focus', onFocus);
-  document.addEventListener('visibilitychange', onVisibility);
-  window.addEventListener('keydown', onKeydown);
+  window.addEventListener('focus', onFocus)
+  document.addEventListener('visibilitychange', onVisibility)
+  window.addEventListener('keydown', onKeydown)
+
+  // Login shimmer listeners (only if guest button exists)
+  const lb = loginBtnEl.value
+  if (lb) {
+    lb.addEventListener('animationend', onLoginAnimEnd)
+    lb.addEventListener('mouseleave', resetLoginShimmerLock)
+    lb.addEventListener('focusout', resetLoginShimmerLock)
+    lb.addEventListener('mouseenter', resetLoginShimmerLock)
+    lb.addEventListener('focusin', resetLoginShimmerLock)
+  }
 
   void (async () => {
-    try { await withTimeout(auth.ensureIdentityLoaded?.() ?? Promise.resolve(), 2500, 'identity'); }
-    catch { /* continue */ }
-    finally {
-      if (mountCancelled) return;
+    try {
+      await withTimeout(auth.ensureIdentityLoaded?.() ?? Promise.resolve(), 2500, 'identity')
+    } catch {
+      /* continue */
+    } finally {
+      if (mountCancelled) return
       if (auth.isAuthenticated) {
-        await Promise.allSettled([auth.loadProfile?.(), auth.loadXp?.()]);
-        await refreshLevel(true);
+        await Promise.allSettled([auth.loadProfile?.(), auth.loadXp?.()])
+        await refreshLevel(true)
       } else {
-        // preload thresholds for fast fallback later
-        void ensureXpLevels();
+        void ensureXpLevels()
       }
     }
-  })();
+  })()
 
-  const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+  const {
+    data: { subscription }
+  } = supabase.auth.onAuthStateChange(event => {
     queueMicrotask(async () => {
-      if (mountCancelled) return;
+      if (mountCancelled) return
       if (event === 'SIGNED_IN') {
-        await Promise.allSettled([auth.loadProfile?.(), auth.loadXp?.()]);
-        await refreshLevel(true);
-        return;
+        await Promise.allSettled([auth.loadProfile?.(), auth.loadXp?.()])
+        await refreshLevel(true)
+        return
       }
       if (event === 'SIGNED_OUT') {
-        levelValue.value = 1;
-        xpLevels.value = [];
-        xpLevelsLoaded.value = false;
-        return;
+        levelValue.value = 1
+        xpLevels.value = []
+        xpLevelsLoaded.value = false
+        return
       }
       if (auth.isAuthenticated) {
-        void Promise.allSettled([auth.loadProfile?.(), auth.loadXp?.()]);
-        void refreshLevel();
+        void Promise.allSettled([auth.loadProfile?.(), auth.loadXp?.()])
+        void refreshLevel()
       }
-    });
-  });
-  authSub = subscription;
-});
+    })
+  })
+  authSub = subscription
+})
 
 onBeforeUnmount(() => {
-  window.removeEventListener('keydown', onKeydown);
-  window.removeEventListener('focus', onFocus);
-  document.removeEventListener('visibilitychange', onVisibility);
-  document.documentElement.style.overflow = '';
-  document.body.style.overflow = '';
-  authSub?.unsubscribe();
-  authSub = null;
-});
+  window.removeEventListener('keydown', onKeydown)
+  window.removeEventListener('focus', onFocus)
+  document.removeEventListener('visibilitychange', onVisibility)
+  document.documentElement.style.overflow = ''
+  document.body.style.overflow = ''
+  authSub?.unsubscribe()
+  authSub = null
+
+  const lb = loginBtnEl.value
+  if (lb) {
+    lb.removeEventListener('animationend', onLoginAnimEnd)
+    lb.removeEventListener('mouseleave', resetLoginShimmerLock)
+    lb.removeEventListener('focusout', resetLoginShimmerLock)
+    lb.removeEventListener('mouseenter', resetLoginShimmerLock)
+    lb.removeEventListener('focusin', resetLoginShimmerLock)
+  }
+})
 
 /* ─────────────────────────────────────────────────────────────
-   Avatar/name
+   Avatar
 ───────────────────────────────────────────────────────────── */
 const avatarSrc = computed(() => {
-  const raw = auth.profile?.avatar_url;
-  if (!raw) return BrandLogo;
-  if (/^https?:\/\//i.test(raw)) return raw;
-  return supabase.storage.from('public-assets').getPublicUrl(raw).data.publicUrl || BrandLogo;
-});
-const displayName = computed(() => auth.displayName || '');
+  const raw = auth.profile?.avatar_url
+  if (!raw) return BrandLogo
+  if (/^https?:\/\//i.test(raw)) return raw
+  return supabase.storage.from('public-assets').getPublicUrl(raw).data.publicUrl || BrandLogo
+})
 
 /* ─────────────────────────────────────────────────────────────
    Nav / actions
 ───────────────────────────────────────────────────────────── */
-const isOnDashboard = computed(() => {
-  const name = (route.name as string) || '';
-  const path = route.path || '';
-  return name?.toLowerCase().includes('dashboard') || path === '/dashboard';
-});
+export type HeaderAction =
+  | {
+      kind: 'link'
+      label: string
+      to: string
+      icon?: string
+      title?: string
+    }
+  | {
+      kind: 'dropdown'
+      label: string
+      icon?: string
+      title?: string
+      dropdown: {
+        component: 'ActivityPillList' | 'TextbookPillList'
+        props?: {
+          show: 'activities' | 'tools' | 'both'
+          order?: 'activities-first' | 'tools-first'
+          showSectionTitles?: boolean
+          buttonText: string
+          startOpen?: boolean
+          closeOnSelect?: boolean
+          showCountsInButton?: boolean
+        }
+      }
+    }
 
-type HeaderAction = { label: string; to: string; title?: string; icon?: string };
+function isActiveAction(a: Extract<HeaderAction, { kind: 'link' }>): boolean {
+  if (a.to === '/dashboard') return route.path === '/dashboard'
+  return route.path.startsWith(a.to)
+}
 
-const headerActions = computed<HeaderAction[]>(() => {
-  const items: HeaderAction[] = [
-    { label: 'Home', to: '/dashboard', icon: '🏠' },
-    { label: 'Games', to: '/activities', icon: '🎮' },
-  ];
-
-  if (auth.isDev) {
-    items.push({ label: 'Users', to: '/users', icon: '👥', title: 'Users (Dev only)' });
+const usersAction = computed<Extract<HeaderAction, { kind: 'link' }> | null>(() => {
+  if (!auth.isDev) return null
+  return {
+    kind: 'link',
+    label: 'Users',
+    to: '/users',
+    icon: '',
+    title: 'Users (Dev only)'
   }
-  if (auth.orgRole === 'admin') {
-    items.push({ label: 'Admin', to: '/admin-panel', icon: '🛠️', title: 'Admin Panel' });
-  }
+})
 
-  return items;
-});
+const dropdownActions = computed<Extract<HeaderAction, { kind: 'dropdown' }>[]>(() => {
+  return [
+    {
+      kind: 'dropdown',
+      label: 'Games',
+      icon: '🎮',
+      dropdown: {
+        component: 'ActivityPillList',
+        props: {
+          show: 'activities',
+          buttonText: 'Games',
+          showSectionTitles: false,
+          closeOnSelect: true,
+          startOpen: false,
+          showCountsInButton: true
+        }
+      }
+    },
+    {
+      kind: 'dropdown',
+      label: 'Teacher Tools',
+      icon: '🧰',
+      dropdown: {
+        component: 'ActivityPillList',
+        props: {
+          show: 'tools',
+          buttonText: 'Teacher Tools',
+          showSectionTitles: false,
+          closeOnSelect: true,
+          startOpen: false,
+          showCountsInButton: true
+        }
+      }
+    },
+    {
+      kind: 'dropdown',
+      label: 'Textbooks',
+      icon: '📚',
+      dropdown: {
+        component: 'TextbookPillList'
+      }
+    }
+  ]
+})
+
+async function goDashboard() {
+  if (route.path === '/dashboard') return
+  try {
+    await router.push('/dashboard')
+  } catch {
+    /* ignore */
+  }
+}
 
 /* ─────────────────────────────────────────────────────────────
    Auth actions
 ───────────────────────────────────────────────────────────── */
-function goBack() { router.back(); }
 async function login() {
-  try { await router.push({ name: 'Login' }); }
-  catch { await router.push('/login'); }
-}
-async function logout() {
-  try { await auth.signOut?.(); }
-  finally {
-    try {
-      Object.keys(localStorage).forEach(k => { if (k.startsWith('sb-')) localStorage.removeItem(k); });
-      auth.$reset?.();
-    } catch {}
-    await router.replace('/dashboard');
+  try {
+    await router.push({ name: 'Login' })
+  } catch {
+    await router.push('/login')
   }
 }
 
 /* ─────────────────────────────────────────────────────────────
    Modals / menu
 ───────────────────────────────────────────────────────────── */
-const profileOpen = ref(false);
-const avatarOpen = ref(false);
-function openProfile() { profileOpen.value = true; }
-function closeProfile() { profileOpen.value = false; }
-function openAvatarFromProfile() { avatarOpen.value = true; }
-async function onAvatarClosed() { avatarOpen.value = false; void auth.loadProfile?.(); }
+const profileOpen = ref(false)
+const avatarOpen = ref(false)
 
-const menuOpen = ref(false);
-function toggleMenu() { menuOpen.value = !menuOpen.value; }
-function closeMenu() { menuOpen.value = false; }
+function openProfile() {
+  profileOpen.value = true
+}
+function closeProfile() {
+  profileOpen.value = false
+}
+function openAvatarFromProfile() {
+  avatarOpen.value = true
+}
+async function onAvatarClosed() {
+  avatarOpen.value = false
+  void auth.loadProfile?.()
+}
+
+const menuOpen = ref(false)
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value
+}
+function closeMenu() {
+  menuOpen.value = false
+}
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') {
-    if (avatarOpen.value) { avatarOpen.value = false; return; }
-    if (profileOpen.value) { profileOpen.value = false; return; }
-    closeMenu();
+    if (avatarOpen.value) {
+      avatarOpen.value = false
+      return
+    }
+    if (profileOpen.value) {
+      profileOpen.value = false
+      return
+    }
+    closeMenu()
   }
 }
-watch(() => route.fullPath, () => closeMenu());
+watch(
+  () => route.fullPath,
+  () => closeMenu()
+)
 
-const anyModalOpen = computed(() => menuOpen.value || profileOpen.value || avatarOpen.value);
-watch(anyModalOpen, async (open) => {
-  document.documentElement.style.overflow = open ? 'hidden' : '';
-  document.body.style.overflow = open ? 'hidden' : '';
-  await nextTick();
-});
+const anyModalOpen = computed(() => menuOpen.value || profileOpen.value || avatarOpen.value)
+watch(anyModalOpen, async open => {
+  document.documentElement.style.overflow = open ? 'hidden' : ''
+  document.body.style.overflow = open ? 'hidden' : ''
+  await nextTick()
+})
 
 /* ─────────────────────────────────────────────────────────────
-   Greeters ref & avatar fallback
+   Refs & avatar fallback
 ───────────────────────────────────────────────────────────── */
-const actionsEl = ref<HTMLElement | null>(null);
+const actionsEl = ref<HTMLElement | null>(null)
 function onAvatarError(e: Event) {
-  const img = e.target as HTMLImageElement;
-  img.onerror = null;
-  img.src = BrandLogo;
+  const img = e.target as HTMLImageElement
+  img.onerror = null
+  img.src = BrandLogo
 }
 </script>
 
 <style scoped>
-/* Header frame — now FIXED and a bit shorter */
+/* Header frame — slightly taller */
 .app-header {
-  position: fixed;
+  position: relative;
   inset-inline: 0;
   inset-block-start: 0;
   width: 100%;
   height: var(--app-header-height);
 
-  overflow: clip;
+  /* IMPORTANT: dropdown menus must be able to escape the header bounds */
+  overflow: visible;
   isolation: isolate;
   border-bottom: var(--header-border-width) solid var(--header-border-color);
   box-shadow: var(--header-shadow);
@@ -451,60 +626,97 @@ function onAvatarError(e: Event) {
   --grid-line-w: 1px;
 
   background:
-    /* grid (y) */ linear-gradient(to bottom, var(--header-grid-color) var(--grid-line-w), transparent 0),
-    /* grid (x) */ linear-gradient(to right,  var(--header-grid-color) var(--grid-line-w), transparent 0),
-    /* base */      var(--header-surface);
+    linear-gradient(to bottom, var(--header-grid-color) var(--grid-line-w), transparent 0),
+    linear-gradient(to right, var(--header-grid-color) var(--grid-line-w), transparent 0),
+    var(--header-surface);
   background-size:
     var(--grid-size) var(--grid-size),
     var(--grid-size) var(--grid-size),
     auto;
   background-position: 0 0, 0 0, center;
+
+  pointer-events: none;
 }
 
-/* Slightly tighter inner padding to keep height compact */
+/* More breathing room left/right */
 .inner {
   position: relative;
   z-index: 2;
   height: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 18px;
-  padding: 8px clamp(12px, 3vw, 20px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 8px clamp(18px, 4vw, 32px);
 }
 
 .left {
   display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-end;
+  min-width: 0;
 }
 
+.right {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* EiTake brand button */
 .brand-name {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+
   font-weight: 900;
-  letter-spacing: .3px;
-  font-size: clamp(22px, 3vh, 30px);
+  letter-spacing: 0.3px;
+  font-size: clamp(28px, 3vh, 34px);
   color: var(--header-on-surface);
   text-shadow: 0 1px 0 color-mix(in srgb, var(--header-on-surface) 60%, transparent);
+
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+
+.brand-name:hover {
+  transform: translateY(-1px);
+  opacity: 0.98;
+}
+
+.brand-name:active {
+  transform: translateY(0);
 }
 
 /* Auth buttons use header button tokens */
-.auth-btn { color: var(--header-btn-on); }
+.auth-btn {
+  color: var(--header-btn-on);
+}
 
-/* Avatar button */
+/* Avatar button — slightly tighter for right side */
 .avatar-btn {
   position: relative;
   display: grid;
   place-items: center;
-  width: clamp(48px, 7vh, 64px);
-  height: clamp(48px, 7vh, 64px);
+  width: clamp(52px, 6.6vh, 64px);
+  height: clamp(52px, 6.6vh, 64px);
   border-radius: 999px;
   padding: 0;
   border: 3px dotted transparent;
   background: transparent;
   cursor: pointer;
-  transition: border-color .18s ease;
+  transition: border-color 0.18s ease, transform 0.12s ease;
 }
-.avatar-btn:hover { border-color: var(--header-border-color); }
+
+.avatar-btn:hover {
+  border-color: var(--header-border-color);
+  transform: translateY(-1px);
+}
+
+.avatar-btn:active {
+  transform: translateY(0);
+}
 
 .avatar {
   width: 100%;
@@ -514,39 +726,6 @@ function onAvatarError(e: Event) {
   object-fit: cover;
   background: var(--neutral-100);
 }
-
-.meta { display: grid; gap: 2px; color: var(--header-on-surface); }
-
-.name {
-  font-weight: 800;
-  letter-spacing: .2px;
-  font-size: clamp(18px, 2.4vh, 22px);
-  line-height: 1.15;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--header-on-surface);
-}
-
-.org {
-  font-weight: 700;
-  opacity: .95;
-  font-size: clamp(13px, 1.9vh, 16px);
-  line-height: 1.12;
-  color: var(--modal-on-surface-muted);
-}
-
-.top-right {
-  position: absolute;
-  top: 6px;
-  right: 10px;
-  z-index: 5;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.brand-logo { height: 30px; width: auto; display: block; }
 
 /* Buttons with animated fill */
 .btn {
@@ -565,11 +744,7 @@ function onAvatarError(e: Event) {
   background-position: 0 0;
   background-size: 0% 100%;
 
-  transition:
-    background-size .32s ease,
-    color .18s ease,
-    background-color .18s ease,
-    transform .12s ease;
+  transition: background-size 0.32s ease, color 0.18s ease, background-color 0.18s ease, transform 0.12s ease;
   will-change: background-size;
 }
 
@@ -579,53 +754,27 @@ function onAvatarError(e: Event) {
   color: var(--header-btn-text-hover);
   background-size: 100% 100%;
 }
-.btn:active { transform: translateY(0); }
 
-.small { padding: 4px 10px; font-size: 13px; }
-
-.btn.logout {
-  background-color: var(--logout-btn-bg);
-  color: var(--logout-btn-on);
-  border-color: var(--btn-danger-border);
-
-  background-image: var(
-    --logout-btn-fill,
-    linear-gradient(
-      90deg,
-      var(--logout-fill-start, color-mix(in srgb, var(--accent-danger) 30%, var(--neutral-0) 70%)),
-      var(--logout-fill-mid,   var(--accent-danger)) 60%,
-      var(--logout-fill-end,   color-mix(in srgb, var(--accent-danger) 80%, var(--neutral-900) 20%))
-    )
-  );
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: 0% 100%;
-
-  transition:
-    background-size .32s ease,
-    color .18s ease,
-    background-color .18s ease,
-    transform .12s ease;
-  will-change: background-size;
-}
-.btn.logout:hover {
-  background-size: 100% 100%;
-  color: var(--logout-btn-on-hover);
-  filter: saturate(1.02);
+.btn:active {
+  transform: translateY(0);
 }
 
-/* Nav actions */
-.actions {
-  position: absolute;
-  right: 10px;
-  bottom: 4px;
+/* Nav buttons (Users + Login) — match dropdown trigger sizing */
+.nav-btn {
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  z-index: 5;
+  line-height: 1.1;
 }
 
-.pill-list { display: inline-flex; gap: 8px; }
+.nav-btn .icon {
+  line-height: 1;
+}
 
 .btn.action.active {
   transform: translateY(-1px);
@@ -638,15 +787,155 @@ function onAvatarError(e: Event) {
   background-size: 100% 100%;
 }
 
+/* ============================================================================
+   LOGIN BUTTON — INTENTIONALLY LOUD (NO THEME TOKENS)
+   Shimmer runs ONCE per hover session (locks until mouse leaves / focus ends)
+   ============================================================================ */
+.auth-btn--login {
+  border: 2px solid rgba(116, 255, 186, 0.95);
+  color: #062312;
+  background-color: #20e37f;
+  background-image: linear-gradient(180deg, #86ffcf 0%, #2cf08d 45%, #12d06f 100%);
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.34),
+    0 0 0 2px rgba(10, 255, 170, 0.22),
+    0 0 26px rgba(22, 255, 160, 0.34);
+
+  padding: 10px;
+  min-width: 115px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  border-radius: 12px;
+
+  position: relative;
+  overflow: hidden;
+
+  background-size: auto;
+  justify-content: center;
+}
+
+.auth-btn--login::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 12px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 52%);
+  mix-blend-mode: soft-light;
+}
+
+/* shimmer sweep (idle) */
+.auth-btn--login::after {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: -60%;
+  width: 55%;
+  height: 180%;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.55) 45%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: translateX(-10%) rotate(8deg);
+  opacity: 0;
+}
+
+/* Run ONCE when hovered, but only if we haven't shimmered during this hover session */
+.auth-btn--login:hover:not(.is-shimmered)::after,
+.auth-btn--login:focus-visible:not(.is-shimmered)::after {
+  animation: loginShimmer 2.2s ease-in-out 1;
+}
+
+.auth-btn--login:hover {
+  transform: translateY(-1px) scale(1.03);
+  filter: brightness(1.06) saturate(1.08);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.40),
+    0 0 0 2px rgba(10, 255, 170, 0.28),
+    0 0 34px rgba(22, 255, 160, 0.46);
+  background-size: auto;
+}
+
+.auth-btn--login:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.auth-btn--login:focus-visible {
+  outline: none;
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.40),
+    0 0 0 4px rgba(10, 255, 170, 0.35),
+    0 0 40px rgba(22, 255, 160, 0.46);
+}
+
+@keyframes loginShimmer {
+  0% {
+    transform: translateX(-10%) rotate(8deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.95;
+  }
+  55% {
+    transform: translateX(240%) rotate(8deg);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translateX(240%) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+/* Nav actions */
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 5;
+}
+
+.pill-list {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Dropdown slots in header — no forced wide boxes */
+.header-action-dropdown {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+}
+
+/* Ensure dropdown components keep their own sizing */
+.header-action-dropdown :deep(.apl-root--dropdown),
+.header-action-dropdown :deep(.tpl-root--dropdown),
+.menu-dropdown-wrap :deep(.apl-root--dropdown),
+.menu-dropdown-wrap :deep(.tpl-root--dropdown) {
+  width: auto;
+}
+
+/* Encourage dropdown triggers to visually align with nav-btn sizing */
+.pill-list :deep(.pill-btn),
+.menu-sheet :deep(.pill-btn) {
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
 /* Mobile menu toggle */
 .menu-toggle {
   display: none;
   align-items: center;
-  gap: 6px;
-  padding-inline: 10px 12px;
-  transition:
-    transform .12s ease,
-    box-shadow .12s ease;
+  gap: 8px;
+  padding-inline: 12px 14px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .menu-toggle:hover {
@@ -668,11 +957,7 @@ function onAvatarError(e: Event) {
   width: 100%;
   border-radius: 999px;
   background: var(--header-btn-text);
-  transition:
-    transform .18s ease,
-    opacity .18s ease,
-    width .18s ease,
-    background-color .18s ease;
+  transition: transform 0.18s ease, opacity 0.18s ease, width 0.18s ease, background-color 0.18s ease;
 }
 
 /* Morph into an X when open */
@@ -690,39 +975,42 @@ function onAvatarError(e: Event) {
 }
 
 .menu-label {
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 12.5px;
+  font-weight: 900;
 }
 
 @media (max-width: 720px) {
-  .pill-list { display: none; }
-  .menu-toggle { display: inline-flex; }
+  .pill-list {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
 }
 
-/* Mobile menu overlay — sits OVER header + side panels */
+/* Mobile menu overlay */
 .menu-panel {
   position: fixed;
-  padding-top: var(--app-header-height);
+  padding-top: var(--app-header-h);
   inset: 0;
   z-index: 1000;
   background: var(--modal-overlay-bg);
   backdrop-filter: var(--modal-overlay-filter);
   pointer-events: auto;
 
-  /* For dropdown-style animation */
   transform-origin: top center;
   transform: scaleY(1);
 }
 
-
 .menu-sheet {
   position: absolute;
   right: 12px;
-  top: calc(var(--header-h) + 8px);
-  max-height: calc(100vh - (var(--header-h) + 24px));
+  top: calc(var(--app-header-h) + 8px);
+  max-height: calc(100vh - (var(--app-header-h) + 24px));
   overflow: auto;
   display: grid;
-  gap: 8px;
+  gap: 10px;
   grid-auto-rows: min-content;
   min-width: min(92vw, 420px);
   background: var(--modal-surface);
@@ -733,19 +1021,21 @@ function onAvatarError(e: Event) {
   pointer-events: auto;
 }
 
-.menu-sheet * { pointer-events: auto; }
+.menu-sheet * {
+  pointer-events: auto;
+}
 
 .menu-sheet .btn {
-  --menu-item-h: 36px;
+  --menu-item-h: 40px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   height: var(--menu-item-h);
   max-height: var(--menu-item-h);
-  padding: 6px 10px;
+  padding: 8px 12px;
   font-size: 14px;
   line-height: 1.1;
-  border-radius: 10px;
+  border-radius: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -753,24 +1043,33 @@ function onAvatarError(e: Event) {
   background: var(--modal-surface);
   border-color: var(--modal-border);
 }
+
 .menu-sheet .btn:hover {
   background: color-mix(in srgb, var(--modal-accent) 12%, var(--modal-surface) 88%);
   transform: translateY(-1px);
 }
 
-.menu-sheet .btn .icon { margin-right: 6px; line-height: 1; }
+.menu-sheet .btn .icon {
+  margin-right: 6px;
+  line-height: 1;
+}
+
+.menu-dropdown-wrap {
+  width: 100%;
+}
+
 @media (max-width: 380px) {
   .menu-sheet .btn {
-    --menu-item-h: 32px;
+    --menu-item-h: 36px;
     font-size: 13px;
-    padding: 5px 9px;
+    padding: 7px 11px;
   }
 }
 
 /* Dropdown open/close animation */
 .menu-fade-enter-active,
 .menu-fade-leave-active {
-  transition: opacity .18s ease, transform .18s ease;
+  transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
 .menu-fade-enter-from,
@@ -789,12 +1088,17 @@ function onAvatarError(e: Event) {
 @media (prefers-reduced-motion: reduce) {
   .btn,
   .btn:hover,
-  .btn.logout,
-  .btn.logout:hover,
   .menu-icon .bar,
   .menu-fade-enter-active,
-  .menu-fade-leave-active {
+  .menu-fade-leave-active,
+  .brand-name,
+  .avatar-btn {
     transition: none;
+  }
+
+  .auth-btn--login:hover::after,
+  .auth-btn--login:focus-visible::after {
+    animation: none;
   }
 }
 </style>
