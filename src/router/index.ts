@@ -7,7 +7,6 @@ import { useGameTransitStore } from '@/stores/gameTransit'
 
 const routes: RouteRecordRaw[] = [
   { path: '/', redirect: { name: 'dashboard' } }, // default to dashboard
-  { path: '/TaiyakiEduGames', redirect: { name: 'dashboard' } }, // default to dashboard on the github version
   { path: '/dashboard', name: 'dashboard', component: () => import('@/views/Dashboard.vue') },
   { path: '/login', name: 'login', component: () => import('@/views/Login.vue') },
   { path: '/reset-password', name: 'reset-password', component: () => import('@/views/ResetPassword.vue'), },
@@ -100,7 +99,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
 
