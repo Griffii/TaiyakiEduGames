@@ -1,0 +1,321 @@
+/* ============================================================================
+   EiTake Theme Tokens — HALLOWEEN NIGHT (spooky-fun, high-contrast dark)
+   PURPOSE: Same token names as default; colors re-skinned for Halloween.
+   Notes:
+   - Dark canvas with indigo base, neon orange & slime green accents.
+   - Strong readability: surfaces vs on-surface tuned for WCAG contrast.
+   - Select menu uses a light surface for guaranteed readable options.
+   ============================================================================ */
+
+:root {
+  /* =========================
+     THEME META
+     ========================= */
+  --theme-name: "halloween-night";
+  --theme-density: "cozy"; /* cozy | compact | spacious */
+
+  /* =========================
+     CORE PALETTE — SMALL, CONSISTENT
+     (Neutrals + semantic accents shared across sections)
+     ========================= */
+  /* Neutrals (purply charcoal scale for dark UI) */
+  --neutral-0: #ffffff;
+  --neutral-50: #f5f6fa;
+  --neutral-100: #e6e7ee;
+  --neutral-200: #cfd2db;
+  --neutral-300: #aeb3bf;
+  --neutral-600: #6a6f85;
+  --neutral-700: #4c5066;
+  --neutral-800: #2e3144; /* deep indigo surface */
+  --neutral-900: #1e2030; /* page/base surface */
+  --neutral-950: #0e0f17; /* almost-black */
+
+  /* Semantic accents (Halloween vibes) */
+  --accent-primary: #ff7a1a;  /* neon pumpkin orange */
+  --accent-secondary: #34f58a;/* slime green */
+  --accent-success: #28d86d;
+  --accent-warning: #ffd166;  /* candy corn yellow */
+  --accent-danger: #ff3355;
+
+  /* Elevation / radii / focus */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  --elevation-1: 0 3px 12px rgba(0, 0, 0, 0.35);
+  --elevation-2: 0 10px 26px rgba(0, 0, 0, 0.42);
+  --elevation-3: 0 18px 40px rgba(0, 0, 0, 0.5);
+
+  --ring-offset: 2px;
+  --focus-ring: 0 0 0 var(--ring-offset) var(--neutral-0),
+    0 0 0 calc(var(--ring-offset) + 2px) var(--accent-primary);
+
+  /* =========================
+     GLOBAL BACKGROUND (App canvas)
+     ========================= */
+  --bg-app-color: #131425; /* night sky indigo */
+
+  --bg-app-gradient-top: radial-gradient(
+    1200px 600px at 120% -10%,
+    rgba(255, 122, 26, 0.14) 0%,
+    transparent 62%
+  ); /* moonlit orange haze */
+  --bg-app-gradient-bottom: radial-gradient(
+    900px 520px at -10% 120%,
+    rgba(52, 245, 138, 0.12) 0%,
+    transparent 62%
+  ); /* faint slime glow */
+
+
+  /* =========================
+     MAIN (TEXT OVER GLOBAL BACKGROUND)
+     ========================= */
+  --main-title-color: #ffffff;
+  --main-title-font: ui-sans-serif, system-ui, -apple-system, "Inter",
+    "Segoe UI", Roboto, Arial, sans-serif;
+  --main-title-size: clamp(20px, 3.2vw, 36px);
+  --main-title-shadow: 0 2px 0 rgba(0, 0, 0, 0.5),
+    0 10px 24px rgba(255, 122, 26, 0.12);
+
+  --main-subtitle-color: color-mix(in srgb, var(--neutral-0) 85%, transparent);
+  --main-subtitle-font: var(--main-title-font);
+  --main-subtitle-size: clamp(12px, 1.3vw, 16px);
+  --main-subtitle-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+
+  --main-text-color: #e9ecff; /* icy text for dark bg */
+  --main-text-soft: #b7bcd6;
+  --main-text-emphasis: var(--accent-secondary);
+  --main-link-color: var(--accent-primary);
+
+  /* =========================
+     MODAL / POP-UP SYSTEM
+     ========================= */
+  --modal-surface: #1a1b2e;         /* deep night panel */
+  --modal-on-surface: #f4f6ff;      /* near-white */
+  --modal-on-surface-soft: #c7cbe0; /* soft text */
+  --modal-on-surface-muted: #9aa1bf;/* captions */
+  --modal-border: rgba(255, 122, 26, 0.22); /* orange glint */
+  --modal-shadow: var(--elevation-3);
+  --modal-radius: var(--radius-xl);
+
+  --modal-overlay-bg: color-mix(in srgb, #000 65%, transparent);
+  --modal-overlay-filter: blur(2px) saturate(115%);
+
+  /* Pop-up specific accents & destructive */
+  --modal-accent: var(--accent-primary);
+  --modal-accent-2: var(--accent-secondary);
+  --modal-danger: var(--accent-danger);
+
+  /* Close button (candy red) */
+  --modal-close-bg: var(--modal-danger);
+  --modal-close-on: #fff;
+  --modal-close-border: color-mix(in srgb, var(--modal-danger) 70%, #000 30%);
+
+  /* =========================
+     TABLES (Users list, Admin panel, etc.)
+     ========================= */
+  --table-surface: #1c1e31;
+  --table-on-surface: #f0f3ff;
+  --table-muted: #a2a8c7;
+  --table-header-surface: #242743;
+  --table-row-hover: #2a2e53;
+  --table-border: rgba(255, 255, 255, 0.12);
+  --table-zebra: #202342;
+  --table-radius: var(--radius-md);
+  --table-shadow: var(--elevation-1);
+
+  /* =========================
+     FEATURE SECTIONS (Cards)
+     ========================= */
+
+  /* Textbook */
+  --textbook-surface: #1e2037;
+  --textbook-on-surface: #f6f7ff;
+  --textbook-border: rgba(255, 255, 255, 0.12);
+  --textbook-shadow: var(--elevation-1);
+  --textbook-accent: var(--accent-primary);
+  --textbook-chip-bg: color-mix(in srgb, var(--accent-primary) 18%, #2b2e4a 82%);
+  --textbook-chip-on: #fff7f0;
+
+  /* Activities */
+  --activities-surface: #1e2037;
+  --activities-on-surface: #f6f7ff;
+  --activities-border: rgba(255, 122, 26, 0.35);
+  --activities-shadow: var(--elevation-1);
+  --activities-accent: var(--accent-secondary);
+  --activities-chip-bg: color-mix(in srgb, var(--accent-secondary) 18%, #2b2e4a 82%);
+  --activities-chip-on: #06190f;
+  --activities-chip-new: color-mix(in srgb, var(--accent-warning) 55%, var(--accent-success) 45%);
+  --activities-chip-xp:  color-mix(in srgb, var(--accent-primary) 60%, #8b5cf6 40%);
+
+  /* Decks */
+  --decks-surface: #1e2037;
+  --decks-on-surface: #f6f7ff;
+  --decks-border: rgba(255, 209, 102, 0.55);
+  --decks-shadow: var(--elevation-1);
+  --decks-accent: var(--accent-warning);
+
+  /* Chips */
+  --decks-chip-bg: color-mix(in srgb, var(--accent-warning) 22%, #2b2e4a 78%);
+  --decks-chip-on: #2a1d00;
+
+  /* Pills */
+  --decks-pill-surface: color-mix(in srgb, var(--accent-warning) 32%, #2b2e4a 68%);
+  --decks-pill-border: color-mix(in srgb, var(--accent-warning) 68%, #2b2e4a 32%);
+  --decks-pill-on: #1f1600;
+
+  /* Flashcards */
+  --flashcards-surface: #1e2037;
+  --flashcards-on-surface: #f0f3ff;
+  --flashcards-border: color-mix(in srgb, var(--accent-primary) 58%, var(--accent-secondary) 42%);
+  --flashcards-english: var(--flashcards-border);
+  --flashcards-shadow: var(--elevation-2);
+  --flashcards-accent: var(--accent-secondary);
+  --flashcards-chip-bg: color-mix(in srgb, var(--accent-secondary) 22%, #2b2e4a 78%);
+  --flashcards-chip-on: #051d12;
+
+  /* =========================
+   DECK VIEWER (tokens scoped to DeckViewer UI)
+   ========================= */
+  --deckviewer-button-outline: #000000;
+  --deckviewer-btn-primary-bg: var(--btn-primary-bg);
+  --deckviewer-btn-primary-bg-hover: color-mix(in srgb, var(--btn-primary-bg) 55%, var(--neutral-0) 45%);
+  --deckviewer-btn-primary-on: #fff;
+  --deckviewer-btn-primary-on-hover: #fff;
+
+  --deckviewer-btn-disabled-bg: var(--neutral-800);
+  --deckviewer-btn-disabled-on: var(--neutral-600);
+
+  --deckviewer-add-btn-bg: color-mix(in srgb, var(--accent-success) 82%, #000 18%);
+  --deckviewer-title-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  --deckviewer-shadow-color: #000;
+
+  /* =========================
+     CUSTOM DECK (special buttons & expands) — HALLOWEEN TWEAKS
+     ========================= */
+  --customdeck-button-bg: #0000007b;              
+  --customdeck-button-on: #ffffff;             
+  --customdeck-button-border: color-mix(in srgb, #ff7a1a 65%, #000 35%);
+  --customdeck-dots: #ff7a1a;                   /* orange dots */
+
+  --customdeck-expand-bg: color-mix(in srgb, #ff7a1a 16%, #1e2037 84%); /* subtle orange wash */
+  --customdeck-expand-on: #fff6ee;                                        /* warm near-white */
+  --customdeck-expand-border: color-mix(in srgb, #ff7a1a 55%, #000 45%);
+
+  /* =========================
+   APP HEADER — HALLOWEEN GRADIENT (no rainbow)
+   ========================= */
+  --header-surface: linear-gradient(0deg, #2b2e4a, #1a1b2e);
+  --header-on-surface: #ffe9d9;
+  --header-accent: #ff7a1a;
+  --header-border-color: var(--header-accent);
+  --header-border-width: 5px;
+  --header-shadow: var(--elevation-1);
+
+  /* Two-tone grid overlay line color */
+  --header-grid-color: color-mix(in srgb, var(--header-on-surface) 10%, transparent);
+
+  /* Header buttons (base + hover text) */
+  --header-btn-bg: #22243b;
+  --header-btn-text: #ffe8d6;
+  --header-btn-text-hover: #ffffff;
+  --header-btn-border-color: var(--header-border-color);
+  --header-btn-hover: #2f3355;
+
+  /* Header button fill - Halloween gradient (black → indigo → orange → ember → indigo) */
+  --header-btn-fill: linear-gradient(135deg, #ffd199 0%, #ff7a1a 50%, #cc5a00 100%);
+
+  /* Logout button */
+  --logout-btn-bg: #2a2d49;
+  --logout-btn-on: #ffe8d6;
+  --logout-btn-on-hover: #131425;
+
+  --logout-fill-start: color-mix(in srgb, var(--accent-danger) 30%, var(--neutral-0) 70%);
+  --logout-fill-mid: var(--accent-danger);
+  --logout-fill-end: color-mix(in srgb, var(--accent-danger) 80%, var(--neutral-900) 20%);
+  --logout-btn-fill: linear-gradient(90deg, var(--logout-fill-start), var(--logout-fill-mid) 60%, var(--logout-fill-end));
+
+  /* Role-specific chips */
+  --chip-dev-bg: color-mix(in srgb, var(--accent-primary) 28%, #2b2e4a 72%);
+  --chip-dev-on: #fff5eb;
+  --chip-dev-border: color-mix(in srgb, var(--accent-primary) 45%, #000 55%);
+
+  --chip-admin-bg: color-mix(in srgb, var(--accent-secondary) 28%, #2b2e4a 72%);
+  --chip-admin-on: #06190f;
+  --chip-admin-border: color-mix(in srgb, var(--accent-secondary) 45%, #000 55%);
+
+  --chip-teacher-bg: color-mix(in srgb, var(--accent-primary) 18%, #2a2d49 82%);
+  --chip-teacher-on: #fff1e6;
+  --chip-teacher-border: color-mix(in srgb, var(--accent-primary) 35%, #000 65%);
+
+  --chip-student-bg: color-mix(in srgb, var(--accent-warning) 24%, #2b2e4a 76%);
+  --chip-student-on: #2a1d00;
+  --chip-student-border: color-mix(in srgb, var(--accent-warning) 40%, #000 60%);
+
+  /* =========================
+     LEVELS (skills + profile ring)
+     ========================= */
+  --level-reading: #ff3355;    /* red */
+  --level-writing: #28d86d;    /* green */
+  --level-listening: #ff7a1a;  /* orange */
+  --level-ring-fill: color-mix(in srgb, var(--level-listening) 12%, var(--neutral-0) 88%);
+  --level-ring-track: var(--neutral-200);
+
+  /* =========================
+     GLOBAL ELEMENTS (chips, buttons)
+     ========================= */
+  /* Role chips (generic) */
+  --chip-bg: color-mix(in srgb, var(--accent-secondary) 58%, #2b2e4a 42%);
+  --chip-on: #06190f;
+  --chip-border: rgba(0, 0, 0, 0.22);
+
+  /* Buttons */
+  --btn-primary-bg: var(--accent-primary);
+  --btn-primary-on: #1a0e00;
+  --btn-primary-border: color-mix(in srgb, var(--accent-primary) 60%, #000 40%);
+
+  --btn-secondary-bg: var(--accent-secondary);
+  --btn-secondary-on: #04170d;
+  --btn-secondary-border: color-mix(in srgb, var(--accent-secondary) 45%, #000 55%);
+
+  --btn-ghost-bg: #262948;
+  --btn-ghost-on: #f0f3ff;
+  --btn-ghost-border: rgba(255, 255, 255, 0.14);
+
+  --btn-success-bg: var(--accent-success);
+  --btn-success-on: #04170d;
+  --btn-success-border: color-mix(in srgb, var(--accent-success) 40%, #000 60%);
+
+  --btn-danger-bg: var(--accent-danger);
+  --btn-danger-on: #2a0208;
+  --btn-danger-border: color-mix(in srgb, var(--accent-danger) 40%, #000 60%);
+
+  /* Select menu (force readability across themes) */
+  --select-menu-surface: var(--neutral-0);      /* light dropdown sheet */
+  --select-menu-on: #111322;                    /* dark text for contrast */
+  --select-menu-border: rgba(0, 0, 0, 0.18);
+  --select-menu-hover: var(--neutral-100);
+}
+
+/* ============================================================================
+   RENDERING HOOKS (small, stable utilities that read the tokens above)
+   ============================================================================ */
+
+/* Global app background utility */
+.app-bg {
+  min-height: 100vh;
+  background: var(--bg-app-image), var(--bg-app-gradient-top),
+    var(--bg-app-gradient-bottom), var(--bg-app-color);
+  background-repeat: var(--bg-app-repeat);
+  background-size: var(--bg-app-size);
+  background-blend-mode: var(--bg-app-blend);
+  background-attachment: var(--bg-app-attachment);
+}
+
+/* Optional subtle glow for Custom Deck expand areas */
+.customdeck-expand {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, #ff7a1a 35%, transparent),
+    0 10px 24px rgba(255, 122, 26, 0.12);
+}
