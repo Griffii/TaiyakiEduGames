@@ -16,7 +16,7 @@
 
     <!-- Error (still shows fallback word/definition, plus the error) -->
     <div v-else-if="error" class="dw-body">
-      <div ref="wordEl" class="dw-word" :style="wordStyle">{{ display.word }}</div>
+      <div class="dw-word">{{ display.word }}</div>
 
       <div v-if="display.pos" class="dw-pos">
         {{ display.pos }}
@@ -39,7 +39,7 @@
 
     <!-- Content -->
     <div v-else class="dw-body">
-      <div ref="wordEl" class="dw-word" :style="wordStyle">{{ display.word }}</div>
+      <div class="dw-word">{{ display.word }}</div>
 
       <div v-if="display.pos" class="dw-pos">
         {{ display.pos }}
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { supabase } from "@/lib/supabase";
 
 type DailyWordPayload = {
@@ -210,75 +210,6 @@ const headerDate = computed(() => {
   return "—";
 });
 
-/* ------------------------------ Fit-to-width word sizing ------------------------------ */
-/**
- * Goal: never wrap the word; instead, shrink font-size until it fits on one line.
- * We keep a max size (design size) and a min size guardrail.
- */
-const wordEl = ref<HTMLElement | null>(null);
-
-const WORD_MAX_PX = 34;
-const WORD_MIN_PX = 16;
-
-const wordFontPx = ref<number>(WORD_MAX_PX);
-
-const wordStyle = computed(() => ({
-  fontSize: `${wordFontPx.value}px`,
-}));
-
-let ro: ResizeObserver | null = null;
-let raf = 0;
-
-function cancelRaf() {
-  if (raf) {
-    cancelAnimationFrame(raf);
-    raf = 0;
-  }
-}
-
-function scheduleFitWord() {
-  cancelRaf();
-  raf = requestAnimationFrame(() => {
-    void fitWordToWidth();
-  });
-}
-
-async function fitWordToWidth() {
-  const el = wordEl.value;
-  if (!el) return;
-
-  // Reset to max first so measurement is stable (especially when moving from long->short)
-  wordFontPx.value = WORD_MAX_PX;
-
-  await nextTick();
-
-  // If it already fits, we’re done.
-  const fitsAtMax = el.scrollWidth <= el.clientWidth;
-  if (fitsAtMax) return;
-
-  // Binary search a font size that fits: fast and stable.
-  let lo = WORD_MIN_PX;
-  let hi = WORD_MAX_PX;
-  let best = WORD_MIN_PX;
-
-  while (lo <= hi) {
-    const mid = Math.floor((lo + hi) / 2);
-    wordFontPx.value = mid;
-    // Wait one tick so layout updates before measuring.
-    // (nextTick is cheap here; loop is small: log2(34-16) ~ 5 steps)
-    await nextTick();
-
-    if (el.scrollWidth <= el.clientWidth) {
-      best = mid;
-      lo = mid + 1; // try bigger
-    } else {
-      hi = mid - 1; // too big
-    }
-  }
-
-  wordFontPx.value = best;
-}
-
 /* ------------------------------ Load ------------------------------ */
 
 async function load() {
@@ -308,36 +239,11 @@ async function load() {
     data.value = null;
   } finally {
     loading.value = false;
-
-    // When content appears, fit the word.
-    await nextTick();
-    scheduleFitWord();
   }
 }
 
 onMounted(() => {
   void load();
-
-  // Re-fit when the word container size changes (responsive layout, sidebar collapse, etc.)
-  ro = new ResizeObserver(() => scheduleFitWord());
-  if (wordEl.value) ro.observe(wordEl.value);
-});
-
-// Re-fit when the displayed word changes (includes fallback -> live, etc.)
-watch(
-  () => display.value.word,
-  async () => {
-    await nextTick();
-    scheduleFitWord();
-  }
-);
-
-onBeforeUnmount(() => {
-  cancelRaf();
-  if (ro) {
-    ro.disconnect();
-    ro = null;
-  }
 });
 </script>
 
@@ -355,6 +261,10 @@ onBeforeUnmount(() => {
   border-radius: 0;
 
   color: var(--table-on-surface);
+
+  /* Container query anchor for smooth font scaling */
+  container-type: inline-size;
+  min-width: 0;
 }
 
 /* Top row (date) */
@@ -382,32 +292,38 @@ onBeforeUnmount(() => {
   gap: 8px;
   padding-top: 12px;
   overflow: hidden;
+
+  /* Flexbox shrink fix */
+  min-width: 0;
 }
 
-/* Word (single line; shrink-to-fit handled in JS) */
+/* Word — smooth container-based sizing, no JS */
 .dw-word {
-  /* font-size is controlled via :style="wordStyle" */
   font-weight: 850;
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--table-on-surface);
 
-  /* critical: do not wrap */
-  white-space: nowrap;
+  /* Critical: constrain within container */
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 
-  /* keep layout clean if it somehow still can’t fit at min-size */
+  /* Keep one line; never overflow the card */
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  /* remove wrapping/breaking behavior from prior version */
-  overflow-wrap: normal;
-  word-break: normal;
+  /* Smoothly scales with the widget width (cqw = 1% of container width) */
+  font-size: clamp(20px, 10cqw, 34px);
+}
 
-  /* undo multi-line clamp for the word */
-  display: block;
-  -webkit-box-orient: initial;
-  line-clamp: unset;
-  -webkit-line-clamp: unset;
+/* Fallback if container query units are unsupported */
+@supports not (width: 1cqw) {
+  .dw-word {
+    /* vw-based fallback: still smooth, slightly less precise than container sizing */
+    font-size: clamp(20px, 6.5vw, 34px);
+  }
 }
 
 /* Part of speech */
@@ -441,7 +357,7 @@ onBeforeUnmount(() => {
 .dw-source {
   font-size: 11px;
   color: var(--table-muted);
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
 }

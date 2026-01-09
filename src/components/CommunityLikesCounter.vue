@@ -1,71 +1,81 @@
 <!-- src/components/CommunityAppreciationPanel.vue -->
 <template>
-    <section class="cap-root" :style="rootStyle" @pointerdown="onPointerDown">
-        <div class="cap-stack">
-            <!-- Header -->
-            <header class="cap-head">
-                <p class="cap-subtitle">Tap the heart to show some love!</p>
-                <div class="cap-micro">
-                    If EiTake has every been of help, click the heart to let us know!
-                </div>
-                <div v-if="error" class="cap-error">{{ error }}</div>
-            </header>
-
-            <!-- Heart (image) -->
-            <button
-                ref="heartBtnEl"
-                class="cap-heart-btn"
-                type="button"
-                :disabled="isBusy || !hasLoaded"
-                :class="[isBusy ? 'is-busy' : '', lastAnimClass]"
-                @click="onHeartClick"
-                @animationstart="onHeartAnimStart"
-                @animationend="onHeartAnimEnd"
-                aria-label="Send a community like"
-                title="Send a like"
-            >
-                <img class="cap-heart-img" :src="props.heartSrc" alt="" draggable="false" />
-            </button>
-
-            <!-- Counters (bottom) -->
-            <footer class="cap-foot" aria-label="Community likes counters">
-                <div class="cap-counters">
-                    <div class="cap-counter">
-                        <div class="cap-counter-label">Total Likes</div>
-                        <div class="cap-counter-value">{{ fmt(counts.total) }}</div>
-                    </div>
-
-                    <div class="cap-counter">
-                        <div class="cap-counter-label">Today</div>
-                        <div class="cap-counter-value">{{ fmt(counts.daily_total) }}</div>
-                    </div>
-
-                    <div class="cap-counter">
-                        <div class="cap-counter-label">This Month</div>
-                        <div class="cap-counter-value">{{ fmt(counts.monthly_total) }}</div>
-                    </div>
-                </div>
-            </footer>
+  <section class="cap-root" :style="rootStyle" @pointerdown="onPointerDown">
+    <div class="cap-stack">
+      <!-- Header -->
+      <header class="cap-head">
+        <p class="cap-subtitle">Tap the heart to show some love!</p>
+        <div class="cap-micro">
+          If EiTake has every been of help, click the heart to let us know!
         </div>
+        <div v-if="error" class="cap-error">{{ error }}</div>
+      </header>
 
-        <!-- Burst layer -->
-        <div class="cap-burst-layer" aria-hidden="true">
-            <span v-for="b in bursts" :key="b.id" class="cap-burst-heart" :style="{
-                left: b.x + 'px',
-                top: b.y + 'px',
-                '--dx': b.dx + 'px',
-                '--dy': b.dy + 'px',
-                '--rot': b.rot + 'deg',
-                '--durUp': b.durUp + 'ms',
-                '--durFall': b.durFall + 'ms',
-                '--delay': b.delay + 'ms',
-                '--size': b.size + 'px',
-                '--alpha': b.alpha
-            }">
-                ❤
-            </span>
+      <!-- Heart (image) -->
+      <button
+        ref="heartBtnEl"
+        class="cap-heart-btn"
+        type="button"
+        :disabled="isBusy || !hasLoaded"
+        :class="[isBusy ? 'is-busy' : '', lastAnimClass]"
+        @click="onHeartClick"
+        @animationstart="onHeartAnimStart"
+        @animationend="onHeartAnimEnd"
+        aria-label="Send a community like"
+        title="Send a like"
+      >
+        <img class="cap-heart-img" :src="props.heartSrc" alt="" draggable="false" />
+      </button>
+
+      <!-- Counters (bottom) -->
+      <footer class="cap-foot" aria-label="Community likes counters">
+        <div class="cap-counters">
+          <div class="cap-counter">
+            <div class="cap-counter-label">Total Likes</div>
+            <div class="cap-counter-value">{{ fmt(counts.total) }}</div>
+          </div>
+
+          <div class="cap-counter">
+            <div class="cap-counter-label">Today</div>
+            <div class="cap-counter-value">{{ fmt(counts.daily_total) }}</div>
+          </div>
+
+          <div class="cap-counter">
+            <div class="cap-counter-label">This Week</div>
+            <div class="cap-counter-value">{{ fmt(counts.weekly_total) }}</div>
+          </div>
+
+          <div class="cap-counter">
+            <div class="cap-counter-label">This Month</div>
+            <div class="cap-counter-value">{{ fmt(counts.monthly_total) }}</div>
+          </div>
         </div>
-    </section>
+      </footer>
+    </div>
+
+    <!-- Burst layer -->
+    <div class="cap-burst-layer" aria-hidden="true">
+      <span
+        v-for="b in bursts"
+        :key="b.id"
+        class="cap-burst-heart"
+        :style="{
+          left: b.x + 'px',
+          top: b.y + 'px',
+          '--dx': b.dx + 'px',
+          '--dy': b.dy + 'px',
+          '--rot': b.rot + 'deg',
+          '--durUp': b.durUp + 'ms',
+          '--durFall': b.durFall + 'ms',
+          '--delay': b.delay + 'ms',
+          '--size': b.size + 'px',
+          '--alpha': b.alpha
+        }"
+      >
+        ❤
+      </span>
+    </div>
+  </section>
 </template>
 
 <script setup>
@@ -97,6 +107,7 @@ const rootStyle = computed(() => ({
 const counts = ref({
   total: 0,
   daily_total: 0,
+  weekly_total: 0,
   monthly_total: 0,
 })
 
@@ -200,7 +211,7 @@ async function loadOnce() {
 
   const { data, error: e } = await supabase
     .from('community_likes')
-    .select('total,daily_total,monthly_total')
+    .select('total,daily_total,weekly_total,monthly_total')
     .eq('id', props.rowId)
     .single()
 
@@ -212,6 +223,7 @@ async function loadOnce() {
   counts.value = {
     total: Number(data?.total ?? 0),
     daily_total: Number(data?.daily_total ?? 0),
+    weekly_total: Number(data?.weekly_total ?? 0),
     monthly_total: Number(data?.monthly_total ?? 0),
   }
 
@@ -221,6 +233,7 @@ async function loadOnce() {
 function applyLocalIncrement(amount) {
   counts.value.total = Number(counts.value.total ?? 0) + amount
   counts.value.daily_total = Number(counts.value.daily_total ?? 0) + amount
+  counts.value.weekly_total = Number(counts.value.weekly_total ?? 0) + amount
   counts.value.monthly_total = Number(counts.value.monthly_total ?? 0) + amount
 }
 
@@ -313,7 +326,7 @@ function spawnBurstAt(x, y) {
   const now = Date.now()
 
   for (let i = 0; i < count; i++) {
-    const angle = (-Math.PI / 2) + (Math.random() * Math.PI)
+    const angle = -Math.PI / 2 + Math.random() * Math.PI
     const power = 35 + Math.random() * 65
 
     const dx = Math.cos(angle) * power + (Math.random() * 26 - 13)
@@ -395,346 +408,355 @@ onBeforeUnmount(() => {
    ============================================================================ */
 
 .cap-root {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 
-    /* Component-scoped "semantic" vars (fallbacks included) */
-    --cap-surface: var(--modal-surface, var(--table-surface, #fff));
-    --cap-on: var(--modal-on-surface, var(--table-on-surface, #18261f));
-    --cap-soft: var(--modal-on-surface-soft, var(--table-muted, #6f847c));
-    --cap-border: var(--modal-border, rgba(0, 0, 0, 0.14));
-    --cap-radius: var(--radius-lg, 18px);
-    --cap-shadow: var(--elevation-1, 0 3px 10px rgba(0, 0, 0, 0.12));
+  /* Component-scoped "semantic" vars (fallbacks included) */
+  --cap-surface: var(--modal-surface, var(--table-surface, #fff));
+  --cap-on: var(--modal-on-surface, var(--table-on-surface, #18261f));
+  --cap-soft: var(--modal-on-surface-soft, var(--table-muted, #6f847c));
+  --cap-border: var(--modal-border, rgba(0, 0, 0, 0.14));
+  --cap-radius: var(--radius-lg, 18px);
+  --cap-shadow: var(--elevation-1, 0 3px 10px rgba(0, 0, 0, 0.12));
 
-    /* Accent hooks */
-    --cap-accent: var(--accent-primary, #2aa9ff);
-    --cap-accent-2: var(--accent-secondary, #00e0b8);
-    --cap-danger: var(--accent-danger, #ff2f53);
+  /* Accent hooks */
+  --cap-accent: var(--accent-primary, #2aa9ff);
+  --cap-accent-2: var(--accent-secondary, #00e0b8);
+  --cap-danger: var(--accent-danger, #ff2f53);
 
-    /* Surface + subtle theme-tinted bloom (no hard-coded dark mode assumptions) */
-    background:
-        radial-gradient(900px 420px at 50% 10%,
-            color-mix(in srgb, var(--cap-accent) 18%, transparent),
-            transparent 62%),
-        radial-gradient(720px 380px at 20% 45%,
-            color-mix(in srgb, var(--cap-accent-2) 16%, transparent),
-            transparent 60%),
-        radial-gradient(720px 380px at 80% 45%,
-            color-mix(in srgb, var(--cap-danger) 14%, transparent),
-            transparent 60%),
-        var(--cap-surface);
+  /* Surface + subtle theme-tinted bloom (no hard-coded dark mode assumptions) */
+  background:
+    radial-gradient(
+      900px 420px at 50% 10%,
+      color-mix(in srgb, var(--cap-accent) 18%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      720px 380px at 20% 45%,
+      color-mix(in srgb, var(--cap-accent-2) 16%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      720px 380px at 80% 45%,
+      color-mix(in srgb, var(--cap-danger) 14%, transparent),
+      transparent 60%
+    ),
+    var(--cap-surface);
 
-    color: var(--cap-on);
+  color: var(--cap-on);
 }
 
 /* Compact layout: header / heart / counters always visible */
 .cap-stack {
-    height: 100%;
-    width: 100%;
-    padding: 14px 14px 10px;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: 10px;
-    align-items: center;
-    justify-items: center;
-    min-height: 260px;
+  height: 100%;
+  width: 100%;
+  padding: 14px 14px 10px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+  min-height: 260px;
 }
 
 .cap-head {
-    text-align: center;
-    max-width: 760px;
+  text-align: center;
+  max-width: 760px;
 }
 
 .cap-subtitle {
-    margin: 0;
-    font-size: clamp(1.02rem, 1.5vw, 1.2rem);
-    font-weight: 900;
-    letter-spacing: 0.2px;
-    color: var(--cap-on);
-    text-shadow: 0 1px 0 color-mix(in srgb, #000 18%, transparent);
+  margin: 0;
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: var(--cap-on);
+  text-shadow: 0 1px 0 color-mix(in srgb, #000 18%, transparent);
 }
 
 .cap-micro {
-    margin-top: 6px;
-    font-size: 0.86rem;
-    line-height: 1.25;
-    color: var(--cap-soft);
+  margin-top: 6px;
+  font-size: 0.86rem;
+  line-height: 1.25;
+  color: var(--cap-soft);
 }
 
 .cap-error {
-    margin-top: 6px;
-    font-size: 0.88rem;
-    color: color-mix(in srgb, var(--cap-danger) 80%, var(--cap-on) 20%);
+  margin-top: 6px;
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--cap-danger) 80%, var(--cap-on) 20%);
 }
 
 /* Heart button: only the image */
 .cap-heart-btn {
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    user-select: none;
-    display: grid;
-    place-items: center;
-    transition: transform 120ms ease, filter 120ms ease, opacity 120ms ease;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  display: grid;
+  place-items: center;
+  transition: transform 120ms ease, filter 120ms ease, opacity 120ms ease;
 }
 
 .cap-heart-btn:hover {
-    transform: translateY(-1px) scale(1.02);
-    filter: brightness(1.03);
+  transform: translateY(-1px) scale(1.02);
+  filter: brightness(1.03);
 }
 
 .cap-heart-btn:active {
-    transform: translateY(0px) scale(0.985);
+  transform: translateY(0px) scale(0.985);
 }
 
 .cap-heart-btn:disabled {
-    cursor: default;
-    opacity: 0.6;
-    filter: grayscale(0.25);
+  cursor: default;
+  opacity: 0.6;
+  filter: grayscale(0.25);
 }
 
 .cap-heart-btn.is-busy {
-    opacity: 0.75;
+  opacity: 0.75;
 }
 
 .cap-heart-img {
-    width: clamp(78px, 20vw, 120px);
-    height: auto;
-    display: block;
+  width: clamp(78px, 20vw, 120px);
+  height: auto;
+  display: block;
 
-    /* Shadow that works on light/dark because it’s blended */
-    filter: drop-shadow(0 14px 22px color-mix(in srgb, #000 28%, transparent));
-    pointer-events: none;
+  /* Shadow that works on light/dark because it’s blended */
+  filter: drop-shadow(0 14px 22px color-mix(in srgb, #000 28%, transparent));
+  pointer-events: none;
 }
 
 /* Bottom counters */
 .cap-foot {
-    width: 100%;
-    display: grid;
-    place-items: center;
+  width: 100%;
+  display: grid;
+  place-items: center;
 }
 
+
+/* Keep side-by-side even on narrow screens: shrink cards instead of stacking */
 .cap-counters {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    width: min(760px, 100%);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;                 
+  width: min(700px, 100%);
 }
 
-/* Keep 3 side-by-side even on narrow screens: shrink cards instead of stacking */
 .cap-counter {
-    padding: 9px 8px;
-    border-radius: var(--radius-md, 14px);
+  padding: 8px 7px;       
+  border-radius: var(--radius-md, 14px);
 
-    /* Token-driven “glass” that adapts: mix surface with accent */
-    background: color-mix(in srgb, var(--cap-surface) 78%, var(--cap-accent) 22%);
-    border: 1px solid color-mix(in srgb, var(--cap-border) 55%, transparent);
-    box-shadow: var(--cap-shadow);
-    backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--cap-surface) 78%, var(--cap-accent) 22%);
+  border: 1px solid color-mix(in srgb, var(--cap-border) 55%, transparent);
+  box-shadow: var(--cap-shadow);
+  backdrop-filter: blur(8px);
 
-    min-width: 0;
-    /* allow shrinking */
+  min-width: 0; 
 }
 
 .cap-counter-label {
-    font-size: clamp(0.68rem, 2.4vw, 0.78rem);
-    margin-bottom: 4px;
-    color: var(--cap-soft);
-    white-space: nowrap;
+  font-size: clamp(0.64rem, 2.1vw, 0.74rem); 
+  margin-bottom: 3px;                       
+  color: var(--cap-soft);
+  white-space: nowrap;
 }
 
 .cap-counter-value {
-    font-size: clamp(0.98rem, 3.2vw, 1.16rem);
-    font-weight: 900;
-    letter-spacing: 0.2px;
-    color: var(--cap-on);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: clamp(0.92rem, 3.0vw, 1.06rem);
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: var(--cap-on);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 /* Burst layer (full-screen fixed so particles can fall off-view) */
 .cap-burst-layer {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 9999;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
 }
 
 .cap-burst-heart {
-    position: absolute;
-    font-size: var(--size);
-    opacity: var(--alpha);
-    transform: translate(-50%, -50%);
+  position: absolute;
+  font-size: var(--size);
+  opacity: var(--alpha);
+  transform: translate(-50%, -50%);
 
-    /* Use theme accents rather than forced white */
-    color: color-mix(in srgb, var(--cap-danger) 72%, var(--cap-accent) 28%);
-    text-shadow: 0 10px 26px color-mix(in srgb, #000 26%, transparent);
+  /* Use theme accents rather than forced white */
+  color: color-mix(in srgb, var(--cap-danger) 72%, var(--cap-accent) 28%);
+  text-shadow: 0 10px 26px color-mix(in srgb, #000 26%, transparent);
 
-    animation:
-        burstUp var(--durUp) cubic-bezier(0.16, 1, 0.3, 1) var(--delay) forwards,
-        burstFall var(--durFall) cubic-bezier(0.18, 0.7, 0.18, 1) calc(var(--delay) + var(--durUp) * 0.35) forwards;
+  animation:
+    burstUp var(--durUp) cubic-bezier(0.16, 1, 0.3, 1) var(--delay) forwards,
+    burstFall var(--durFall) cubic-bezier(0.18, 0.7, 0.18, 1)
+      calc(var(--delay) + var(--durUp) * 0.35)
+      forwards;
 }
 
 @keyframes burstUp {
-    0% {
-        transform: translate(-50%, -50%) scale(0.7) rotate(0deg);
-    }
+  0% {
+    transform: translate(-50%, -50%) scale(0.7) rotate(0deg);
+  }
 
-    70% {
-        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.02) rotate(var(--rot));
-    }
+  70% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.02) rotate(var(--rot));
+  }
 
-    100% {
-        transform: translate(calc(-50% + (var(--dx) * 0.75)), calc(-50% + (var(--dy) * 0.75))) scale(1) rotate(calc(var(--rot) * 1.05));
-    }
+  100% {
+    transform: translate(calc(-50% + (var(--dx) * 0.75)), calc(-50% + (var(--dy) * 0.75))) scale(1)
+      rotate(calc(var(--rot) * 1.05));
+  }
 }
 
 @keyframes burstFall {
-    0% {
-        opacity: var(--alpha);
-    }
+  0% {
+    opacity: var(--alpha);
+  }
 
-    100% {
-        transform: translate(calc(-50% + (var(--dx) * 0.75)),
-                calc(-50% + (var(--dy) * 0.75) + 820px)) rotate(calc(var(--rot) * 1.25));
-        opacity: 0;
-    }
+  100% {
+    transform: translate(calc(-50% + (var(--dx) * 0.75)), calc(-50% + (var(--dy) * 0.75) + 820px))
+      rotate(calc(var(--rot) * 1.25));
+    opacity: 0;
+  }
 }
 
 /* Random click animations applied to the heart button (image animates with it) */
 .anim-bounce {
-    animation: heartBounce 520ms cubic-bezier(0.2, 1.2, 0.2, 1) both;
+  animation: heartBounce 520ms cubic-bezier(0.2, 1.2, 0.2, 1) both;
 }
 
 @keyframes heartBounce {
-    0% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
 
-    25% {
-        transform: scale(1.14) translateY(-6px);
-    }
+  25% {
+    transform: scale(1.14) translateY(-6px);
+  }
 
-    55% {
-        transform: scale(0.96) translateY(2px);
-    }
+  55% {
+    transform: scale(0.96) translateY(2px);
+  }
 
-    100% {
-        transform: scale(1);
-    }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .anim-spin {
-    animation: heartSpin 720ms cubic-bezier(0.2, 1, 0.2, 1) both;
+  animation: heartSpin 720ms cubic-bezier(0.2, 1, 0.2, 1) both;
 }
 
 @keyframes heartSpin {
-    0% {
-        transform: scale(1) rotate(0deg);
-    }
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
 
-    45% {
-        transform: scale(1.08) rotate(180deg);
-    }
+  45% {
+    transform: scale(1.08) rotate(180deg);
+  }
 
-    100% {
-        transform: scale(1) rotate(360deg);
-    }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
 }
 
 .anim-wiggle {
-    animation: heartWiggle 620ms ease-in-out both;
+  animation: heartWiggle 620ms ease-in-out both;
 }
 
 @keyframes heartWiggle {
-    0% {
-        transform: rotate(0deg) scale(1);
-    }
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
 
-    15% {
-        transform: rotate(-9deg) scale(1.05);
-    }
+  15% {
+    transform: rotate(-9deg) scale(1.05);
+  }
 
-    30% {
-        transform: rotate(11deg) scale(1.06);
-    }
+  30% {
+    transform: rotate(11deg) scale(1.06);
+  }
 
-    45% {
-        transform: rotate(-11deg) scale(1.06);
-    }
+  45% {
+    transform: rotate(-11deg) scale(1.06);
+  }
 
-    60% {
-        transform: rotate(9deg) scale(1.04);
-    }
+  60% {
+    transform: rotate(9deg) scale(1.04);
+  }
 
-    100% {
-        transform: rotate(0deg) scale(1);
-    }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
 }
 
 .anim-pop {
-    animation: heartPop 520ms cubic-bezier(0.2, 1.4, 0.2, 1) both;
+  animation: heartPop 520ms cubic-bezier(0.2, 1.4, 0.2, 1) both;
 }
 
 @keyframes heartPop {
-    0% {
-        transform: scale(1);
-        filter: brightness(1);
-    }
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
 
-    35% {
-        transform: scale(1.20);
-        filter: brightness(1.08);
-    }
+  35% {
+    transform: scale(1.2);
+    filter: brightness(1.08);
+  }
 
-    100% {
-        transform: scale(1);
-        filter: brightness(1);
-    }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
 }
 
 .anim-squash {
-    animation: heartSquash 560ms cubic-bezier(0.2, 1, 0.2, 1) both;
+  animation: heartSquash 560ms cubic-bezier(0.2, 1, 0.2, 1) both;
 }
 
 @keyframes heartSquash {
-    0% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
 
-    25% {
-        transform: scale(1.18, 0.84);
-    }
+  25% {
+    transform: scale(1.18, 0.84);
+  }
 
-    55% {
-        transform: scale(0.94, 1.12);
-    }
+  55% {
+    transform: scale(0.94, 1.12);
+  }
 
-    100% {
-        transform: scale(1);
-    }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .anim-float {
-    animation: heartFloat 860ms cubic-bezier(0.2, 1, 0.2, 1) both;
+  animation: heartFloat 860ms cubic-bezier(0.2, 1, 0.2, 1) both;
 }
 
 @keyframes heartFloat {
-    0% {
-        transform: translateY(0) scale(1);
-    }
+  0% {
+    transform: translateY(0) scale(1);
+  }
 
-    35% {
-        transform: translateY(-10px) scale(1.08);
-    }
+  35% {
+    transform: translateY(-10px) scale(1.08);
+  }
 
-    100% {
-        transform: translateY(0) scale(1);
-    }
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 </style>
