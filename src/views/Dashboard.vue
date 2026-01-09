@@ -65,6 +65,7 @@
           </div>
         </section>
 
+        <!-- Hide until populated 
         <section class="dashboard__card dashboard__card--tutorials" aria-label="Tutorials">
           <header class="dashboard__cardHead">
             <h2 class="dashboard__cardTitle">Tutorials</h2>
@@ -73,18 +74,22 @@
             <Tutorials />
           </div>
         </section>
+        -->
 
-        <!-- Row 3 -->
+        <!-- Hide for now 
+          -- The levels system is hardly ever used I feel.
+          -- And it needs a layout redesign I think
+
         <section class="dashboard__card dashboard__card--profile" aria-label="User Profile">
           <header class="dashboard__cardHead">
             <h2 class="dashboard__cardTitle">Progress</h2>
           </header>
 
-          <!-- force full-height content -->
           <div class="dashboard__cardBody dashboard__cardBody--fill">
               <UserLevels />
           </div>
         </section>
+        -->
 
         <section class="dashboard__card dashboard__card--community" aria-label="Community">
           <header class="dashboard__cardHead">
@@ -276,15 +281,15 @@ const textbookImages = [
    ========================================================================== */
 
 @media (min-width: 980px) {
-  .dashboard__card--wotd { grid-column: span 4; }
-  .dashboard__card--games { grid-column: span 4; }
+  .dashboard__card--wotd { grid-column: span 3; }
+  .dashboard__card--games { grid-column: span 5; }
   .dashboard__card--teacherTools { grid-column: span 4; }
 
-  .dashboard__card--tutorials { grid-column: span 5; }
-  .dashboard__card--textbooks { grid-column: span 7; }
+  .dashboard__card--tutorials { grid-column: span 5; } /** Hidden */
+  .dashboard__card--textbooks { grid-column: span 7; } 
 
-  .dashboard__card--profile { grid-column: span 6; }
-  .dashboard__card--community { grid-column: span 6; }
+  .dashboard__card--profile { grid-column: span 6; } /** Hidden */
+  .dashboard__card--community { grid-column: span 5; }
 }
 
 /* ==========================================================================
