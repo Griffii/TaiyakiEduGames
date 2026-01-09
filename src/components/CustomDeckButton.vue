@@ -12,13 +12,24 @@
   </RouterLink>
 
   <!-- Not logged in -->
-  <div v-else class="customdeck-login-msg" :style="rootStyle">
-    Please log in or sign up to make custom decks.
+  <div
+    v-else
+    ref="msgEl"
+    class="customdeck-login-msg"
+    :style="msgStyle"
+  >
+    <span class="msg-inline">
+      Please
+      <RouterLink class="auth-link" to="/login">log in</RouterLink>
+      or
+      <RouterLink class="auth-link" to="/login">sign up</RouterLink>
+      to make custom decks.
+    </span>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onBeforeUpdate, onMounted, ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 
@@ -41,6 +52,9 @@ const rootStyle = computed(() => {
   }
 })
 
+/* ---------------------------
+   Auth state
+--------------------------- */
 const isAuthed = ref(false)
 let authSubscription = null
 
@@ -65,6 +79,115 @@ onBeforeUnmount(() => {
     authSubscription = null
   }
 })
+
+/* ---------------------------
+   Fit-to-width for login msg
+   - Do not wrap at links
+   - Shrink font-size until it fits
+--------------------------- */
+const msgEl = ref(null)
+
+// Base size matches your CSS intent (0.9rem) but we compute px so we can binary-search reliably.
+const MSG_MAX_PX = ref(15) // will be set on mount from computed style
+const MSG_MIN_PX = 11
+
+const msgFontPx = ref(null)
+
+const msgStyle = computed(() => ({
+  ...rootStyle.value,
+  ...(msgFontPx.value ? { fontSize: `${msgFontPx.value}px` } : {}),
+}))
+
+let ro = null
+let raf = 0
+
+function cancelRaf() {
+  if (raf) {
+    cancelAnimationFrame(raf)
+    raf = 0
+  }
+}
+
+function scheduleFit() {
+  cancelRaf()
+  raf = requestAnimationFrame(() => {
+    void fitMsgToWidth()
+  })
+}
+
+async function fitMsgToWidth() {
+  // Only applies when not authed (element exists)
+  const el = msgEl.value
+  if (!el) return
+
+  // Establish max font-size from the element’s current computed font-size (includes scale)
+  const cs = window.getComputedStyle(el)
+  const currentPx = Number.parseFloat(cs.fontSize) || 14
+  MSG_MAX_PX.value = currentPx
+
+  // Start at max
+  msgFontPx.value = MSG_MAX_PX.value
+  await nextTick()
+
+  // If it fits, done
+  if (el.scrollWidth <= el.clientWidth) return
+
+  // Binary search between min and max
+  let lo = MSG_MIN_PX
+  let hi = Math.floor(MSG_MAX_PX.value)
+  let best = lo
+
+  while (lo <= hi) {
+    const mid = Math.floor((lo + hi) / 2)
+    msgFontPx.value = mid
+    await nextTick()
+
+    if (el.scrollWidth <= el.clientWidth) {
+      best = mid
+      lo = mid + 1
+    } else {
+      hi = mid - 1
+    }
+  }
+
+  msgFontPx.value = best
+}
+
+// When the “not logged in” block is about to render, clear any stale font size.
+onBeforeUpdate(() => {
+  if (isAuthed.value) msgFontPx.value = null
+})
+
+// Fit when switching to unauth state, and on container resizes.
+watch(
+  () => isAuthed.value,
+  async (authed) => {
+    if (!authed) {
+      await nextTick()
+      scheduleFit()
+      // Observe size changes of the message itself (covers responsive layout changes)
+      if (!ro && msgEl.value) {
+        ro = new ResizeObserver(() => scheduleFit())
+        ro.observe(msgEl.value)
+      }
+    } else {
+      // Clean up observer when it disappears
+      if (ro) {
+        ro.disconnect()
+        ro = null
+      }
+    }
+  },
+  { immediate: true }
+)
+
+onBeforeUnmount(() => {
+  cancelRaf()
+  if (ro) {
+    ro.disconnect()
+    ro = null
+  }
+})
 </script>
 
 <style scoped>
@@ -87,11 +210,39 @@ onBeforeUnmount(() => {
   box-shadow: var(--header-shadow);
   line-height: 1.35;
 
-  /* New: cap height when needed */
+  /* Cap height when needed */
   max-height: var(--cdb-max-h, none);
+
+  /* Critical: do not wrap at links or spaces; shrink-to-fit is handled in JS */
+  white-space: nowrap;
+
+  /* Safety: if it somehow can’t fit even at min, do not wrap; ellipsis instead */
   overflow: hidden;
+  text-overflow: ellipsis;
+
   display: grid;
   align-items: center;
+}
+
+/* Keep message contents inline and unbreakable */
+.msg-inline {
+  display: inline;
+  white-space: nowrap;
+}
+
+/* Inline auth links (no wrap points) */
+.auth-link {
+  display: inline;
+  white-space: nowrap;
+
+  color: var(--accent-primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.auth-link:hover {
+  text-decoration-thickness: 2px;
 }
 
 /* =========================
@@ -125,7 +276,7 @@ onBeforeUnmount(() => {
 
   transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
 
-  /* New: cap height when needed */
+  /* Cap height when needed */
   max-height: var(--cdb-max-h, none);
   display: inline-grid;
   align-items: center;

@@ -16,7 +16,7 @@
 
     <!-- Error (still shows fallback word/definition, plus the error) -->
     <div v-else-if="error" class="dw-body">
-      <div class="dw-word">{{ display.word }}</div>
+      <div ref="wordEl" class="dw-word" :style="wordStyle">{{ display.word }}</div>
 
       <div v-if="display.pos" class="dw-pos">
         {{ display.pos }}
@@ -39,7 +39,7 @@
 
     <!-- Content -->
     <div v-else class="dw-body">
-      <div class="dw-word">{{ display.word }}</div>
+      <div ref="wordEl" class="dw-word" :style="wordStyle">{{ display.word }}</div>
 
       <div v-if="display.pos" class="dw-pos">
         {{ display.pos }}
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { supabase } from "@/lib/supabase";
 
 type DailyWordPayload = {
@@ -210,6 +210,75 @@ const headerDate = computed(() => {
   return "—";
 });
 
+/* ------------------------------ Fit-to-width word sizing ------------------------------ */
+/**
+ * Goal: never wrap the word; instead, shrink font-size until it fits on one line.
+ * We keep a max size (design size) and a min size guardrail.
+ */
+const wordEl = ref<HTMLElement | null>(null);
+
+const WORD_MAX_PX = 34;
+const WORD_MIN_PX = 16;
+
+const wordFontPx = ref<number>(WORD_MAX_PX);
+
+const wordStyle = computed(() => ({
+  fontSize: `${wordFontPx.value}px`,
+}));
+
+let ro: ResizeObserver | null = null;
+let raf = 0;
+
+function cancelRaf() {
+  if (raf) {
+    cancelAnimationFrame(raf);
+    raf = 0;
+  }
+}
+
+function scheduleFitWord() {
+  cancelRaf();
+  raf = requestAnimationFrame(() => {
+    void fitWordToWidth();
+  });
+}
+
+async function fitWordToWidth() {
+  const el = wordEl.value;
+  if (!el) return;
+
+  // Reset to max first so measurement is stable (especially when moving from long->short)
+  wordFontPx.value = WORD_MAX_PX;
+
+  await nextTick();
+
+  // If it already fits, we’re done.
+  const fitsAtMax = el.scrollWidth <= el.clientWidth;
+  if (fitsAtMax) return;
+
+  // Binary search a font size that fits: fast and stable.
+  let lo = WORD_MIN_PX;
+  let hi = WORD_MAX_PX;
+  let best = WORD_MIN_PX;
+
+  while (lo <= hi) {
+    const mid = Math.floor((lo + hi) / 2);
+    wordFontPx.value = mid;
+    // Wait one tick so layout updates before measuring.
+    // (nextTick is cheap here; loop is small: log2(34-16) ~ 5 steps)
+    await nextTick();
+
+    if (el.scrollWidth <= el.clientWidth) {
+      best = mid;
+      lo = mid + 1; // try bigger
+    } else {
+      hi = mid - 1; // too big
+    }
+  }
+
+  wordFontPx.value = best;
+}
+
 /* ------------------------------ Load ------------------------------ */
 
 async function load() {
@@ -239,11 +308,36 @@ async function load() {
     data.value = null;
   } finally {
     loading.value = false;
+
+    // When content appears, fit the word.
+    await nextTick();
+    scheduleFitWord();
   }
 }
 
 onMounted(() => {
   void load();
+
+  // Re-fit when the word container size changes (responsive layout, sidebar collapse, etc.)
+  ro = new ResizeObserver(() => scheduleFitWord());
+  if (wordEl.value) ro.observe(wordEl.value);
+});
+
+// Re-fit when the displayed word changes (includes fallback -> live, etc.)
+watch(
+  () => display.value.word,
+  async () => {
+    await nextTick();
+    scheduleFitWord();
+  }
+);
+
+onBeforeUnmount(() => {
+  cancelRaf();
+  if (ro) {
+    ro.disconnect();
+    ro = null;
+  }
 });
 </script>
 
@@ -290,23 +384,30 @@ onMounted(() => {
   overflow: hidden;
 }
 
-/* Word */
+/* Word (single line; shrink-to-fit handled in JS) */
 .dw-word {
-  font-size: 34px;
+  /* font-size is controlled via :style="wordStyle" */
   font-weight: 850;
   line-height: 1.05;
   letter-spacing: -0.02em;
-
   color: var(--table-on-surface);
 
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  /* critical: do not wrap */
+  white-space: nowrap;
 
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
-  overflow: visible;
+  /* keep layout clean if it somehow still can’t fit at min-size */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  /* remove wrapping/breaking behavior from prior version */
+  overflow-wrap: normal;
+  word-break: normal;
+
+  /* undo multi-line clamp for the word */
+  display: block;
+  -webkit-box-orient: initial;
+  line-clamp: unset;
+  -webkit-line-clamp: unset;
 }
 
 /* Part of speech */
