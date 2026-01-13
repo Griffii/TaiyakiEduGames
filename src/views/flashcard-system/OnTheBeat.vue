@@ -92,12 +92,13 @@
           <div class="hud-pill hud-pill--round">Round {{ roundIndex + 1 }}</div>
         </div>
 
-        <!-- Debug (hide later by CSS) -->
+        <!-- Debug (hide later by CSS) 
         <div class="hud-debug" aria-hidden="true">
           <div class="hud-pill hud-pill--debug">
             Beat {{ beatInRound + 1 }} / 16
           </div>
         </div>
+        -->
 
         <div class="hud-right">
           <button class="sq-btn" type="button" @click="stopGameAndReturnToMenu">Stop</button>
