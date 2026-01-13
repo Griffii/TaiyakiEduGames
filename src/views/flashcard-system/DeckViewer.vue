@@ -50,7 +50,8 @@ import iconSoundMatcher from "@/assets/images/flashcards/game-icons/sound-matche
 import iconBingo from "@/assets/images/flashcards/game-icons/bingo.png";
 import iconMemory from "@/assets/images/flashcards/game-icons/matching.png";
 import iconMissing from "@/assets/images/flashcards/game-icons/missing.png";
-import iconShuffle from "@/assets/images/flashcards/game-icons/shuffle.png"
+import iconShuffle from "@/assets/images/flashcards/game-icons/shuffle.png";
+import iconOnTheBeat from "@/assets/images/games/on-the-beat/megaphone.png";
 
 /** Key for each game button/menu entry */
 type GameKey =
@@ -63,7 +64,8 @@ type GameKey =
   | "bingo"
   | "memory"
   | "missing"
-  | "shuffle";
+  | "shuffle"
+  | "onthebeat";
 
 const ICONS: Record<GameKey, string> = {
   bomb: iconBomb,
@@ -76,6 +78,7 @@ const ICONS: Record<GameKey, string> = {
   memory: iconMemory,
   missing: iconMissing,
   shuffle: iconShuffle,
+  onthebeat: iconOnTheBeat,
 };
 
 /**
@@ -155,6 +158,7 @@ const GAME_TAGS: Record<GameKey, GameTag[]> = {
   memory: ["new"],
   missing: ["new"],
   shuffle: ["new"],
+  onthebeat: ["new"],
 };
 const hasGameTag = (k: GameKey, t: GameTag) => (GAME_TAGS[k] || []).includes(t);
 const isGameNew = (k: GameKey) => hasGameTag(k, "new");
@@ -464,7 +468,7 @@ function selectMode(mode: "review" | "random" | "japanese") {
 
 /** Start games */
 async function startGame(
-  kind: "bomb" | "sharknado" | "headsup" | "spellingblitz" | "spellingguesser" | "soundmatcher" | "bingo" | "memory" | "missing" | "shuffle"
+  kind: "bomb" | "sharknado" | "headsup" | "spellingblitz" | "spellingguesser" | "soundmatcher" | "bingo" | "memory" | "missing" | "shuffle" | "onthebeat"
 ) {
   closeGameMenu();
 
@@ -562,6 +566,12 @@ async function startGame(
     gameTransit.set({ cards: payload, mode: "shuffle" });
     sessionStorage.setItem("eitake.memory.transit.v1", JSON.stringify({ cards: payload, mode: "shuffle" }));
     router.push({ name: "shuffle", params: { id: currentDeckId } });
+ 
+  } else if (kind === "onthebeat") {
+    const payload = await common(); if (!payload) return;
+    gameTransit.set({ cards: payload, mode: "onthebeat" });
+    sessionStorage.setItem("eitake.memory.transit.v1", JSON.stringify({ cards: payload, mode: "onthebeat" }));
+    router.push({ name: "onthebeat", params: { id: currentDeckId } });
 
   }
 }
@@ -915,6 +925,16 @@ async function addSelectionToDeck() {
           </div>
           <p class="game-popup-text">Shuffle Game</p>
           <img class="game-icon" :src="gameIcon('shuffle')" alt="Shuffle Game" loading="eager" decoding="async"
+            fetchpriority="high" @error="onIconError" />
+        </button>
+
+        <button class="game-btn onthebeat-btn" type="button" @click="startGame('onthebeat')">
+          <div class="corner-rail">
+            <div v-if="isGameNew('onthebeat')" class="corner tl new"><span>NEW</span></div>
+            <div v-if="isGameXp('onthebeat')" class="corner tr xp"><span>XP</span></div>
+          </div>
+          <p class="game-popup-text">On The Beat!</p>
+          <img class="game-icon" :src="gameIcon('onthebeat')" alt="Say the word on the beat" loading="eager" decoding="async"
             fetchpriority="high" @error="onIconError" />
         </button>
 

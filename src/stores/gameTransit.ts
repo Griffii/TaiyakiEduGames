@@ -24,6 +24,7 @@ export type Mode =
   | 'memory'
   | 'missing'
   | 'shuffle'
+  | 'onthebeat'
 
 /** Newer code sometimes aliases this; keep it equal to Mode */
 export type GameKind = Mode
