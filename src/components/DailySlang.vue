@@ -209,7 +209,7 @@ async function load() {
   error.value = null;
 
   try {
-    const { data: fnData, error: fnError } = await supabase.functions.invoke("daily-word", {
+    const { data: fnData, error: fnError } = await supabase.functions.invoke("daily-slang", {
       method: "GET",
     });
 
@@ -218,7 +218,7 @@ async function load() {
     const payload = fnData as DailyWordPayload;
 
     if (!payload || typeof payload.word !== "string") {
-      throw new Error("Malformed response from daily-word function.");
+      throw new Error("Malformed response from daily-slang function.");
     }
 
     data.value = payload;

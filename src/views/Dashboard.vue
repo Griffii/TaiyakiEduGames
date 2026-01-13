@@ -123,6 +123,7 @@
 <script setup lang="ts">
 
 import DailyWord from '@/components/DailyWord.vue'
+import DailySlang from '@/components/DailySlang.vue'
 import ScrollingImageWall from '@/components/ScrollingImageWall.vue'
 import CustomDeckButton from '@/components/CustomDeckButton.vue'
 import UserLevels from '@/components/UserLevels.vue'

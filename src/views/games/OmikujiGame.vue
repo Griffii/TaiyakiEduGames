@@ -9,6 +9,23 @@
             <img :src="homeIconUrl" alt="" />
         </button>
 
+        <!-- Taiyaki Mode toggle (top-right) -->
+        <button
+            class="taiyaki-mode-toggle"
+            type="button"
+            @click="toggleTaiyakiMode"
+            :aria-pressed="taiyakiMode"
+            :title="taiyakiMode ? 'Taiyaki Mode: ON' : 'Taiyaki Mode: OFF'"
+        >
+            <span class="tmt-left">
+                <img class="tmt-thumb" :src="taiyakiAltIconUrl" alt="" />
+                <span class="tmt-label">Taiyaki Mode</span>
+            </span>
+            <span class="tmt-switch" :class="{ 'is-on': taiyakiMode }" aria-hidden="true">
+                <span class="tmt-knob"></span>
+            </span>
+        </button>
+
         <section class="gamecontainer">
             <header class="header">
                 <h1 class="title">
@@ -26,8 +43,13 @@
                     <!-- Taiyaki (base layer) -->
                     <Transition name="fade">
                         <div v-if="showTaiyaki" class="taiyaki-wrap" aria-hidden="true">
-                            <img class="taiyaki" :class="{ 'crazy-shake': taiyakiShake }" :style="taiyakiShakeVars"
-                                :src="taiyakiIconUrl" alt="" />
+                            <img
+                                class="taiyaki"
+                                :class="{ 'crazy-shake': taiyakiShake }"
+                                :style="taiyakiShakeVars"
+                                :src="activeTaiyakiUrl"
+                                alt=""
+                            />
                         </div>
                     </Transition>
 
@@ -63,6 +85,12 @@
                 </div>
             </div>
         </section>
+
+        <!-- Hidden preload images so first draw has no "cold load" flicker -->
+        <div class="preload-bin" aria-hidden="true">
+            <img :src="taiyakiDefaultIconUrl" alt="" />
+            <img :src="taiyakiAltIconUrl" alt="" />
+        </div>
     </section>
 </template>
 
@@ -107,11 +135,31 @@ const overallLuck = ref<null | {
 const shownCards = reactive<Card[]>([]);
 
 /* =========================
+   Taiyaki Mode (NEW)
+========================= */
+const taiyakiMode = ref(false);
+
+function toggleTaiyakiMode() {
+    taiyakiMode.value = !taiyakiMode.value;
+}
+
+/* =========================
    Assets (images)
 ========================= */
 import homeIconUrl from "@/assets/images/icons/home-icon.png";
-import taiyakiIconUrl from "@/assets/images/games/omikuji/omikuji.png";
+
+// Default taiyaki
+import taiyakiDefaultIconUrl from "@/assets/images/games/omikuji/omikuji.png";
+
+// Alternative taiyaki
+import taiyakiAltIconUrl from "@/assets/images/logos/taiyaki.png";
+
 import bgUrl from "@/assets/images/backgrounds/repeating-fans-green.jpg";
+
+/* Use whichever image matches mode */
+const activeTaiyakiUrl = computed(() =>
+    taiyakiMode.value ? taiyakiAltIconUrl : taiyakiDefaultIconUrl
+);
 
 /* Bind background URL into CSS via var (reliable with scoped styles) */
 const rootVars = computed(() => ({
@@ -149,6 +197,18 @@ const love = loveData as Fortune[];
 const money = moneyData as Fortune[];
 
 /* =========================
+   Preload helpers (NEW)
+========================= */
+function preloadImage(src: string) {
+    return new Promise<void>((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve();
+        img.onerror = () => resolve(); // don't block gameplay if an image fails
+        img.src = src;
+    });
+}
+
+/* =========================
    Audio helpers
 ========================= */
 function resetAndPlay(a: HTMLAudioElement) {
@@ -167,6 +227,7 @@ function preloadAudio(a: HTMLAudioElement) {
 }
 
 onMounted(() => {
+    // Preload audio AND images to avoid the first-click Taiyaki not appearing in time
     void Promise.all([
         preloadAudio(sfxTaiyaki),
         preloadAudio(sfxDaikichi),
@@ -175,6 +236,8 @@ onMounted(() => {
         preloadAudio(sfxShokichi),
         preloadAudio(sfxKyo),
         preloadAudio(sfxDaikyo),
+        preloadImage(taiyakiDefaultIconUrl),
+        preloadImage(taiyakiAltIconUrl),
     ]);
 });
 
@@ -267,89 +330,88 @@ function clearTimers() {
    Main action
 ========================= */
 async function drawFortune() {
-  if (isBusy.value) return;
+    if (isBusy.value) return;
 
-  clearTimers();
-  isBusy.value = true;
+    clearTimers();
+    isBusy.value = true;
 
-  // Reset display
-  showTaiyaki.value = false;
-  taiyakiShake.value = false;
-  kanjiVisible.value = false;
-  overallLuck.value = null;
-  shownCards.splice(0);
-
-  // Random picks
-  const f1 = getRandomFortune(grades);
-  const f2 = getRandomFortune(love);
-  const f3 = getRandomFortune(money);
-
-  const total = Number(f1.level) + Number(f2.level) + Number(f3.level);
-  const luckLevel = calculateLuckLevel(total);
-  const [kanji, name] = luckLevel.split(" ");
-
-  // Helper: always use DOM timers (fixes "Timeout not assignable to number")
-  const schedule = (fn: () => void, ms: number) => {
-    const id = window.setTimeout(fn, ms);
-    activeTimers.push(id);
-    return id;
-  };
-
-  // 1) Show Taiyaki and shake
-  randomizeShake();
-  showTaiyaki.value = true;
-
-  schedule(() => {
-    resetAndPlay(sfxTaiyaki);
-    taiyakiShake.value = true;
-  }, 100);
-
-  // 2) Stop shake and hide Taiyaki completely
-  schedule(() => {
-    taiyakiShake.value = false;
-  }, 1750);
-
-  schedule(() => {
+    // Reset display
     showTaiyaki.value = false;
-  }, 2000);
+    taiyakiShake.value = false;
+    kanjiVisible.value = false;
+    overallLuck.value = null;
+    shownCards.splice(0);
 
-  // 3) Immediately after Taiyaki is gone, animate Kanji in the same position (overlay)
-  schedule(() => {
-    overallLuck.value = { kanji, name, total };
-    kanjiVisible.value = true;
-    playLuckSound(luckLevel);
-  }, 2050);
+    // Random picks
+    const f1 = getRandomFortune(grades);
+    const f2 = getRandomFortune(love);
+    const f3 = getRandomFortune(money);
 
-  // 4) After a pause, load the three fortunes one-by-one UNDER the kanji
-  schedule(() => {
-    const items = [
-      { type: "Grades Fortune", f: f1 },
-      { type: "Love Fortune", f: f2 },
-      { type: "Money Fortune", f: f3 },
-    ];
+    const total = Number(f1.level) + Number(f2.level) + Number(f3.level);
+    const luckLevel = calculateLuckLevel(total);
+    const [kanji, name] = luckLevel.split(" ");
 
-    items.forEach((c, i) => {
-      schedule(() => {
-        shownCards.push({
-          key: `${Date.now()}-${i}`,
-          type: c.type,
-          stars: c.f.stars,
-          en: c.f.fortune_english,
-          jaHtml: formatRubyText(c.f.fortune_japanese),
-          showJa: false,
+    // Helper: always use DOM timers (fixes "Timeout not assignable to number")
+    const schedule = (fn: () => void, ms: number) => {
+        const id = window.setTimeout(fn, ms);
+        activeTimers.push(id);
+        return id;
+    };
+
+    // 1) Show Taiyaki and shake
+    randomizeShake();
+    showTaiyaki.value = true;
+
+    schedule(() => {
+        resetAndPlay(sfxTaiyaki);
+        taiyakiShake.value = true;
+    }, 100);
+
+    // 2) Stop shake and hide Taiyaki completely
+    schedule(() => {
+        taiyakiShake.value = false;
+    }, 1750);
+
+    schedule(() => {
+        showTaiyaki.value = false;
+    }, 2000);
+
+    // 3) Immediately after Taiyaki is gone, animate Kanji in the same position (overlay)
+    schedule(() => {
+        overallLuck.value = { kanji, name, total };
+        kanjiVisible.value = true;
+        playLuckSound(luckLevel);
+    }, 2050);
+
+    // 4) After a pause, load the three fortunes one-by-one UNDER the kanji
+    schedule(() => {
+        const items = [
+            { type: "Grades Fortune", f: f1 },
+            { type: "Love Fortune", f: f2 },
+            { type: "Money Fortune", f: f3 },
+        ];
+
+        items.forEach((c, i) => {
+            schedule(() => {
+                shownCards.push({
+                    key: `${Date.now()}-${i}`,
+                    type: c.type,
+                    stars: c.f.stars,
+                    en: c.f.fortune_english,
+                    jaHtml: formatRubyText(c.f.fortune_japanese),
+                    showJa: false,
+                });
+
+                // Re-enable after last card appears
+                if (i === items.length - 1) {
+                    schedule(() => {
+                        isBusy.value = false;
+                    }, 300);
+                }
+            }, i * 700);
         });
-
-        // Re-enable after last card appears
-        if (i === items.length - 1) {
-          schedule(() => {
-            isBusy.value = false;
-          }, 300);
-        }
-      }, i * 700);
-    });
-  }, 3050);
+    }, 3050);
 }
-
 
 function onExit() {
     window.history.back();
@@ -490,6 +552,91 @@ function onExit() {
 
 .home-button img:hover {
     transform: scale(1.12);
+}
+
+/* =========================
+   Taiyaki Mode Toggle (TOP-RIGHT)
+========================= */
+.taiyaki-mode-toggle {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(15, 107, 79, 0.22);
+
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.10);
+    backdrop-filter: blur(6px);
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.taiyaki-mode-toggle:hover {
+    filter: brightness(1.02);
+}
+
+.tmt-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tmt-thumb {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.10));
+}
+
+.tmt-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0d5d44;
+    letter-spacing: 0.01em;
+}
+
+/* The switch pill */
+.tmt-switch {
+    width: 42px;
+    height: 24px;
+    border-radius: 999px;
+    position: relative;
+    flex: 0 0 auto;
+
+    background: rgba(10, 60, 40, 0.20);
+    border: 1px solid rgba(10, 60, 40, 0.18);
+
+    transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.tmt-switch.is-on {
+    background: rgba(15, 107, 79, 0.92);
+    border-color: rgba(15, 107, 79, 0.30);
+}
+
+.tmt-knob {
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    transition: left 0.18s ease;
+}
+
+.tmt-switch.is-on .tmt-knob {
+    left: 21px;
 }
 
 /* =========================
@@ -656,6 +803,20 @@ ruby {
 rt {
     font-size: 0.7rem;
     color: #335a4b;
+}
+
+/* =========================
+   Preload bin (invisible, off-layout)
+========================= */
+.preload-bin {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    left: -9999px;
+    top: -9999px;
 }
 
 /* =========================
