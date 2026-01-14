@@ -11,8 +11,13 @@
     </button>
 
     <!-- Corner icons (instant flip left/right every beat) -->
-    <img class="corner-icon tl corner-icon--mega" :class="{ 'is-beating': isBeating }" :src="cornerTL" alt=""
-      aria-hidden="true" />
+    <img
+      class="corner-icon tl corner-icon--mega"
+      :class="{ 'is-beating': isBeating }"
+      :src="cornerTL"
+      alt=""
+      aria-hidden="true"
+    />
     <img class="corner-icon tr" :class="{ 'is-beating': isBeating }" :src="cornerTR" alt="" aria-hidden="true" />
     <img class="corner-icon bl" :class="{ 'is-beating': isBeating }" :src="cornerBL" alt="" aria-hidden="true" />
     <img class="corner-icon br" :class="{ 'is-beating': isBeating }" :src="cornerBR" alt="" aria-hidden="true" />
@@ -26,7 +31,7 @@
           <div class="title-sub">on the beat!</div>
         </div>
 
-        <p class="menu-subtitle">A rhythm game (fixed sets)</p>
+        <p class="menu-subtitle">A rhythm game</p>
       </header>
 
       <div class="menu-grid">
@@ -49,33 +54,23 @@
         <div class="menu-card">
           <div class="menu-card__title">Card Text</div>
           <div class="menu-card__row">
-            <button
-              class="sq-btn is-active is-disabled"
-              type="button"
-              disabled
-              title="English is required for this set"
-            >
-              English
+            <button class="sq-btn" type="button" :class="{ 'is-active': showJapanese }" @click="toggleJapanese">
+              Japanese
             </button>
 
-            <button
-              class="sq-btn"
-              type="button"
-              :class="{ 'is-active': showJapanese }"
-              @click="showJapanese = !showJapanese"
-            >
-              Japanese
+            <button class="sq-btn" type="button" :class="{ 'is-active': showEnglish }" @click="toggleEnglish">
+              English
             </button>
           </div>
         </div>
+      </div>
 
-        <!-- Start -->
-        <div class="menu-card menu-card--start">
-          <button class="sq-btn sq-btn--primary" type="button" :disabled="!canStart" @click="startGame">
-            Play
-          </button>
-          <div v-if="!canStart" class="menu-warn">This set is unavailable.</div>
-        </div>
+      <!-- Play button centered below the options grid (no extra box) -->
+      <div class="menu-play">
+        <button class="sq-btn sq-btn--primary" type="button" :disabled="!canStart" @click="startGame">
+          Play
+        </button>
+        <div v-if="!canStart" class="menu-warn">This set is unavailable.</div>
       </div>
     </section>
 
@@ -84,16 +79,12 @@
       <!-- Round counter: top-center -->
       <header class="hud" aria-label="Game HUD">
         <div class="hud-center">
-          <div class="hud-pill hud-pill--round">
-            Round {{ overallRoundNumber }} / {{ totalRoundsOverall }}
-          </div>
+          <div class="hud-pill hud-pill--round">Round {{ overallRoundNumber }} / {{ totalRoundsOverall }}</div>
         </div>
 
         <!-- Debug (kept, but hidden by CSS) -->
         <div class="hud-debug" aria-hidden="true">
-          <div class="hud-pill hud-pill--debug">
-            Beat {{ beatInRound + 1 }} / 16
-          </div>
+          <div class="hud-pill hud-pill--debug">Beat {{ beatInRound + 1 }} / 16</div>
         </div>
 
         <div class="hud-right">
@@ -113,12 +104,7 @@
             Continue
           </button>
 
-          <button
-            v-else
-            class="sq-btn sq-btn--primary"
-            type="button"
-            @click="returnToMenuFromFinish"
-          >
+          <button v-else class="sq-btn sq-btn--primary" type="button" @click="returnToMenuFromFinish">
             Finish
           </button>
         </div>
@@ -150,12 +136,14 @@
                 {{ c.jp }}
               </div>
 
-              <!-- No images in pronouns set -->
-              <div class="beat-card__text beat-card__text--center">
+              <div v-if="showEnglish" class="beat-card__text beat-card__text--center">
                 <div class="beat-card__en">
                   {{ c.english }}
                 </div>
               </div>
+
+              <!-- If English is off, keep layout stable (so JP stays near top) -->
+              <div v-else class="beat-card__text beat-card__text--spacer" aria-hidden="true"></div>
             </div>
           </article>
         </div>
@@ -187,7 +175,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import bgUrl from '@/assets/images/games/on-the-beat/crumpled-paper-01.png'
@@ -225,53 +213,48 @@ const cornerBR = iconLightbulb
 /** ===== Menu state ===== */
 const mode = ref<Mode>('menu')
 const selectedSetKey = ref<SetKey>('pronouns')
-const showEnglish = ref<boolean>(true) // forced ON for pronouns
-const showJapanese = ref<boolean>(false)
+
+// Requested defaults:
+// - Japanese ON by default
+// - English ON by default (user can toggle off)
+const showEnglish = ref<boolean>(true)
+const showJapanese = ref<boolean>(true)
 
 /** ===== Game phases ===== */
 const phase = ref<Phase>('idle')
 const loadProgress = ref<number>(0)
 const countdownNumber = ref<number>(3)
 
-/** ===== Pronouns hard-coded set =====
- * Each round must produce 8 cards laid out as:
- * A B C D
- * A B C D
- */
+/** ===== Pronouns hard-coded set ===== */
 const PRONOUNS_SET = {
   label: 'Pronouns',
   games: [
     // Game 1 (5 rounds)
     [
-      // Round 1: I / my / me / mine (duplicate row)
       [
         { english: 'I', jp: 'わたし' },
         { english: 'my', jp: 'わたしの' },
         { english: 'me', jp: 'わたしを／に' },
         { english: 'mine', jp: 'わたしのもの' },
       ],
-      // Round 2: you / your / you / yours
       [
         { english: 'you', jp: 'あなた' },
         { english: 'your', jp: 'あなたの' },
         { english: 'you', jp: 'あなたを／に' },
         { english: 'yours', jp: 'あなたのもの' },
       ],
-      // Round 3: it / its / it / X
       [
         { english: 'it', jp: 'それ' },
         { english: 'its', jp: 'それの' },
         { english: 'it', jp: 'それを／に' },
         { english: 'X', jp: '—' },
       ],
-      // Round 4: Mao / Mao’s / Mao / Mao’s
       [
         { english: 'Mao', jp: 'マオ' },
         { english: "Mao’s", jp: 'マオの' },
         { english: 'Mao', jp: 'マオ' },
         { english: "Mao’s", jp: 'マオの' },
       ],
-      // Round 5: Ken / Ken’s / Ken / Ken’s
       [
         { english: 'Ken', jp: 'ケン' },
         { english: "Ken’s", jp: 'ケンの' },
@@ -281,35 +264,30 @@ const PRONOUNS_SET = {
     ],
     // Game 2 (5 rounds)
     [
-      // Round 1: he / his / him / his
       [
         { english: 'he', jp: 'かれ' },
         { english: 'his', jp: 'かれの' },
         { english: 'him', jp: 'かれを／に' },
         { english: 'his', jp: 'かれのもの' },
       ],
-      // Round 2: she / her / her / hers
       [
         { english: 'she', jp: 'かのじょ' },
         { english: 'her', jp: 'かのじょの' },
         { english: 'her', jp: 'かのじょを／に' },
         { english: 'hers', jp: 'かのじょのもの' },
       ],
-      // Round 3: we / our / us / ours
       [
         { english: 'we', jp: 'わたしたち' },
         { english: 'our', jp: 'わたしたちの' },
         { english: 'us', jp: 'わたしたちを／に' },
         { english: 'ours', jp: 'わたしたちのもの' },
       ],
-      // Round 4: you / your / you / yours
       [
         { english: 'you', jp: 'あなた(たち)' },
         { english: 'your', jp: 'あなた(たち)の' },
         { english: 'you', jp: 'あなた(たち)を／に' },
         { english: 'yours', jp: 'あなた(たち)のもの' },
       ],
-      // Round 5: they / their / them / theirs
       [
         { english: 'they', jp: 'かれら／かのじょら' },
         { english: 'their', jp: 'かれらの' },
@@ -325,7 +303,13 @@ const SETS: Record<SetKey, typeof PRONOUNS_SET> = {
 }
 
 /** ===== Multi-game ===== */
-const gameIndex = ref<number>(0) // 0..(games-1)
+const gameIndex = ref<number>(0)
+const roundIndex = ref<number>(0)
+const beatInRound = ref<number>(0)
+const highlightedIndex = ref<number>(-1)
+const visibleCards = ref<SlotCard[]>([])
+const dealCount = ref<number>(0)
+
 const totalGamesInSet = computed(() => SETS[selectedSetKey.value].games.length)
 const totalRoundsOverall = computed(() => totalGamesInSet.value * 5)
 const overallRoundNumber = computed(() => gameIndex.value * 5 + roundIndex.value + 1)
@@ -333,20 +317,14 @@ const overallRoundNumber = computed(() => gameIndex.value * 5 + roundIndex.value
 const showContinueButton = ref<boolean>(false)
 const showFinishButton = ref<boolean>(false)
 
-/** ===== Timing model =====
- * Song structure (beats):
- * - Intro: 8 beats (NOT part of Round 1)
- * - Rounds: 5 rounds * 16 beats = 80 beats
- *   - counts 1–8: show / (Round 1 also deals in here)
- *   - counts 9–16: highlight 1-by-1
- */
+/** ===== Timing model ===== */
 const INTRO_BEATS = 8
 const ROUNDS = 5
 const beatsPerRound = 16
 const DEFAULT_SONG_DURATION_SEC = 30
 
 // Requested speed
-const BEAT_SPEED_MULT = 0.88
+const BEAT_SPEED_MULT = 0.875
 
 const songDurationSec = ref<number>(DEFAULT_SONG_DURATION_SEC)
 const beatIntervalMs = computed(() => {
@@ -354,13 +332,7 @@ const beatIntervalMs = computed(() => {
   return Math.max(80, Math.round((roundDurationMs / beatsPerRound) * BEAT_SPEED_MULT))
 })
 
-/** ===== Game state ===== */
-const roundIndex = ref<number>(0) // 0..4
-const beatInRound = ref<number>(0) // 0..15 (debug)
-const highlightedIndex = ref<number>(-1)
-const visibleCards = ref<SlotCard[]>([])
-const dealCount = ref<number>(0)
-
+/** ===== Beat visuals ===== */
 const isBeating = ref<boolean>(false)
 const isIntro8 = ref<boolean>(true)
 const isRound1Deal = ref<boolean>(false)
@@ -395,7 +367,6 @@ let gainNode: GainNode | null = null
 let audioStartPerf = 0
 let audioEndTimer: number | null = null
 
-/** timers */
 let beatTimeout: number | null = null
 let hardStopTimer: number | null = null
 
@@ -405,18 +376,16 @@ const canStart = computed(() => {
   return !!set?.games?.length
 })
 
-// English forced ON for pronouns
-watch(
-  selectedSetKey,
-  () => {
-    showEnglish.value = true
-  },
-  { immediate: true }
-)
-
 function selectSet(k: SetKey) {
   selectedSetKey.value = k
-  showEnglish.value = true
+}
+
+function toggleEnglish() {
+  showEnglish.value = !showEnglish.value
+}
+
+function toggleJapanese() {
+  showJapanese.value = !showJapanese.value
 }
 
 /** ===== Navigation ===== */
@@ -464,7 +433,7 @@ function getRound4Words(setKey: SetKey, g: number, r: number): CardWord[] {
 }
 
 function build8SlotsFrom4WordsFixed(four: CardWord[]): SlotCard[] {
-  const eight = [...four, ...four] // two identical rows
+  const eight = [...four, ...four]
   return eight.map((w, i) => ({
     ...w,
     _slotKey: `${Date.now()}-${Math.random().toString(16).slice(2)}-${i}`,
@@ -477,7 +446,6 @@ function applyRoundCards(setKey: SetKey, g: number, r: number) {
 }
 
 function updateHighlightForBeatInRound(b: number) {
-  // highlight on counts 9–16 => b 8..15
   if (b < 8) {
     highlightedIndex.value = -1
     return
@@ -516,9 +484,7 @@ function resetGameState(fullReset = true) {
   showContinueButton.value = false
   showFinishButton.value = false
 
-  if (fullReset) {
-    gameIndex.value = 0
-  }
+  if (fullReset) gameIndex.value = 0
 }
 
 function stopWebAudio() {
@@ -575,9 +541,7 @@ function onAudioEnded() {
 }
 
 /**
- * Beat scheduler:
- * - Song beats 0..7: INTRO (not part of any round)
- * - Then rounds: 5 * 16 beats
+ * Beat scheduler
  */
 function startBeatScheduler(setKey: SetKey, g: number) {
   const interval = beatIntervalMs.value
@@ -589,24 +553,19 @@ function startBeatScheduler(setKey: SetKey, g: number) {
     const elapsedMs = performance.now() - audioStartPerf
     const songBeat = Math.max(0, Math.floor(elapsedMs / interval))
 
-    // end guard
     if (songBeat >= totalSongBeats) {
       triggerExplodeAndEndOfSegment()
       return
     }
 
-    // corner icons: instant flip each beat
     isBeating.value = songBeat % 2 === 1
 
-    // INTRO beats (0..7)
     if (songBeat < INTRO_BEATS) {
       isIntro8.value = true
       isRound1Deal.value = false
       dealCount.value = 0
       highlightedIndex.value = -1
 
-      // Countdown mapping across 8 beats:
-      // beats 0-1 -> 3, 2-3 -> 2, 4-5 -> 1, 6-7 -> hide overlay
       if (songBeat < 2) countdownNumber.value = 3
       else if (songBeat < 4) countdownNumber.value = 2
       else if (songBeat < 6) countdownNumber.value = 1
@@ -619,25 +578,22 @@ function startBeatScheduler(setKey: SetKey, g: number) {
       return scheduleNext(songBeat + 1, interval)
     }
 
-    // ROUNDS begin after intro
     isIntro8.value = false
     phase.value = 'playing'
 
-    const roundBeat = songBeat - INTRO_BEATS // 0..79
-    const r = Math.floor(roundBeat / beatsPerRound) // 0..4
-    const b = roundBeat % beatsPerRound // 0..15
+    const roundBeat = songBeat - INTRO_BEATS
+    const r = Math.floor(roundBeat / beatsPerRound)
+    const b = roundBeat % beatsPerRound
 
     roundIndex.value = clamp(r, 0, ROUNDS - 1)
     beatInRound.value = b
 
-    // New round boundary
     if (b === 0) {
       applyRoundCards(setKey, g, roundIndex.value)
       highlightedIndex.value = -1
       dealCount.value = 0
     }
 
-    // Round 1: deal in on counts 1–8 (b 0..7)
     if (roundIndex.value === 0 && b < 8) {
       isRound1Deal.value = true
       dealCount.value = b + 1
@@ -657,7 +613,6 @@ function startBeatScheduler(setKey: SetKey, g: number) {
     beatTimeout = window.setTimeout(tick, delay)
   }
 
-  // Prepare visuals
   applyRoundCards(setKey, g, 0)
   dealCount.value = 0
   highlightedIndex.value = -1
@@ -695,7 +650,6 @@ async function startGameInternalForCurrentGame() {
   phase.value = 'loading'
   mode.value = 'game'
 
-  // reset per-game state (do NOT reset gameIndex)
   resetGameState(false)
   visibleCards.value = []
   loadProgress.value = 0
@@ -703,7 +657,6 @@ async function startGameInternalForCurrentGame() {
   const setKey = selectedSetKey.value
   const g = gameIndex.value
 
-  // deterministic preloads (no card images in pronouns set)
   const imgUrls = [bgUrl, cornerTL, cornerTR, cornerBL, cornerBR, homeIconUrl].filter(Boolean)
   const uniqueImgs = Array.from(new Set(imgUrls))
 
@@ -734,7 +687,6 @@ async function startGameInternalForCurrentGame() {
     songDurationSec.value = DEFAULT_SONG_DURATION_SEC
   }
 
-  // show countdown overlay; audio starts underneath it
   phase.value = 'countdown'
   countdownNumber.value = 3
 
@@ -745,7 +697,6 @@ async function startGameInternalForCurrentGame() {
 
   stopWebAudio()
 
-  // fallback visuals-only
   if (!audioBuffer) {
     audioStartPerf = performance.now() + 90
     startBeatScheduler(setKey, g)
@@ -770,7 +721,6 @@ async function startGameInternalForCurrentGame() {
   const startCtxTime = ctx.currentTime + leadMs / 1000
   bufferSource.start(startCtxTime)
 
-  // Anchor beats to audible output
   audioStartPerf = performance.now() + leadMs + latencyMs
 
   bufferSource.onended = () => onAudioEnded()
@@ -788,16 +738,12 @@ async function startGameInternalForCurrentGame() {
 
 /** ===== Lifecycle ===== */
 onMounted(() => {
-  // Prime image assets
   void preloadImagePromise(bgUrl)
   void preloadImagePromise(cornerTL)
   void preloadImagePromise(cornerTR)
   void preloadImagePromise(cornerBL)
   void preloadImagePromise(cornerBR)
   void preloadImagePromise(homeIconUrl)
-
-  // Enforce English always on for pronouns
-  showEnglish.value = true
 })
 
 onBeforeUnmount(() => {
@@ -866,7 +812,7 @@ onBeforeUnmount(() => {
 }
 
 /* ============================================================================
-   CORNER ICONS (instant 15° flip; megaphone larger)
+   CORNER ICONS
    ============================================================================ */
 .corner-icon {
   position: absolute;
@@ -942,8 +888,7 @@ onBeforeUnmount(() => {
   padding: 14px 22px;
   background: rgb(107, 188, 245);
   border: 2px solid rgba(0, 0, 0, 0.22);
-  box-shadow: 6px 10px 0 rgba(0, 0, 0, 0.92);
-
+  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.92); /* moved slightly right */
   color: #ffffff;
   font-weight: 1000;
   letter-spacing: 0.02em;
@@ -959,7 +904,7 @@ onBeforeUnmount(() => {
   padding: 10px 14px;
   background: rgb(185, 255, 205);
   border: 2px solid rgba(0, 0, 0, 0.92);
-  box-shadow: 6px 10px 0 rgba(0, 0, 0, 0.92);
+  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.92); /* moved slightly right */
   font-weight: 1000;
   letter-spacing: 0.02em;
   font-size: clamp(1.25rem, 2.2vw, 1.6rem);
@@ -996,20 +941,8 @@ onBeforeUnmount(() => {
 .menu-card {
   background: rgba(255, 255, 255, 0.7);
   border: 2px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.14);
+  box-shadow: 2px 10px 0 rgba(0, 0, 0, 0.14); /* moved slightly right */
   padding: 14px 14px 12px;
-}
-
-.menu-card--start {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; /* center Play button */
-  gap: 10px;
-}
-
-.menu-card--start .sq-btn--primary {
-  width: min(520px, 90%);
 }
 
 .menu-card__title {
@@ -1024,13 +957,24 @@ onBeforeUnmount(() => {
   gap: 10px;
 }
 
+.menu-play {
+  margin-top: 18px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.menu-play .sq-btn--primary {
+  width: min(520px, 90%);
+}
+
 .menu-warn {
   font-size: 0.92rem;
   color: #6a1b1b;
 }
 
 /* ============================================================================
-   BUTTONS — same as OnTheBeat.vue
+   BUTTONS
    ============================================================================ */
 .sq-btn {
   appearance: none;
@@ -1043,7 +987,7 @@ onBeforeUnmount(() => {
   height: 44px;
   border-radius: 0;
 
-  box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.92);
+  box-shadow: 5px 4px 0 rgba(0, 0, 0, 0.92); /* moved slightly right */
 
   cursor: pointer;
   user-select: none;
@@ -1069,20 +1013,20 @@ onBeforeUnmount(() => {
 
 .sq-btn:hover {
   transform: translateY(-2px) rotate(-1.2deg);
-  box-shadow: 5px 7px 0 rgba(0, 0, 0, 0.92);
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.92);
   border-color: rgba(0, 0, 0, 0.72);
 }
 
 .sq-btn:active {
   transform: translateY(4px) rotate(0deg);
-  box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.92);
+  box-shadow: 5px 4px 0 rgba(0, 0, 0, 0.92);
 }
 
 .sq-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
   transform: none;
-  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.35);
 }
 
 .sq-btn.is-active {
@@ -1138,13 +1082,13 @@ onBeforeUnmount(() => {
   left: 0;
   top: 0;
   opacity: 0.8;
-  display: none; /* keep for debugging, hidden by default */
+  display: none;
 }
 
 .hud-pill {
   background: rgba(255, 255, 255, 0.7);
   border: 2px solid rgba(0, 0, 0, 0.30);
-  box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.22);
+  box-shadow: 5px 4px 0 rgba(0, 0, 0, 0.22); /* moved slightly right */
   border-radius: 0;
   padding: 12px 18px;
   font-weight: 1000;
@@ -1167,7 +1111,7 @@ onBeforeUnmount(() => {
 }
 
 /* ============================================================================
-   FINISH/CONTINUE BUTTON — BIG, CENTERED
+   FINISH/CONTINUE BUTTON
    ============================================================================ */
 .finish-center .sq-btn {
   width: min(520px, 90vw);
@@ -1180,7 +1124,7 @@ onBeforeUnmount(() => {
   padding: 20px 28px;
 
   border-width: 3px;
-  box-shadow: 8px 12px 0 rgba(0, 0, 0, 0.92);
+  box-shadow: 10px 12px 0 rgba(0, 0, 0, 0.92); /* moved slightly right */
 }
 
 /* ============================================================================
@@ -1199,7 +1143,7 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.90);
   border: 2px solid rgba(0, 0, 0, 0.18);
   border-radius: 0;
-  box-shadow: 0 12px 0 rgba(0, 0, 0, 0.18);
+  box-shadow: 2px 12px 0 rgba(0, 0, 0, 0.18); /* moved slightly right */
   overflow: hidden;
   transform: translateZ(0);
   min-height: 240px;
@@ -1225,10 +1169,13 @@ onBeforeUnmount(() => {
   min-height: 1.2em;
 }
 
-/* English centered when there is no image */
 .beat-card__text--center {
   display: grid;
   place-items: center;
+  min-height: 140px;
+}
+
+.beat-card__text--spacer {
   min-height: 140px;
 }
 
@@ -1245,7 +1192,7 @@ onBeforeUnmount(() => {
   outline: 5px solid rgba(0, 0, 0, 0.78);
   outline-offset: -5px;
   transform: translateY(-2px);
-  box-shadow: 0 14px 0 rgba(0, 0, 0, 0.22);
+  box-shadow: 2px 14px 0 rgba(0, 0, 0, 0.22); /* moved slightly right */
 }
 
 .beat-card.deal-in {
@@ -1276,8 +1223,7 @@ onBeforeUnmount(() => {
 @keyframes explodeOut {
   to {
     opacity: 0;
-    transform:
-      translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(var(--sc));
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(var(--sc));
   }
 }
 
@@ -1309,7 +1255,7 @@ onBeforeUnmount(() => {
   width: min(420px, calc(100% - 24px));
   background: rgba(255, 255, 255, 0.82);
   border: 2px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 12px 0 rgba(0, 0, 0, 0.20);
+  box-shadow: 2px 12px 0 rgba(0, 0, 0, 0.20); /* moved slightly right */
   border-radius: 0;
   padding: 18px 16px 16px;
   text-align: center;
