@@ -1,3 +1,4 @@
+
 <!-- src/views/flashcard-system/OnTheBeat.vue -->
 <template>
   <section class="otb-page" :style="rootVars" aria-label="On The Beat">
@@ -11,8 +12,13 @@
     </button>
 
     <!-- Corner icons (instant flip left/right every beat) -->
-    <img class="corner-icon tl corner-icon--mega" :class="{ 'is-beating': isBeating }" :src="cornerTL" alt=""
-      aria-hidden="true" />
+    <img
+      class="corner-icon tl corner-icon--mega"
+      :class="{ 'is-beating': isBeating }"
+      :src="cornerTL"
+      alt=""
+      aria-hidden="true"
+    />
     <img class="corner-icon tr" :class="{ 'is-beating': isBeating }" :src="cornerTR" alt="" aria-hidden="true" />
     <img class="corner-icon bl" :class="{ 'is-beating': isBeating }" :src="cornerBL" alt="" aria-hidden="true" />
     <img class="corner-icon br" :class="{ 'is-beating': isBeating }" :src="cornerBR" alt="" aria-hidden="true" />
@@ -34,43 +40,74 @@
         <div class="menu-card">
           <div class="menu-card__title">Words</div>
           <div class="menu-card__row">
-            <button v-for="n in [3, 4, 5, 6, 7, 8]" :key="n" class="sq-btn" type="button" :disabled="n > maxWordOption"
+            <button
+              v-for="n in [3, 4, 5, 6, 7, 8]"
+              :key="n"
+              class="sq-btn"
+              type="button"
+              :disabled="n > maxWordOption"
               :class="{
                 'is-active': selectedWordCount === n,
                 'is-disabled': n > maxWordOption
-              }" @click="selectWordCount(n)">
+              }"
+              @click="selectWordCount(n)"
+            >
               {{ n }}
             </button>
           </div>
-          
         </div>
-
 
         <!-- Speed -->
         <div class="menu-card">
           <div class="menu-card__title">Speed</div>
           <div class="menu-card__row">
-            <button class="sq-btn" type="button" disabled title="Placeholder">Slow</button>
-            <button class="sq-btn is-active" type="button" @click="speed = 'normal'">Normal</button>
-            <button class="sq-btn" type="button" disabled title="Placeholder">Fast</button>
+            <button class="sq-btn" type="button" :class="{ 'is-active': speed === 'slow' }" @click="speed = 'slow'">
+              Slow
+            </button>
+            <button
+              class="sq-btn"
+              type="button"
+              :class="{ 'is-active': speed === 'normal' }"
+              @click="speed = 'normal'"
+            >
+              Normal
+            </button>
+            <button class="sq-btn" type="button" :class="{ 'is-active': speed === 'fast' }" @click="speed = 'fast'">
+              Fast
+            </button>
+            <button
+              class="sq-btn"
+              type="button"
+              :class="{ 'is-active': speed === 'speedingUp' }"
+              @click="speed = 'speedingUp'"
+              title="Each round gets faster"
+            >
+              Speeding Up
+            </button>
           </div>
-
         </div>
 
         <!-- Text toggles -->
         <div class="menu-card">
           <div class="menu-card__title">Card Text</div>
           <div class="menu-card__row">
-            <button class="sq-btn" type="button" :class="{ 'is-active': showEnglish }"
-              @click="showEnglish = !showEnglish">
+            <button
+              class="sq-btn"
+              type="button"
+              :class="{ 'is-active': showEnglish }"
+              @click="showEnglish = !showEnglish"
+            >
               English
             </button>
-            <button class="sq-btn" type="button" :class="{ 'is-active': showJapanese }"
-              @click="showJapanese = !showJapanese">
+            <button
+              class="sq-btn"
+              type="button"
+              :class="{ 'is-active': showJapanese }"
+              @click="showJapanese = !showJapanese"
+            >
               Japanese
             </button>
           </div>
-
         </div>
 
         <!-- Start -->
@@ -79,7 +116,6 @@
             Start
           </button>
           <div v-if="!canStart" class="menu-warn">This deck has fewer than 3 cards. Add more cards to play.</div>
-
         </div>
       </div>
     </section>
@@ -91,14 +127,6 @@
         <div class="hud-center">
           <div class="hud-pill hud-pill--round">Round {{ roundIndex + 1 }}</div>
         </div>
-
-        <!-- Debug (hide later by CSS) 
-        <div class="hud-debug" aria-hidden="true">
-          <div class="hud-pill hud-pill--debug">
-            Beat {{ beatInRound + 1 }} / 16
-          </div>
-        </div>
-        -->
 
         <div class="hud-right">
           <button class="sq-btn" type="button" @click="stopGameAndReturnToMenu">Stop</button>
@@ -112,20 +140,27 @@
         </div>
 
         <div v-else class="card-grid" role="grid" aria-label="8 cards">
-          <article v-for="(c, i) in visibleCards" :key="c._slotKey" class="beat-card" role="gridcell" :class="[
-            // Intro 8 beats (before Round 1 starts): keep cards hidden
-            isIntro8 ? 'deal-hidden' : '',
+          <article
+            v-for="(c, i) in visibleCards"
+            :key="c._slotKey"
+            class="beat-card"
+            role="gridcell"
+            :class="[
+              // Intro 8 beats (before Round 1 starts): keep cards hidden
+              isIntro8 ? 'deal-hidden' : '',
 
-            // Round 1 counts 1–8: deal in one-by-one (second 8 count of the song is NOT round 1)
-            isRound1Deal && i < dealCount ? 'deal-in' : '',
-            isRound1Deal && i >= dealCount ? 'deal-hidden' : '',
+              // Round 1 counts 1–8: deal in one-by-one (second 8 count of the song is NOT round 1)
+              isRound1Deal && i < dealCount ? 'deal-in' : '',
+              isRound1Deal && i >= dealCount ? 'deal-hidden' : '',
 
-            // Explosion end
-            isExploding ? 'explode-out' : '',
+              // Explosion end
+              isExploding ? 'explode-out' : '',
 
-            // Highlight: counts 9–16 each round
-            highlightedIndex === i ? 'is-highlighted' : ''
-          ]" :style="isExploding ? explodeStyle(i) : undefined">
+              // Highlight: counts 9–16 each round
+              highlightedIndex === i ? 'is-highlighted' : ''
+            ]"
+            :style="isExploding ? explodeStyle(i) : undefined"
+          >
             <div class="beat-card__inner">
               <div v-if="showJapanese" class="beat-card__jp">
                 {{ jpKanji(c) }}
@@ -212,18 +247,44 @@ const props = withDefaults(
 /** ===== Source cards ===== */
 const sourceCards = computed<TransitCard[]>(() => (props.cards?.length ? props.cards : transit.cards))
 
-
 /** ===== Menu state ===== */
 const mode = ref<'menu' | 'game'>('menu')
 const selectedWordCount = ref<number>(8)
-const speed = ref<'normal' | 'slow' | 'fast'>('normal')
+const speed = ref<'normal' | 'slow' | 'fast' | 'speedingUp'>('normal')
 const showEnglish = ref<boolean>(true)
 const showJapanese = ref<boolean>(false)
+
+/** ===== Playback rates (no extra tracks) ===== */
+const SPEED_RATE: Record<'slow' | 'normal' | 'fast', number> = {
+  slow: 0.92,
+  normal: 1.0,
+  fast: 1.08,
+}
+
+/**
+ * Speeding Up profile:
+ * - Round 1 starts slightly slower than normal
+ * - Each new round increases modestly
+ * Keep the range conservative to avoid chipmunk artifacts.
+ */
+const SPEEDING_UP_START = 0.96
+const SPEEDING_UP_STEP = 0.03 // per round boundary (0->1->2->3->4)
+const SPEEDING_UP_MAX = 1.12
+
+const roundPlaybackRate = computed(() => {
+  if (speed.value !== 'speedingUp') return 1.0
+  const r = clamp(roundIndex.value, 0, 4)
+  return clamp(SPEEDING_UP_START + r * SPEEDING_UP_STEP, 0.75, SPEEDING_UP_MAX)
+})
+
+const playbackRate = computed(() => {
+  if (speed.value === 'speedingUp') return roundPlaybackRate.value
+  return SPEED_RATE[speed.value] ?? 1.0
+})
 
 /** ===== Deck cards ===== */
 const allCards = ref<TransitCard[]>([])
 const canStart = computed(() => allCards.value.length >= 3)
-
 const availableCardCount = computed(() => allCards.value.length)
 
 // Max option is capped at 8, but also can’t exceed available cards
@@ -248,31 +309,36 @@ watch(
   { immediate: true }
 )
 
-
 /** ===== Game phases ===== */
 type Phase = 'idle' | 'loading' | 'countdown' | 'playing' | 'finished'
 const phase = ref<Phase>('idle')
 const loadProgress = ref<number>(0)
 const countdownNumber = ref<number>(3)
 
-/** ===== Timing model =====
- * Song structure (beats):
- * - Intro: 8 beats (NOT part of Round 1)
- * - Rounds: 5 rounds * 16 beats = 80 beats
- *   - counts 1–8: show / (Round 1 also deals in here)
- *   - counts 9–16: highlight 1-by-1
- */
+/** ===== Timing model ===== */
 const INTRO_BEATS = 8
 const ROUNDS = 5
 const beatsPerRound = 16
 const DEFAULT_SONG_DURATION_SEC = 30
 const BEAT_SPEED_MULT = 0.88
 
+// Positive values delay the beat counter slightly (visuals start later)
+const BEAT_START_DELAY_MS = 90
+
 const songDurationSec = ref<number>(DEFAULT_SONG_DURATION_SEC)
-const beatIntervalMs = computed(() => {
+
+/**
+ * Base beat interval from song duration, then adjusted by playbackRate.
+ * Faster audio => smaller beat interval; slower audio => larger interval.
+ *
+ * NOTE: For Speeding Up, playbackRate changes each round. We handle that in the scheduler
+ * by using a dynamic interval function rather than freezing it at start.
+ */
+function computeBeatIntervalMs(rate: number) {
   const roundDurationMs = Math.round((songDurationSec.value * 1000) / ROUNDS)
-  return Math.max(80, Math.round((roundDurationMs / beatsPerRound) * BEAT_SPEED_MULT))
-})
+  const base = Math.max(80, Math.round((roundDurationMs / beatsPerRound) * BEAT_SPEED_MULT))
+  return Math.max(40, Math.round(base / rate))
+}
 
 /** ===== Game state ===== */
 const roundIndex = ref<number>(0) // 0..4 (Round 1 == 0)
@@ -284,8 +350,8 @@ const dealCount = ref<number>(0)
 const isBeating = ref<boolean>(false)
 
 /** Intro / deal staging */
-const isIntro8 = ref<boolean>(true)       // song beats 0..7
-const isRound1Deal = ref<boolean>(false)  // round 1 beats 0..7 (counts 1..8)
+const isIntro8 = ref<boolean>(true) // song beats 0..7
+const isRound1Deal = ref<boolean>(false) // round 1 beats 0..7 (counts 1..8)
 
 const isExploding = ref<boolean>(false)
 const showFinishButton = ref<boolean>(false)
@@ -323,14 +389,18 @@ let beatTimeout: number | null = null
 let hardStopTimer: number | null = null
 
 function onExitToDeckViewer() {
-  try { router.back() } catch { /* ignore */ }
+  try {
+    router.back()
+  } catch {
+    /* ignore */
+  }
 }
 
 /** ===== Helpers ===== */
 function shuffleInPlace<T>(a: T[]) {
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-      ;[a[i], a[j]] = [a[j], a[i]]
+    ;[a[i], a[j]] = [a[j], a[i]]
   }
   return a
 }
@@ -380,7 +450,9 @@ function persistSession() {
   try {
     const payload = { cards: allCards.value }
     sessionStorage.setItem(TRANSIT_KEY, JSON.stringify(payload))
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
 }
 
 function hydrateFromSession() {
@@ -391,7 +463,9 @@ function hydrateFromSession() {
     if (Array.isArray(parsed?.cards) && parsed.cards.length) {
       transit.set({ cards: parsed.cards })
     }
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
 }
 
 /** ===== Round word mixing ===== */
@@ -463,7 +537,11 @@ function resetGameState() {
 }
 
 function stopWebAudio() {
-  try { if (bufferSource) bufferSource.stop() } catch { /* ignore */ }
+  try {
+    if (bufferSource) bufferSource.stop()
+  } catch {
+    /* ignore */
+  }
   bufferSource = null
   gainNode = null
   audioStartPerf = 0
@@ -509,28 +587,86 @@ function onAudioEnded() {
 }
 
 /**
- * Beat scheduler:
- * - Song beats 0..7: INTRO (not part of any round)
- * - Then rounds: 5 * 16 beats
- *   - each round: b 0..7 = show/deal, b 8..15 = highlight
+ * Beat scheduler
+ *
+ * We anchor beats to audioStartPerf (audible output time), and compute the beat index
+ * from a piecewise timeline that supports:
+ * - Constant speed modes (slow/normal/fast)
+ * - Speeding Up mode where each round (16 beats) runs at a different rate
  */
 function startBeatScheduler(baseWords: TransitCard[]) {
-  const interval = beatIntervalMs.value
   const totalSongBeats = INTRO_BEATS + ROUNDS * beatsPerRound
+
+  // Precompute beat interval segments (intro + 5 rounds), with optional per-round speed changes.
+  // Segment beats:
+  //  - segment 0: intro 8 beats
+  //  - segment 1..5: rounds 1..5 (each 16 beats)
+  type Segment = { beats: number; intervalMs: number; startBeat: number; startTimeMs: number; rate: number }
+  const segments: Segment[] = []
+
+  const introRate = speed.value === 'speedingUp' ? SPEEDING_UP_START : playbackRate.value
+  const introInterval = computeBeatIntervalMs(introRate)
+
+  segments.push({ beats: INTRO_BEATS, intervalMs: introInterval, startBeat: 0, startTimeMs: 0, rate: introRate })
+
+  let cursorBeat = INTRO_BEATS
+  let cursorTime = INTRO_BEATS * introInterval
+
+  for (let r = 0; r < ROUNDS; r++) {
+    const rate =
+      speed.value === 'speedingUp'
+        ? clamp(SPEEDING_UP_START + r * SPEEDING_UP_STEP, 0.75, SPEEDING_UP_MAX)
+        : playbackRate.value
+
+    const interval = computeBeatIntervalMs(rate)
+    segments.push({
+      beats: beatsPerRound,
+      intervalMs: interval,
+      startBeat: cursorBeat,
+      startTimeMs: cursorTime,
+      rate,
+    })
+
+    cursorBeat += beatsPerRound
+    cursorTime += beatsPerRound * interval
+  }
+
+  // Total effective runtime (for fallback hard-stop accuracy)
+  const totalEffectiveMs = cursorTime
+
+  function findSongBeat(elapsedMs: number) {
+    if (elapsedMs <= 0) return 0
+    for (let s = 0; s < segments.length; s++) {
+      const seg = segments[s]
+      const segEndTime = seg.startTimeMs + seg.beats * seg.intervalMs
+      if (elapsedMs < segEndTime) {
+        const within = Math.floor((elapsedMs - seg.startTimeMs) / seg.intervalMs)
+        return clamp(seg.startBeat + within, seg.startBeat, seg.startBeat + seg.beats - 1)
+      }
+    }
+    return totalSongBeats
+  }
+
+  function currentSegmentForBeat(songBeat: number) {
+    for (let s = segments.length - 1; s >= 0; s--) {
+      const seg = segments[s]
+      if (songBeat >= seg.startBeat) return seg
+    }
+    return segments[0]
+  }
 
   const tick = () => {
     if (phase.value !== 'countdown' && phase.value !== 'playing') return
 
     const elapsedMs = performance.now() - audioStartPerf
-    const songBeat = Math.max(0, Math.floor(elapsedMs / interval))
+    const songBeat = findSongBeat(elapsedMs)
 
-    // end guard
     if (songBeat >= totalSongBeats) {
       triggerExplodeAndFinish()
       return
     }
 
-    // corner icons: instant flip each beat
+    // Corner icons: instant flip each beat
     isBeating.value = (songBeat % 2) === 1
 
     // INTRO beats (0..7): countdown, no round counting
@@ -540,9 +676,6 @@ function startBeatScheduler(baseWords: TransitCard[]) {
       dealCount.value = 0
       highlightedIndex.value = -1
 
-      // Keep HUD stable; roundIndex stays at 0 (shows "Round 1")
-      // Countdown mapping across 8 beats:
-      // beats 0-1 -> 3, 2-3 -> 2, 4-5 -> 1, 6-7 -> hide overlay
       if (songBeat < 2) countdownNumber.value = 3
       else if (songBeat < 4) countdownNumber.value = 2
       else if (songBeat < 6) countdownNumber.value = 1
@@ -551,9 +684,8 @@ function startBeatScheduler(baseWords: TransitCard[]) {
         phase.value = 'playing'
       }
 
-      // For debug only
       beatInRound.value = 0
-      return scheduleNext(songBeat + 1, interval)
+      return scheduleNext(songBeat + 1)
     }
 
     // ROUNDS: start counting AFTER intro 8 beats
@@ -566,6 +698,15 @@ function startBeatScheduler(baseWords: TransitCard[]) {
 
     roundIndex.value = clamp(r, 0, ROUNDS - 1)
     beatInRound.value = b
+
+    // If this is Speeding Up mode, keep audio playback rate aligned with the round rate.
+    if (speed.value === 'speedingUp' && bufferSource) {
+      const desired = clamp(SPEEDING_UP_START + roundIndex.value * SPEEDING_UP_STEP, 0.75, SPEEDING_UP_MAX)
+      // Only update if changed enough to matter (reduces parameter churn).
+      if (Math.abs(bufferSource.playbackRate.value - desired) > 0.001) {
+        bufferSource.playbackRate.value = desired
+      }
+    }
 
     // New round boundary
     if (b === 0) {
@@ -585,12 +726,16 @@ function startBeatScheduler(baseWords: TransitCard[]) {
       updateHighlightForBeatInRound(b)
     }
 
-    return scheduleNext(songBeat + 1, interval)
+    return scheduleNext(songBeat + 1)
   }
 
-  function scheduleNext(nextSongBeat: number, intervalMs: number) {
-    const nextAt = audioStartPerf + nextSongBeat * intervalMs
-    const delay = Math.max(0, nextAt - performance.now())
+  function scheduleNext(nextSongBeat: number) {
+    // Determine when the next beat should occur based on segments.
+    const seg = currentSegmentForBeat(nextSongBeat)
+    const beatOffsetInSeg = nextSongBeat - seg.startBeat
+    const nextElapsedAt = seg.startTimeMs + beatOffsetInSeg * seg.intervalMs
+    const nextAtPerf = audioStartPerf + nextElapsedAt
+    const delay = Math.max(0, nextAtPerf - performance.now())
     beatTimeout = window.setTimeout(tick, delay)
   }
 
@@ -602,13 +747,15 @@ function startBeatScheduler(baseWords: TransitCard[]) {
   isRound1Deal.value = false
 
   tick()
+
+  // Return total effective runtime for fallback hard-stop usage
+  return totalEffectiveMs
 }
 
 /** ===== Start ===== */
 async function startGame() {
   if (!canStart.value) return
 
-  speed.value = 'normal'
   phase.value = 'loading'
   mode.value = 'game'
   resetGameState()
@@ -665,21 +812,32 @@ async function startGame() {
 
   const ctx = await ensureAudioContext()
   if (ctx.state === 'suspended') {
-    await ctx.resume().catch(() => { })
+    await ctx.resume().catch(() => {})
   }
 
   stopWebAudio()
 
-  // fallback visuals-only
+  // Decide initial rate for audio start
+  const initialRate =
+    speed.value === 'speedingUp' ? clamp(SPEEDING_UP_START, 0.75, SPEEDING_UP_MAX) : (SPEED_RATE[speed.value] ?? 1.0)
+
+  // fallback visuals-only (still respects effective timing)
   if (!audioBuffer) {
-    audioStartPerf = performance.now() + 90
-    startBeatScheduler(baseWords)
-    hardStopTimer = window.setTimeout(() => triggerExplodeAndFinish(), Math.round(songDurationSec.value * 1000) + 900)
+    const fallbackLead = 90
+    audioStartPerf = performance.now() + fallbackLead + BEAT_START_DELAY_MS
+
+    const totalEffectiveMs = startBeatScheduler(baseWords) ?? Math.round(songDurationSec.value * 1000)
+
+    hardStopTimer = window.setTimeout(() => triggerExplodeAndFinish(), Math.round(totalEffectiveMs) + 900)
     return
   }
 
   bufferSource = ctx.createBufferSource()
   bufferSource.buffer = audioBuffer
+
+  // ✅ Set initial rate (may increase per round in scheduler)
+  bufferSource.playbackRate.value = initialRate
+
   gainNode = ctx.createGain()
   gainNode.gain.value = 1
   bufferSource.connect(gainNode)
@@ -692,20 +850,18 @@ async function startGame() {
   const startCtxTime = ctx.currentTime + leadMs / 1000
   bufferSource.start(startCtxTime)
 
-  // Anchor beats to audible output
-  audioStartPerf = performance.now() + leadMs + latencyMs
+  // ✅ Anchor beats to audible output, plus a small intentional delay
+  audioStartPerf = performance.now() + leadMs + latencyMs + BEAT_START_DELAY_MS
+
+  // Use scheduler-derived effective runtime (piecewise) so hard-stop stays aligned, including Speeding Up.
+  const totalEffectiveMs = startBeatScheduler(baseWords) ?? Math.round(songDurationSec.value * 1000)
 
   bufferSource.onended = () => onAudioEnded()
-  audioEndTimer = window.setTimeout(
-    () => onAudioEnded(),
-    Math.round(audioBuffer.duration * 1000) + leadMs + latencyMs + 120
-  )
-
-  startBeatScheduler(baseWords)
+  audioEndTimer = window.setTimeout(() => onAudioEnded(), Math.round(totalEffectiveMs) + leadMs + latencyMs + 180)
 
   hardStopTimer = window.setTimeout(() => {
     if (phase.value === 'countdown' || phase.value === 'playing') triggerExplodeAndFinish()
-  }, Math.round(audioBuffer.duration * 1000) + leadMs + latencyMs + 1200)
+  }, Math.round(totalEffectiveMs) + leadMs + latencyMs + 1200)
 }
 
 /** ===== Lifecycle ===== */
@@ -872,7 +1028,6 @@ onBeforeUnmount(() => {
   background: rgb(107, 188, 245);
   border: 2px solid rgba(0, 0, 0, 0.22);
   box-shadow: 6px 10px 0 rgba(0, 0, 0, 0.92);
-  /* Text styling */
   color: #ffffff;
   font-weight: 1000;
   letter-spacing: 0.02em;
@@ -880,7 +1035,6 @@ onBeforeUnmount(() => {
   line-height: 1.05;
   text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.92);
 }
-
 
 .title-sub {
   position: absolute;
@@ -896,18 +1050,15 @@ onBeforeUnmount(() => {
   line-height: 1.05;
   transform-origin: 60% 60%;
   animation: subFlip 1s steps(1, end) infinite;
-  /* instant flip every 0.5s */
 }
 
 @keyframes subFlip {
   0% {
     transform: rotate(-3deg);
   }
-
   50% {
     transform: rotate(3deg);
   }
-
   100% {
     transform: rotate(-3deg);
   }
@@ -916,7 +1067,7 @@ onBeforeUnmount(() => {
 .menu-subtitle {
   margin: 0;
   font-size: 1.02rem;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
   opacity: 0.82;
 }
 
@@ -935,7 +1086,10 @@ onBeforeUnmount(() => {
 .menu-card {
   background: rgba(255, 255, 255, 0.7);
   border: 2px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.14);
+
+  /* moved slightly right */
+  box-shadow: 4px 10px 0 rgba(0, 0, 0, 0.14);
+
   padding: 14px 14px 12px;
 }
 
@@ -956,12 +1110,6 @@ onBeforeUnmount(() => {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
-
-.menu-card__hint {
-  margin-top: 10px;
-  font-size: 0.92rem;
-  opacity: 0.8;
 }
 
 .menu-warn {
@@ -988,14 +1136,12 @@ onBeforeUnmount(() => {
   cursor: pointer;
   user-select: none;
 
-  /* Helps mobile browsers treat taps as immediate interactions */
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 
   font-weight: 900;
   letter-spacing: 0.01em;
 
-  /* IMPORTANT: remove steps(1,end) so press/hover updates immediately */
   transition:
     transform 70ms ease,
     box-shadow 70ms ease,
@@ -1009,18 +1155,12 @@ onBeforeUnmount(() => {
   cursor: not-allowed;
 }
 
-
-/* Slight lift + tiny rotation; shadow moves LESS than the button */
 .sq-btn:hover {
   transform: translateY(-2px) rotate(-1.2deg);
-
-  /* shadow "lags": reduce Y a little, reduce X only a bit */
   box-shadow: 5px 7px 0 rgba(0, 0, 0, 0.92);
-
   border-color: rgba(0, 0, 0, 0.72);
 }
 
-/* Press: button goes down, shadow compresses */
 .sq-btn:active {
   transform: translateY(4px) rotate(0deg);
   box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.92);
@@ -1033,12 +1173,10 @@ onBeforeUnmount(() => {
   box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.35);
 }
 
-/* Selected state: more obvious light green */
 .sq-btn.is-active {
   background: rgba(185, 255, 205, 0.96);
   border-color: rgba(0, 0, 0, 0.74);
 }
-
 
 /* ============================================================================
    GAME LAYOUT
@@ -1105,7 +1243,6 @@ onBeforeUnmount(() => {
   text-align: center;
 }
 
-
 .board {
   width: min(1180px, calc(100% - 32px));
   flex: 1;
@@ -1128,11 +1265,9 @@ onBeforeUnmount(() => {
 
   padding: 20px 28px;
 
-  /* Heavier presence */
   border-width: 3px;
   box-shadow: 8px 12px 0 rgba(0, 0, 0, 0.92);
 }
-
 
 .card-grid {
   width: 100%;
@@ -1147,7 +1282,10 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.90);
   border: 2px solid rgba(0, 0, 0, 0.18);
   border-radius: 0;
-  box-shadow: 0 12px 0 rgba(0, 0, 0, 0.18);
+
+  /* moved slightly right */
+  box-shadow: 4px 12px 0 rgba(0, 0, 0, 0.18);
+
   overflow: hidden;
   transform: translateZ(0);
   min-height: 240px;
@@ -1208,7 +1346,9 @@ onBeforeUnmount(() => {
   outline: 5px solid rgba(0, 0, 0, 0.78);
   outline-offset: -5px;
   transform: translateY(-2px);
-  box-shadow: 0 14px 0 rgba(0, 0, 0, 0.22);
+
+  /* keep highlight shadow consistent with right-shift */
+  box-shadow: 4px 14px 0 rgba(0, 0, 0, 0.22);
 }
 
 .beat-card.deal-in {
@@ -1239,8 +1379,7 @@ onBeforeUnmount(() => {
 @keyframes explodeOut {
   to {
     opacity: 0;
-    transform:
-      translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(var(--sc));
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(var(--sc));
   }
 }
 
@@ -1272,7 +1411,7 @@ onBeforeUnmount(() => {
   width: min(420px, calc(100% - 24px));
   background: rgba(255, 255, 255, 0.82);
   border: 2px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 12px 0 rgba(0, 0, 0, 0.20);
+  box-shadow: 4px 12px 0 rgba(0, 0, 0, 0.20); /* moved slightly right */
   border-radius: 0;
   padding: 18px 16px 16px;
   text-align: center;
@@ -1378,3 +1517,4 @@ onBeforeUnmount(() => {
   }
 }
 </style>
+

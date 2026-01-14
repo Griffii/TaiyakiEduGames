@@ -35,7 +35,8 @@
         <p class="menu-subtitle">A rhythm game</p>
       </header>
 
-      <div class="menu-grid">
+      <!-- Stacked (vertical) menu options -->
+      <div class="menu-stack" aria-label="Menu options">
         <!-- Set selection + Show Words button on the right -->
         <div class="menu-card">
           <div class="menu-card__title">Set</div>
@@ -66,6 +67,35 @@
           </div>
         </div>
 
+        <!-- Speed -->
+        <div class="menu-card">
+          <div class="menu-card__title">Speed</div>
+          <div class="menu-card__row">
+            <button class="sq-btn" type="button" :class="{ 'is-active': speed === 'slow' }" @click="speed = 'slow'">
+              Slow
+            </button>
+            <button
+              class="sq-btn"
+              type="button"
+              :class="{ 'is-active': speed === 'normal' }"
+              @click="speed = 'normal'"
+            >
+              Normal
+            </button>
+            <button class="sq-btn" type="button" :class="{ 'is-active': speed === 'fast' }" @click="speed = 'fast'">
+              Fast
+            </button>
+            <button
+              class="sq-btn"
+              type="button"
+              :class="{ 'is-active': speed === 'speeding' }"
+              @click="speed = 'speeding'"
+            >
+              Speeding Up
+            </button>
+          </div>
+        </div>
+
         <!-- Text toggles -->
         <div class="menu-card">
           <div class="menu-card__title">Card Text</div>
@@ -78,13 +108,14 @@
               English
             </button>
           </div>
+
         </div>
       </div>
 
-      <!-- Play button centered below the options grid (no extra box) -->
+      <!-- Play button centered below the options (no grid) -->
       <div class="menu-play">
         <button class="sq-btn sq-btn--primary" type="button" :disabled="!canStart" @click="startGame">Play</button>
-        <div v-if="!canStart" class="menu-warn">This set is unavailable.</div>
+        <div v-if="!canStart" class="menu-warn">{{ startDisabledReason }}</div>
       </div>
 
       <!-- WORDS MODAL -->
@@ -253,6 +284,7 @@ import songUrl from '@/assets/sounds/music/on-the-beat.mp3'
 type Phase = 'idle' | 'loading' | 'countdown' | 'playing' | 'finished'
 type Mode = 'menu' | 'game'
 type SetKey = 'pronouns' | 'demonstratives'
+type SpeedKey = 'slow' | 'normal' | 'fast' | 'speeding'
 
 type CardWord = {
   english: string
@@ -302,6 +334,47 @@ const selectedSetKey = ref<SetKey>('pronouns')
 // Defaults: JP on, EN on
 const showEnglish = ref<boolean>(true)
 const showJapanese = ref<boolean>(true)
+
+// Speed (4 options)
+const speed = ref<SpeedKey>('normal')
+
+/** ===== Speed model =====
+ * Keep audio + beat tracker in sync.
+ * - slow/normal/fast: constant playback rate
+ * - speeding: rate increases once per round (round 1..5), while beat timing follows the same rate
+ */
+const SPEED_RATE: Record<'slow' | 'normal' | 'fast', number> = {
+  slow: 0.92,
+  normal: 1.0,
+  fast: 1.08,
+}
+
+const SPEEDING_START = 0.92
+const SPEEDING_END = 1.08
+
+function rateForRound(r: number): number {
+  if (speed.value !== 'speeding') {
+    const k = speed.value === 'slow' || speed.value === 'fast' ? speed.value : 'normal'
+    return SPEED_RATE[k as 'slow' | 'normal' | 'fast'] ?? 1.0
+  }
+
+  // r: 0..4 (5 rounds)
+  const step = (SPEEDING_END - SPEEDING_START) / Math.max(1, ROUNDS - 1)
+  return SPEEDING_START + step * clamp(r, 0, ROUNDS - 1)
+}
+
+function rateForBeatIndex(songBeat: number): number {
+  // Keep intro aligned to the same starting rate as round 0
+  if (speed.value !== 'speeding') {
+    const k = speed.value === 'slow' || speed.value === 'fast' ? speed.value : 'normal'
+    return SPEED_RATE[k as 'slow' | 'normal' | 'fast'] ?? 1.0
+  }
+
+  if (songBeat < INTRO_BEATS) return rateForRound(0)
+  const roundBeat = songBeat - INTRO_BEATS
+  const r = Math.floor(roundBeat / beatsPerRound) // 0..4
+  return rateForRound(r)
+}
 
 /** ===== Words modal ===== */
 const showWordsModal = ref<boolean>(false)
@@ -507,14 +580,39 @@ const ROUNDS = 5
 const beatsPerRound = 16
 const DEFAULT_SONG_DURATION_SEC = 30
 
-// Requested speed
-const BEAT_SPEED_MULT = 0.875
+// Beat speed scaling
+const BEAT_SPEED_MULT = 0.88
+
+// Same tiny start delay as the flashcard version (visuals start slightly later)
+const BEAT_START_DELAY_MS = 90
 
 const songDurationSec = ref<number>(DEFAULT_SONG_DURATION_SEC)
-const beatIntervalMs = computed(() => {
+
+/**
+ * Base interval (at rate 1.0). Actual per-beat interval is derived from current rate.
+ * For "Speeding Up" we build a per-beat timing map so the beat tracker stays aligned.
+ */
+const baseBeatIntervalMs = computed(() => {
   const roundDurationMs = Math.round((songDurationSec.value * 1000) / ROUNDS)
-  return Math.max(80, Math.round((roundDurationMs / beatsPerRound) * BEAT_SPEED_MULT))
+  return Math.max(40, Math.max(80, Math.round((roundDurationMs / beatsPerRound) * BEAT_SPEED_MULT)))
 })
+
+/** Built per-start: beatTimesMs[i] = time (ms) from audioStartPerf to beat i */
+const beatTimesMs = ref<number[] | null>(null)
+
+function buildBeatTimesMs(): number[] {
+  const totalBeats = INTRO_BEATS + ROUNDS * beatsPerRound
+  const times: number[] = new Array(totalBeats + 1)
+  times[0] = 0
+
+  for (let b = 0; b < totalBeats; b++) {
+    const rate = Math.max(0.6, rateForBeatIndex(b))
+    const interval = Math.max(30, Math.round(baseBeatIntervalMs.value / rate))
+    times[b + 1] = times[b] + interval
+  }
+
+  return times
+}
 
 /** ===== Beat visuals ===== */
 const isBeating = ref<boolean>(false)
@@ -555,9 +653,17 @@ let beatTimeout: number | null = null
 let hardStopTimer: number | null = null
 
 /** ===== Menu logic ===== */
+const textSelectionValid = computed(() => showEnglish.value || showJapanese.value)
+
 const canStart = computed(() => {
   const set = SETS[selectedSetKey.value]
-  return !!set?.games?.length
+  return !!set?.games?.length && textSelectionValid.value
+})
+
+const startDisabledReason = computed(() => {
+  const setOk = !!SETS[selectedSetKey.value]?.games?.length
+  if (!setOk) return 'This set is unavailable.'
+  return ''
 })
 
 function selectSet(k: SetKey) {
@@ -733,14 +839,23 @@ function onAudioEnded() {
 
 /** ===== Beat scheduler ===== */
 function startBeatScheduler(setKey: SetKey, g: number) {
-  const interval = beatIntervalMs.value
+  const times = beatTimesMs.value ?? buildBeatTimesMs()
+  beatTimesMs.value = times
+
   const totalSongBeats = INTRO_BEATS + ROUNDS * beatsPerRound
+
+  const estimateSongBeat = (elapsedMs: number) => {
+    // small beat count; linear scan is fine and resyncs if the tab lags
+    let b = 0
+    while (b + 1 <= totalSongBeats && times[b + 1] <= elapsedMs) b++
+    return clamp(b, 0, totalSongBeats)
+  }
 
   const tick = () => {
     if (phase.value !== 'countdown' && phase.value !== 'playing') return
 
     const elapsedMs = performance.now() - audioStartPerf
-    const songBeat = Math.max(0, Math.floor(elapsedMs / interval))
+    const songBeat = estimateSongBeat(Math.max(0, elapsedMs))
 
     if (songBeat >= totalSongBeats) {
       triggerExplodeAndEndOfSegment()
@@ -764,7 +879,7 @@ function startBeatScheduler(setKey: SetKey, g: number) {
       }
 
       beatInRound.value = 0
-      return scheduleNext(songBeat + 1, interval)
+      return scheduleNext(songBeat + 1)
     }
 
     isIntro8.value = false
@@ -793,11 +908,11 @@ function startBeatScheduler(setKey: SetKey, g: number) {
       updateHighlightForBeatInRound(b)
     }
 
-    return scheduleNext(songBeat + 1, interval)
+    return scheduleNext(songBeat + 1)
   }
 
-  function scheduleNext(nextSongBeat: number, intervalMs: number) {
-    const nextAt = audioStartPerf + nextSongBeat * intervalMs
+  function scheduleNext(nextSongBeat: number) {
+    const nextAt = audioStartPerf + (times[nextSongBeat] ?? times[times.length - 1])
     const delay = Math.max(0, nextAt - performance.now())
     beatTimeout = window.setTimeout(tick, delay)
   }
@@ -831,6 +946,35 @@ async function continueToNextGame() {
   showFinishButton.value = false
 
   await startGameInternalForCurrentGame()
+}
+
+function scheduleSpeedRamp(ctx: AudioContext, src: AudioBufferSourceNode, startCtxTime: number) {
+  if (speed.value !== 'speeding') return
+
+  // Step rate once per round boundary (excluding intro)
+  // Use the same beat-time map as the scheduler for precise alignment.
+  const times = beatTimesMs.value ?? buildBeatTimesMs()
+  beatTimesMs.value = times
+
+  // initial rate at start
+  src.playbackRate.setValueAtTime(rateForRound(0), startCtxTime)
+
+  for (let r = 1; r < ROUNDS; r++) {
+    const beatAtRoundStart = INTRO_BEATS + r * beatsPerRound
+    const tMs = times[beatAtRoundStart] ?? 0
+    const tSec = tMs / 1000
+    const rt = rateForRound(r)
+    src.playbackRate.setValueAtTime(rt, startCtxTime + tSec)
+  }
+}
+
+function effectiveDurationMs(bufferDurationSec: number): number {
+  // Conservative upper bound; onended is the primary end signal.
+  if (speed.value === 'speeding') {
+    return Math.round((bufferDurationSec * 1000) / Math.max(0.6, SPEEDING_START))
+  }
+  const rt = speed.value === 'slow' || speed.value === 'fast' ? SPEED_RATE[speed.value] : 1.0
+  return Math.round((bufferDurationSec * 1000) / Math.max(0.6, rt))
 }
 
 async function startGameInternalForCurrentGame() {
@@ -889,6 +1033,9 @@ async function startGameInternalForCurrentGame() {
     songDurationSec.value = DEFAULT_SONG_DURATION_SEC
   }
 
+  // Build beat time map now that duration + speed are known
+  beatTimesMs.value = buildBeatTimesMs()
+
   phase.value = 'countdown'
   countdownNumber.value = 3
 
@@ -899,8 +1046,10 @@ async function startGameInternalForCurrentGame() {
 
   stopWebAudio()
 
+  // Fallback visuals-only (still includes the same beat start delay)
   if (!audioBuffer) {
-    audioStartPerf = performance.now() + 90
+    const fallbackLead = 90
+    audioStartPerf = performance.now() + fallbackLead + BEAT_START_DELAY_MS
     startBeatScheduler(setKey, g)
     hardStopTimer = window.setTimeout(
       () => triggerExplodeAndEndOfSegment(),
@@ -911,6 +1060,13 @@ async function startGameInternalForCurrentGame() {
 
   bufferSource = ctx.createBufferSource()
   bufferSource.buffer = audioBuffer
+
+  // Apply playback rate behaviour
+  if (speed.value !== 'speeding') {
+    const rt = speed.value === 'slow' || speed.value === 'fast' ? SPEED_RATE[speed.value] : 1.0
+    bufferSource.playbackRate.value = rt
+  }
+
   gainNode = ctx.createGain()
   gainNode.gain.value = 1
   bufferSource.connect(gainNode)
@@ -921,21 +1077,26 @@ async function startGameInternalForCurrentGame() {
   const latencyMs = Math.max(0, Math.round(latencySec * 1000))
 
   const startCtxTime = ctx.currentTime + leadMs / 1000
+
+  // If speeding up, schedule the per-round rate steps aligned to beats
+  scheduleSpeedRamp(ctx, bufferSource, startCtxTime)
+
   bufferSource.start(startCtxTime)
 
-  audioStartPerf = performance.now() + leadMs + latencyMs
+  // Same small intentional delay before beat visuals begin
+  audioStartPerf = performance.now() + leadMs + latencyMs + BEAT_START_DELAY_MS
 
   bufferSource.onended = () => onAudioEnded()
-  audioEndTimer = window.setTimeout(
-    () => onAudioEnded(),
-    Math.round(audioBuffer.duration * 1000) + leadMs + latencyMs + 120
-  )
+
+  // Use a conservative timer (onended is primary)
+  const endMs = effectiveDurationMs(audioBuffer.duration)
+  audioEndTimer = window.setTimeout(() => onAudioEnded(), endMs + leadMs + latencyMs + 200)
 
   startBeatScheduler(setKey, g)
 
   hardStopTimer = window.setTimeout(() => {
     if (phase.value === 'countdown' || phase.value === 'playing') triggerExplodeAndEndOfSegment()
-  }, Math.round(audioBuffer.duration * 1000) + leadMs + latencyMs + 1200)
+  }, endMs + leadMs + latencyMs + 1200)
 }
 
 /** ===== Lifecycle ===== */
@@ -1116,28 +1277,29 @@ onBeforeUnmount(() => {
 }
 
 @keyframes subFlip {
-  0% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-  100% { transform: rotate(-3deg); }
+  0% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(-3deg);
+  }
 }
 
 .menu-subtitle {
   margin: 0;
   font-size: 1.02rem;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
   opacity: 0.82;
 }
 
-.menu-grid {
+/* Stacked menu (vertical) */
+.menu-stack {
   display: grid;
   grid-template-columns: 1fr;
   gap: 14px;
-}
-
-@media (min-width: 820px) {
-  .menu-grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 .menu-card {
@@ -1572,10 +1734,11 @@ onBeforeUnmount(() => {
   min-height: 140px;
 }
 
+/* ✅ Larger English text in-game */
 .beat-card__en {
   font-weight: 1000;
-  font-size: 1.7rem;
-  line-height: 1.1;
+  font-size: 2.05rem;
+  line-height: 1.08;
   word-break: break-word;
   padding: 0 10px;
   text-align: center;
@@ -1734,7 +1897,7 @@ onBeforeUnmount(() => {
   }
 
   .beat-card__en {
-    font-size: 1.4rem;
+    font-size: 1.7rem;
   }
 
   .beat-card__jp {
@@ -1748,5 +1911,10 @@ onBeforeUnmount(() => {
     grid-template-rows: repeat(4, auto);
     gap: 8px;
   }
+
+  .beat-card__en {
+    font-size: 1.55rem;
+  }
 }
 </style>
+
