@@ -1,0 +1,1 @@
+const a="/TaiyakiEduGames/assets/crumpled-paper-01-DgenSUyW.png",s="/TaiyakiEduGames/assets/lightning-CCXBJAMJ.png",i="/TaiyakiEduGames/assets/exclamation-B3f_PXL-.png",n="/TaiyakiEduGames/assets/lightbulb-BjCfPZLz.png",t="/TaiyakiEduGames/assets/on-the-beat-Da7e9R4L.mp3";export{i as a,a as b,n as c,s as i,t as s};
