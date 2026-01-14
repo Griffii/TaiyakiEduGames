@@ -78,7 +78,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/memory/:id', name: 'memory', component: () => import('@/views/flashcard-system/MemoryGame.vue'), meta: { hideHeader: true } },
   { path: '/missing/:id', name: 'missing', component: () => import('@/views/flashcard-system/WhatsMissing.vue'), meta: { hideHeader: true } },
   { path: '/shuffle/:id', name: 'shuffle', component: () => import('@/views/flashcard-system/ShuffleGame.vue'), meta: { hideHeader: true } },
-  { path: '/onthebeat/:id', name: 'onthebeat', component: () => import('@/views/flashcard-system/OnTheBeat.vue'), meta: { hideHeader: true } },
+  { path: '/onthebeat-flashcards/:id', name: 'onthebeat-flashcards', component: () => import('@/views/flashcard-system/OnTheBeatFlashcards.vue'), meta: { hideHeader: true } },
 
   // Custom Decks Views
   { path: '/custom-decks', name: 'custom-decks', component: () => import('@/views/flashcard-system/CustomDecks.vue'), meta: { authRequired: true } },
@@ -97,6 +97,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/wordle', name: 'wordle', component: () => import('@/views/games/Wordle.vue'), meta: { hideHeader: true } },
   { path: '/othello', name: 'othello', component: () => import('@/views/games/Othello.vue'), meta: { hideHeader: true } },
   { path: '/omikuji', name: 'omikuji', component: () => import('@/views/games/OmikujiGame.vue'), meta: { hideHeader: true } },
+  { path: '/onthebeat', name: 'onthebeat', component: () => import('@/views/games/OnTheBeat.vue'), meta: { hideHeader: true } },
 ]
 
 export const router = createRouter({

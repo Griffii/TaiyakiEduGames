@@ -571,7 +571,7 @@ async function startGame(
     const payload = await common(); if (!payload) return;
     gameTransit.set({ cards: payload, mode: "onthebeat" });
     sessionStorage.setItem("eitake.memory.transit.v1", JSON.stringify({ cards: payload, mode: "onthebeat" }));
-    router.push({ name: "onthebeat", params: { id: currentDeckId } });
+    router.push({ name: "onthebeat-flashcards", params: { id: currentDeckId } });
 
   }
 }

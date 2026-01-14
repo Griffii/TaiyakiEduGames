@@ -266,7 +266,7 @@ const INTRO_BEATS = 8
 const ROUNDS = 5
 const beatsPerRound = 16
 const DEFAULT_SONG_DURATION_SEC = 30
-const BEAT_SPEED_MULT = 0.885
+const BEAT_SPEED_MULT = 0.88
 
 const songDurationSec = ref<number>(DEFAULT_SONG_DURATION_SEC)
 const beatIntervalMs = computed(() => {
