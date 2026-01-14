@@ -1,6 +1,7 @@
-<!-- src/views/flashcard-system/OnTheBeatPronouns.vue -->
+
+<!-- src/views/flashcard-system/OnTheBeat.vue -->
 <template>
-  <section class="otb-page" :style="rootVars" aria-label="On The Beat — Pronouns">
+  <section class="otb-page" :style="rootVars" aria-label="On The Beat">
     <!-- Background -->
     <div class="otb-bg" aria-hidden="true"></div>
     <div class="otb-bg-overlay" aria-hidden="true"></div>
@@ -35,18 +36,33 @@
       </header>
 
       <div class="menu-grid">
-        <!-- Set selection -->
+        <!-- Set selection + Show Words button on the right -->
         <div class="menu-card">
           <div class="menu-card__title">Set</div>
-          <div class="menu-card__row">
-            <button
-              class="sq-btn"
-              type="button"
-              :class="{ 'is-active': selectedSetKey === 'pronouns' }"
-              @click="selectSet('pronouns')"
-            >
-              Pronouns
-            </button>
+          <div class="menu-card__row menu-card__row--between">
+            <div class="menu-card__row-left">
+              <button
+                class="sq-btn"
+                type="button"
+                :class="{ 'is-active': selectedSetKey === 'pronouns' }"
+                @click="selectSet('pronouns')"
+              >
+                Pronouns
+              </button>
+
+              <button
+                class="sq-btn"
+                type="button"
+                :class="{ 'is-active': selectedSetKey === 'demonstratives' }"
+                @click="selectSet('demonstratives')"
+              >
+                This / That
+              </button>
+            </div>
+
+            <div class="menu-card__row-right">
+              <button class="sq-btn" type="button" @click="openWordsModal">Show Words</button>
+            </div>
           </div>
         </div>
 
@@ -67,11 +83,74 @@
 
       <!-- Play button centered below the options grid (no extra box) -->
       <div class="menu-play">
-        <button class="sq-btn sq-btn--primary" type="button" :disabled="!canStart" @click="startGame">
-          Play
-        </button>
+        <button class="sq-btn sq-btn--primary" type="button" :disabled="!canStart" @click="startGame">Play</button>
         <div v-if="!canStart" class="menu-warn">This set is unavailable.</div>
       </div>
+
+      <!-- WORDS MODAL -->
+      <teleport to="body">
+        <div
+          v-if="showWordsModal"
+          class="words-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Words in set"
+          @click.self="closeWordsModal"
+        >
+          <section class="words-modal">
+            <header class="words-modal__head">
+              <div class="words-modal__title">Words — {{ activeSetLabel }}</div>
+
+              <div class="words-modal__actions">
+                <button class="sq-btn" type="button" @click="closeWordsModal">Close</button>
+              </div>
+            </header>
+
+            <div class="words-modal__meta">
+              <div class="words-pill">Rounds: {{ allRoundsInSet.length }}</div>
+              <div class="words-pill">Cards: {{ allRoundsInSet.length * 8 }}</div>
+              <div class="words-pill" v-if="showJapanese">JP: On</div>
+              <div class="words-pill" v-else>JP: Off</div>
+              <div class="words-pill" v-if="showEnglish">EN: On</div>
+              <div class="words-pill" v-else>EN: Off</div>
+            </div>
+
+            <div class="words-grid-wrap" aria-label="Words grid (scrollable)">
+              <div class="words-rounds">
+                <section v-for="round in allRoundsInSet" :key="round._key" class="words-round">
+                  <header class="words-round__head">
+                    <div class="words-round__title">Game {{ round.gameIndex + 1 }} — Round {{ round.roundIndex + 1 }}</div>
+                  </header>
+
+                  <div class="words-grid">
+                    <article v-for="(w, idx) in round.words" :key="w._key + '-' + idx" class="words-card">
+                      <div class="words-card__inner">
+                        <!-- Image if present -->
+                        <div v-if="w.img" class="words-card__img">
+                          <img :src="w.img" alt="" loading="lazy" />
+                        </div>
+
+                        <!-- Text block -->
+                        <div class="words-card__text" :class="{ 'words-card__text--noimg': !w.img }">
+                          <div v-if="showJapanese" class="words-card__jp">
+                            {{ w.jp }}
+                          </div>
+                          <div v-if="showEnglish" class="words-card__en">
+                            {{ w.english }}
+                          </div>
+
+                          <!-- If both toggles are off, keep a placeholder so cards don't look empty -->
+                          <div v-if="!showJapanese && !showEnglish" class="words-card__empty">(Text hidden)</div>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </section>
+        </div>
+      </teleport>
     </section>
 
     <!-- GAME -->
@@ -95,18 +174,11 @@
       <div class="board" aria-label="Card board">
         <!-- Continue/Finish buttons appear where the cards used to be -->
         <div v-if="showContinueButton || showFinishButton" class="finish-center" aria-label="Continue/Finish">
-          <button
-            v-if="showContinueButton"
-            class="sq-btn sq-btn--primary"
-            type="button"
-            @click="continueToNextGame"
-          >
+          <button v-if="showContinueButton" class="sq-btn sq-btn--primary" type="button" @click="continueToNextGame">
             Continue
           </button>
 
-          <button v-else class="sq-btn sq-btn--primary" type="button" @click="returnToMenuFromFinish">
-            Finish
-          </button>
+          <button v-else class="sq-btn sq-btn--primary" type="button" @click="returnToMenuFromFinish">Finish</button>
         </div>
 
         <div v-else class="card-grid" role="grid" aria-label="8 cards">
@@ -116,17 +188,10 @@
             class="beat-card no-image"
             role="gridcell"
             :class="[
-              // Intro 8 beats (before Round 1 starts): keep cards hidden
               isIntro8 ? 'deal-hidden' : '',
-
-              // Round 1 counts 1–8: deal in one-by-one
               isRound1Deal && i < dealCount ? 'deal-in' : '',
               isRound1Deal && i >= dealCount ? 'deal-hidden' : '',
-
-              // Explosion end
               isExploding ? 'explode-out' : '',
-
-              // Highlight: counts 9–16 each round
               highlightedIndex === i ? 'is-highlighted' : ''
             ]"
             :style="isExploding ? explodeStyle(i) : undefined"
@@ -142,7 +207,6 @@
                 </div>
               </div>
 
-              <!-- If English is off, keep layout stable (so JP stays near top) -->
               <div v-else class="beat-card__text beat-card__text--spacer" aria-hidden="true"></div>
             </div>
           </article>
@@ -188,14 +252,35 @@ import songUrl from '@/assets/sounds/music/on-the-beat.mp3'
 
 type Phase = 'idle' | 'loading' | 'countdown' | 'playing' | 'finished'
 type Mode = 'menu' | 'game'
-type SetKey = 'pronouns'
+type SetKey = 'pronouns' | 'demonstratives'
 
 type CardWord = {
   english: string
   jp: string
+  img?: string | null
+}
+
+// A round can be authored as either:
+// - 4 words (legacy: auto-duplicated to 8)
+// - 8 words (new: explicit 8-slot sequence, supports 8 unique and/or custom ordering)
+type RoundWords = CardWord[]
+
+type SetDef = {
+  label: string
+  games: RoundWords[][] // games[g][r] = round words (4 or 8; normalized at runtime)
 }
 
 type SlotCard = CardWord & { _slotKey: string }
+
+// For modal display (stable-ish key)
+type ModalCard = CardWord & { _key: string }
+
+type ModalRound = {
+  _key: string
+  gameIndex: number
+  roundIndex: number
+  words: ModalCard[] // length 8
+}
 
 const router = useRouter()
 
@@ -214,19 +299,20 @@ const cornerBR = iconLightbulb
 const mode = ref<Mode>('menu')
 const selectedSetKey = ref<SetKey>('pronouns')
 
-// Requested defaults:
-// - Japanese ON by default
-// - English ON by default (user can toggle off)
+// Defaults: JP on, EN on
 const showEnglish = ref<boolean>(true)
 const showJapanese = ref<boolean>(true)
+
+/** ===== Words modal ===== */
+const showWordsModal = ref<boolean>(false)
 
 /** ===== Game phases ===== */
 const phase = ref<Phase>('idle')
 const loadProgress = ref<number>(0)
 const countdownNumber = ref<number>(3)
 
-/** ===== Pronouns hard-coded set ===== */
-const PRONOUNS_SET = {
+/** ===== Sets ===== */
+const PRONOUNS_SET: SetDef = {
   label: 'Pronouns',
   games: [
     // Game 1 (5 rounds)
@@ -296,10 +382,63 @@ const PRONOUNS_SET = {
       ],
     ],
   ],
-} as const
+}
 
-const SETS: Record<SetKey, typeof PRONOUNS_SET> = {
+const DEMONSTRATIVES_SET: SetDef = {
+  label: 'This / That',
+  games: [
+    // Only 1 game (5 rounds)
+    [
+      // Round 1
+      [
+        { english: 'this', jp: 'これ' },
+        { english: 'that', jp: 'それ' },
+        { english: 'these', jp: 'これら' },
+        { english: 'those', jp: 'それら' },
+      ],
+
+      // Round 2 (still authored as 4; will auto-duplicate)
+      [
+        { english: 'here', jp: 'ここ' },
+        { english: 'there', jp: 'そこ' },
+        { english: 'near', jp: 'ちかく' },
+        { english: 'far', jp: 'とおく' },
+      ],
+
+      // Round 3
+      [
+        { english: 'this', jp: 'これ' },
+        { english: 'here', jp: 'ここ' },
+        { english: 'that', jp: 'それ' },
+        { english: 'there', jp: 'そこ' },
+      ],
+
+      // Round 4
+      [
+        { english: 'this', jp: 'これ' },
+        { english: 'near', jp: 'ちかく' },
+        { english: 'there', jp: 'そこ' },
+        { english: 'far', jp: 'とおく' },
+      ],
+
+      // Round 5 (explicit 8 words: line 1 + line 2, not forced to repeat)
+      [
+        { english: 'this', jp: 'これ' },
+        { english: 'that', jp: 'それ' },
+        { english: 'these', jp: 'これら' },
+        { english: 'those', jp: 'それら' },
+        { english: 'here', jp: 'ここ' },
+        { english: 'there', jp: 'そこ' },
+        { english: 'near', jp: 'ちかく' },
+        { english: 'far', jp: 'とおく' },
+      ],
+    ],
+  ],
+}
+
+const SETS: Record<SetKey, SetDef> = {
   pronouns: PRONOUNS_SET,
+  demonstratives: DEMONSTRATIVES_SET,
 }
 
 /** ===== Multi-game ===== */
@@ -316,6 +455,51 @@ const overallRoundNumber = computed(() => gameIndex.value * 5 + roundIndex.value
 
 const showContinueButton = ref<boolean>(false)
 const showFinishButton = ref<boolean>(false)
+
+/** ===== Modal computed: group by rounds (8 words each, with gaps) ===== */
+const activeSetLabel = computed(() => SETS[selectedSetKey.value].label)
+
+function normalizeRoundTo8(words: CardWord[]): CardWord[] {
+  if (words.length === 8) return words
+  if (words.length === 4) return [...words, ...words]
+
+  if (words.length < 8) {
+    const out: CardWord[] = []
+    let i = 0
+    while (out.length < 8) {
+      out.push(words[i % words.length])
+      i++
+    }
+    return out
+  }
+
+  return words.slice(0, 8)
+}
+
+const allRoundsInSet = computed<ModalRound[]>(() => {
+  const set = SETS[selectedSetKey.value]
+  const out: ModalRound[] = []
+
+  for (let g = 0; g < set.games.length; g++) {
+    for (let r = 0; r < set.games[g].length; r++) {
+      const eight = normalizeRoundTo8(set.games[g][r])
+
+      const words: ModalCard[] = eight.map((w, i) => ({
+        ...w,
+        _key: `${selectedSetKey.value}-${g}-${r}-${i}-${w.english}-${w.jp}-${w.img ?? ''}`,
+      }))
+
+      out.push({
+        _key: `${selectedSetKey.value}-g${g}-r${r}`,
+        gameIndex: g,
+        roundIndex: r,
+        words,
+      })
+    }
+  }
+
+  return out
+})
 
 /** ===== Timing model ===== */
 const INTRO_BEATS = 8
@@ -388,6 +572,15 @@ function toggleJapanese() {
   showJapanese.value = !showJapanese.value
 }
 
+/** ===== Words modal controls ===== */
+function openWordsModal() {
+  showWordsModal.value = true
+}
+
+function closeWordsModal() {
+  showWordsModal.value = false
+}
+
 /** ===== Navigation ===== */
 function onExitToDeckViewer() {
   try {
@@ -425,15 +618,13 @@ async function loadSongBuffer(url: string): Promise<AudioBuffer> {
 }
 
 /** ===== Round building (fixed order, no randomness) ===== */
-function getRound4Words(setKey: SetKey, g: number, r: number): CardWord[] {
+function getRoundWords(setKey: SetKey, g: number, r: number): CardWord[] {
   const set = SETS[setKey]
-  const game = set.games[g]
-  const round = game[r]
-  return round as unknown as CardWord[]
+  const round = set.games[g][r]
+  return normalizeRoundTo8(round)
 }
 
-function build8SlotsFrom4WordsFixed(four: CardWord[]): SlotCard[] {
-  const eight = [...four, ...four]
+function build8SlotsFromRoundWords(eight: CardWord[]): SlotCard[] {
   return eight.map((w, i) => ({
     ...w,
     _slotKey: `${Date.now()}-${Math.random().toString(16).slice(2)}-${i}`,
@@ -441,8 +632,8 @@ function build8SlotsFrom4WordsFixed(four: CardWord[]): SlotCard[] {
 }
 
 function applyRoundCards(setKey: SetKey, g: number, r: number) {
-  const four = getRound4Words(setKey, g, r)
-  visibleCards.value = build8SlotsFrom4WordsFixed(four)
+  const eight = getRoundWords(setKey, g, r)
+  visibleCards.value = build8SlotsFromRoundWords(eight)
 }
 
 function updateHighlightForBeatInRound(b: number) {
@@ -540,9 +731,7 @@ function onAudioEnded() {
   triggerExplodeAndEndOfSegment()
 }
 
-/**
- * Beat scheduler
- */
+/** ===== Beat scheduler ===== */
 function startBeatScheduler(setKey: SetKey, g: number) {
   const interval = beatIntervalMs.value
   const totalSongBeats = INTRO_BEATS + ROUNDS * beatsPerRound
@@ -657,7 +846,20 @@ async function startGameInternalForCurrentGame() {
   const setKey = selectedSetKey.value
   const g = gameIndex.value
 
-  const imgUrls = [bgUrl, cornerTL, cornerTR, cornerBL, cornerBR, homeIconUrl].filter(Boolean)
+  // preload: include any card images in the set (future-proof)
+  const set = SETS[setKey]
+  const cardImgs: string[] = []
+  for (let gi = 0; gi < set.games.length; gi++) {
+    for (let ri = 0; ri < set.games[gi].length; ri++) {
+      const eight = normalizeRoundTo8(set.games[gi][ri])
+      for (let wi = 0; wi < eight.length; wi++) {
+        const u = eight[wi]?.img
+        if (u) cardImgs.push(u)
+      }
+    }
+  }
+
+  const imgUrls = [bgUrl, cornerTL, cornerTR, cornerBL, cornerBR, homeIconUrl, ...cardImgs].filter(Boolean)
   const uniqueImgs = Array.from(new Set(imgUrls))
 
   const totalSteps = uniqueImgs.length + 1
@@ -888,7 +1090,7 @@ onBeforeUnmount(() => {
   padding: 14px 22px;
   background: rgb(107, 188, 245);
   border: 2px solid rgba(0, 0, 0, 0.22);
-  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.92); /* moved slightly right */
+  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.92);
   color: #ffffff;
   font-weight: 1000;
   letter-spacing: 0.02em;
@@ -904,7 +1106,7 @@ onBeforeUnmount(() => {
   padding: 10px 14px;
   background: rgb(185, 255, 205);
   border: 2px solid rgba(0, 0, 0, 0.92);
-  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.92); /* moved slightly right */
+  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.92);
   font-weight: 1000;
   letter-spacing: 0.02em;
   font-size: clamp(1.25rem, 2.2vw, 1.6rem);
@@ -941,7 +1143,7 @@ onBeforeUnmount(() => {
 .menu-card {
   background: rgba(255, 255, 255, 0.7);
   border: 2px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 2px 10px 0 rgba(0, 0, 0, 0.14); /* moved slightly right */
+  box-shadow: 2px 10px 0 rgba(0, 0, 0, 0.14);
   padding: 14px 14px 12px;
 }
 
@@ -954,6 +1156,18 @@ onBeforeUnmount(() => {
 .menu-card__row {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+}
+
+.menu-card__row--between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-card__row-left,
+.menu-card__row-right {
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -987,7 +1201,7 @@ onBeforeUnmount(() => {
   height: 44px;
   border-radius: 0;
 
-  box-shadow: 5px 4px 0 rgba(0, 0, 0, 0.92); /* moved slightly right */
+  box-shadow: 5px 4px 0 rgba(0, 0, 0, 0.92);
 
   cursor: pointer;
   user-select: none;
@@ -1040,6 +1254,185 @@ onBeforeUnmount(() => {
 }
 
 /* ============================================================================
+   WORDS MODAL
+   ============================================================================ */
+.words-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(2px) saturate(115%);
+  -webkit-backdrop-filter: blur(2px) saturate(115%);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.words-modal {
+  width: min(980px, calc(100vw - 28px));
+  max-height: min(78vh, 760px);
+  background: rgba(255, 255, 255, 0.92);
+  border: 3px solid rgba(0, 0, 0, 0.22);
+  box-shadow: 10px 14px 0 rgba(0, 0, 0, 0.92);
+  border-radius: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+}
+
+.words-modal__head {
+  padding: 12px 12px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.words-modal__title {
+  font-weight: 1000;
+  letter-spacing: 0.02em;
+  font-size: 1.2rem;
+}
+
+.words-modal__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.words-modal__meta {
+  padding: 10px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.words-pill {
+  padding: 6px 10px;
+  border: 2px solid rgba(0, 0, 0, 0.18);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.20);
+  background: rgba(255, 255, 255, 0.9);
+  font-weight: 900;
+  font-size: 0.95rem;
+}
+
+.words-grid-wrap {
+  padding: 12px;
+  overflow: auto;
+}
+
+.words-rounds {
+  display: grid;
+  gap: 14px; /* gap between each 8-word round block */
+}
+
+.words-round {
+  padding-bottom: 14px;
+  border-bottom: 2px dashed rgba(0, 0, 0, 0.14);
+}
+
+.words-round:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.words-round__head {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.words-round__title {
+  font-weight: 1000;
+  letter-spacing: 0.02em;
+  opacity: 0.92;
+}
+
+.words-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 920px) {
+  .words-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .words-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.words-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 2px 10px 0 rgba(0, 0, 0, 0.18);
+  border-radius: 0;
+  overflow: hidden;
+  min-height: 140px;
+}
+
+.words-card__inner {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.words-card__img {
+  height: 92px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.75);
+  display: grid;
+  place-items: center;
+}
+
+.words-card__img img {
+  max-width: 90%;
+  max-height: 84px;
+  display: block;
+  object-fit: contain;
+}
+
+.words-card__text {
+  padding: 10px 10px 10px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.words-card__text--noimg {
+  min-height: 140px;
+}
+
+.words-card__jp {
+  font-weight: 1000;
+  font-size: 1.05rem;
+  line-height: 1.1;
+}
+
+.words-card__en {
+  font-weight: 950;
+  font-size: 1.1rem;
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+.words-card__empty {
+  font-weight: 900;
+  opacity: 0.7;
+}
+
+/* ============================================================================
    GAME LAYOUT
    ============================================================================ */
 .game {
@@ -1088,7 +1481,7 @@ onBeforeUnmount(() => {
 .hud-pill {
   background: rgba(255, 255, 255, 0.7);
   border: 2px solid rgba(0, 0, 0, 0.30);
-  box-shadow: 5px 4px 0 rgba(0, 0, 0, 0.22); /* moved slightly right */
+  box-shadow: 5px 4px 0 rgba(0, 0, 0, 0.22);
   border-radius: 0;
   padding: 12px 18px;
   font-weight: 1000;
@@ -1124,7 +1517,7 @@ onBeforeUnmount(() => {
   padding: 20px 28px;
 
   border-width: 3px;
-  box-shadow: 10px 12px 0 rgba(0, 0, 0, 0.92); /* moved slightly right */
+  box-shadow: 10px 12px 0 rgba(0, 0, 0, 0.92);
 }
 
 /* ============================================================================
@@ -1143,7 +1536,7 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.90);
   border: 2px solid rgba(0, 0, 0, 0.18);
   border-radius: 0;
-  box-shadow: 2px 12px 0 rgba(0, 0, 0, 0.18); /* moved slightly right */
+  box-shadow: 2px 12px 0 rgba(0, 0, 0, 0.18);
   overflow: hidden;
   transform: translateZ(0);
   min-height: 240px;
@@ -1192,7 +1585,7 @@ onBeforeUnmount(() => {
   outline: 5px solid rgba(0, 0, 0, 0.78);
   outline-offset: -5px;
   transform: translateY(-2px);
-  box-shadow: 2px 14px 0 rgba(0, 0, 0, 0.22); /* moved slightly right */
+  box-shadow: 2px 14px 0 rgba(0, 0, 0, 0.22);
 }
 
 .beat-card.deal-in {
@@ -1228,7 +1621,7 @@ onBeforeUnmount(() => {
 }
 
 /* ============================================================================
-   OVERLAYS
+   OVERLAYS (game)
    ============================================================================ */
 .overlay {
   position: fixed;
@@ -1255,7 +1648,7 @@ onBeforeUnmount(() => {
   width: min(420px, calc(100% - 24px));
   background: rgba(255, 255, 255, 0.82);
   border: 2px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 2px 12px 0 rgba(0, 0, 0, 0.20); /* moved slightly right */
+  box-shadow: 2px 12px 0 rgba(0, 0, 0, 0.20);
   border-radius: 0;
   padding: 18px 16px 16px;
   text-align: center;
