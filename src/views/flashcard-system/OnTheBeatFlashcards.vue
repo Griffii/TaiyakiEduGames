@@ -320,10 +320,10 @@ const INTRO_BEATS = 8
 const ROUNDS = 5
 const beatsPerRound = 16
 const DEFAULT_SONG_DURATION_SEC = 30
-const BEAT_SPEED_MULT = 0.88
+const BEAT_SPEED_MULT = 0.875
 
 // Positive values delay the beat counter slightly (visuals start later)
-const BEAT_START_DELAY_MS = 90
+const BEAT_START_DELAY_MS = 100
 
 const songDurationSec = ref<number>(DEFAULT_SONG_DURATION_SEC)
 
