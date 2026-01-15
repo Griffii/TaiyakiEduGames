@@ -581,10 +581,10 @@ const beatsPerRound = 16
 const DEFAULT_SONG_DURATION_SEC = 30
 
 // Beat speed scaling
-const BEAT_SPEED_MULT = 0.88
+const BEAT_SPEED_MULT = 0.875
 
-// Same tiny start delay as the flashcard version (visuals start slightly later)
-const BEAT_START_DELAY_MS = 90
+// Tiny start delay 
+const BEAT_START_DELAY_MS = 100
 
 const songDurationSec = ref<number>(DEFAULT_SONG_DURATION_SEC)
 
