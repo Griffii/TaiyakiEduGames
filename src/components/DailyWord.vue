@@ -1,12 +1,10 @@
 <!-- src/components/DailyWord.vue -->
 <template>
   <section class="dw-root" aria-label="Daily Word">
-    <!-- Date at very top -->
     <header class="dw-top">
       <div class="dw-date">{{ headerDate }}</div>
     </header>
 
-    <!-- Loading -->
     <div v-if="loading" class="dw-body">
       <div class="dw-skel dw-skel-word"></div>
       <div class="dw-skel dw-skel-pos"></div>
@@ -14,9 +12,8 @@
       <div class="dw-skel dw-skel-def"></div>
     </div>
 
-    <!-- Error -->
     <div v-else-if="error" class="dw-body">
-      <div class="dw-word">{{ display.word }}</div>
+      <div class="dw-word">{{ display.term }}</div>
 
       <div v-if="display.pos" class="dw-pos">
         {{ display.pos }}
@@ -24,6 +21,12 @@
 
       <div class="dw-def">
         {{ display.definition }}
+      </div>
+
+      <div v-if="display.example" class="dw-divider" aria-hidden="true"></div>
+
+      <div v-if="display.example" class="dw-ex">
+        {{ display.example }}
       </div>
 
       <div class="dw-error-msg">
@@ -34,12 +37,20 @@
         <div class="dw-source">
           Source: {{ display.provider }}
         </div>
+
+        <button
+          class="dw-lang-btn"
+          type="button"
+          :aria-pressed="showJapanese"
+          @click="toggleLang"
+        >
+          {{ showJapanese ? "EN" : "日本語" }}
+        </button>
       </footer>
     </div>
 
-    <!-- Content -->
     <div v-else class="dw-body">
-      <div class="dw-word">{{ display.word }}</div>
+      <div class="dw-word">{{ display.term }}</div>
 
       <div v-if="display.pos" class="dw-pos">
         {{ display.pos }}
@@ -49,10 +60,25 @@
         {{ display.definition }}
       </div>
 
+      <div v-if="display.example" class="dw-divider" aria-hidden="true"></div>
+
+      <div v-if="display.example" class="dw-ex">
+        {{ display.example }}
+      </div>
+
       <footer class="dw-foot">
         <div class="dw-source">
           Source: {{ display.provider }}
         </div>
+
+        <button
+          class="dw-lang-btn"
+          type="button"
+          :aria-pressed="showJapanese"
+          @click="toggleLang"
+        >
+          {{ showJapanese ? "EN" : "日本語" }}
+        </button>
       </footer>
     </div>
   </section>
@@ -62,140 +88,110 @@
 import { computed, onMounted, ref } from "vue";
 import { supabase } from "@/lib/supabase";
 
-type DailyWordPayload = {
-  provider: string;
-  providerUrl: string;
-  feedUrl: string;
-  date: string | null;
+type DailyWordRow = {
+  id: string;
+  term: string;
+  pos: string;
+  definition_en: string;
+  definition_ja: string | null;
+  example_en: string | null;
+  example_jp: string | null;
+  created_at: string;
+  updated_at: string;
+};
 
-  word: string;
-  titleRaw: string;
-  summary: string | null;
-  sourceUrl: string | null;
-
-  partOfSpeech: string | null;
-  definition: string | null;
-  example: string | null;
+type DailyWordScheduleRow = {
+  date: string; // YYYY-MM-DD
+  entry_id: string;
+  term_snapshot: string;
+  created_at?: string;
+  updated_at?: string;
 };
 
 const FALLBACK = {
-  provider: "Local fallback",
+  provider: "EiTake",
   date: null as string | null,
-  word: "Broken",
-  definition: "This website is broken, and the dev should fix it soon.",
-  partOfSpeech: null as string | null,
+  term: "Broken",
+  pos: "phrase",
+  definition_en: "This website is broken, and the dev should fix it soon.",
+  definition_ja: "このサイトは不具合があります。開発者が早めに直す必要があります。",
+  example_en: "The daily word could not be loaded today.",
+  example_jp: "今日はデイリーワードを読み込めませんでした。",
 };
 
 const loading = ref(true);
 const error = ref<string | null>(null);
-const data = ref<DailyWordPayload | null>(null);
+const showJapanese = ref(false);
+
+const data = ref<{
+  provider: string;
+  date: string | null;
+  term: string;
+  pos: string | null;
+  definition_en: string | null;
+  definition_ja: string | null;
+  example_en: string | null;
+  example_jp: string | null;
+} | null>(null);
 
 function formatDate(iso: string) {
   const d = new Date(iso + "T00:00:00");
   return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
-const POS_WORDS = [
-  "noun",
-  "verb",
-  "adjective",
-  "adverb",
-  "pronoun",
-  "preposition",
-  "conjunction",
-  "interjection",
-  "determiner",
-  "article",
-];
+function todayInTokyoISO(): string {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+
+  const y = parts.find((p) => p.type === "year")?.value ?? "1970";
+  const m = parts.find((p) => p.type === "month")?.value ?? "01";
+  const d = parts.find((p) => p.type === "day")?.value ?? "01";
+  return `${y}-${m}-${d}`;
+}
 
 function normalizeText(s: string) {
   return s.replace(/\s+/g, " ").trim();
 }
 
-function capitalize(s: string) {
-  return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
-}
-
-function extractPartOfSpeech(text: string): string | null {
-  const lower = text.toLowerCase();
-
-  for (const p of POS_WORDS) {
-    const re = new RegExp(`\\b${p}\\b\\s*[:–—-]`, "i");
-    if (re.test(text)) return capitalize(p);
-  }
-
-  for (const p of POS_WORDS) {
-    const re = new RegExp(`\\(\\s*${p}\\s*\\)`, "i");
-    if (re.test(text)) return capitalize(p);
-  }
-
-  for (const p of POS_WORDS) {
-    const re = new RegExp(`\\b${p}\\b`, "i");
-    if (re.test(lower)) return capitalize(p);
-  }
-
-  return null;
-}
-
-function pickDefinition(text: string, partOfSpeech: string | null): string | null {
-  let t = text;
-
-  if (partOfSpeech) {
-    const lower = partOfSpeech.toLowerCase();
-    const idx = t.toLowerCase().search(new RegExp(`\\b${lower}\\b\\s*[:–—-]`));
-    if (idx >= 0) {
-      const after = t.slice(idx);
-      const cut = after.replace(new RegExp(`^.*?\\b${lower}\\b\\s*[:–—-]\\s*`, "i"), "");
-      t = cut || t;
-    }
-  }
-
-  t = t.replace(/^\s*(definition|meaning)\s*[:–—-]\s*/i, "");
-  const sentences = t
-    .split(/(?<=[.!?])\s+/)
-    .map((x) => normalizeText(x))
-    .filter(Boolean);
-
-  if (!sentences.length) return normalizeText(t) || null;
-
-  for (const s of sentences) {
-    if (s.length >= 12 && s.length <= 300) return s;
-  }
-
-  return sentences[0] || null;
+function toggleLang() {
+  showJapanese.value = !showJapanese.value;
 }
 
 const display = computed(() => {
   const p = data.value;
 
+  const def =
+    showJapanese.value
+      ? (p?.definition_ja || p?.definition_en || FALLBACK.definition_en)
+      : (p?.definition_en || FALLBACK.definition_en);
+
+  const ex =
+    showJapanese.value
+      ? (p?.example_jp || p?.example_en || FALLBACK.example_en)
+      : (p?.example_en || FALLBACK.example_en);
+
   if (p) {
-    const summary = p.summary ? normalizeText(p.summary) : "";
-
-    const pos =
-      p.partOfSpeech ??
-      (summary ? extractPartOfSpeech(summary) : null) ??
-      null;
-
-    const definition =
-      p.definition ??
-      (summary ? pickDefinition(summary, pos) : null) ??
-      null;
-
     return {
-      provider: p.provider || "Wordsmith — A Word A Day",
+      provider: p.provider || "EiTake",
       date: p.date,
-      word: p.word || FALLBACK.word,
-      pos,
-      definition: definition || FALLBACK.definition,
+      term: p.term || FALLBACK.term,
+      pos: p.pos || null,
+      definition: def ? normalizeText(def) : FALLBACK.definition_en,
+      example: ex ? normalizeText(ex) : null,
     };
   }
 
   return {
     provider: FALLBACK.provider,
     date: FALLBACK.date,
-    word: FALLBACK.word,
-    pos: FALLBACK.partOfSpeech,
-    definition: FALLBACK.definition,
+    term: FALLBACK.term,
+    pos: FALLBACK.pos,
+    definition: showJapanese.value ? FALLBACK.definition_ja : FALLBACK.definition_en,
+    example: showJapanese.value ? FALLBACK.example_jp : FALLBACK.example_en,
   };
 });
 
@@ -209,19 +205,42 @@ async function load() {
   error.value = null;
 
   try {
-    const { data: fnData, error: fnError } = await supabase.functions.invoke("daily-word", {
-      method: "GET",
-    });
+    const today = todayInTokyoISO();
 
-    if (fnError) throw fnError;
+    // 1) Get schedule for today
+    const { data: sched, error: schedErr } = await supabase
+      .from("daily_word_schedule")
+      .select("date, entry_id, term_snapshot")
+      .eq("date", today)
+      .maybeSingle();
 
-    const payload = fnData as DailyWordPayload;
+    if (schedErr) throw schedErr;
+    if (!sched) throw new Error(`No daily word scheduled for ${today}.`);
 
-    if (!payload || typeof payload.word !== "string") {
-      throw new Error("Malformed response from daily-word function.");
-    }
+    const scheduleRow = sched as DailyWordScheduleRow;
 
-    data.value = payload;
+    // 2) Get entry by ID
+    const { data: word, error: wordErr } = await supabase
+      .from("daily_words")
+      .select("id, term, pos, definition_en, definition_ja, example_en, example_jp, created_at, updated_at")
+      .eq("id", scheduleRow.entry_id)
+      .maybeSingle();
+
+    if (wordErr) throw wordErr;
+    if (!word) throw new Error(`Scheduled entry not found (id=${scheduleRow.entry_id}).`);
+
+    const w = word as DailyWordRow;
+
+    data.value = {
+      provider: "EiTake",
+      date: scheduleRow.date,
+      term: w.term || scheduleRow.term_snapshot || FALLBACK.term,
+      pos: w.pos ?? null,
+      definition_en: w.definition_en ?? null,
+      definition_ja: w.definition_ja ?? null,
+      example_en: w.example_en ?? null,
+      example_jp: w.example_jp ?? null,
+    };
   } catch (e: any) {
     const msg =
       e?.message ||
@@ -253,7 +272,6 @@ onMounted(() => {
 
   color: var(--table-on-surface);
 
-  /* Enables container query units (cqw) + @container rules */
   container-type: inline-size;
   min-width: 0;
 }
@@ -279,14 +297,10 @@ onMounted(() => {
   flex-direction: column;
   gap: 8px;
   padding-top: 12px;
-
-  /* Critical in flex layouts: allow children to shrink */
   min-width: 0;
-
   overflow: hidden;
 }
 
-/* WORD: smooth, readable, and never clipped */
 .dw-word {
   font-weight: 850;
   line-height: 1.05;
@@ -297,36 +311,27 @@ onMounted(() => {
   max-width: 100%;
   min-width: 0;
 
-  /* Default preference: do NOT wrap */
   white-space: nowrap;
-
-  /* No ellipsis / no hidden overflow */
   overflow: visible;
 
-  /* Smooth container-based sizing */
   font-size: clamp(18px, 10cqw, 34px);
 
-  /* Keep it clean even if we later allow wrapping */
   word-break: normal;
   overflow-wrap: normal;
   hyphens: manual;
 }
 
-/* Fallback if container query units unsupported */
 @supports not (width: 1cqw) {
   .dw-word {
     font-size: clamp(18px, 6.5vw, 34px);
   }
 }
 
-/* If the widget gets narrow, allow wrapping (preferred over ellipsis/clip) */
 @container (max-width: 320px) {
   .dw-word {
     white-space: normal;
-    /* Keep it readable: shrink a bit more, then wrap */
     font-size: clamp(16px, 9cqw, 30px);
 
-    /* Two-line cap (wrap is allowed, but not unlimited) */
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -335,7 +340,6 @@ onMounted(() => {
   }
 }
 
-/* If it's REALLY narrow, allow anywhere-break as last resort (still 2 lines) */
 @container (max-width: 240px) {
   .dw-word {
     overflow-wrap: anywhere;
@@ -363,10 +367,34 @@ onMounted(() => {
   overflow: hidden;
 }
 
+.dw-divider {
+  height: 1px;
+  width: 100%;
+  margin: 2px 0;
+  background: color-mix(in srgb, var(--table-border) 70%, transparent);
+}
+
+.dw-ex {
+  font-size: 14px;
+  line-height: 1.38;
+  color: color-mix(in srgb, var(--table-on-surface) 82%, var(--table-muted) 18%);
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
 .dw-foot {
   margin-top: auto;
   padding-top: 10px;
   border-top: 1px solid color-mix(in srgb, var(--table-border) 70%, transparent);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .dw-source {
@@ -377,13 +405,44 @@ onMounted(() => {
   text-overflow: ellipsis;
 }
 
+.dw-lang-btn {
+  margin-left: auto;
+  flex: 0 0 auto;
+
+  border: 1px solid color-mix(in srgb, var(--table-border) 70%, transparent);
+  background: color-mix(in srgb, var(--table-on-surface) 6%, transparent);
+  color: var(--table-on-surface);
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+
+  padding: 6px 10px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.dw-lang-btn:hover {
+  background: color-mix(in srgb, var(--table-on-surface) 10%, transparent);
+}
+
+.dw-lang-btn:active {
+  transform: translateY(1px);
+}
+
+.dw-lang-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent-primary) 55%, transparent);
+  outline-offset: 2px;
+}
+
 .dw-error-msg {
   margin-top: 6px;
   font-size: 12px;
   color: color-mix(in srgb, var(--accent-danger) 70%, var(--table-on-surface) 30%);
 }
 
-/* Skeletons */
 .dw-skel {
   border-radius: 10px;
   background: color-mix(in srgb, var(--table-on-surface) 10%, transparent);
