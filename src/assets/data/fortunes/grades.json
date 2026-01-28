@@ -228,44 +228,44 @@
     "fortune_japanese": "あなたは宿題(しゅくだい)をほとんど忘(わす)れます！"
   },
   {
-    "level": 2,
-    "stars": "⭐⭐☆☆☆",
+    "level": 3,
+    "stars": "⭐⭐⭐☆☆",
     "fortune_english": "\"You will miss one question on the test!\"",
     "fortune_japanese": "あなたはテストで1問(いちもん)まちがえます！"
   },
   {
-    "level": 3,
-    "stars": "⭐⭐⭐☆☆",
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
     "fortune_english": "\"You will study hard today!\"",
     "fortune_japanese": "あなたは今日(きょう)しっかり勉強(べんきょう)します！"
   },
   {
-    "level": 3,
-    "stars": "⭐⭐⭐☆☆",
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
     "fortune_english": "\"You will understand something new!\"",
     "fortune_japanese": "あなたは新(あたら)しいことを分(わ)かります！"
   },
   {
-    "level": 3,
-    "stars": "⭐⭐⭐☆☆",
+    "level": 4,
+    "stars": "⭐⭐⭐⭐☆",
     "fortune_english": "\"You will answer a hard question!\"",
     "fortune_japanese": "あなたはむずかしい質問(しつもん)に答(こた)えます！"
   },
   {
-    "level": 4,
-    "stars": "⭐⭐⭐⭐☆",
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
     "fortune_english": "\"You will do very well on your test!\"",
     "fortune_japanese": "あなたはテストでとても良(よ)い点数(てんすう)をとります！"
   },
   {
-    "level": 4,
-    "stars": "⭐⭐⭐⭐☆",
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
     "fortune_english": "\"You will be praised by your teacher!\"",
     "fortune_japanese": "あなたは先生(せんせい)にほめられます！"
   },
   {
-    "level": 4,
-    "stars": "⭐⭐⭐⭐☆",
+    "level": 5,
+    "stars": "⭐⭐⭐⭐⭐",
     "fortune_english": "\"You will help your friend study!\"",
     "fortune_japanese": "あなたは友達(ともだち)の勉強(べんきょう)を手伝(てつだ)います！"
   },
