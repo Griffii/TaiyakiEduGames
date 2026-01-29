@@ -155,9 +155,9 @@ const GAME_TAGS: Record<GameKey, GameTag[]> = {
   spellingguesser: ["xp"],
   soundmatcher: ["xp"],
   bingo: [],
-  memory: ["new"],
-  missing: ["new"],
-  shuffle: ["new"],
+  memory: [],
+  missing: [],
+  shuffle: [],
   onthebeat: ["new"],
 };
 const hasGameTag = (k: GameKey, t: GameTag) => (GAME_TAGS[k] || []).includes(t);
