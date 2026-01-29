@@ -7,8 +7,14 @@
     </button>
 
     <!-- Settings (top-right) -->
-    <button class="settings-button" type="button" @click="openSettings" aria-label="Open settings"
-      :aria-expanded="showSettings ? 'true' : 'false'" :aria-controls="'settingsModal'">
+    <button
+      class="settings-button"
+      type="button"
+      @click="openSettings"
+      aria-label="Open settings"
+      :aria-expanded="showSettings ? 'true' : 'false'"
+      :aria-controls="'settingsModal'"
+    >
       <img :src="settingsIcon" alt="" />
     </button>
 
@@ -19,12 +25,20 @@
         <canvas ref="canvasEl" class="wheel"></canvas>
       </div>
 
-      <button id="spinButton" class="spin-btn" type="button" :disabled="numbers.length === 0 || spinning"
-        @click="spinWheel" aria-live="polite">
+      <button
+        id="spinButton"
+        class="spin-btn"
+        type="button"
+        :disabled="wheelItems.length === 0 || spinning"
+        @click="spinWheel"
+        aria-live="polite"
+      >
         {{ spinning ? "SPINNING…" : "SPIN" }}
       </button>
 
-      <p class="muted" v-if="numbers.length === 0">No values. Open settings to set a range.</p>
+      <p class="muted" v-if="wheelItems.length === 0">
+        No values. Open settings to configure {{ wheelMode === "numbers" ? "a range" : "word entries" }}.
+      </p>
     </div>
 
     <!-- Result popup -->
@@ -33,7 +47,9 @@
         <div class="popup-card">
           <h2 id="popupText" class="pop-value">{{ selectedText }}</h2>
           <div class="pop-actions">
-            <button class="btn subtle" type="button" @click="removeSelected">Remove Value</button>
+            <button class="btn subtle" type="button" @click="removeSelected" :disabled="selectedIndex == null">
+              Remove Value
+            </button>
             <button class="btn" type="button" @click="closePopup">Continue</button>
           </div>
         </div>
@@ -42,41 +58,123 @@
 
     <!-- Settings modal (compact, aligned) -->
     <Transition name="fade-zoom">
-      <div v-show="showSettings" class="popup" role="dialog" aria-modal="true" aria-labelledby="settingsTitle"
-        id="settingsModal" @click.self="closeSettings">
+      <div
+        v-show="showSettings"
+        class="popup"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="settingsTitle"
+        id="settingsModal"
+        @click.self="closeSettings"
+      >
         <div class="popup-card settings-card">
           <h2 id="settingsTitle" class="settings-title">Settings</h2>
 
-          <form class="settings-form" @submit.prevent="applyAndClose">
-            <!-- Line 1: Range -->
-            <div class="row">
-              <label for="startNum" class="lbl">Range:</label>
-              <div class="controls-inline">
-                <input id="startNum" class="num" type="number" v-model.number="startNum" min="1" inputmode="numeric" />
-                <span class="dash">-</span>
-                <input id="endNum" class="num" type="number" v-model.number="endNum" min="1" inputmode="numeric" />
+          <!-- Tabs -->
+          <div class="tabs" role="tablist" aria-label="Wheel type">
+            <button
+              class="tab"
+              type="button"
+              role="tab"
+              :aria-selected="settingsTab === 'numbers' ? 'true' : 'false'"
+              :class="{ 'is-active': settingsTab === 'numbers' }"
+              @click="setTab('numbers')"
+            >
+              Numbers
+            </button>
+            <button
+              class="tab"
+              type="button"
+              role="tab"
+              :aria-selected="settingsTab === 'words' ? 'true' : 'false'"
+              :class="{ 'is-active': settingsTab === 'words' }"
+              @click="setTab('words')"
+            >
+              Words
+            </button>
+          </div>
+
+          <form class="settings-form" @submit.prevent="applyActiveTab">
+            <!-- NUMBERS TAB -->
+            <div v-show="settingsTab === 'numbers'" class="tab-panel" role="tabpanel" aria-label="Numbers settings">
+              <!-- Line 1: Range -->
+              <div class="row">
+                <label for="startNum" class="lbl">Range:</label>
+                <div class="controls-inline">
+                  <input id="startNum" class="num" type="number" v-model.number="startNum" min="1" inputmode="numeric" />
+                  <span class="dash">-</span>
+                  <input id="endNum" class="num" type="number" v-model.number="endNum" min="1" inputmode="numeric" />
+                </div>
+              </div>
+
+              <!-- Line 2: Exclude -->
+              <div class="row">
+                <label for="excludeInput" class="lbl">Exclude:</label>
+                <div class="controls-inline">
+                  <input
+                    id="excludeInput"
+                    class="ex-input"
+                    type="text"
+                    v-model.trim="excludeInput"
+                    placeholder="e.g., 3,7,15"
+                    aria-label="Exclude numbers"
+                  />
+                </div>
               </div>
             </div>
 
-            <!-- Line 2: Exclude -->
-            <div class="row">
-              <label for="excludeInput" class="lbl">Exclude:</label>
-              <div class="controls-inline">
-                <input id="excludeInput" class="ex-input" type="text" v-model.trim="excludeInput"
-                  placeholder="e.g., 3,7,15" aria-label="Exclude numbers" />
+            <!-- WORDS TAB -->
+            <div v-show="settingsTab === 'words'" class="tab-panel" role="tabpanel" aria-label="Words settings">
+              <div class="row words-head">
+                <div class="lbl words-lbl">Values:</div>
+                <div class="words-meta">
+                  <span class="words-count">{{ wordsDraft.length }}/{{ MAX_WORDS }}</span>
+                  <button class="btn subtle sm" type="button" @click="addWordBox" :disabled="wordsDraft.length >= MAX_WORDS">
+                    + Add
+                  </button>
+                </div>
+              </div>
+
+              <div class="words-list" aria-label="Word values list">
+                <div v-for="(w, i) in wordsDraft" :key="`word-${i}`" class="word-row">
+                  <input
+                    class="word-input"
+                    type="text"
+                    v-model.trim="wordsDraft[i]"
+                    :placeholder="`Value ${i + 1}`"
+                    maxlength="80"
+                    aria-label="Word value"
+                  />
+                  <button
+                    class="icon-btn"
+                    type="button"
+                    @click="removeWordBox(i)"
+                    :disabled="wordsDraft.length <= 1"
+                    aria-label="Remove value"
+                    title="Remove"
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
             </div>
 
-            <!-- Line 3: Actions -->
+            <!-- Actions -->
             <div class="actions">
               <div class="actions-left">
-                <button class="btn rand sm" type="button" :disabled="numbers.length === 0" @click="randomizeOrder"
-                  aria-label="Randomize the order of values on the wheel">
+                <button
+                  class="btn rand sm"
+                  type="button"
+                  :disabled="wheelItems.length === 0"
+                  @click="randomizeOrder"
+                  aria-label="Randomize the order of values on the wheel"
+                >
                   Randomize
                 </button>
               </div>
               <div class="actions-right">
                 <button class="btn subtle sm" type="button" @click="closeSettings">Cancel</button>
+                <!-- Update does NOT close the menu -->
                 <button class="btn sm" type="submit">Update</button>
               </div>
             </div>
@@ -97,6 +195,7 @@ import selectSfxUrl from "@/assets/sounds/Wood_Block.ogg";
 import tickFuture from "@/assets/sounds/arcade_beep_01.mp3";
 
 type SliceCenter = { index: number; angleDeg: number };
+type WheelMode = "numbers" | "words";
 
 const router = useRouter();
 
@@ -107,21 +206,35 @@ const startNum = ref<number>(loadNum("rw_start", 1));
 const endNum = ref<number>(loadNum("rw_end", 32));
 const excludeInput = ref<string>(loadStr("rw_exclude", ""));
 const numbers = ref<number[]>(loadNumbers());
+
+const wheelMode = ref<WheelMode>(loadWheelMode());
+const words = ref<string[]>(loadWords()); // persistent configured values
+
+// "Active wheel" pool (removals only affect this, not the settings lists)
+const activeNumbers = ref<number[]>([]);
+const activeWords = ref<string[]>([]);
+
 const spinning = ref(false);
 const popupOpen = ref(false);
 const showSettings = ref(false);
-const selectedNumber = ref<number | null>(null);
+
+const selectedIndex = ref<number | null>(null);
+const selectedValue = ref<string | null>(null);
 
 const wheelSize = ref<number>(calcWheelSize());
 
+// Settings UI
+const settingsTab = ref<WheelMode>("numbers");
+const MAX_SEGMENTS = 100;
+const MAX_WORDS = 12;
+
+// Words draft list (input boxes)
+const wordsDraft = ref<string[]>([]);
+
 // Spin tuning
-// Consistent duration; variable spin strength (turns)
 const SPIN_DURATION_MS = 6000; // fixed so it "feels" consistent
 const SPIN_TURNS_MIN = 1.25;
 const SPIN_TURNS_MAX = 6.0;
-
-// max segments on wheel
-const MAX_SEGMENTS = 100;
 
 // spin state
 let startAngle = -Math.PI / 2;
@@ -150,43 +263,101 @@ let lastTickIndex: number | null = null;
 const SHOW_CENTER_DEBUG = false;
 
 // ---------- nav ----------
-function goBack() { if (window.history.length > 1) router.back(); else router.push("/"); }
+function goBack() {
+  if (window.history.length > 1) router.back();
+  else router.push("/");
+}
 
 // ---------- storage ----------
-function loadStr(key: string, fallback: string) { try { return localStorage.getItem(key) ?? fallback; } catch { return fallback; } }
+function loadStr(key: string, fallback: string) {
+  try {
+    return localStorage.getItem(key) ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
 function loadNum(key: string, fallback: number) {
-  const raw = loadStr(key, String(fallback)); const n = Number(raw);
+  const raw = loadStr(key, String(fallback));
+  const n = Number(raw);
   return Number.isFinite(n) ? n : fallback;
 }
+function loadWheelMode(): WheelMode {
+  const raw = loadStr("rw_mode", "numbers");
+  return raw === "words" ? "words" : "numbers";
+}
+function saveWheelMode() {
+  try {
+    localStorage.setItem("rw_mode", wheelMode.value);
+  } catch {}
+}
+
 function loadNumbers(): number[] {
   try {
     const raw = localStorage.getItem("rw_numbers");
     if (!raw) return buildNumbersFromInputs(loadNum("rw_start", 1), loadNum("rw_end", 32), loadStr("rw_exclude", ""));
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed) && parsed.every((x) => Number.isInteger(x))) return parsed as number[];
-  } catch { }
+  } catch {}
   return buildNumbersFromInputs(1, 32, "");
 }
+
 function saveInputs() {
   try {
     localStorage.setItem("rw_start", String(startNum.value));
     localStorage.setItem("rw_end", String(endNum.value));
     localStorage.setItem("rw_exclude", excludeInput.value);
-  } catch { }
+  } catch {}
 }
-function saveNumbers() { try { localStorage.setItem("rw_numbers", JSON.stringify(numbers.value)); } catch { } }
+function saveNumbers() {
+  try {
+    localStorage.setItem("rw_numbers", JSON.stringify(numbers.value));
+  } catch {}
+}
+
+function loadWords(): string[] {
+  try {
+    const raw = localStorage.getItem("rw_words");
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return parsed
+        .map((x) => (typeof x === "string" ? x.trim() : ""))
+        .filter((s) => s.length > 0)
+        .slice(0, MAX_WORDS);
+    }
+  } catch {}
+  return [];
+}
+function saveWords() {
+  try {
+    localStorage.setItem("rw_words", JSON.stringify(words.value));
+  } catch {}
+}
+
+// ---------- "active pool" helpers ----------
+function refreshActivePool() {
+  // Called after Update. Resets the active wheel to the full configured list.
+  activeNumbers.value = [...numbers.value];
+  activeWords.value = [...words.value];
+  drawWheel(currentAngle());
+}
 
 // ---------- numbers ----------
 function parseExclusions(s: string): number[] {
-  return s.split(",").map((t) => Number(t.trim())).filter((n) => Number.isInteger(n));
+  return s
+    .split(",")
+    .map((t) => Number(t.trim()))
+    .filter((n) => Number.isInteger(n));
 }
 function buildNumbersFromInputs(start: number, end: number, exclude: string): number[] {
-  let a = Math.min(start, end), b = Math.max(start, end);
+  const a = Math.min(start, end),
+    b = Math.max(start, end);
   const excl = new Set(parseExclusions(exclude));
   const out: number[] = [];
   for (let i = a; i <= b; i++) if (!excl.has(i)) out.push(i);
   return out;
 }
+
 function applyRange() {
   const newList = buildNumbersFromInputs(startNum.value, endNum.value, excludeInput.value);
 
@@ -196,24 +367,97 @@ function applyRange() {
   }
 
   saveInputs();
-  if (JSON.stringify(newList) !== JSON.stringify(numbers.value)) {
-    numbers.value = newList; saveNumbers(); drawWheel(currentAngle());
-  }
-}
-function applyAndClose() { applyRange(); closeSettings(); }
 
-function randomizeOrder() {
-  if (!numbers.value.length) return;
-  // Fisher–Yates shuffle
-  for (let i = numbers.value.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [numbers.value[i], numbers.value[j]] = [numbers.value[j], numbers.value[i]];
-  }
+  const changed = JSON.stringify(newList) !== JSON.stringify(numbers.value);
+  numbers.value = newList;
   saveNumbers();
-  drawWheel(currentAngle());
-  closeSettings();
+
+  wheelMode.value = "numbers";
+  saveWheelMode();
+
+  // Update = refresh wheel pool (even if settings list unchanged)
+  refreshActivePool();
+
+  // keep tab stable
 }
 
+// ---------- words ----------
+function ensureWordsDraftSeeded() {
+  if (!wordsDraft.value.length) {
+    wordsDraft.value = words.value.length ? [...words.value] : [""];
+  }
+}
+function normalizeWordsList(list: string[]): string[] {
+  return list
+    .map((s) => (s ?? "").trim())
+    .filter((s) => s.length > 0)
+    .slice(0, MAX_WORDS);
+}
+function applyWords() {
+  const normalized = normalizeWordsList(wordsDraft.value);
+
+  if (normalized.length === 0) {
+    alert("Please add at least one word value (empty rows are ignored).");
+    return;
+  }
+
+  words.value = normalized;
+  saveWords();
+
+  // keep draft in sync (cleaned)
+  wordsDraft.value = [...normalized];
+
+  wheelMode.value = "words";
+  saveWheelMode();
+
+  // Update = refresh wheel pool
+  refreshActivePool();
+}
+function addWordBox() {
+  if (wordsDraft.value.length >= MAX_WORDS) return;
+  wordsDraft.value.push("");
+}
+function removeWordBox(i: number) {
+  if (wordsDraft.value.length <= 1) return;
+  wordsDraft.value.splice(i, 1);
+}
+
+// ---------- tab + apply ----------
+function setTab(tab: WheelMode) {
+  settingsTab.value = tab;
+  if (tab === "words") ensureWordsDraftSeeded();
+}
+function applyActiveTab() {
+  if (settingsTab.value === "numbers") applyRange();
+  else applyWords();
+}
+
+// ---------- wheel data ----------
+const wheelItems = computed<string[]>(() => {
+  if (wheelMode.value === "words") return activeWords.value.map((s) => s.trim()).filter((s) => s.length > 0).slice(0, MAX_WORDS);
+  return activeNumbers.value.map((n) => String(n));
+});
+
+// ---------- randomize ----------
+function randomizeOrder() {
+  if (!wheelItems.value.length) return;
+
+  if (wheelMode.value === "numbers") {
+    if (!activeNumbers.value.length) return;
+    for (let i = activeNumbers.value.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [activeNumbers.value[i], activeNumbers.value[j]] = [activeNumbers.value[j], activeNumbers.value[i]];
+    }
+  } else {
+    if (!activeWords.value.length) return;
+    for (let i = activeWords.value.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [activeWords.value[i], activeWords.value[j]] = [activeWords.value[j], activeWords.value[i]];
+    }
+  }
+
+  drawWheel(currentAngle());
+}
 
 // ---------- responsive canvas ----------
 function calcWheelSize(): number {
@@ -223,42 +467,90 @@ function calcWheelSize(): number {
   return Math.max(300, Math.min(720, s));
 }
 function setupCanvas(): void {
-  const c = canvasEl.value; if (!c) return;
-  const size = wheelSize.value; const dpr = window.devicePixelRatio || 1;
-  c.style.width = size + "px"; c.style.height = size + "px";
-  c.width = Math.floor(size * dpr); c.height = Math.floor(size * dpr);
-  ctx = c.getContext("2d"); if (!ctx) return;
-  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.scale(dpr, dpr);
+  const c = canvasEl.value;
+  if (!c) return;
+  const size = wheelSize.value;
+  const dpr = window.devicePixelRatio || 1;
+  c.style.width = size + "px";
+  c.style.height = size + "px";
+  c.width = Math.floor(size * dpr);
+  c.height = Math.floor(size * dpr);
+  ctx = c.getContext("2d");
+  if (!ctx) return;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
 }
 function onResize() {
   const newSize = calcWheelSize();
-  if (newSize !== wheelSize.value) { wheelSize.value = newSize; setupCanvas(); drawWheel(currentAngle()); }
+  if (newSize !== wheelSize.value) {
+    wheelSize.value = newSize;
+    setupCanvas();
+    drawWheel(currentAngle());
+  }
 }
 
 // ---------- easing / angle ----------
-function easeOutExpo(t: number): number { return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+function easeOutExpo(t: number): number {
+  return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
+}
 function currentAngle(): number {
   if (!spinning.value) return endAngle;
-  const now = performance.now(); const t = Math.min(1, (now - animStart) / animDuration);
-  const eased = easeOutExpo(t); return startAngle + (endAngle - startAngle) * eased;
+  const now = performance.now();
+  const t = Math.min(1, (now - animStart) / animDuration);
+  const eased = easeOutExpo(t);
+  return startAngle + (endAngle - startAngle) * eased;
 }
 function sampleSpinTurns(): number {
-  // Smooth non-linear mapping (smoothstep) gives nice variety across [min,max]
   const r = Math.random();
-  const s = r * r * (3 - 2 * r); // 0..1, eased
+  const s = r * r * (3 - 2 * r); // smoothstep
   return SPIN_TURNS_MIN + s * (SPIN_TURNS_MAX - SPIN_TURNS_MIN);
+}
+
+// ---------- text fitting (uniform) ----------
+function computeUniformFontSize(k: CanvasRenderingContext2D, labels: string[], base: number, min: number): number {
+  const longest = labels.reduce((m, s) => Math.max(m, (s ?? "").length), 0);
+  if (longest <= 3) return base;
+  const scale = Math.max(0.55, Math.min(1, 9 / (longest + 2)));
+  return Math.max(min, Math.round(base * scale));
+}
+
+function ellipsizeToFit(k: CanvasRenderingContext2D, text: string, maxWidth: number): string {
+  const t = text ?? "";
+  if (k.measureText(t).width <= maxWidth) return t;
+  const ell = "…";
+  if (k.measureText(ell).width > maxWidth) return ell;
+
+  let lo = 0;
+  let hi = t.length;
+  while (lo < hi) {
+    const mid = Math.floor((lo + hi + 1) / 2);
+    const candidate = t.slice(0, mid) + ell;
+    if (k.measureText(candidate).width <= maxWidth) lo = mid;
+    else hi = mid - 1;
+  }
+  return t.slice(0, lo) + ell;
 }
 
 // ---------- drawing ----------
 function drawWheel(angleRad: number): number | null {
-  const c = canvasEl.value; if (!c) return null;
-  const k = ctx ?? c.getContext("2d"); if (!k) return null;
+  const c = canvasEl.value;
+  if (!c) return null;
+  const k = ctx ?? c.getContext("2d");
+  if (!k) return null;
 
-  const size = wheelSize.value; const w = size, h = size;
-  k.clearRect(0, 0, w, h); if (numbers.value.length === 0) return null;
+  const size = wheelSize.value;
+  const w = size,
+    h = size;
+  k.clearRect(0, 0, w, h);
 
-  const total = numbers.value.length; const sliceAngle = (2 * Math.PI) / total;
-  const cx = w / 2, cy = h / 2; const radius = Math.round(size * 0.45);
+  const labels = wheelItems.value;
+  if (labels.length === 0) return null;
+
+  const total = labels.length;
+  const sliceAngle = (2 * Math.PI) / total;
+  const cx = w / 2,
+    cy = h / 2;
+  const radius = Math.round(size * 0.45);
 
   // determine top slice
   const centers: SliceCenter[] = [];
@@ -267,105 +559,201 @@ function drawWheel(angleRad: number): number | null {
     const deg = ((centerRad * 180) / Math.PI + 360) % 360;
     centers.push({ index: i, angleDeg: deg });
   }
-  const idxAtTop = getTopIndex(centers, 270); topIndex.value = idxAtTop;
+  const idxAtTop = getTopIndex(centers, 270);
+  topIndex.value = idxAtTop;
 
   // palette
-  const BASE_HUE = 210, HUE_WOBBLE = 8, SAT = 50, L_A = 62, L_B = 54;
-  const now = performance.now(); const pulse = 0.62 + 0.38 * Math.abs(Math.sin(now / 160));
+  const BASE_HUE = 210,
+    HUE_WOBBLE = 8,
+    SAT = 50,
+    L_A = 62,
+    L_B = 54;
+  const now = performance.now();
+  const pulse = 0.62 + 0.38 * Math.abs(Math.sin(now / 160));
+
+  const baseFont = Math.max(14, Math.min(22, radius * 0.12));
+  const minFont = 12;
+  const uniformFontSize = wheelMode.value === "words" ? computeUniformFontSize(k, labels, baseFont, minFont) : baseFont;
+
+  const labelR = radius - Math.max(34, radius * 0.2);
+  const arcWidth = Math.max(28, labelR * sliceAngle * 0.92);
 
   for (let i = 0; i < total; i++) {
-    const a0 = angleRad + i * sliceAngle, a1 = a0 + sliceAngle, mid = a0 + sliceAngle / 2;
+    const a0 = angleRad + i * sliceAngle,
+      a1 = a0 + sliceAngle,
+      mid = a0 + sliceAngle / 2;
+
     const hue = BASE_HUE + ((i % 4) - 1.5) * (HUE_WOBBLE / 1.0);
     const baseFill = `hsl(${hue} ${SAT}% ${i % 2 === 0 ? L_A : L_B}%)`;
 
-    k.beginPath(); k.moveTo(cx, cy); k.arc(cx, cy, radius, a0, a1); k.closePath();
+    k.beginPath();
+    k.moveTo(cx, cy);
+    k.arc(cx, cy, radius, a0, a1);
+    k.closePath();
 
     if (i === idxAtTop) {
       const grad = k.createRadialGradient(cx, cy, radius * 0.18, cx, cy, radius);
       grad.addColorStop(0, `hsla(${hue} ${SAT + 10}% ${L_A + 8}% / ${0.9 * pulse})`);
       grad.addColorStop(1, `hsla(${hue} ${SAT + 10}% ${L_B - 8}% / ${0.92 * pulse})`);
-      k.fillStyle = grad; k.shadowColor = `hsla(${hue} ${SAT + 25}% ${L_B - 14}% / ${0.9 * pulse})`;
+      k.fillStyle = grad;
+      k.shadowColor = `hsla(${hue} ${SAT + 25}% ${L_B - 14}% / ${0.9 * pulse})`;
       k.shadowBlur = 24 * pulse;
-    } else { k.fillStyle = baseFill; k.shadowBlur = 0; }
+    } else {
+      k.fillStyle = baseFill;
+      k.shadowBlur = 0;
+    }
     k.fill();
 
-    k.strokeStyle = "rgba(0,0,0,.18)"; k.lineWidth = 1; k.stroke();
+    k.strokeStyle = "rgba(0,0,0,.18)";
+    k.lineWidth = 1;
+    k.stroke();
 
     if (i === idxAtTop) {
-      k.save(); k.beginPath(); k.arc(cx, cy, radius, a0, a1);
-      k.strokeStyle = "rgba(255,255,255,.95)"; k.lineWidth = Math.max(3, radius * 0.035);
-      k.shadowColor = "rgba(160,200,255,.9)"; k.shadowBlur = 20; k.stroke(); k.restore();
+      k.save();
+      k.beginPath();
+      k.arc(cx, cy, radius, a0, a1);
+      k.strokeStyle = "rgba(255,255,255,.95)";
+      k.lineWidth = Math.max(3, radius * 0.035);
+      k.shadowColor = "rgba(160,200,255,.9)";
+      k.shadowBlur = 20;
+      k.stroke();
+      k.restore();
     }
 
-    k.save(); k.translate(cx, cy); k.rotate(mid); k.textAlign = "center"; k.textBaseline = "middle";
-    const baseFont = Math.max(14, Math.min(22, radius * 0.12));
-    const fontSize = i === idxAtTop ? baseFont * 1.35 : baseFont;
-    k.font = `800 ${fontSize}px system-ui, -apple-system, Segoe UI, Arial`;
-    const labelR = radius - Math.max(34, radius * 0.2);
+    // text
+    k.save();
+    k.translate(cx, cy);
+    k.rotate(mid);
+    k.textAlign = "center";
+    k.textBaseline = "middle";
 
-    if (i === idxAtTop) {
-      k.lineJoin = "round"; k.miterLimit = 2; k.strokeStyle = "rgba(255,255,255,.95)";
-      k.lineWidth = Math.max(3, fontSize * 0.14); k.strokeText(String(numbers.value[i]), labelR, 0);
-      k.fillStyle = "#0b1a2b"; k.fillText(String(numbers.value[i]), labelR, 0);
-    } else { k.fillStyle = "rgba(0,0,0,.82)"; k.fillText(String(numbers.value[i]), labelR, 0); }
+    const isTop = i === idxAtTop;
+    const fontSize = isTop ? uniformFontSize * 1.22 : uniformFontSize;
+    k.font = `800 ${fontSize}px system-ui, -apple-system, Segoe UI, Arial`;
+
+    const raw = labels[i] ?? "";
+    const finalText = wheelMode.value === "words" ? ellipsizeToFit(k, raw, arcWidth) : raw;
+
+    if (isTop) {
+      k.lineJoin = "round";
+      k.miterLimit = 2;
+      k.strokeStyle = "rgba(255,255,255,.95)";
+      k.lineWidth = Math.max(3, fontSize * 0.14);
+      k.strokeText(finalText, labelR, 0);
+      k.fillStyle = "#0b1a2b";
+      k.fillText(finalText, labelR, 0);
+    } else {
+      k.fillStyle = "rgba(0,0,0,.82)";
+      k.fillText(finalText, labelR, 0);
+    }
     k.restore();
   }
 
   // center cap
-  k.beginPath(); k.arc(cx, cy, Math.max(10, radius * 0.06), 0, 2 * Math.PI);
+  k.beginPath();
+  k.arc(cx, cy, Math.max(10, radius * 0.06), 0, 2 * Math.PI);
   const capGrad = k.createRadialGradient(cx, cy, 2, cx, cy, radius * 0.08);
-  capGrad.addColorStop(0, "#ffffff"); capGrad.addColorStop(1, "#e8edf6");
-  k.fillStyle = capGrad; k.fill(); k.strokeStyle = "rgba(0,0,0,.15)"; k.stroke();
+  capGrad.addColorStop(0, "#ffffff");
+  capGrad.addColorStop(1, "#e8edf6");
+  k.fillStyle = capGrad;
+  k.fill();
+  k.strokeStyle = "rgba(0,0,0,.15)";
+  k.stroke();
+
+  if (SHOW_CENTER_DEBUG && idxAtTop != null) {
+    k.save();
+    k.fillStyle = "rgba(0,0,0,.6)";
+    k.font = "700 14px system-ui";
+    k.textAlign = "center";
+    k.fillText(String(labels[idxAtTop] ?? ""), cx, cy + radius * 0.14);
+    k.restore();
+  }
 
   return idxAtTop;
 }
 
 function getTopIndex(centers: SliceCenter[], reference = 270): number | null {
   if (!centers.length) return null;
-  let bestIdx = 0, bestDiff = 360;
+  let bestIdx = 0,
+    bestDiff = 360;
   for (let i = 0; i < centers.length; i++) {
     let diff = Math.abs((centers[i].angleDeg - reference + 360) % 360);
     if (diff > 180) diff = 360 - diff;
-    if (diff < bestDiff) { bestDiff = diff; bestIdx = i; }
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      bestIdx = i;
+    }
   }
   return centers[bestIdx].index;
 }
 
 // ---------- spin & ticks ----------
 function spinWheel() {
-  if (numbers.value.length === 0 || spinning.value || popupOpen.value || showSettings.value) return;
-  const ctx = ensureAudio(); if (ctx) { void ensureTickBuffers(); }
-  const extraTurns = sampleSpinTurns(); // vary strength
-  const randomOffset = Math.random() * (2 * Math.PI); // vary final landing
+  if (wheelItems.value.length === 0 || spinning.value || popupOpen.value || showSettings.value) return;
+  const ctx = ensureAudio();
+  if (ctx) void ensureTickBuffers();
+
+  const extraTurns = sampleSpinTurns();
+  const randomOffset = Math.random() * (2 * Math.PI);
+
   startAngle = currentAngle();
   endAngle = startAngle + extraTurns * (2 * Math.PI) + randomOffset;
-  animDuration = SPIN_DURATION_MS; // fixed duration for consistent feel
+  animDuration = SPIN_DURATION_MS;
   animStart = performance.now();
-  spinning.value = true; lastTickIndex = null; rafId = requestAnimationFrame(animateSpin);
+
+  spinning.value = true;
+  lastTickIndex = null;
+  rafId = requestAnimationFrame(animateSpin);
 }
+
 function animateSpin() {
-  const now = performance.now(); const t = Math.min(1, (now - animStart) / animDuration);
+  const now = performance.now();
+  const t = Math.min(1, (now - animStart) / animDuration);
   const ang = currentAngle();
+
   const idx = drawWheel(ang);
-  if (idx !== null && idx !== lastTickIndex) { lastTickIndex = idx; playTick(); }
-  if (t < 1) { rafId = requestAnimationFrame(animateSpin); }
-  else {
-    spinning.value = false; rafId && cancelAnimationFrame(rafId); rafId = null;
-    drawWheel(endAngle); setTimeout(determineResult, 280);
+  if (idx !== null && idx !== lastTickIndex) {
+    lastTickIndex = idx;
+    playTick();
+  }
+
+  if (t < 1) {
+    rafId = requestAnimationFrame(animateSpin);
+  } else {
+    spinning.value = false;
+    rafId && cancelAnimationFrame(rafId);
+    rafId = null;
+    drawWheel(endAngle);
+    setTimeout(determineResult, 280);
   }
 }
+
 function determineResult() {
-  if (numbers.value.length === 0) return;
-  const total = numbers.value.length; const sliceAngle = (2 * Math.PI) / total;
+  const labels = wheelItems.value;
+  if (labels.length === 0) return;
+
+  const total = labels.length;
+  const sliceAngle = (2 * Math.PI) / total;
+
   const centers: SliceCenter[] = [];
   for (let i = 0; i < total; i++) {
     const centerRad = endAngle + i * sliceAngle + sliceAngle / 2;
     const deg = ((centerRad * 180) / Math.PI + 360) % 360;
     centers.push({ index: i, angleDeg: deg });
   }
-  const idx = getTopIndex(centers, 270); topIndex.value = idx;
-  selectedNumber.value = idx == null ? null : numbers.value[idx] ?? null;
-  try { const s = selectSfx; s.currentTime = 0; s.play(); } catch { }
+
+  const idx = getTopIndex(centers, 270);
+  topIndex.value = idx;
+
+  selectedIndex.value = idx;
+  selectedValue.value = idx == null ? null : labels[idx] ?? null;
+
+  try {
+    const s = selectSfx;
+    s.currentTime = 0;
+    s.play();
+  } catch {}
+
   popupOpen.value = true;
 }
 
@@ -374,70 +762,159 @@ function ensureAudio(): AudioContext | null {
   const AC: typeof AudioContext | undefined = (window as any).AudioContext || (window as any).webkitAudioContext;
   if (!AC) return null;
   if (!audioCtx) audioCtx = new AC();
-  const ctx = audioCtx; if (ctx.state === "suspended") { void ctx.resume(); }
+  const ctx = audioCtx;
+  if (ctx.state === "suspended") void ctx.resume();
   return ctx;
 }
 async function loadAudioBuffer(url: string): Promise<AudioBuffer | null> {
-  const ctx = ensureAudio(); if (!ctx) return null;
-  try { const res = await fetch(url); const data = await res.arrayBuffer(); const buf = await ctx.decodeAudioData(data); return buf; }
-  catch { return null; }
+  const ctx = ensureAudio();
+  if (!ctx) return null;
+  try {
+    const res = await fetch(url);
+    const data = await res.arrayBuffer();
+    const buf = await ctx.decodeAudioData(data);
+    return buf;
+  } catch {
+    return null;
+  }
 }
 async function ensureTickBuffers(): Promise<void> {
   if (tickBuffers.length || tickMode.value !== "sample") return;
   const urls = tickSoundUrls.value.slice();
   const bufs = await Promise.all(urls.map((u) => loadAudioBuffer(u)));
-  tickBuffers = bufs.filter((b): b is AudioBuffer => !!b); tickCycleIdx = 0;
+  tickBuffers = bufs.filter((b): b is AudioBuffer => !!b);
+  tickCycleIdx = 0;
 }
 function chooseTickBuffer(): AudioBuffer | null {
   if (!tickBuffers.length) return null;
   if (tickPlayStyle.value === "single") return tickBuffers[0];
-  if (tickPlayStyle.value === "random") { const i = Math.floor(Math.random() * tickBuffers.length); return tickBuffers[i]; }
-  const buf = tickBuffers[tickCycleIdx % tickBuffers.length]; tickCycleIdx++; return buf;
+  if (tickPlayStyle.value === "random") {
+    const i = Math.floor(Math.random() * tickBuffers.length);
+    return tickBuffers[i];
+  }
+  const buf = tickBuffers[tickCycleIdx % tickBuffers.length];
+  tickCycleIdx++;
+  return buf;
 }
 function playTick() {
-  const ctx = ensureAudio(); if (!ctx) return;
+  const ctx = ensureAudio();
+  if (!ctx) return;
   if (tickMode.value === "sample" && tickBuffers.length) {
     const buf = chooseTickBuffer();
     if (buf) {
-      const src = ctx.createBufferSource(); src.buffer = buf; const gain = ctx.createGain();
-      gain.gain.value = tickVolume.value; src.connect(gain).connect(ctx.destination); src.start(); return;
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      const gain = ctx.createGain();
+      gain.gain.value = tickVolume.value;
+      src.connect(gain).connect(ctx.destination);
+      src.start();
+      return;
     }
   }
   playSynthTick(ctx);
 }
 function playSynthTick(ctx: AudioContext) {
-  const osc = ctx.createOscillator(); const gain = ctx.createGain(); const t = ctx.currentTime;
-  const baseFreq = 1100; const jitter = (Math.random() - 0.5) * 120;
-  osc.type = "square"; osc.frequency.setValueAtTime(baseFreq + jitter, t);
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  const t = ctx.currentTime;
+  const baseFreq = 1100;
+  const jitter = (Math.random() - 0.5) * 120;
+  osc.type = "square";
+  osc.frequency.setValueAtTime(baseFreq + jitter, t);
   const vol = Math.max(0.05, Math.min(1, tickVolume.value));
-  gain.gain.setValueAtTime(0, t); gain.gain.linearRampToValueAtTime(0.22 * vol, t + 0.006);
+  gain.gain.setValueAtTime(0, t);
+  gain.gain.linearRampToValueAtTime(0.22 * vol, t + 0.006);
   gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
-  osc.connect(gain).connect(ctx.destination); osc.start(t); osc.stop(t + 0.08);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start(t);
+  osc.stop(t + 0.08);
 }
 
 // ---------- modal helpers ----------
-function openSettings() { showSettings.value = true; }
-function closeSettings() { showSettings.value = false; }
+function openSettings() {
+  showSettings.value = true;
+
+  // reflect current wheel mode in UI tab
+  settingsTab.value = wheelMode.value;
+
+  // seed words draft for editing (from persistent configured list)
+  if (settingsTab.value === "words") {
+    wordsDraft.value = words.value.length ? [...words.value] : [""];
+    ensureWordsDraftSeeded();
+  }
+}
+function closeSettings() {
+  showSettings.value = false;
+}
 
 // ---------- remove / close ----------
 function removeSelected() {
-  if (selectedNumber.value == null) return;
-  numbers.value = numbers.value.filter((n) => n !== selectedNumber.value);
-  saveNumbers(); popupOpen.value = false; drawWheel(currentAngle());
+  if (selectedIndex.value == null) return;
+
+  // IMPORTANT: remove only from active pool, not the settings lists (numbers/words)
+  if (wheelMode.value === "numbers") {
+    const v = selectedValue.value;
+    if (v == null) return;
+    const n = Number(v);
+    if (!Number.isFinite(n)) return;
+    activeNumbers.value = activeNumbers.value.filter((x) => x !== n);
+  } else {
+    const idx = selectedIndex.value;
+    if (idx < 0 || idx >= activeWords.value.length) return;
+    activeWords.value.splice(idx, 1);
+  }
+
+  popupOpen.value = false;
+  selectedIndex.value = null;
+  selectedValue.value = null;
+  drawWheel(currentAngle());
 }
-function closePopup() { popupOpen.value = false; }
+function closePopup() {
+  popupOpen.value = false;
+  selectedIndex.value = null;
+  selectedValue.value = null;
+}
 
 // ---------- computed ----------
-const selectedText = computed(() => (selectedNumber.value == null ? "" : String(selectedNumber.value)));
+const selectedText = computed(() => (selectedValue.value == null ? "" : String(selectedValue.value)));
 
 // ---------- lifecycle ----------
+const cleanupFns: Array<() => void> = [];
+
 onMounted(() => {
-  if (!numbers.value.length) { numbers.value = buildNumbersFromInputs(startNum.value, endNum.value, excludeInput.value); saveNumbers(); }
-  setupCanvas(); drawWheel(endAngle);
+  // ensure configured numbers exist (legacy behavior)
+  if (!numbers.value.length) {
+    numbers.value = buildNumbersFromInputs(startNum.value, endNum.value, excludeInput.value);
+    saveNumbers();
+  }
+
+  // normalize mode if needed
+  if (wheelMode.value === "words" && words.value.length === 0) {
+    wheelMode.value = "numbers";
+    saveWheelMode();
+  }
+
+  // initialize active pools (wheel starts "fresh")
+  activeNumbers.value = [...numbers.value];
+  activeWords.value = [...words.value];
+
+  setupCanvas();
+  drawWheel(endAngle);
 
   const onKey = (e: KeyboardEvent) => {
-    if (e.code === "Space" && !popupOpen.value && !showSettings.value) { e.preventDefault(); spinWheel(); }
-    if (e.code === "Escape") { if (popupOpen.value) { e.preventDefault(); closePopup(); } else if (showSettings.value) { e.preventDefault(); closeSettings(); } }
+    if (e.code === "Space" && !popupOpen.value && !showSettings.value) {
+      e.preventDefault();
+      spinWheel();
+    }
+    if (e.code === "Escape") {
+      if (popupOpen.value) {
+        e.preventDefault();
+        closePopup();
+      } else if (showSettings.value) {
+        e.preventDefault();
+        closeSettings();
+      }
+    }
   };
   const onResizeThrottled = throttle(onResize, 100);
 
@@ -447,19 +924,38 @@ onMounted(() => {
   cleanupFns.push(() => window.removeEventListener("resize", onResizeThrottled));
 });
 
-watch([numbers, wheelSize], () => { setupCanvas(); drawWheel(currentAngle()); });
+// When settings lists or mode change, keep active pools consistent with "Update refresh" behavior
+watch([numbers, words, wheelMode], () => {
+  // If the user changes mode or updates values, we want the active wheel to mirror the configured list.
+  // (This is effectively what "Update" does; this also covers storage restoration edge-cases.)
+  refreshActivePool();
+});
 
-const cleanupFns: Array<() => void> = [];
-onBeforeUnmount(() => { rafId && cancelAnimationFrame(rafId); cleanupFns.forEach((fn) => fn()); });
+watch([wheelSize], () => {
+  setupCanvas();
+  drawWheel(currentAngle());
+});
+
+onBeforeUnmount(() => {
+  rafId && cancelAnimationFrame(rafId);
+  cleanupFns.forEach((fn) => fn());
+});
 
 // ---------- utils ----------
 function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
-  let last = 0; let timeout: number | null = null;
+  let last = 0;
+  let timeout: number | null = null;
   return function (this: any, ...args: any[]) {
     const now = Date.now();
-    if (now - last >= wait) { last = now; fn.apply(this, args); }
-    else if (!timeout) {
-      timeout = window.setTimeout(() => { last = Date.now(); timeout = null; fn.apply(this, args); }, wait - (now - last));
+    if (now - last >= wait) {
+      last = now;
+      fn.apply(this, args);
+    } else if (!timeout) {
+      timeout = window.setTimeout(() => {
+        last = Date.now();
+        timeout = null;
+        fn.apply(this, args);
+      }, wait - (now - last));
     }
   } as T;
 }
@@ -485,8 +981,14 @@ function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
   padding: 0;
   cursor: pointer;
 }
-.home-button img { width: 100%; height: auto; transition: transform .18s ease-in-out; }
-.home-button img:hover { transform: scale(1.07); }
+.home-button img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.18s ease-in-out;
+}
+.home-button img:hover {
+  transform: scale(1.07);
+}
 
 /* Settings (top-right) */
 .settings-button {
@@ -504,34 +1006,76 @@ function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
 .settings-button img {
   width: 100%;
   height: auto;
-  transition: transform .18s ease-in-out;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .25));
+  transition: transform 0.18s ease-in-out;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
 }
-.settings-button:hover img { transform: rotate(10deg) scale(1.05); }
+.settings-button:hover img {
+  transform: rotate(10deg) scale(1.05);
+}
 
 /* Wheel center + size-aware spacing for spin button (unchanged visual) */
-.wheel-container { flex: 1; display: grid; place-items: center; padding: 12px 0; }
-.wheel-wrap { position: relative; width: var(--wheel-size, 560px); height: var(--wheel-size, 560px); cursor: pointer; }
+.wheel-container {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 12px 0;
+}
+.wheel-wrap {
+  position: relative;
+  width: var(--wheel-size, 560px);
+  height: var(--wheel-size, 560px);
+  cursor: pointer;
+}
 .indicator {
-  position: absolute; top: 6px; left: 50%; transform: translateX(-50%) rotate(180deg);
-  width: 0; height: 0;
-  border-left: 12px solid transparent; border-right: 12px solid transparent; border-bottom: 36px solid #ff3b30;
-  z-index: 2; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .2));
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 36px solid #ff3b30;
+  z-index: 2;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
 }
 .wheel {
-  background: #fff; border-radius: 50%; display: block; width: 100%; height: 100%;
-  box-shadow: 0 10px 28px rgba(28, 76, 178, .16), inset 0 0 0 8px rgba(255, 255, 255, .9), inset 0 0 0 10px rgba(0, 0, 0, .06);
+  background: #fff;
+  border-radius: 50%;
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 10px 28px rgba(28, 76, 178, 0.16), inset 0 0 0 8px rgba(255, 255, 255, 0.9),
+    inset 0 0 0 10px rgba(0, 0, 0, 0.06);
 }
 .spin-btn {
   margin-top: clamp(4px, calc(var(--wheel-size) * 0.025), 16px);
-  padding: 12px 22px; font-size: 17px; font-weight: 900; border: none; border-radius: 12px;
-  background: linear-gradient(90deg, #6dd5fa, #3498db); color: #fff; cursor: pointer;
-  transition: transform .15s ease, filter .2s ease, box-shadow .2s ease;
-  box-shadow: 0 10px 20px rgba(24, 113, 194, .22); margin-bottom: 4px;
+  padding: 12px 22px;
+  font-size: 17px;
+  font-weight: 900;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #6dd5fa, #3498db);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 20px rgba(24, 113, 194, 0.22);
+  margin-bottom: 4px;
 }
-.spin-btn:hover { transform: translateY(-1px); filter: brightness(1.03); box-shadow: 0 12px 24px rgba(24, 113, 194, .25); }
-.spin-btn:disabled { opacity: .6; cursor: not-allowed; }
-.muted { color: #666; font-size: 14px; margin-top: 6px; }
+.spin-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+  box-shadow: 0 12px 24px rgba(24, 113, 194, 0.25);
+}
+.spin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.muted {
+  color: #666;
+  font-size: 14px;
+  margin-top: 6px;
+}
 
 /* =========================
    Popups (Result + Settings) — MODAL TOKENS
@@ -568,23 +1112,80 @@ function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
   font-weight: 900;
   color: var(--modal-on-surface);
 }
-.pop-actions { display: flex; gap: 10px; justify-content: center; }
+.pop-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
 
 /* Settings modal sizing */
-.settings-card { width: min(420px, 92vw); text-align: left; }
-.settings-title { margin: 0 0 8px; font-size: 18px; font-weight: 800; color: var(--modal-on-surface); }
+.settings-card {
+  width: min(420px, 92vw);
+  text-align: left;
+}
+.settings-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--modal-on-surface);
+}
+
+/* Tabs */
+.tabs {
+  display: inline-flex;
+  gap: 8px;
+  margin: 2px 0 10px;
+  padding: 4px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--modal-on-surface) 6%, var(--modal-surface) 94%);
+  border: 1px solid var(--modal-border);
+}
+.tab {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 0;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 13px;
+  color: #000;
+  background: transparent;
+}
+.tab.is-active {
+  background: var(--modal-accent);
+  border: 1px solid color-mix(in srgb, var(--modal-accent) 70%, var(--modal-border) 30%);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+.tab-panel {
+  display: grid;
+  gap: 10px;
+}
 
 /* Form */
-.settings-form { display: grid; gap: 10px; }
+.settings-form {
+  display: grid;
+  gap: 10px;
+}
 .row {
   display: grid;
   grid-template-columns: 84px 1fr;
   align-items: center;
   column-gap: 10px;
 }
-.lbl { font-weight: 700; justify-self: end; color: var(--modal-on-surface); }
-.controls-inline { display: inline-flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
-.dash { opacity: 0.75; color: var(--modal-on-surface-soft); }
+.lbl {
+  font-weight: 700;
+  justify-self: end;
+  color: var(--modal-on-surface);
+}
+.controls-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.dash {
+  opacity: 0.75;
+  color: var(--modal-on-surface-soft);
+}
 
 /* Inputs — modal surface/border/text */
 .num,
@@ -597,22 +1198,97 @@ function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
   color: var(--modal-on-surface);
   border: 1px solid var(--modal-border);
   outline: none;
-  box-shadow: 0 0 0 0 rgba(0,0,0,0);
-  transition: box-shadow .15s ease, border-color .15s ease;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
-.ex-input { width: clamp(160px, 60vw, 260px); }
+.ex-input {
+  width: clamp(160px, 60vw, 260px);
+}
 .num:focus,
 .ex-input:focus {
   box-shadow: var(--focus-ring);
   border-color: color-mix(in srgb, var(--modal-accent) 40%, var(--modal-border) 60%);
 }
 
+/* Words list UI */
+.words-head {
+  grid-template-columns: 84px 1fr;
+}
+.words-lbl {
+  align-self: start;
+  padding-top: 6px;
+}
+.words-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.words-count {
+  font-weight: 900;
+  font-size: 12px;
+  opacity: 0.8;
+  color: var(--modal-on-surface);
+}
+.words-list {
+  display: grid;
+  gap: 8px;
+  padding-left: 94px;
+}
+.word-row {
+  display: grid;
+  grid-template-columns: 1fr 34px;
+  align-items: center;
+  gap: 8px;
+}
+.word-input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  background: var(--modal-surface);
+  color: var(--modal-on-surface);
+  border: 1px solid var(--modal-border);
+  outline: none;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.word-input:focus {
+  box-shadow: var(--focus-ring);
+  border-color: color-mix(in srgb, var(--modal-accent) 40%, var(--modal-border) 60%);
+}
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--modal-border);
+  background: color-mix(in srgb, var(--modal-on-surface) 6%, var(--modal-surface) 94%);
+  cursor: pointer;
+  font-weight: 900;
+  color: #000;
+}
+.icon-btn:hover {
+  background: color-mix(in srgb, var(--modal-on-surface) 10%, var(--modal-surface) 90%);
+}
+.icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Actions row */
-.actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 2px; }
-.actions-left, .actions-right { display: inline-flex; gap: 8px; }
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 2px;
+}
+.actions-left,
+.actions-right {
+  display: inline-flex;
+  gap: 8px;
+}
 
 /* Buttons — modal accents */
-/* Buttons — solid token fills (no animations) */
 .btn {
   padding: 9px 14px;
   font-size: 14px;
@@ -620,33 +1296,37 @@ function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
   border-radius: 9px;
   cursor: pointer;
 
-  /* Solid accent fill */
   background: var(--modal-accent);
-  color: #000; /* keep text black */
+  color: #000;
   border: 2px solid color-mix(in srgb, var(--modal-accent) 70%, var(--modal-border) 30%);
-  box-shadow: 0 3px 10px rgba(0,0,0,.12);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 
-  transition:
-    transform .10s ease,
-    filter .15s ease,
-    border-color .15s ease,
-    box-shadow .15s ease;
+  transition: transform 0.1s ease, filter 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .btn:hover {
   transform: translateY(-1px);
   filter: brightness(0.98);
   border-color: color-mix(in srgb, var(--modal-accent) 80%, var(--modal-border) 20%);
-  box-shadow: 0 4px 12px rgba(0,0,0,.16);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
 }
-.btn:active { transform: translateY(0); }
-.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn:active {
+  transform: translateY(0);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-.btn.sm { padding: 7px 12px; font-size: 13px; border-radius: 8px; }
+.btn.sm {
+  padding: 7px 12px;
+  font-size: 13px;
+  border-radius: 8px;
+}
 
 /* Subtle button (neutral within modal) */
 .btn.subtle {
   background: color-mix(in srgb, var(--modal-on-surface) 6%, var(--modal-surface) 94%);
-  color: #000; /* keep text black */
+  color: #000;
   border: 2px solid var(--modal-border);
   box-shadow: none;
 }
@@ -657,28 +1337,44 @@ function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
 /* Randomize uses secondary modal accent */
 .btn.rand {
   background: var(--modal-accent-2);
-  color: #000; /* keep text black */
+  color: #000;
   border: 2px solid color-mix(in srgb, var(--modal-accent-2) 70%, var(--modal-border) 30%);
-  box-shadow: 0 3px 10px rgba(0,0,0,.14);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
 }
 .btn.rand:hover {
   filter: brightness(0.98);
   border-color: color-mix(in srgb, var(--modal-accent-2) 80%, var(--modal-border) 20%);
-  box-shadow: 0 4px 12px rgba(0,0,0,.16);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
 }
-
 
 /* Transitions */
 .fade-zoom-enter-active,
-.fade-zoom-leave-active { transition: opacity .18s ease, transform .18s ease; }
+.fade-zoom-leave-active {
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
 .fade-zoom-enter-from,
-.fade-zoom-leave-to { opacity: 0; transform: scale(.98); }
+.fade-zoom-leave-to {
+  opacity: 0;
+  transform: scale(0.98);
+}
 
 /* Mobile tweaks */
 @media (max-width: 420px) {
-  .settings-card { width: min(360px, 94vw); }
-  .row { grid-template-columns: 74px 1fr; }
-  .num { width: 84px; }
-  .ex-input { width: clamp(150px, 70vw, 220px); }
+  .settings-card {
+    width: min(360px, 94vw);
+  }
+  .row {
+    grid-template-columns: 74px 1fr;
+  }
+  .words-list {
+    padding-left: 84px;
+  }
+  .num {
+    width: 84px;
+  }
+  .ex-input {
+    width: clamp(150px, 70vw, 220px);
+  }
 }
 </style>
+
