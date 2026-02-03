@@ -571,12 +571,22 @@ function drawWheel(angleRad: number): number | null {
   const now = performance.now();
   const pulse = 0.62 + 0.38 * Math.abs(Math.sin(now / 160));
 
+  // font sizing (uniform for words)
   const baseFont = Math.max(14, Math.min(22, radius * 0.12));
   const minFont = 12;
   const uniformFontSize = wheelMode.value === "words" ? computeUniformFontSize(k, labels, baseFont, minFont) : baseFont;
 
-  const labelR = radius - Math.max(34, radius * 0.2);
-  const arcWidth = Math.max(28, labelR * sliceAngle * 0.92);
+  // --- TEXT LAYOUT: anchor words near rim, extend inward only (no overflow past edge) ---
+  const isWordsMode = wheelMode.value === "words";
+  const edgeMargin = Math.max(22, radius * 0.11); // closer to rim than before
+  const innerMargin = Math.max(18, radius * 0.10); // keep some space around center cap
+
+  // Outer anchor point (near rim). Words are right-aligned here (so they grow inward).
+  const labelR = radius - edgeMargin;
+
+  // Max allowed text width (radially) so words never cross the rim (outward).
+  // Since we're right-aligned at labelR, all text extends left/inward.
+  const maxTextWidth = Math.max(40, labelR - innerMargin);
 
   for (let i = 0; i < total; i++) {
     const a0 = angleRad + i * sliceAngle,
@@ -624,28 +634,36 @@ function drawWheel(angleRad: number): number | null {
     k.save();
     k.translate(cx, cy);
     k.rotate(mid);
-    k.textAlign = "center";
-    k.textBaseline = "middle";
 
     const isTop = i === idxAtTop;
     const fontSize = isTop ? uniformFontSize * 1.22 : uniformFontSize;
     k.font = `800 ${fontSize}px system-ui, -apple-system, Segoe UI, Arial`;
 
+    // Words: anchor near rim and grow inward only; Numbers: centered
+    k.textAlign = isWordsMode ? "right" : "center";
+    k.textBaseline = "middle";
+
     const raw = labels[i] ?? "";
-    const finalText = wheelMode.value === "words" ? ellipsizeToFit(k, raw, arcWidth) : raw;
+
+    // Words: truncate by radial width so we never hit the rim.
+    // Numbers: no truncation.
+    const finalText = isWordsMode ? ellipsizeToFit(k, raw, maxTextWidth) : raw;
+
+    const x = labelR;
 
     if (isTop) {
       k.lineJoin = "round";
       k.miterLimit = 2;
       k.strokeStyle = "rgba(255,255,255,.95)";
       k.lineWidth = Math.max(3, fontSize * 0.14);
-      k.strokeText(finalText, labelR, 0);
+      k.strokeText(finalText, x, 0);
       k.fillStyle = "#0b1a2b";
-      k.fillText(finalText, labelR, 0);
+      k.fillText(finalText, x, 0);
     } else {
       k.fillStyle = "rgba(0,0,0,.82)";
-      k.fillText(finalText, labelR, 0);
+      k.fillText(finalText, x, 0);
     }
+
     k.restore();
   }
 
@@ -671,6 +689,7 @@ function drawWheel(angleRad: number): number | null {
 
   return idxAtTop;
 }
+
 
 function getTopIndex(centers: SliceCenter[], reference = 270): number | null {
   if (!centers.length) return null;
