@@ -161,8 +161,8 @@ export default {
       wordLists: {
         verbs: [
           'THINK','WRITE','SPEAK','LEARN','TEACH','DANCE','STUDY','DRIVE','SLEEP','LAUGH',
-          'SMILE','JUMPS','WALKS','SWIMS','BEGIN','CLOSE','SHARE','GUESS','BUILD','CARRY',
-          'FIXES','MOVES','PLANT','POINT','TRAIN','PRESS','START','PAUSE','READS','PLAYS',
+          'SMILE','BEGIN','CLOSE','SHARE','GUESS','BUILD','CARRY',
+          'PLANT','POINT','TRAIN','PRESS','START','PAUSE',
           'DRINK','SMOKE','CHECK'
         ],
         food: [
@@ -172,23 +172,23 @@ export default {
         ],
         animals: [
           'TIGER','HORSE','SNAKE','WHALE','SHARK','EAGLE','MOUSE','ZEBRA','PANDA','KOALA',
-          'SLOTH','OTTER','RAVEN','GOOSE','SHEEP','LLAMA','DOGGO','WOLFS','RABIT','CRANE'
+          'SLOTH','OTTER','RAVEN','GOOSE','SHEEP','LLAMA','CRANE'
         ],
         halloween: [
           'WITCH','GHOST','CANDY','SKULL','SPOOK','MAGIC','TREAT','SCARY','GRAVE','BROOM',
-          'HAUNT','CURSE','CREEP','MASKS','NIGHT','BLACK','BONED','CLOAK','FANGS','SPIDER'
+          'HAUNT','CURSE','CREEP','MASKS','NIGHT','BLACK','CLOAK','FANGS','SPIDER'
         ],
         christmas: [
           'SANTA','GIFTS','BELLS','HOLLY','MERRY','FROST','CAROL','ANGEL','SNOWY','PEACE',
-          'LIGHT','FEAST','CHEER','NORTH','ELVES','RUDOL','TREES','STARS','WRAPS','STOCK'
+          'LIGHT','FEAST','CHEER','NORTH','ELVES','TREES','STARS','WRAPS',
         ],
         sports: [
           'SCORE','MATCH','THROW','CATCH','SHOOT','SKATE','PITCH','RUGBY','BOXER','DRILL',
-          'SERVE','BLOCK','GUARD','RALLY','SWING','DRIVE','JOGGS','CHASE','FIELD','COURT'
+          'SERVE','BLOCK','GUARD','RALLY','SWING','DRIVE','CHASE','FIELD','COURT'
         ],
         places: [
-          'BEACH','WOODS','CAVES','PEAKS','HILLS','RIVER','OCEAN','PLAZA','TOWER','TRAIL',
-          'COAST','FIELD','TEMPO','BRIDGE','PORTS','TOKYO','SCHOOL','HOUSE','PARKS','STATION'
+          'BEACH','WOODS','HILLS','RIVER','OCEAN','PLAZA','TOWER','TRAIL',
+          'COAST','FIELD','HOUSE'
         ]
         // "all" will be injected in created()
       },
