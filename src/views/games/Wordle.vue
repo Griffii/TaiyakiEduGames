@@ -162,13 +162,13 @@ export default {
         verbs: [
           'THINK','WRITE','SPEAK','LEARN','TEACH','DANCE','STUDY','DRIVE','SLEEP','LAUGH',
           'SMILE','BEGIN','CLOSE','SHARE','GUESS','BUILD','CARRY',
-          'PLANT','POINT','TRAIN','PRESS','START','PAUSE',
+          'PLANT','POINT','TRAIN','PRESS',
           'DRINK','SMOKE','CHECK'
         ],
         food: [
-          'PIZZA','PASTA','BREAD','STEAK','SALAD','FRUIT','BACON','SUGAR','CREAM','JUICE',
-          'CANDY','APPLE','GRAPE','LEMON','BERRY','MELON','ONION','GARLIC','HONEY','RAMEN',
-          'SOUPY','BENTO','SUSHI','COCOA','CURRY','DONUT','MOCHI'
+          'PIZZA','PASTA','BREAD','STEAK','SALAD','FRUIT','BACON','SUGAR',
+          'CANDY','APPLE','GRAPE','LEMON','BERRY','MELON','ONION','HONEY','RAMEN',
+          'SUSHI','CURRY','DONUT','MOCHI'
         ],
         animals: [
           'TIGER','HORSE','SNAKE','WHALE','SHARK','EAGLE','MOUSE','ZEBRA','PANDA','KOALA',
@@ -181,14 +181,6 @@ export default {
         christmas: [
           'SANTA','GIFTS','BELLS','HOLLY','MERRY','FROST','CAROL','ANGEL','SNOWY','PEACE',
           'LIGHT','FEAST','CHEER','NORTH','ELVES','TREES','STARS','WRAPS',
-        ],
-        sports: [
-          'SCORE','MATCH','THROW','CATCH','SHOOT','SKATE','PITCH','RUGBY','BOXER','DRILL',
-          'SERVE','BLOCK','GUARD','RALLY','SWING','DRIVE','CHASE','FIELD','COURT'
-        ],
-        places: [
-          'BEACH','WOODS','HILLS','RIVER','OCEAN','PLAZA','TOWER','TRAIL',
-          'COAST','FIELD','HOUSE'
         ]
         // "all" will be injected in created()
       },
