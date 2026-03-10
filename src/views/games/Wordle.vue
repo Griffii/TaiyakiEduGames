@@ -124,7 +124,7 @@
 </template>
 
 <script>
-// --- New: module URL imports for audio (robust with Vite) ---
+// --- module URL imports for audio ---
 import clickUrl from '@/assets/sounds/Type_Click.ogg'
 import revealUrl from '@/assets/sounds/Wood_Block.ogg'
 import wrongUrl from '@/assets/sounds/arcade_beep_01.mp3'
