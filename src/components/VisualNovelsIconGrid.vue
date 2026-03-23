@@ -83,6 +83,7 @@ type VisualNovel = {
   slug: string
   title: string
   cover_image_url?: string | null
+  resolved_cover_image_url?: string
   views_count: number
   likes_count: number
   comments_count: number
@@ -116,6 +117,11 @@ const error = ref<string | null>(null)
 const novels = ref<VisualNovel[]>([])
 const failedImages = ref<Set<string>>(new Set())
 
+const appBaseUrl = computed(() => {
+  if (typeof window === 'undefined') return import.meta.env.BASE_URL || '/'
+  return new URL(import.meta.env.BASE_URL || '/', window.location.origin).toString()
+})
+
 onMounted(async () => {
   await withLoading(async () => {
     try {
@@ -146,6 +152,7 @@ onMounted(async () => {
           slug: row.slug,
           title: row.title,
           cover_image_url: row.cover_image_url,
+          resolved_cover_image_url: resolvePublicAssetUrl(row.cover_image_url),
           views_count: Number(stats.views_count || 0),
           likes_count: Number(stats.likes_count || 0),
           comments_count: Number(stats.comments_count || 0),
@@ -160,9 +167,27 @@ onMounted(async () => {
   }, 250)
 })
 
+function resolvePublicAssetUrl(path?: string | null): string {
+  if (!path) return ''
+
+  const raw = String(path).trim()
+  if (!raw) return ''
+
+  if (raw.startsWith('http://') || raw.startsWith('https://')) {
+    return raw
+  }
+
+  if (typeof window !== 'undefined' && raw.startsWith('//')) {
+    return `${window.location.protocol}${raw}`
+  }
+
+  const clean = raw.replace(/^\.\/+/, '').replace(/^\/+/, '')
+  return new URL(clean, appBaseUrl.value).toString()
+}
+
 function coverUrl(vn: VisualNovel): string {
   if (failedImages.value.has(vn.slug)) return ''
-  return vn.cover_image_url || ''
+  return vn.resolved_cover_image_url || ''
 }
 
 function onImageError(slug: string) {
