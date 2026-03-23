@@ -44,7 +44,7 @@
         <section class="dashboard__card dashboard__card--visualnovels" aria-label="Visual Novels">
           <header class="dashboard__cardHead">
             <h2 class="dashboard__cardTitle">
-              <RouterLink class="dashboard__titleLink" to="/visual-novels">Visual Novels</RouterLink>
+              <RouterLink class="dashboard__titleLink" to="/visual-novels-list">Visual Novels</RouterLink>
             </h2>
           </header>
           <div class="dashboard__cardBody">

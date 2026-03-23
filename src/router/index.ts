@@ -100,7 +100,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/onthebeat', name: 'onthebeat', component: () => import('@/views/games/OnTheBeat.vue'), meta: { hideHeader: true } },
 
   // Visual Novels
-  { path: '/visual-novels', name: 'visual-novels', component: () => import('@/views/VisualNovels.vue') },
+  { path: '/visual-novels-list', name: 'visual-novels-list', component: () => import('@/views/VisualNovels.vue') },
   { path: '/visual-novels/:slug', name: 'visual-novel-viewer', component: () => import('@/views/VisualNovelViewer.vue') },
 
 
