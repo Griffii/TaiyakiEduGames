@@ -25,13 +25,13 @@
       <RouterLink
         v-for="vn in novels"
         :key="vn.slug"
-        :to="`/visual-novels/${vn.slug}`"
+        :to="vnRoute(vn.slug)"
         class="card"
       >
         <div class="cover">
           <img
-            v-if="vn.cover_image_url && !imageErrors[vn.slug]"
-            :src="vn.cover_image_url"
+            v-if="vn.resolved_cover_image_url && !imageErrors[vn.slug]"
+            :src="vn.resolved_cover_image_url"
             :alt="`${vn.title} cover image`"
             @error="handleImageError(vn.slug)"
           />
@@ -86,7 +86,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 
@@ -95,11 +95,38 @@ const error = ref('')
 const novels = ref([])
 const imageErrors = ref({})
 
+const appBaseUrl = computed(() => {
+  if (typeof window === 'undefined') return import.meta.env.BASE_URL || '/'
+  return new URL(import.meta.env.BASE_URL || '/', window.location.origin).toString()
+})
+
 function handleImageError(slug) {
   imageErrors.value = {
     ...imageErrors.value,
     [slug]: true,
   }
+}
+
+function resolvePublicAssetUrl(path) {
+  if (!path) return ''
+
+  const raw = String(path).trim()
+  if (!raw) return ''
+
+  if (raw.startsWith('http://') || raw.startsWith('https://')) {
+    return raw
+  }
+
+  if (raw.startsWith('//')) {
+    return `${window.location.protocol}${raw}`
+  }
+
+  const clean = raw.replace(/^\.\/+/, '').replace(/^\/+/, '')
+  return new URL(clean, appBaseUrl.value).toString()
+}
+
+function vnRoute(slug) {
+  return `/visual-novels/${slug}`
 }
 
 async function fetchVisualNovels() {
@@ -138,6 +165,7 @@ async function fetchVisualNovels() {
         description: row.description,
         short_description: row.short_description,
         cover_image_url: row.cover_image_url,
+        resolved_cover_image_url: resolvePublicAssetUrl(row.cover_image_url),
         author_name: row.author_name,
         views_count: Number(stats.views_count || 0),
         likes_count: Number(stats.likes_count || 0),

@@ -40,29 +40,7 @@
         </div>
       </section>
 
-      <!-- Achievements -->
-      <section class="achievements">
-        <h2 class="section-title">Achievements</h2>
-        <div class="badges">
-          <div class="badge locked">
-            <div class="icon">🏆</div>
-            <div class="label">Locked</div>
-          </div>
-          <div class="badge locked">
-            <div class="icon">⭐</div>
-            <div class="label">Locked</div>
-          </div>
-          <div class="badge locked">
-            <div class="icon">🎯</div>
-            <div class="label">Locked</div>
-          </div>
-          <div class="badge locked">
-            <div class="icon">⏱️</div>
-            <div class="label">Locked</div>
-          </div>
-        </div>
-        <small class="muted note">Achievement tracking coming soon.</small>
-      </section>
+      
     </main>
   </div>
 </template>

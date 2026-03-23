@@ -14,9 +14,15 @@
 
         <section class="vn-player-section">
             <div ref="playerShellRef" class="vn-player-shell">
-                <iframe ref="playerFrameRef" class="vn-player" :src="novel.build_url" :title="novel.title"
-                    allow="autoplay; fullscreen" allowfullscreen
-                    referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                <iframe
+                    ref="playerFrameRef"
+                    class="vn-player"
+                    :src="playerSrc"
+                    :title="novel.title"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen
+                    referrerpolicy="strict-origin-when-cross-origin"
+                ></iframe>
             </div>
 
             <div class="vn-engagement-bar">
@@ -47,8 +53,12 @@
                 </div>
 
                 <div class="vn-actions">
-                    <button class="vn-like-button" :class="{ 'is-liked': userHasLiked }"
-                        :disabled="likeLoading || !user" @click="toggleLike">
+                    <button
+                        class="vn-like-button"
+                        :class="{ 'is-liked': userHasLiked }"
+                        :disabled="likeLoading || !user"
+                        @click="toggleLike"
+                    >
                         {{ userHasLiked ? 'Unlike' : 'Like' }}
                     </button>
 
@@ -63,13 +73,21 @@
             <h2 class="vn-comments-title">Comments</h2>
 
             <div v-if="user" class="vn-comment-form">
-                <textarea v-model="newComment" class="vn-comment-input" rows="4" maxlength="1000"
-                    placeholder="Leave a comment..."></textarea>
+                <textarea
+                    v-model="newComment"
+                    class="vn-comment-input"
+                    rows="4"
+                    maxlength="1000"
+                    placeholder="Leave a comment..."
+                ></textarea>
 
                 <div class="vn-comment-form-footer">
                     <span>{{ newComment.length }}/1000</span>
-                    <button class="vn-comment-submit" :disabled="commentLoading || !trimmedComment"
-                        @click="submitComment">
+                    <button
+                        class="vn-comment-submit"
+                        :disabled="commentLoading || !trimmedComment"
+                        @click="submitComment"
+                    >
                         Post Comment
                     </button>
                 </div>
@@ -83,8 +101,12 @@
                 <article v-for="comment in comments" :key="comment.id" class="vn-comment-card">
                     <div class="vn-comment-top">
                         <div class="vn-comment-user">
-                            <img v-if="comment.avatar_url" :src="comment.avatar_url"
-                                :alt="`${comment.display_name || 'User'} avatar`" class="vn-comment-avatar" />
+                            <img
+                                v-if="comment.avatar_url"
+                                :src="comment.avatar_url"
+                                :alt="`${comment.display_name || 'User'} avatar`"
+                                class="vn-comment-avatar"
+                            />
                             <div v-else class="vn-comment-avatar vn-comment-avatar--fallback">
                                 {{ getInitial(comment.display_name) }}
                             </div>
@@ -99,8 +121,12 @@
                             </div>
                         </div>
 
-                        <button v-if="comment.user_id === currentUserId" class="vn-comment-delete"
-                            :disabled="deletingCommentIds[comment.id]" @click="deleteComment(comment)">
+                        <button
+                            v-if="comment.user_id === currentUserId"
+                            class="vn-comment-delete"
+                            :disabled="deletingCommentIds[comment.id]"
+                            @click="deleteComment(comment)"
+                        >
                             Delete
                         </button>
                     </div>
@@ -163,6 +189,15 @@ const headerDescription = computed(() => {
     return novel.value.short_description || novel.value.description || ''
 })
 
+const appBaseUrl = computed(() => {
+    if (typeof window === 'undefined') return import.meta.env.BASE_URL || '/'
+    return new URL(import.meta.env.BASE_URL || '/', window.location.origin).toString()
+})
+
+const playerSrc = computed(() => {
+    return resolvePublicBuildUrl(novel.value?.build_url || '')
+})
+
 function getInitial(name) {
     const safe = (name || 'U').trim()
     return safe.charAt(0).toUpperCase()
@@ -178,6 +213,19 @@ function resolveStorageAvatar(path) {
     const cleanPath = String(path).replace(/^\/+/, '')
     const { data } = supabase.storage.from(BUCKET).getPublicUrl(cleanPath)
     return data?.publicUrl || ''
+}
+
+function resolvePublicBuildUrl(path) {
+    if (!path) return ''
+
+    const raw = String(path).trim()
+
+    if (!raw) return ''
+    if (raw.startsWith('http://') || raw.startsWith('https://')) return raw
+    if (raw.startsWith('//')) return `${window.location.protocol}${raw}`
+
+    const clean = raw.replace(/^\.\/+/, '').replace(/^\/+/, '')
+    return new URL(clean, appBaseUrl.value).toString()
 }
 
 function timeAgo(dateString) {
@@ -464,38 +512,38 @@ async function submitComment() {
 }
 
 async function deleteComment(comment) {
-  if (!user.value || comment.user_id !== user.value.id) return
-  if (deletingCommentIds.value[comment.id]) return
+    if (!user.value || comment.user_id !== user.value.id) return
+    if (deletingCommentIds.value[comment.id]) return
 
-  deletingCommentIds.value = {
-    ...deletingCommentIds.value,
-    [comment.id]: true,
-  }
-
-  const previousComments = [...comments.value]
-  const previousCommentsCount = stats.value.comments
-
-  comments.value = comments.value.filter((item) => item.id !== comment.id)
-  stats.value.comments = Math.max(0, stats.value.comments - 1)
-
-  try {
-    const { error } = await supabase.rpc('soft_delete_visual_novel_comment', {
-      p_comment_id: comment.id,
-    })
-
-    if (error) throw error
-
-    await Promise.all([loadComments(), loadStats()])
-  } catch (error) {
-    console.error('Failed to delete comment:', error)
-    comments.value = previousComments
-    stats.value.comments = previousCommentsCount
-  } finally {
     deletingCommentIds.value = {
-      ...deletingCommentIds.value,
-      [comment.id]: false,
+        ...deletingCommentIds.value,
+        [comment.id]: true,
     }
-  }
+
+    const previousComments = [...comments.value]
+    const previousCommentsCount = stats.value.comments
+
+    comments.value = comments.value.filter((item) => item.id !== comment.id)
+    stats.value.comments = Math.max(0, stats.value.comments - 1)
+
+    try {
+        const { error } = await supabase.rpc('soft_delete_visual_novel_comment', {
+            p_comment_id: comment.id,
+        })
+
+        if (error) throw error
+
+        await Promise.all([loadComments(), loadStats()])
+    } catch (error) {
+        console.error('Failed to delete comment:', error)
+        comments.value = previousComments
+        stats.value.comments = previousCommentsCount
+    } finally {
+        deletingCommentIds.value = {
+            ...deletingCommentIds.value,
+            [comment.id]: false,
+        }
+    }
 }
 
 onMounted(async () => {
