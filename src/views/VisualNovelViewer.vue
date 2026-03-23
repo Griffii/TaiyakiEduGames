@@ -79,6 +79,7 @@
                     rows="4"
                     maxlength="1000"
                     placeholder="Leave a comment..."
+                    @input="clearCommentFeedback"
                 ></textarea>
 
                 <div class="vn-comment-form-footer">
@@ -88,9 +89,20 @@
                         :disabled="commentLoading || !trimmedComment"
                         @click="submitComment"
                     >
-                        Post Comment
+                        {{ commentLoading ? 'Posting…' : 'Post Comment' }}
                     </button>
                 </div>
+
+                <p
+                    v-if="commentFeedback.message"
+                    class="vn-comment-feedback"
+                    :class="{
+                        'is-success': commentFeedback.type === 'success',
+                        'is-error': commentFeedback.type === 'error',
+                    }"
+                >
+                    {{ commentFeedback.message }}
+                </p>
             </div>
 
             <p v-else class="vn-login-note">
@@ -180,6 +192,10 @@ const commentLoading = ref(false)
 const userHasLiked = ref(false)
 const hasIncrementedView = ref(false)
 const deletingCommentIds = ref({})
+const commentFeedback = ref({
+    type: '',
+    message: '',
+})
 
 const trimmedComment = computed(() => newComment.value.trim())
 const currentUserId = computed(() => user.value?.id || '')
@@ -201,6 +217,14 @@ const playerSrc = computed(() => {
 function getInitial(name) {
     const safe = (name || 'U').trim()
     return safe.charAt(0).toUpperCase()
+}
+
+function clearCommentFeedback() {
+    if (!commentFeedback.value.message) return
+    commentFeedback.value = {
+        type: '',
+        message: '',
+    }
 }
 
 function resolveStorageAvatar(path) {
@@ -329,7 +353,7 @@ async function loadComments() {
 
     const { data: rawComments, error } = await supabase
         .from('visual_novel_comments_view')
-        .select('id, slug, user_id, body, created_at, display_name')
+        .select('id, slug, user_id, body, created_at, updated_at, display_name')
         .eq('slug', novel.value.slug)
         .order('created_at', { ascending: false })
 
@@ -391,11 +415,7 @@ async function loadUserLike() {
 }
 
 async function refreshEngagementState() {
-    await Promise.all([
-        loadStats(),
-        loadComments(),
-        loadUserLike(),
-    ])
+    await Promise.all([loadStats(), loadComments(), loadUserLike()])
 }
 
 async function incrementView() {
@@ -465,29 +485,13 @@ async function submitComment() {
     if (!user.value || !novel.value || !trimmedComment.value || commentLoading.value) return
 
     commentLoading.value = true
-
-    const tempId = `temp-${Date.now()}`
-    const optimisticComment = {
-        id: tempId,
-        slug: novel.value.slug,
-        user_id: user.value.id,
-        body: trimmedComment.value,
-        created_at: new Date().toISOString(),
-        display_name:
-            user.value.user_metadata?.display_name ||
-            user.value.user_metadata?.name ||
-            user.value.email?.split('@')[0] ||
-            'You',
-        avatar_url: resolveStorageAvatar(user.value.user_metadata?.avatar_url || ''),
+    commentFeedback.value = {
+        type: '',
+        message: '',
     }
 
-    const previousComments = [...comments.value]
-    const previousCommentsCount = stats.value.comments
+    const body = trimmedComment.value
     const previousNewComment = newComment.value
-
-    comments.value = [optimisticComment, ...comments.value]
-    stats.value.comments += 1
-    newComment.value = ''
 
     try {
         const { error } = await supabase
@@ -495,17 +499,25 @@ async function submitComment() {
             .insert({
                 slug: novel.value.slug,
                 user_id: user.value.id,
-                body: optimisticComment.body,
+                body,
             })
 
         if (error) throw error
 
+        newComment.value = ''
+        commentFeedback.value = {
+            type: 'success',
+            message: 'Comment submitted for review. It will appear after approval.',
+        }
+
         await Promise.all([loadComments(), loadStats()])
     } catch (error) {
         console.error('Failed to submit comment:', error)
-        comments.value = previousComments
-        stats.value.comments = previousCommentsCount
         newComment.value = previousNewComment
+        commentFeedback.value = {
+            type: 'error',
+            message: 'Failed to submit comment. Please try again.',
+        }
     } finally {
         commentLoading.value = false
     }
@@ -739,6 +751,20 @@ onMounted(async () => {
     color: var(--main-text-soft, rgba(255, 255, 255, 0.82));
 }
 
+.vn-comment-feedback {
+    margin: 10px 0 0;
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
+.vn-comment-feedback.is-success {
+    color: #9be7b3;
+}
+
+.vn-comment-feedback.is-error {
+    color: #ffb4b4;
+}
+
 .vn-comments-list {
     display: grid;
     gap: 12px;
@@ -847,6 +873,11 @@ onMounted(async () => {
     .vn-comment-avatar {
         width: 36px;
         height: 36px;
+    }
+
+    .vn-comment-form-footer {
+        flex-direction: column;
+        align-items: stretch;
     }
 }
 </style>
