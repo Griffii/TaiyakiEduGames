@@ -98,6 +98,12 @@ const routes: RouteRecordRaw[] = [
   { path: '/othello', name: 'othello', component: () => import('@/views/games/Othello.vue'), meta: { hideHeader: true } },
   { path: '/omikuji', name: 'omikuji', component: () => import('@/views/games/OmikujiGame.vue'), meta: { hideHeader: true } },
   { path: '/onthebeat', name: 'onthebeat', component: () => import('@/views/games/OnTheBeat.vue'), meta: { hideHeader: true } },
+
+  // Visual Novels
+  { path: '/visual-novels', name: 'visual-novels', component: () => import('@/views/VisualNovels.vue') },
+  { path: '/visual-novels/:slug', name: 'visual-novel-viewer', component: () => import('@/views/VisualNovelViewer.vue') },
+
+
 ]
 
 export const router = createRouter({

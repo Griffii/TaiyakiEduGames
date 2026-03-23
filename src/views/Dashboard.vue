@@ -4,6 +4,7 @@
     <div class="dashboard__content">
       <!-- Bento Grid -->
       <section class="dashboard__grid" aria-label="Dashboard sections">
+        
         <!-- Row 1 -->
         <section class="dashboard__card dashboard__card--wotd" aria-label="Word of the Day">
           <header class="dashboard__cardHead">
@@ -40,6 +41,30 @@
         </section>
 
         <!-- Row 2 -->
+        <section class="dashboard__card dashboard__card--visualnovels" aria-label="Visual Novels">
+          <header class="dashboard__cardHead">
+            <h2 class="dashboard__cardTitle">
+              <RouterLink class="dashboard__titleLink" to="/visual-novels">Visual Novels</RouterLink>
+            </h2>
+          </header>
+          <div class="dashboard__cardBody">
+            <VisualNovelsIconGrid />
+          </div>
+        </section>
+
+        
+
+        <section class="dashboard__card dashboard__card--community" aria-label="Community">
+          <header class="dashboard__cardHead">
+            <h2 class="dashboard__cardTitle">Community</h2>
+          </header>
+
+          <div class="dashboard__cardBody ">
+            <CommunityLikesCounter />
+          </div>
+        </section>
+
+        <!-- Row 3 -->
         <section class="dashboard__card dashboard__card--textbooks" aria-label="Textbooks">
           <header class="dashboard__cardHead dashboard__cardHead--split">
             <h2 class="dashboard__cardTitle">
@@ -52,29 +77,10 @@
           </header>
 
           <div class="dashboard__cardBody dashboard__cardBody--wall">
-            <ScrollingImageWall
-              :images="textbookImages"
-              :tile-width="200"
-              :tile-height="300"
-              :gap="0"
-              :speed-px-per-sec="30"
-              direction="left"
-              :visible-count="5"
-              :draggable="true"
-            />
+            <ScrollingImageWall :images="textbookImages" :tile-width="200" :tile-height="300" :gap="0"
+              :speed-px-per-sec="30" direction="left" :visible-count="5" :draggable="true" />
           </div>
         </section>
-
-        <!-- Hide until populated 
-        <section class="dashboard__card dashboard__card--tutorials" aria-label="Tutorials">
-          <header class="dashboard__cardHead">
-            <h2 class="dashboard__cardTitle">Tutorials</h2>
-          </header>
-          <div class="dashboard__cardBody">
-            <Tutorials />
-          </div>
-        </section>
-        -->
 
         <!-- Hide for now 
           -- The levels system is hardly ever used I feel.
@@ -91,15 +97,6 @@
         </section>
         -->
 
-        <section class="dashboard__card dashboard__card--community" aria-label="Community">
-          <header class="dashboard__cardHead">
-            <h2 class="dashboard__cardTitle">Community</h2>
-          </header>
-
-          <div class="dashboard__cardBody ">
-            <CommunityLikesCounter />
-          </div>
-        </section>
       </section>
     </div>
 
@@ -123,13 +120,13 @@
 <script setup lang="ts">
 
 import DailyWord from '@/components/DailyWord.vue'
-import DailySlang from '@/components/DailySlang.vue'
 import ScrollingImageWall from '@/components/ScrollingImageWall.vue'
 import CustomDeckButton from '@/components/CustomDeckButton.vue'
 import UserLevels from '@/components/UserLevels.vue'
 import ActivitiesIconGrid from '@/components/ActivitiesIconGrid.vue'
 import CommunityLikesCounter from '@/components/CommunityLikesCounter.vue'
 import Tutorials from '@/components/Tutorials.vue'
+import VisualNovelsIconGrid from '@/components/VisualNovelsIconGrid.vue'
 
 /* ------------------------------------------
    Textbook Images
@@ -241,6 +238,7 @@ const textbookImages = [
   color: inherit;
   text-decoration: none;
 }
+
 .dashboard__titleLink:hover {
   text-decoration: underline;
 }
@@ -266,11 +264,13 @@ const textbookImages = [
   align-items: center;
   min-height: 0;
 }
+
 .dashboard__fillWrap {
   flex: 1;
   min-height: 0;
   display: flex;
 }
+
 .dashboard__fillChild {
   flex: 1;
   min-height: 0;
@@ -282,15 +282,36 @@ const textbookImages = [
    ========================================================================== */
 
 @media (min-width: 980px) {
-  .dashboard__card--wotd { grid-column: span 3; }
-  .dashboard__card--games { grid-column: span 5; }
-  .dashboard__card--teacherTools { grid-column: span 4; }
+  .dashboard__card--wotd {
+    grid-column: span 3;
+  }
 
-  .dashboard__card--tutorials { grid-column: span 5; } /** Hidden */
-  .dashboard__card--textbooks { grid-column: span 7; } 
+  .dashboard__card--games {
+    grid-column: span 5;
+  }
 
-  .dashboard__card--profile { grid-column: span 6; } /** Hidden */
-  .dashboard__card--community { grid-column: span 5; }
+  .dashboard__card--teacherTools {
+    grid-column: span 4;
+  }
+
+  .dashboard__card--visualnovels {
+    grid-column: span 7;
+  }
+
+  /** Replace with VNs */
+  .dashboard__card--community {
+    grid-column: span 5;
+  }
+
+  .dashboard__card--textbooks {
+    grid-column: span 12;
+  }
+
+  .dashboard__card--profile {
+    grid-column: span 6;
+  }
+
+  /** Hidden */
 }
 
 /* ==========================================================================
@@ -305,7 +326,10 @@ const textbookImages = [
   box-shadow: var(--activities-shadow);
   color: var(--activities-on-surface);
 }
-.dashboard__card--games .dashboard__cardTitle { color: var(--activities-on-surface); }
+
+.dashboard__card--games .dashboard__cardTitle {
+  color: var(--activities-on-surface);
+}
 
 /* Textbooks */
 .dashboard__card--textbooks {
@@ -314,14 +338,31 @@ const textbookImages = [
   box-shadow: var(--textbook-shadow);
   color: var(--textbook-on-surface);
 }
-.dashboard__card--textbooks .dashboard__cardTitle { color: var(--textbook-on-surface); }
+
+.dashboard__card--textbooks .dashboard__cardTitle {
+  color: var(--textbook-on-surface);
+}
 
 /* Everything else: keep table surface/shadow, but theme the borders via accents */
-.dashboard__card--wotd { border-color: color-mix(in srgb, var(--accent-warning) 55%, var(--table-border) 45%); }
-.dashboard__card--teacherTools { border-color: color-mix(in srgb, var(--accent-secondary) 55%, var(--table-border) 45%); }
-.dashboard__card--tutorials { border-color: color-mix(in srgb, var(--accent-primary) 45%, var(--table-border) 55%); }
-.dashboard__card--profile { border-color: color-mix(in srgb, var(--accent-primary) 55%, var(--table-border) 45%); }
-.dashboard__card--community { border-color: color-mix(in srgb, var(--accent-success) 55%, var(--table-border) 45%); }
+.dashboard__card--wotd {
+  border-color: color-mix(in srgb, var(--accent-warning) 55%, var(--table-border) 45%);
+}
+
+.dashboard__card--teacherTools {
+  border-color: color-mix(in srgb, var(--accent-secondary) 55%, var(--table-border) 45%);
+}
+
+.dashboard__card--visualnovels {
+  border-color: color-mix(in srgb, var(--accent-primary) 45%, var(--table-border) 55%);
+}
+
+.dashboard__card--profile {
+  border-color: color-mix(in srgb, var(--accent-primary) 55%, var(--table-border) 45%);
+}
+
+.dashboard__card--community {
+  border-color: color-mix(in srgb, var(--accent-success) 55%, var(--table-border) 45%);
+}
 
 /* ==========================================================================
    WOTD placeholder styling
@@ -332,16 +373,19 @@ const textbookImages = [
   gap: 6px;
   color: var(--table-on-surface);
 }
+
 .wotd__word {
   font-size: 1.4rem;
   font-weight: 1000;
   letter-spacing: 0.01em;
 }
+
 .wotd__pos {
   font-size: 0.95rem;
   font-weight: 800;
   color: var(--table-muted);
 }
+
 .wotd__def,
 .wotd__ex {
   font-size: 0.98rem;
@@ -368,7 +412,8 @@ const textbookImages = [
 }
 
 .community__greeters {
-  margin-top: auto;     /* pins to bottom */
+  margin-top: auto;
+  /* pins to bottom */
   min-height: 0;
   display: flex;
   align-items: flex-end;
@@ -408,7 +453,10 @@ const textbookImages = [
   color: var(--header-on-surface);
   text-decoration: none;
 }
-.dashboard__footerLink:hover { text-decoration: underline; }
+
+.dashboard__footerLink:hover {
+  text-decoration: underline;
+}
 
 .dashboard__footerDot {
   color: color-mix(in srgb, var(--header-on-surface) 45%, transparent);
@@ -424,6 +472,7 @@ const textbookImages = [
   text-decoration: none;
   font-weight: 900;
 }
+
 .dashboard__brandLink:hover {
   text-decoration: underline;
 }
