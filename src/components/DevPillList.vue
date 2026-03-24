@@ -194,6 +194,7 @@ const popStyle = ref<Record<string, string>>({
 })
 
 let commentsChannel: ReturnType<typeof supabase.channel> | null = null
+let pollingId: number | null = null
 
 async function loadPendingCommentsCount() {
   if (!isDev.value) {
@@ -236,6 +237,19 @@ function teardownCommentsRealtime() {
   commentsChannel = null
 }
 
+function startCountPolling() {
+  if (pollingId !== null) return
+  pollingId = window.setInterval(() => {
+    void loadPendingCommentsCount()
+  }, 15000)
+}
+
+function stopCountPolling() {
+  if (pollingId === null) return
+  window.clearInterval(pollingId)
+  pollingId = null
+}
+
 function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n))
 }
@@ -273,9 +287,10 @@ function updatePosition() {
 function toggleOpen() {
   isOpen.value = !isOpen.value
   if (isOpen.value) {
-    nextTick(() => {
+    nextTick(async () => {
       updatePosition()
       addGlobalListeners()
+      await loadPendingCommentsCount()
     })
   } else {
     removeGlobalListeners()
@@ -329,15 +344,23 @@ function openLink(to: string) {
 }
 
 onMounted(async () => {
-  if (isDev.value) {
-    await loadPendingCommentsCount()
-    setupCommentsRealtime()
+  await auth.ensureIdentityLoaded()
+  await auth.checkDevStatus().catch(() => {})
+
+  if (!isDev.value) {
+    pendingCommentsCount.value = 0
+    return
   }
+
+  await loadPendingCommentsCount()
+  setupCommentsRealtime()
+  startCountPolling()
 })
 
 onBeforeUnmount(() => {
   removeGlobalListeners()
   teardownCommentsRealtime()
+  stopCountPolling()
 })
 </script>
 

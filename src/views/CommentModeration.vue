@@ -64,7 +64,12 @@
         <p v-else-if="error" class="error">{{ error }}</p>
 
         <div v-else class="table-outer">
-          <div class="table-wrap comments-wrap" role="region" aria-label="Comments moderation table" tabindex="0">
+          <div
+            class="table-wrap comments-wrap"
+            role="region"
+            aria-label="Comments moderation table"
+            tabindex="0"
+          >
             <table class="comments-table">
               <thead>
                 <tr>
@@ -111,12 +116,7 @@
                 <tr v-for="comment in filteredRows" :key="comment.id">
                   <td class="col-user">
                     <div class="user-cell">
-                      <img
-                        class="avatar"
-                        :src="avatarSrc(comment)"
-                        alt="Avatar"
-                        @error="onAvatarError"
-                      />
+                      <img class="avatar" :src="avatarSrc(comment)" alt="Avatar" @error="onAvatarError" />
                       <div class="user-meta">
                         <strong>{{ comment.display_name || 'User' }}</strong>
                         <div class="muted dark">{{ comment.user_id }}</div>
@@ -198,6 +198,24 @@ type CommentRow = {
   avatar_url: string | null
 }
 
+type PublicProfileRow = {
+  id: UUID
+  display_name?: string | null
+  avatar_url?: string | null
+}
+
+type ModeratedCommentResult = {
+  id: UUID
+  slug: string
+  user_id: UUID
+  body: string
+  moderation_status: ModerationStatus
+  created_at: string | null
+  updated_at: string | null
+  reviewed_at: string | null
+  is_deleted?: boolean
+}
+
 const auth = useUserStore()
 const router = useRouter()
 
@@ -250,7 +268,7 @@ async function bootstrap() {
 
     if (commentsError) throw commentsError
 
-    const baseRows = (commentsData || []) as Array<CommentRow & { is_deleted?: boolean }>
+    const baseRows = (commentsData || []) as Array<ModeratedCommentResult>
     const userIds = [...new Set(baseRows.map((row) => row.user_id).filter(Boolean))]
 
     let profileMap: Record<string, { display_name?: string | null; avatar_url?: string | null }> = {}
@@ -264,7 +282,7 @@ async function bootstrap() {
       if (profilesError) throw profilesError
 
       profileMap = Object.fromEntries(
-        (profiles || []).map((profile: any) => [
+        ((profiles || []) as PublicProfileRow[]).map((profile) => [
           profile.id,
           {
             display_name: profile.display_name ?? null,
@@ -381,22 +399,26 @@ async function setModerationStatus(comment: CommentRow, nextStatus: ModerationSt
   sortNow()
 
   try {
-    const { data, error: updateError } = await supabase
-      .from('visual_novel_comments')
-      .update({
-        moderation_status: nextStatus,
-      })
-      .eq('id', comment.id)
-      .select('reviewed_at')
-      .single()
+    const { data, error: updateError } = await supabase.rpc(
+      'moderate_visual_novel_comment',
+      {
+        p_comment_id: comment.id,
+        p_moderation_status: nextStatus,
+      }
+    )
 
     if (updateError) throw updateError
 
+    const moderated = data as ModeratedCommentResult | null
+
     rows.value = rows.value.map((row) => {
       if (row.id !== comment.id) return row
+
       return {
         ...row,
-        reviewed_at: data?.reviewed_at ?? row.reviewed_at,
+        moderation_status: moderated?.moderation_status ?? nextStatus,
+        reviewed_at: moderated?.reviewed_at ?? row.reviewed_at,
+        updated_at: moderated?.updated_at ?? row.updated_at,
       }
     })
 
@@ -570,7 +592,7 @@ select option {
   border: 1px solid var(--main-border, #e5e7eb);
   border-radius: 12px;
   background: var(--main-surface-weak, #fff);
-  box-shadow: 0 6px 18px rgba(0,0,0,.06) inset;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .06) inset;
   margin: 0 auto;
   max-width: calc(100vw - max(20px, env(safe-area-inset-left) + env(safe-area-inset-right)));
   overflow-x: auto;
@@ -604,12 +626,29 @@ select option {
   color: var(--main-text, #111);
 }
 
-.col-user { width: 250px; }
-.col-slug { width: 180px; }
-.col-body { width: 520px; }
-.col-created { width: 180px; }
-.col-reviewed { width: 180px; }
-.col-actions { width: 180px; }
+.col-user {
+  width: 250px;
+}
+
+.col-slug {
+  width: 180px;
+}
+
+.col-body {
+  width: 520px;
+}
+
+.col-created {
+  width: 180px;
+}
+
+.col-reviewed {
+  width: 180px;
+}
+
+.col-actions {
+  width: 180px;
+}
 
 .th-btn {
   display: inline-flex;
