@@ -15,6 +15,7 @@ const routes: RouteRecordRaw[] = [
 
   // Dev views
   { path: '/users', name: 'users', component: () => import('@/views/UsersList.vue'), meta: { authRequired: true, requiresDev: true } },
+  { path: '/comment-moderation', name: 'comment-moderation', component: () => import('@/views/CommentModeration.vue'), meta: {authRequired: true, requiresDev: true} },
 
   // Admin Views
   { path: '/admin-panel', name: 'admin-panel', component: () => import('@/views/AdminPanel.vue'), meta: { authRequired: true } },
