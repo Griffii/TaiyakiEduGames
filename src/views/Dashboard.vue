@@ -1,5 +1,6 @@
 <!-- src/views/Dashboard.vue -->
 <template>
+  <SakuraOverlay />
   <main class="dashboard">
     <div class="dashboard__content">
       <!-- Bento Grid -->
@@ -118,7 +119,7 @@
 </template>
 
 <script setup lang="ts">
-
+/*-- Component Imports --*/
 import DailyWord from '@/components/DailyWord.vue'
 import ScrollingImageWall from '@/components/ScrollingImageWall.vue'
 import CustomDeckButton from '@/components/CustomDeckButton.vue'
@@ -127,6 +128,9 @@ import ActivitiesIconGrid from '@/components/ActivitiesIconGrid.vue'
 import CommunityLikesCounter from '@/components/CommunityLikesCounter.vue'
 import Tutorials from '@/components/Tutorials.vue'
 import VisualNovelsIconGrid from '@/components/VisualNovelsIconGrid.vue'
+
+/*-- Seasonal/Temporary Imports --*/
+import SakuraOverlay from '@/components/SakuraOverlay.vue'
 
 /* ------------------------------------------
    Textbook Images
