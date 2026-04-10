@@ -48,20 +48,21 @@
               <RouterLink class="dashboard__titleLink" to="/visual-novels-list">Visual Novels</RouterLink>
             </h2>
           </header>
+
           <div class="dashboard__cardBody">
             <VisualNovelsIconGrid />
           </div>
         </section>
 
-        
-
-        <section class="dashboard__card dashboard__card--community" aria-label="Community">
+        <section class="dashboard__card dashboard__card--gamesHighlight" aria-label="Game Highlights">
           <header class="dashboard__cardHead">
-            <h2 class="dashboard__cardTitle">Community</h2>
+            <h2 class="dashboard__cardTitle">
+              <RouterLink class="dashboard__titleLink" to="/activities">Game Highlights</RouterLink>
+            </h2>
           </header>
 
-          <div class="dashboard__cardBody ">
-            <CommunityLikesCounter />
+          <div class="dashboard__cardBody">
+            <GamesHighlightGrid width="100%" height="100%" />
           </div>
         </section>
 
@@ -78,8 +79,26 @@
           </header>
 
           <div class="dashboard__cardBody dashboard__cardBody--wall">
-            <ScrollingImageWall :images="textbookImages" :tile-width="200" :tile-height="300" :gap="0"
-              :speed-px-per-sec="30" direction="left" :visible-count="5" :draggable="true" />
+            <ScrollingImageWall
+              :images="textbookImages"
+              :tile-width="200"
+              :tile-height="300"
+              :gap="0"
+              :speed-px-per-sec="30"
+              direction="left"
+              :visible-count="5"
+              :draggable="true"
+            />
+          </div>
+        </section>
+
+        <section class="dashboard__card dashboard__card--community" aria-label="Community">
+          <header class="dashboard__cardHead">
+            <h2 class="dashboard__cardTitle">Community</h2>
+          </header>
+
+          <div class="dashboard__cardBody">
+            <CommunityLikesCounter />
           </div>
         </section>
 
@@ -123,11 +142,14 @@
 import DailyWord from '@/components/DailyWord.vue'
 import ScrollingImageWall from '@/components/ScrollingImageWall.vue'
 import CustomDeckButton from '@/components/CustomDeckButton.vue'
-import UserLevels from '@/components/UserLevels.vue'
 import ActivitiesIconGrid from '@/components/ActivitiesIconGrid.vue'
 import CommunityLikesCounter from '@/components/CommunityLikesCounter.vue'
-import Tutorials from '@/components/Tutorials.vue'
 import VisualNovelsIconGrid from '@/components/VisualNovelsIconGrid.vue'
+import GamesHighlightGrid from '@/components/GamesHighlightGrid.vue'
+
+/** Unused Imports */
+import Tutorials from '@/components/Tutorials.vue'
+import UserLevels from '@/components/UserLevels.vue'
 
 /*-- Seasonal/Temporary Imports --*/
 import SakuraOverlay from '@/components/SakuraOverlay.vue'
@@ -299,16 +321,19 @@ const textbookImages = [
   }
 
   .dashboard__card--visualnovels {
-    grid-column: span 7;
+    grid-column: span 6;
   }
 
-  /** Replace with VNs */
-  .dashboard__card--community {
-    grid-column: span 5;
+  .dashboard__card--gamesHighlight {
+    grid-column: span 6;
   }
 
   .dashboard__card--textbooks {
-    grid-column: span 12;
+    grid-column: span 8;
+  }
+
+  .dashboard__card--community {
+    grid-column: span 4;
   }
 
   .dashboard__card--profile {
@@ -332,6 +357,18 @@ const textbookImages = [
 }
 
 .dashboard__card--games .dashboard__cardTitle {
+  color: var(--activities-on-surface);
+}
+
+/* Game Highlights */
+.dashboard__card--gamesHighlight {
+  background: var(--activities-surface);
+  border-color: var(--activities-border);
+  box-shadow: var(--activities-shadow);
+  color: var(--activities-on-surface);
+}
+
+.dashboard__card--gamesHighlight .dashboard__cardTitle {
   color: var(--activities-on-surface);
 }
 
@@ -398,7 +435,7 @@ const textbookImages = [
 }
 
 /* ==========================================================================
-   Community layout: hint top, greeters bottom
+   Community layout
    ========================================================================== */
 
 .dashboard__cardBody--community {
@@ -417,7 +454,6 @@ const textbookImages = [
 
 .community__greeters {
   margin-top: auto;
-  /* pins to bottom */
   min-height: 0;
   display: flex;
   align-items: flex-end;
