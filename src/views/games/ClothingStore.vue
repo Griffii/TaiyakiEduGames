@@ -137,7 +137,7 @@
                         </p>
 
                         <p class="script-line clerk">
-                            <strong>Clerk:</strong> “I see, how about this one?”
+                            <strong>Clerk:</strong> “Of course! How about this one?”
                         </p>
 
                         <p class="script-line customer">
@@ -150,7 +150,7 @@
                         </p>
 
                         <p class="script-line clerk">
-                            <strong>Clerk:</strong> “Then, how about this one?”
+                            <strong>Clerk:</strong> “I see. Then, how about this one?”
                         </p>
 
                         <p class="script-line customer">
