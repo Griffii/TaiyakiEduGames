@@ -99,6 +99,9 @@ const routes: RouteRecordRaw[] = [
   { path: '/othello', name: 'othello', component: () => import('@/views/games/Othello.vue'), meta: { hideHeader: true } },
   { path: '/omikuji', name: 'omikuji', component: () => import('@/views/games/OmikujiGame.vue'), meta: { hideHeader: true } },
   { path: '/onthebeat', name: 'onthebeat', component: () => import('@/views/games/OnTheBeat.vue'), meta: { hideHeader: true } },
+  { path: '/esl-battleship', name: 'battleship', component: () => import('@/views/games/Battleship.vue'), meta: { hideHeader: true } },
+  { path: '/clothing-store', name: 'clothing-store', component: () => import('@/views/games/ClothingStore.vue'), meta: { hideHeader: true } },
+
 
   // Visual Novels
   { path: '/visual-novels-list', name: 'visual-novels-list', component: () => import('@/views/VisualNovels.vue') },

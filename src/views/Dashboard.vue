@@ -1,6 +1,6 @@
 <!-- src/views/Dashboard.vue -->
 <template>
-  <SakuraOverlay />
+
   <main class="dashboard">
     <div class="dashboard__content">
       <!-- Bento Grid -->
