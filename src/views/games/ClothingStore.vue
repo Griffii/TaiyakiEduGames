@@ -23,6 +23,28 @@
         </nav>
 
         <main class="store-layout">
+            <aside class="cart-panel">
+                <h2>Cart</h2>
+
+                <p v-if="cart.length === 0">Your cart is empty.</p>
+
+                <ul v-else>
+                    <li v-for="item in cart" :key="item.id">
+                        <span>{{ item.name }}</span>
+                        <span>${{ item.price.toLocaleString() }}</span>
+                        <button @click="removeFromCart(item.id)">×</button>
+                    </li>
+                </ul>
+
+                <div class="cart-total">
+                    Total: ${{ cartTotal.toLocaleString() }}
+                </div>
+
+                <button v-if="cart.length" class="clear-cart-button" @click="clearCart">
+                    Clear Cart
+                </button>
+            </aside>
+
             <section class="product-area">
                 <section v-for="category in categories" :id="category.id" :key="category.id" class="category-section">
                     <button class="category-title-button" :aria-expanded="!isCollapsed(category.id)"
@@ -51,28 +73,6 @@
                     </Transition>
                 </section>
             </section>
-
-            <aside class="cart-panel">
-                <h2>Cart</h2>
-
-                <p v-if="cart.length === 0">Your cart is empty.</p>
-
-                <ul v-else>
-                    <li v-for="item in cart" :key="item.id">
-                        <span>{{ item.name }}</span>
-                        <span>${{ item.price.toLocaleString() }}</span>
-                        <button @click="removeFromCart(item.id)">×</button>
-                    </li>
-                </ul>
-
-                <div class="cart-total">
-                    Total: ${{ cartTotal.toLocaleString() }}
-                </div>
-
-                <button v-if="cart.length" class="clear-cart-button" @click="clearCart">
-                    Clear Cart
-                </button>
-            </aside>
         </main>
 
         <div v-if="selectedItem" class="details-overlay" @click.self="closeDetails">
@@ -88,25 +88,30 @@
                     {{ isInCart(selectedItem.id) ? 'Sold Out' : 'Add to Cart' }}
                 </button>
 
-                <div class="phrase-box">
+                <button class="phrase-box" :class="{ expanded: showItemPractice }"
+                    @click="showItemPractice = !showItemPractice">
                     <p class="phrase-title"><strong>Practice:</strong></p>
 
-                    <p class="detail-dialogue-line clerk">
-                        <strong>Clerk:</strong> “How about this?”
-                    </p>
+                    <Transition name="practice-collapse">
+                        <div v-if="showItemPractice" class="practice-dialogue">
+                            <p class="detail-dialogue-line clerk">
+                                <strong>Clerk:</strong> “How about this?”
+                            </p>
 
-                    <p class="detail-dialogue-line customer">
-                        <strong>Customer:</strong> “How much is it?”
-                    </p>
+                            <p class="detail-dialogue-line customer">
+                                <strong>Customer:</strong> “How much is it?”
+                            </p>
 
-                    <p class="detail-dialogue-line clerk">
-                        <strong>Clerk:</strong> “It's ${{ selectedItem.price.toLocaleString() }}.”
-                    </p>
+                            <p class="detail-dialogue-line clerk">
+                                <strong>Clerk:</strong> “It's ${{ selectedItem.price.toLocaleString() }}.”
+                            </p>
 
-                    <p class="detail-dialogue-line customer">
-                        <strong>Customer:</strong> “I'll take it!”
-                    </p>
-                </div>
+                            <p class="detail-dialogue-line customer">
+                                <strong>Customer:</strong> “I'll take it!”
+                            </p>
+                        </div>
+                    </Transition>
+                </button>
             </div>
         </div>
 
@@ -259,6 +264,7 @@ const showBackToTop = ref(false)
 const showScriptModal = ref(false)
 const activeTooltip = ref(null)
 const tooltipPosition = ref({ left: 0, top: 0 })
+const showItemPractice = ref(false)
 
 const tooltipText = {
     item: 'a shirt · a jacket · a hat · pants · shoes',
@@ -372,10 +378,12 @@ watch([selectedItem, showScriptModal], ([item, scriptOpen]) => {
 
 function selectItem(item) {
     selectedItem.value = item
+    showItemPractice.value = false
 }
 
 function closeDetails() {
     selectedItem.value = null
+    showItemPractice.value = false
 }
 
 function openScriptModal() {
@@ -968,15 +976,34 @@ onBeforeUnmount(() => {
 }
 
 .phrase-box {
+    width: 100%;
     margin-top: 18px;
     background: #fff7df;
+    border: 3px solid #2f2a24;
     border-radius: 18px;
     padding: 14px;
     text-align: left;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #2f2a24;
+    transition:
+        transform 0.14s ease,
+        box-shadow 0.14s ease,
+        background-color 0.14s ease;
+}
+
+.phrase-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 #2f2a24;
+    background: #fff1c7;
+}
+
+.phrase-box.expanded:hover {
+    transform: none;
 }
 
 .phrase-title {
-    margin: 0 0 10px;
+    margin: 0;
+    font-size: 1.1rem;
 }
 
 .detail-dialogue-line {
@@ -998,6 +1025,35 @@ onBeforeUnmount(() => {
     margin-left: auto;
     background: #fff1c7;
 }
+
+.practice-dialogue {
+    margin-top: 12px;
+}
+
+.practice-collapse-enter-active,
+.practice-collapse-leave-active {
+    transition:
+        max-height 0.22s ease,
+        opacity 0.18s ease,
+        transform 0.18s ease;
+    max-height: 260px;
+    overflow: hidden;
+}
+
+.practice-collapse-enter-from,
+.practice-collapse-leave-to {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+}
+
+.practice-collapse-enter-to,
+.practice-collapse-leave-from {
+    max-height: 260px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 .script-modal {
     position: relative;
@@ -1148,11 +1204,10 @@ onBeforeUnmount(() => {
     }
 
     .cart-panel {
-        position: fixed;
-        right: 16px;
-        bottom: 84px;
-        width: min(320px, calc(100vw - 32px));
-        max-height: 55vh;
+        position: static;
+        width: min(320px, 100%);
+        max-height: none;
+        margin: 0 auto 28px;
     }
 
     .back-to-top-button {
