@@ -10,8 +10,8 @@
 
         <header class="store-header">
             <div>
-                <h1>English Only Boutique</h1>
-                <p>Practice shopping in English!</p>
+                <h1>English Only Boutique!</h1>
+                <p>Practice shopping in English</p>
             </div>
         </header>
 
@@ -261,7 +261,7 @@ const activeTooltip = ref(null)
 const tooltipPosition = ref({ left: 0, top: 0 })
 
 const tooltipText = {
-    item: 'a shirt · pants · a jacket · a hat · shoes',
+    item: 'a shirt · a jacket · a hat · pants · shoes',
     dislike: 'color · shape · size · style',
     price: '$$$$$$$$$$$$'
 }
