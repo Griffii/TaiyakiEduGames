@@ -1165,7 +1165,7 @@ onBeforeUnmount(() => {
     position: fixed;
     right: 28px;
     bottom: 28px;
-    z-index: 60;
+    z-index: 30;
     border: 4px solid #2f2a24;
     border-radius: 999px;
     padding: 12px 18px;
