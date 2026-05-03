@@ -47,7 +47,7 @@ import { RouterLink } from 'vue-router'
 /**
  * Assets image and video import list
  */
-import typingTowerDefenceImage from '@/assets/images/screenshots/games/TTD - Main Menu 0 - v0.7.png'
+import typingTowerDefenceImage from '@/assets/images/screenshots/games/TTD - Main Menu - v0.9.png'
 import typingTowerDefenceVideo from '@/assets/videos/TTD-Previews/TTD - SeasideFarm Preview Short - v0.7.mp4'
 
 import pizzaImage from '@/assets/images/screenshots/games/PaP_01.png'
