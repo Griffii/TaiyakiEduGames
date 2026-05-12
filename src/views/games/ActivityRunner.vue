@@ -1,50 +1,51 @@
 <!-- src/views/games/ActivityRunner.vue -->
+
 <template>
   <div class="page activity-runner">
     <button class="home-button" type="button" @click="goHome" aria-label="Back">
       <img :src="homeIcon" alt="" />
     </button>
-    <!-- Title + Home -->
+
     <header class="head title-head">
       <h1 class="title">{{ title }}</h1>
     </header>
 
     <main class="content runner-content">
-      <!-- Game Frame -->
       <div class="frame-wrap" ref="frameWrap">
         <template v-if="iframeSrc">
-          <iframe ref="frameEl" :src="iframeSrc" title="" allow="fullscreen; autoplay; gamepad" allowfullscreen
+          <iframe
+            ref="frameEl"
+            :src="iframeSrc"
+            title=""
+            allow="fullscreen; autoplay; gamepad"
+            allowfullscreen
             sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms allow-popups"
-            @load="onFrameLoad"></iframe>
+            @load="onFrameLoad"
+          ></iframe>
         </template>
         <template v-else>
           <div class="empty">
             <p class="muted">
-              {{ loading ? 'Loading activity…' : (error || 'No external URL configured for this activity.') }}
+              {{ loading ? 'Loading activity…' : (error || 'No game URL configured for this activity.') }}
             </p>
           </div>
         </template>
       </div>
 
-      <!-- Under-frame actions -->
       <div class="under-actions">
         <button class="btn primary" @click="requestFullscreen">
           Go Fullscreen
         </button>
       </div>
 
-      <!-- Tags -->
       <section v-if="tags.length" class="tags">
         <div class="chips">
           <span v-for="t in tags" :key="t" class="chip"># {{ t }}</span>
         </div>
       </section>
-
-      
     </main>
   </div>
 </template>
-
 
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref, computed, watch } from 'vue'
@@ -55,7 +56,6 @@ import type { PostgrestMaybeSingleResponse } from '@supabase/supabase-js'
 const homeIcon = new URL('@/assets/images/icons/back-icon.png', import.meta.url).toString()
 
 const router = useRouter()
-
 function goHome() {
   router.push('/dashboard')
 }
@@ -83,29 +83,24 @@ const route = useRoute()
 const frameEl = ref<HTMLIFrameElement | null>(null)
 const frameWrap = ref<HTMLElement | null>(null)
 
-// Route params: support either /activities/:slug or /activities/:id
 const routeSlug = computed(() => route.params.slug as string | undefined)
 const routeId = computed(() => route.params.id as string | undefined)
 const uuidRegex =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
-// Meta fallback (if a parent set route.meta.activity)
 const meta = (route.meta as Record<string, unknown>) ?? {}
 const metaActivity = (meta.activity as MetaActivity | undefined) ?? undefined
 
-// Local state from DB
 const dbActivity = ref<DBActivity | null>(null)
 const loading = ref<boolean>(false)
 const error = ref<string | null>(null)
 
-// Fetch from DB by id or slug
 async function loadActivity() {
   error.value = null
   dbActivity.value = null
-  if (!supabase) {
-    // No client configured; rely on meta/query fallbacks
-    return
-  }
+
+  if (!supabase) return
+
   const key = routeId.value || routeSlug.value || metaActivity?.slug
   if (!key) return
 
@@ -116,17 +111,13 @@ async function loadActivity() {
     if (uuidRegex.test(key)) {
       resp = await supabase
         .from('activities')
-        .select(
-          'id,slug,name,type,url_path,external_url,icon_url,thumbnail_url,tags,launch_params,status,archived_at',
-        )
+        .select('*')
         .eq('id', key)
         .maybeSingle()
     } else {
       resp = await supabase
         .from('activities')
-        .select(
-          'id,slug,name,type,url_path,external_url,icon_url,thumbnail_url,tags,launch_params,status,archived_at',
-        )
+        .select('*')
         .eq('slug', key)
         .maybeSingle()
     }
@@ -147,52 +138,37 @@ async function loadActivity() {
 onMounted(loadActivity)
 watch([routeSlug, routeId], () => loadActivity())
 
-/** Fallback tags from query (?tags=a,b,c) if DB/meta lack tags */
 function parseQueryTags(): string[] {
   const q = route.query?.tags
   if (!q) return []
-  if (Array.isArray(q))
-    return q
-      .flatMap((s) => String(s).split(','))
-      .map((s) => s.trim())
-      .filter(Boolean)
-  return String(q)
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
+  if (Array.isArray(q)) {
+    return q.flatMap(s => String(s).split(',')).map(s => s.trim()).filter(Boolean)
+  }
+  return String(q).split(',').map(s => s.trim()).filter(Boolean)
 }
 
-/** Title: prefer DB name → meta name/title → slug prettified */
 const title = computed(
   () =>
     dbActivity.value?.name ??
     metaActivity?.name ??
     metaActivity?.title ??
-    (routeSlug.value ? routeSlug.value.replace(/-/g, ' ') : 'Activity'),
+    (routeSlug.value ? routeSlug.value.replace(/-/g, ' ') : 'Activity')
 )
 
-/** Tags: prefer DB tags → meta tags → query tags */
 const tags = computed<string[]>(() =>
-  (dbActivity.value?.tags ?? metaActivity?.tags ?? parseQueryTags() ?? []).filter(
-    Boolean,
-  ),
+  (dbActivity.value?.tags ?? metaActivity?.tags ?? parseQueryTags() ?? []).filter(Boolean)
 )
 
-/** Absolute URL normalizer with trailing slash for folders */
 function toAbsoluteExternal(raw?: string | null): string {
   if (!raw) return ''
   let s = String(raw).trim()
   if (!s) return ''
 
-  // Full URLs or other schemes
-  if (/^[a-z][a-z0-9+\-.]*:\/\//i.test(s)) return s // http(s)...
-  if (/^[a-z][a-z0-9+\-.]*:/i.test(s)) return s // other schemes
+  if (/^[a-z][a-z0-9+\-.]*:\/\//i.test(s)) return s
+  if (/^[a-z][a-z0-9+\-.]*:/i.test(s)) return s
 
-  // Protocol-relative
-  if (s.startsWith('//'))
-    return (window.location?.protocol || 'https:') + s
+  if (s.startsWith('//')) return (window.location.protocol || 'https:') + s
 
-  // Domain-like => assume https
   if (/^[\w.-]+\.[a-z]{2,}([/:?#]|$)/i.test(s)) s = 'https://' + s
 
   try {
@@ -208,32 +184,30 @@ function toAbsoluteExternal(raw?: string | null): string {
   }
 }
 
-/** Slug for fallback URL derivation */
 const effectiveSlug = computed(
-  () => dbActivity.value?.slug || routeSlug.value || metaActivity?.slug || 'activity',
+  () => dbActivity.value?.slug || routeSlug.value || metaActivity?.slug || 'activity'
 )
 
-/** iframe URL priority:
- *  1) ?url= query (manual override / debugging)
- *  2) local Godot export under the app base:
- *     <BASE_URL>/godot_games/:slug/index.html
- *
- *  We intentionally ignore DB/meta external_url now to stop using games.eitake.app.
- */
-const rawExternal = computed(() => {
-  // 1) explicit override via ?url=...
+/** UPDATED URL PRIORITY LOGIC */
+const rawFrameUrl = computed(() => {
   const override = route.query.url as string | undefined
   if (override) return override
 
-  // 2) local fallback (public/godot_games/<slug>/index.html)
-  const base = import.meta.env.BASE_URL.replace(/\/+$/, '') // e.g. '/TaiyakiEduGames'
+  if (dbActivity.value?.external_url) {
+    return dbActivity.value.external_url
+  }
+
+  if (dbActivity.value?.url_path) {
+    return dbActivity.value.url_path
+  }
+
+  const base = import.meta.env.BASE_URL.replace(/\/+$/, '')
   const slug = effectiveSlug.value || 'activity'
   return `${base}/godot_games/${slug}/index.html`
 })
 
-const iframeSrc = computed(() => toAbsoluteExternal(rawExternal.value))
+const iframeSrc = computed(() => toAbsoluteExternal(rawFrameUrl.value))
 
-/** postMessage handshake restrictions */
 function originOf(url: string): string | null {
   try {
     return new URL(url).origin
@@ -242,7 +216,6 @@ function originOf(url: string): string | null {
   }
 }
 
-// Only allow same-origin messages (your GitHub Pages / app origin)
 const ALLOWED_CHILD_ORIGINS = new Set<string>([
   typeof window !== 'undefined' ? window.location.origin : '',
 ])
@@ -265,18 +238,9 @@ function onFrameLoad() {
   )
 }
 
-type ChildMessage =
-  | { type: 'child:ready'; payload?: any }
-  | { type: 'xp:award'; payload: { amount: number; reason?: string } }
-  | { type: 'track:event'; payload: { name: string; props?: Record<string, any> } }
-  | { type: 'request:fullscreen'; payload?: any }
-
-function onMessage(e: MessageEvent<ChildMessage>) {
+function onMessage(e: MessageEvent<any>) {
   if (!childOrigin.value || e.origin !== childOrigin.value) return
-  const { type, payload } = e.data || {}
-  if (type === 'request:fullscreen') requestFullscreen()
-  if (type === 'xp:award') console.info('[ActivityRunner] xp:award', payload)
-  if (type === 'track:event') console.info('[ActivityRunner] track:event', payload)
+  if (e.data?.type === 'request:fullscreen') requestFullscreen()
 }
 
 function requestFullscreen() {
@@ -288,8 +252,8 @@ function requestFullscreen() {
   if (req) req.call(target)
 }
 
-onMounted(() => window.addEventListener('message', onMessage as any))
-onBeforeUnmount(() => window.removeEventListener('message', onMessage as any))
+onMounted(() => window.addEventListener('message', onMessage))
+onBeforeUnmount(() => window.removeEventListener('message', onMessage))
 </script>
 
 <style scoped>
