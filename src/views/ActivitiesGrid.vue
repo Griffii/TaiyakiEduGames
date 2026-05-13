@@ -25,26 +25,15 @@
           </div>
 
           <div v-if="regularActivities.length" class="tb-grid">
-            <article
-              v-for="a in regularActivities"
-              :key="a.id"
-              class="tb-card"
-              @click="openActivity(a)"
-            >
+            <article v-for="a in regularActivities" :key="a.id" class="tb-card" @click="openActivity(a)">
               <div class="corner-rail">
                 <div v-if="isXp(a)" class="corner tl xp"><span>XP</span></div>
                 <div v-if="isNew(a)" class="corner tr new"><span>NEW</span></div>
               </div>
 
               <figure class="cover">
-                <img
-                  v-if="thumbUrl(a)"
-                  :src="thumbUrl(a)"
-                  :alt="a.name"
-                  loading="lazy"
-                  decoding="async"
-                  @error.stop="onThumbError(a.id)"
-                />
+                <img v-if="thumbUrl(a)" :src="thumbUrl(a)" :alt="a.name" loading="lazy" decoding="async"
+                  @error.stop="onThumbError(a.id)" />
                 <div v-else class="cover-fallback">
                   <span class="cover-fallback-title">{{ a.name }}</span>
                 </div>
@@ -55,6 +44,10 @@
                 <div class="chip-row" v-if="(a.tags || []).length">
                   <span v-for="tag in a.tags" :key="String(tag)" class="chip">{{ tag }}</span>
                 </div>
+                <span v-if="hasStats(a)" class="activity-like-badge">
+                  <span class="activity-like-heart">♥</span>
+                  <span>{{ likesCount(a) }}</span>
+                </span>
               </div>
             </article>
           </div>
@@ -66,26 +59,15 @@
           </div>
 
           <div v-if="teacherTools.length" class="tb-grid">
-            <article
-              v-for="a in teacherTools"
-              :key="a.id"
-              class="tb-card"
-              @click="openActivity(a)"
-            >
+            <article v-for="a in teacherTools" :key="a.id" class="tb-card" @click="openActivity(a)">
               <div class="corner-rail">
                 <div v-if="isXp(a)" class="corner tl xp"><span>XP</span></div>
                 <div v-if="isNew(a)" class="corner tr new"><span>NEW</span></div>
               </div>
 
               <figure class="cover">
-                <img
-                  v-if="thumbUrl(a)"
-                  :src="thumbUrl(a)"
-                  :alt="a.name"
-                  loading="lazy"
-                  decoding="async"
-                  @error.stop="onThumbError(a.id)"
-                />
+                <img v-if="thumbUrl(a)" :src="thumbUrl(a)" :alt="a.name" loading="lazy" decoding="async"
+                  @error.stop="onThumbError(a.id)" />
                 <div v-else class="cover-fallback">
                   <span class="cover-fallback-title">{{ a.name }}</span>
                 </div>
@@ -124,8 +106,10 @@ type Activity = {
   tags?: string[] | null
   status?: string | null
   archived_at?: string | null
+  activities_stats?: {
+    likes_count: number | null
+  }[] | null
 }
-
 const router = useRouter()
 
 const loading = ref(true)
@@ -158,7 +142,22 @@ onMounted(async () => {
     try {
       const { data, error: e } = await supabase
         .from('activities')
-        .select('id, slug, name, type, url_path, external_url, icon_url, thumbnail_url, tags, status, archived_at')
+        .select(`
+  id,
+  slug,
+  name,
+  type,
+  url_path,
+  external_url,
+  icon_url,
+  thumbnail_url,
+  tags,
+  status,
+  archived_at,
+  activities_stats (
+    likes_count
+  )
+`)
         .is('archived_at', null)
         .order('name', { ascending: true })
 
@@ -253,6 +252,21 @@ function openActivity(a: Activity) {
   }
   alert('No activity URL is configured.')
 }
+
+function likesCount(a: Activity): number {
+  const stats = Array.isArray(a.activities_stats)
+    ? a.activities_stats[0]
+    : a.activities_stats
+
+  return Number(stats?.likes_count ?? 0)
+}
+
+function hasStats(a: Activity): boolean {
+  return Array.isArray(a.activities_stats)
+    ? a.activities_stats.length > 0
+    : !!a.activities_stats
+}
+
 </script>
 
 <style scoped>
@@ -299,9 +313,17 @@ function openActivity(a: Activity) {
   gap: 1rem;
 }
 
-.muted { color: var(--main-text-soft); }
-.error { color: var(--accent-danger); }
-.center { text-align: center; }
+.muted {
+  color: var(--main-text-soft);
+}
+
+.error {
+  color: var(--accent-danger);
+}
+
+.center {
+  text-align: center;
+}
 
 /* Section headers */
 .section-head {
@@ -310,6 +332,7 @@ function openActivity(a: Activity) {
   gap: 0.5rem;
   margin: 0.25rem 0 0.25rem;
 }
+
 .section-title {
   color: var(--main-title-color);
   font-size: 1.4rem;
@@ -317,11 +340,15 @@ function openActivity(a: Activity) {
   margin: 0;
   text-shadow: var(--main-title-shadow);
 }
+
 .section-count {
   color: var(--main-text-soft);
   font-weight: 700;
 }
-.tools-head { margin-top: 1.5rem; }
+
+.tools-head {
+  margin-top: 1.5rem;
+}
 
 /* =========================
    Activity cards — ACTIVITIES tokens
@@ -350,24 +377,46 @@ function openActivity(a: Activity) {
   text-align: center;
   color: var(--activities-on-surface);
 }
+
 .tb-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--elevation-2);
   border-color: color-mix(in srgb, var(--activities-accent) 50%, var(--activities-border) 50%);
   z-index: 2;
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .tb-card { transition: border-color 0.18s ease; }
-  .tb-card:hover { transform: none; }
+  .tb-card {
+    transition: border-color 0.18s ease;
+  }
+
+  .tb-card:hover {
+    transform: none;
+  }
 }
 
 /* Corner badges */
 .corner-rail {
-  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
 }
-.corner { position: absolute; top: var(--badge-inset); pointer-events: none; z-index: 3; }
-.corner.tl { left: var(--badge-inset); }
-.corner.tr { right: var(--badge-inset); }
+
+.corner {
+  position: absolute;
+  top: var(--badge-inset);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.corner.tl {
+  left: var(--badge-inset);
+}
+
+.corner.tr {
+  right: var(--badge-inset);
+}
 
 .corner.new span,
 .corner.xp span {
@@ -389,11 +438,13 @@ function openActivity(a: Activity) {
   border: 1px solid var(--activities-border);
   color: var(--activities-on-surface);
 }
+
 /* Accents for badges */
 .corner.new span {
   background: var(--activities-chip-new);
   border-color: color-mix(in srgb, var(--activities-chip-new) 65%, #000 35%);
 }
+
 .corner.xp span {
   background: var(--activities-chip-xp);
   border-color: color-mix(in srgb, var(--activities-chip-xp) 65%, #000 35%);
@@ -409,20 +460,65 @@ function openActivity(a: Activity) {
   border-top-left-radius: var(--radius-md);
   border-top-right-radius: var(--radius-md);
 }
-.cover img { width: 100%; height: 100%; object-fit: contain; }
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .cover-fallback {
-  width: 100%; height: 100%;
-  display: grid; place-items: center;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
   padding: 0.75rem;
   text-align: center;
   color: var(--main-text-soft);
   background: var(--neutral-100);
 }
+
 .cover-fallback-title {
-  font-weight: 800; line-height: 1.2; color: var(--activities-on-surface);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--activities-on-surface);
 }
 
-.tb-body { padding: 0.75rem 0.9rem 1rem; }
+.cover {
+  position: relative;
+}
+
+.activity-like-badge {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 2rem;
+  height: 1.45rem;
+  padding: 0 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #ef4444;
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow:
+    0 3px 9px rgba(0, 0, 0, 0.26),
+    0 0 0 1px rgba(239, 68, 68, 0.22) inset;
+}
+
+.activity-like-heart {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.tb-body {
+  padding: 0.75rem 0.9rem 1rem;
+}
+
 .tb-title {
   margin: 0 0 0.4rem;
   font-size: 1.18rem;
@@ -431,9 +527,15 @@ function openActivity(a: Activity) {
 }
 
 /* Chips (use Activities chip tokens) */
-.chip-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
 .chip {
-  display: inline-flex; align-items: center;
+  display: inline-flex;
+  align-items: center;
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
   font-weight: 800;
@@ -447,16 +549,40 @@ function openActivity(a: Activity) {
    Responsive / Mobile Condensed
    ========================= */
 @media (max-width: 1280px) {
-  .page { padding-left: 8vw; padding-right: 8vw; }
+  .page {
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
 }
+
 @media (max-width: 900px) {
-  .page { padding-left: 5vw; padding-right: 5vw; }
-  .tb-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
-  .tb-title { font-size: 1.05rem; }
+  .page {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .tb-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .tb-title {
+    font-size: 1.05rem;
+  }
 }
+
 @media (max-width: 640px) {
-  .page { padding-left: 1rem; padding-right: 1rem; padding-top: 1rem; padding-bottom: 2rem; }
-  .title { font-size: 1.5rem; }
+  .page {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
   .tb-grid {
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 10px;
@@ -465,17 +591,43 @@ function openActivity(a: Activity) {
     --badge-pad-x: 0.6rem;
     --badge-font: 0.8rem;
   }
-  .tb-card { border-radius: var(--radius-sm); }
-  .cover { border-top-left-radius: var(--radius-sm); border-top-right-radius: var(--radius-sm); }
-  .tb-body { padding: 0.6rem 0.6rem 0.8rem; }
-  .tb-title { font-size: 1rem; margin-bottom: 0.3rem; }
-  .chip { font-size: 0.78rem; padding: 0.12rem 0.5rem; }
+
+  .tb-card {
+    border-radius: var(--radius-sm);
+  }
+
+  .cover {
+    border-top-left-radius: var(--radius-sm);
+    border-top-right-radius: var(--radius-sm);
+  }
+
+  .tb-body {
+    padding: 0.6rem 0.6rem 0.8rem;
+  }
+
+  .tb-title {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .chip {
+    font-size: 0.78rem;
+    padding: 0.12rem 0.5rem;
+  }
 }
+
 @media (max-width: 420px) {
-  .tb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .tb-title { font-size: 0.95rem; }
-  .chip { font-size: 0.75rem; }
+  .tb-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .tb-title {
+    font-size: 0.95rem;
+  }
+
+  .chip {
+    font-size: 0.75rem;
+  }
 }
 </style>
-
-

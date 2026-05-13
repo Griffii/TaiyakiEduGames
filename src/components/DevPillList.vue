@@ -202,14 +202,30 @@ async function loadPendingCommentsCount() {
     return
   }
 
-  const { data, error } = await supabase.rpc('get_pending_vn_comments_count')
+  const [vnResult, activityResult] = await Promise.all([
+    supabase
+      .from('visual_novel_comments')
+      .select('id', { count: 'exact', head: true })
+      .eq('moderation_status', 'pending')
+      .eq('is_deleted', false),
 
-  if (error) {
-    console.error('Failed to load pending comments count:', error)
-    return
+    supabase
+      .from('activities_comments')
+      .select('id', { count: 'exact', head: true })
+      .eq('moderation_status', 'pending')
+      .is('deleted_at', null)
+  ])
+
+  if (vnResult.error) {
+    console.error('Failed to load pending VN comments count:', vnResult.error)
   }
 
-  pendingCommentsCount.value = Number(data ?? 0)
+  if (activityResult.error) {
+    console.error('Failed to load pending activity comments count:', activityResult.error)
+  }
+
+  pendingCommentsCount.value =
+    Number(vnResult.count ?? 0) + Number(activityResult.count ?? 0)
 }
 
 function setupCommentsRealtime() {
@@ -223,6 +239,17 @@ function setupCommentsRealtime() {
         event: '*',
         schema: 'public',
         table: 'visual_novel_comments'
+      },
+      async () => {
+        await loadPendingCommentsCount()
+      }
+    )
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'activities_comments'
       },
       async () => {
         await loadPendingCommentsCount()

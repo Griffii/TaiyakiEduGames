@@ -26,12 +26,20 @@
           </div>
 
           <div class="tool">
+            <label for="commentSource" class="muted">Source:</label>
+            <select id="commentSource" v-model="commentSource" @change="bootstrap">
+              <option value="visual_novel">Visual Novels</option>
+              <option value="activity">Activities</option>
+            </select>
+          </div>
+
+          <div class="tool">
             <label for="sortby" class="muted">Sort by:</label>
             <select id="sortby" v-model="sortBy" @change="sortNow">
               <option value="created_at">Date created</option>
               <option value="reviewed_at">Date reviewed</option>
               <option value="display_name">Username</option>
-              <option value="slug">Visual novel</option>
+              <option value="slug">{{ contentColumnLabel }}</option>
               <option value="body">Comment text</option>
             </select>
           </div>
@@ -51,7 +59,7 @@
           v-model="search"
           class="search-input"
           type="text"
-          placeholder="Search username, VN slug, or comment text…"
+          :placeholder="searchPlaceholder"
         />
 
         <button class="btn sm" :disabled="loading" @click="bootstrap">
@@ -82,7 +90,7 @@
 
                   <th class="col-slug">
                     <button class="th-btn" type="button" @click="sortByKey('slug')">
-                      Visual Novel
+                      {{ contentColumnLabel }}
                       <span class="sort" :data-active="sortBy === 'slug'" :data-dir="sortDir" />
                     </button>
                   </th>
@@ -183,10 +191,12 @@ import { useUserStore } from '@/stores/users'
 import DefaultLogo from '@/assets/images/logos/Mushroom_Avatar.png'
 
 type UUID = string
+type CommentSource = 'visual_novel' | 'activity'
 type ModerationStatus = 'pending' | 'approved' | 'rejected'
 
 type CommentRow = {
   id: UUID
+  source: CommentSource
   slug: string
   user_id: UUID
   body: string
@@ -204,7 +214,7 @@ type PublicProfileRow = {
   avatar_url?: string | null
 }
 
-type ModeratedCommentResult = {
+type VisualNovelCommentResult = {
   id: UUID
   slug: string
   user_id: UUID
@@ -214,6 +224,30 @@ type ModeratedCommentResult = {
   updated_at: string | null
   reviewed_at: string | null
   is_deleted?: boolean
+}
+
+type ActivityModerationStatus = 'pending' | 'accepted' | 'rejected'
+
+type ActivityCommentResult = {
+  id: UUID
+  activity_id: UUID
+  user_id: UUID
+  body: string
+  moderation_status: ActivityModerationStatus
+  created_at: string | null
+  updated_at: string | null
+  reviewed_at: string | null
+  deleted_at: string | null
+  activities:
+    | {
+        slug: string | null
+        name: string | null
+      }
+    | {
+        slug: string | null
+        name: string | null
+      }[]
+    | null
 }
 
 const auth = useUserStore()
@@ -228,9 +262,20 @@ const rows = ref<CommentRow[]>([])
 const savingMap = ref<Record<string, boolean>>({})
 
 const activeTab = ref<ModerationStatus>('pending')
+const commentSource = ref<CommentSource>('visual_novel')
 const search = ref('')
 const sortBy = ref<'created_at' | 'reviewed_at' | 'display_name' | 'slug' | 'body'>('created_at')
 const sortDir = ref<'asc' | 'desc'>('desc')
+
+const contentColumnLabel = computed(() => {
+  return commentSource.value === 'activity' ? 'Activity' : 'Visual novel'
+})
+
+const searchPlaceholder = computed(() => {
+  return commentSource.value === 'activity'
+    ? 'Search username, activity slug, or comment text…'
+    : 'Search username, VN slug, or comment text…'
+})
 
 onMounted(async () => {
   await auth.ensureIdentityLoaded()
@@ -251,24 +296,11 @@ async function bootstrap() {
   error.value = null
 
   try {
-    const { data: commentsData, error: commentsError } = await supabase
-      .from('visual_novel_comments')
-      .select(`
-        id,
-        slug,
-        user_id,
-        body,
-        moderation_status,
-        created_at,
-        updated_at,
-        reviewed_at,
-        is_deleted
-      `)
-      .eq('is_deleted', false)
+    const baseRows =
+      commentSource.value === 'activity'
+        ? await loadActivityCommentRows()
+        : await loadVisualNovelCommentRows()
 
-    if (commentsError) throw commentsError
-
-    const baseRows = (commentsData || []) as Array<ModeratedCommentResult>
     const userIds = [...new Set(baseRows.map((row) => row.user_id).filter(Boolean))]
 
     let profileMap: Record<string, { display_name?: string | null; avatar_url?: string | null }> = {}
@@ -296,14 +328,7 @@ async function bootstrap() {
       const profile = profileMap[row.user_id] || null
 
       return {
-        id: row.id,
-        slug: row.slug,
-        user_id: row.user_id,
-        body: row.body,
-        moderation_status: row.moderation_status,
-        created_at: row.created_at,
-        updated_at: row.updated_at,
-        reviewed_at: row.reviewed_at,
+        ...row,
         display_name: profile?.display_name || 'User',
         avatar_url: profile?.avatar_url || null,
       }
@@ -317,11 +342,97 @@ async function bootstrap() {
   }
 }
 
+async function loadVisualNovelCommentRows(): Promise<CommentRow[]> {
+  const { data: commentsData, error: commentsError } = await supabase
+    .from('visual_novel_comments')
+    .select(`
+      id,
+      slug,
+      user_id,
+      body,
+      moderation_status,
+      created_at,
+      updated_at,
+      reviewed_at,
+      is_deleted
+    `)
+    .eq('is_deleted', false)
+
+  if (commentsError) throw commentsError
+
+  return ((commentsData || []) as VisualNovelCommentResult[]).map((row) => ({
+    id: row.id,
+    source: 'visual_novel',
+    slug: row.slug,
+    user_id: row.user_id,
+    body: row.body,
+    moderation_status: row.moderation_status,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+    reviewed_at: row.reviewed_at,
+    display_name: null,
+    avatar_url: null,
+  }))
+}
+
+async function loadActivityCommentRows(): Promise<CommentRow[]> {
+  const { data: commentsData, error: commentsError } = await supabase
+    .from('activities_comments')
+    .select(`
+      id,
+      activity_id,
+      user_id,
+      body,
+      moderation_status,
+      created_at,
+      updated_at,
+      reviewed_at,
+      deleted_at,
+      activities (
+        slug,
+        name
+      )
+    `)
+    .is('deleted_at', null)
+
+  if (commentsError) throw commentsError
+
+  return ((commentsData || []) as unknown as ActivityCommentResult[]).map((row) => {
+    const activity = Array.isArray(row.activities)
+      ? row.activities[0] || null
+      : row.activities
+
+    return {
+      id: row.id,
+      source: 'activity',
+      slug: activity?.slug || row.activity_id,
+      user_id: row.user_id,
+      body: row.body,
+      moderation_status: fromActivityModerationStatus(row.moderation_status),
+      created_at: row.created_at,
+      updated_at: row.updated_at,
+      reviewed_at: row.reviewed_at,
+      display_name: null,
+      avatar_url: null,
+    }
+  })
+}
+
+function fromActivityModerationStatus(status: ActivityModerationStatus): ModerationStatus {
+  if (status === 'accepted') return 'approved'
+  return status
+}
+
+function toActivityModerationStatus(status: ModerationStatus): ActivityModerationStatus {
+  if (status === 'approved') return 'accepted'
+  return status
+}
+
 function sortByKey(key: typeof sortBy.value) {
   if (sortBy.value === key) {
     sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
   } else {
-    sortBy.value = key
+    sortBy.value = key === 'display_name' || key === 'slug' || key === 'body' ? key : key
     sortDir.value = key === 'display_name' || key === 'slug' || key === 'body' ? 'asc' : 'desc'
   }
 
@@ -399,28 +510,11 @@ async function setModerationStatus(comment: CommentRow, nextStatus: ModerationSt
   sortNow()
 
   try {
-    const { data, error: updateError } = await supabase.rpc(
-      'moderate_visual_novel_comment',
-      {
-        p_comment_id: comment.id,
-        p_moderation_status: nextStatus,
-      }
-    )
-
-    if (updateError) throw updateError
-
-    const moderated = data as ModeratedCommentResult | null
-
-    rows.value = rows.value.map((row) => {
-      if (row.id !== comment.id) return row
-
-      return {
-        ...row,
-        moderation_status: moderated?.moderation_status ?? nextStatus,
-        reviewed_at: moderated?.reviewed_at ?? row.reviewed_at,
-        updated_at: moderated?.updated_at ?? row.updated_at,
-      }
-    })
+    if (comment.source === 'activity') {
+      await setActivityModerationStatus(comment, nextStatus)
+    } else {
+      await setVisualNovelModerationStatus(comment, nextStatus)
+    }
 
     sortNow()
   } catch (e: any) {
@@ -433,6 +527,58 @@ async function setModerationStatus(comment: CommentRow, nextStatus: ModerationSt
       [comment.id]: false,
     }
   }
+}
+
+async function setVisualNovelModerationStatus(comment: CommentRow, nextStatus: ModerationStatus) {
+  const { data, error: updateError } = await supabase.rpc(
+    'moderate_visual_novel_comment',
+    {
+      p_comment_id: comment.id,
+      p_moderation_status: nextStatus,
+    }
+  )
+
+  if (updateError) throw updateError
+
+  const moderated = data as VisualNovelCommentResult | null
+
+  rows.value = rows.value.map((row) => {
+    if (row.id !== comment.id) return row
+
+    return {
+      ...row,
+      moderation_status: moderated?.moderation_status ?? nextStatus,
+      reviewed_at: moderated?.reviewed_at ?? row.reviewed_at,
+      updated_at: moderated?.updated_at ?? row.updated_at,
+    }
+  })
+}
+
+async function setActivityModerationStatus(comment: CommentRow, nextStatus: ModerationStatus) {
+  const activityStatus = toActivityModerationStatus(nextStatus)
+
+  const { data, error: updateError } = await supabase.rpc(
+    'moderate_activity_comment',
+    {
+      p_comment_id: comment.id,
+      p_moderation_status: activityStatus,
+    }
+  )
+
+  if (updateError) throw updateError
+
+  const moderated = data as ActivityCommentResult | null
+
+  rows.value = rows.value.map((row) => {
+    if (row.id !== comment.id) return row
+
+    return {
+      ...row,
+      moderation_status: fromActivityModerationStatus(moderated?.moderation_status ?? activityStatus),
+      reviewed_at: moderated?.reviewed_at ?? row.reviewed_at,
+      updated_at: moderated?.updated_at ?? row.updated_at,
+    }
+  })
 }
 
 function avatarSrc(row: CommentRow) {

@@ -37,7 +37,13 @@
               draggable="false"
               @error.stop="onIconError(a.id)"
             />
+
             <div v-else class="ais-icon-fallback" aria-hidden="true"></div>
+
+            <span v-if="hasStats(a)" class="ais-like-badge">
+              <span class="ais-like-heart">♥</span>
+              <span>{{ likesCount(a) }}</span>
+            </span>
           </div>
         </button>
 
@@ -55,6 +61,7 @@ import { supabase } from '@/lib/supabase'
 import { withLoading } from '@/utils/withLoading'
 
 type UUID = string
+
 type Activity = {
   id: UUID
   slug: string
@@ -67,6 +74,10 @@ type Activity = {
   tags?: string[] | null
   status?: string | null
   archived_at?: string | null
+
+  activities_stats?: {
+    likes_count: number | null
+  }[] | null
 }
 
 type Mode = 'games' | 'tools' | 'both'
@@ -100,18 +111,39 @@ const failedIcons = ref<Set<string>>(new Set())
 function normTags(a: Activity): string[] {
   return (a.tags || []).map(t => String(t).toLowerCase().trim())
 }
+
 function isTeacherTool(a: Activity): boolean {
   const tags = normTags(a)
   return tags.includes('teacher tool') || tags.includes('teacher-tool') || tags.includes('teachertool')
 }
+
 function isXp(a: Activity): boolean {
   const tags = normTags(a)
   return tags.includes('xp') || tags.includes('gives_xp') || tags.includes('givesxp') || tags.includes('experience')
 }
+
 function isNew(a: Activity): boolean {
   const tags = normTags(a)
-  if (a.status && String(a.status).toLowerCase().trim() === 'new') return true
+
+  if (a.status && String(a.status).toLowerCase().trim() === 'new') {
+    return true
+  }
+
   return tags.includes('new') || tags.includes('recent')
+}
+
+function likesCount(a: Activity): number {
+  const stats = Array.isArray(a.activities_stats)
+    ? a.activities_stats[0]
+    : a.activities_stats
+
+  return Number(stats?.likes_count ?? 0)
+}
+
+function hasStats(a: Activity): boolean {
+  return Array.isArray(a.activities_stats)
+    ? a.activities_stats.length > 0
+    : !!a.activities_stats
 }
 
 onMounted(async () => {
@@ -119,11 +151,27 @@ onMounted(async () => {
     try {
       const { data, error: e } = await supabase
         .from('activities')
-        .select('id, slug, name, type, url_path, external_url, icon_url, thumbnail_url, tags, status, archived_at')
+        .select(`
+          id,
+          slug,
+          name,
+          type,
+          url_path,
+          external_url,
+          icon_url,
+          thumbnail_url,
+          tags,
+          status,
+          archived_at,
+          activities_stats (
+            likes_count
+          )
+        `)
         .is('archived_at', null)
         .order('name', { ascending: true })
 
       if (e) throw e
+
       activities.value = (data || []) as Activity[]
     } catch (e: any) {
       console.error(e)
@@ -153,13 +201,20 @@ const ICONS_PREFIX = 'game-icons/'
 
 function iconUrl(a: Activity): string {
   if (failedIcons.value.has(a.id)) return ''
+
   const raw = a.icon_url || a.thumbnail_url || ''
+
   if (!raw) return ''
   if (isHttpUrl(raw)) return raw
 
   let key = String(raw).replace(/^\/+/, '')
-  if (!key.startsWith(ICONS_PREFIX)) key = ICONS_PREFIX + key
+
+  if (!key.startsWith(ICONS_PREFIX)) {
+    key = ICONS_PREFIX + key
+  }
+
   const { data } = supabase.storage.from(ASSET_BUCKET).getPublicUrl(key)
+
   return data?.publicUrl || ''
 }
 
@@ -169,19 +224,27 @@ function onIconError(id: string) {
 
 function toAbsoluteExternal(raw?: string | null): string {
   if (!raw) return ''
+
   let s = String(raw).trim()
+
   if (!s) return ''
 
   if (/^[a-z][a-z0-9+\-.]*:\/\//i.test(s)) return s
   if (/^[a-z][a-z0-9+\-.]*:/i.test(s)) return s
   if (s.startsWith('//')) return (window.location?.protocol || 'https:') + s
 
-  if (/^[\w.-]+\.[a-z]{2,}([/:?#]|$)/i.test(s)) s = 'https://' + s
+  if (/^[\w.-]+\.[a-z]{2,}([/:?#]|$)/i.test(s)) {
+    s = 'https://' + s
+  }
 
   try {
     const u = new URL(s, window.location.origin)
     const hasExt = /\.[a-z0-9]+$/i.test(u.pathname.split('/').pop() || '')
-    if (!hasExt && !u.search && !u.hash && !u.pathname.endsWith('/')) u.pathname += '/'
+
+    if (!hasExt && !u.search && !u.hash && !u.pathname.endsWith('/')) {
+      u.pathname += '/'
+    }
+
     return u.toString()
   } catch {
     return s
@@ -190,9 +253,15 @@ function toAbsoluteExternal(raw?: string | null): string {
 
 function normalizeInternalPath(raw?: string | null): string {
   if (!raw) return ''
+
   let s = String(raw).trim()
+
   if (!s) return ''
-  if (!s.startsWith('/')) s = '/' + s
+
+  if (!s.startsWith('/')) {
+    s = '/' + s
+  }
+
   return s
 }
 
@@ -201,17 +270,21 @@ function openActivity(a: Activity) {
     router.push(normalizeInternalPath(a.url_path))
     return
   }
+
   if (a.slug) {
     router.push(`/activities/${a.slug}`)
     return
   }
+
   if (a.external_url) {
     const url = toAbsoluteExternal(a.external_url)
+
     if (url) {
       window.open(url, '_blank', 'noopener,noreferrer')
       return
     }
   }
+
   alert('No activity URL is configured.')
 }
 
@@ -235,8 +308,15 @@ const rootStyle = computed(() => ({
 }
 
 /* Status text */
-.ais-muted { color: var(--main-text-soft); margin: 0; }
-.ais-error { color: var(--accent-danger); margin: 0; }
+.ais-muted {
+  color: var(--main-text-soft);
+  margin: 0;
+}
+
+.ais-error {
+  color: var(--accent-danger);
+  margin: 0;
+}
 
 /* Default 64px via prop, shrink on small screens */
 .ais-root {
@@ -265,7 +345,7 @@ const rootStyle = computed(() => ({
   display: grid;
   justify-items: center;
   align-content: start;
-  gap: 3px;            /* reduced gap icon <-> title */
+  gap: 3px;
   padding: 4px 2px 6px;
 }
 
@@ -279,7 +359,7 @@ const rootStyle = computed(() => ({
   justify-content: space-between;
   pointer-events: none;
 
-  z-index: 5;          /* stays above icon even on hover */
+  z-index: 5;
 }
 
 .ais-badge {
@@ -302,6 +382,7 @@ const rootStyle = computed(() => ({
   background: var(--activities-chip-new);
   border-color: color-mix(in srgb, var(--activities-chip-new) 65%, #000 35%);
 }
+
 .ais-badge--xp {
   background: var(--activities-chip-xp);
   border-color: color-mix(in srgb, var(--activities-chip-xp) 65%, #000 35%);
@@ -314,6 +395,7 @@ const rootStyle = computed(() => ({
   display: inline-grid;
   place-items: center;
 }
+
 .ais-iconBtn:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--activities-accent) 60%, transparent 40%);
   outline-offset: 3px;
@@ -331,9 +413,12 @@ const rootStyle = computed(() => ({
   overflow: hidden;
 
   position: relative;
-  z-index: 1; /* below badges */
+  z-index: 1;
 
-  transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+  transition:
+    transform 0.14s ease,
+    box-shadow 0.14s ease,
+    border-color 0.14s ease;
 }
 
 .ais-iconBtn:hover .ais-icon {
@@ -341,9 +426,15 @@ const rootStyle = computed(() => ({
   box-shadow: var(--elevation-1);
   border-color: color-mix(in srgb, var(--activities-accent) 50%, var(--activities-border) 50%);
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .ais-icon { transition: border-color 0.14s ease; }
-  .ais-iconBtn:hover .ais-icon { transform: none; }
+  .ais-icon {
+    transition: border-color 0.14s ease;
+  }
+
+  .ais-iconBtn:hover .ais-icon {
+    transform: none;
+  }
 }
 
 .ais-icon img {
@@ -360,9 +451,40 @@ const rootStyle = computed(() => ({
   background: color-mix(in srgb, var(--activities-border) 35%, transparent 65%);
 }
 
-/* Title (not hoverable/clickable) + vendorPrefix warning fix:
-   add standard 'line-clamp' alongside -webkit-line-clamp.
-*/
+.ais-like-badge {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  z-index: 4;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+
+  min-width: 1.65rem;
+  height: 1.25rem;
+  padding: 0 0.4rem;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.92);
+  color: #ef4444;
+
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+
+  box-shadow:
+    0 2px 7px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(239, 68, 68, 0.2) inset;
+}
+
+.ais-like-heart {
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+/* Title */
 .ais-name {
   width: 100%;
   text-align: center;
@@ -374,13 +496,28 @@ const rootStyle = computed(() => ({
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--ais-lines);
-  line-clamp: var(--ais-lines); /* standard property for compatibility */
+  line-clamp: var(--ais-lines);
 
   overflow: hidden;
 }
 
-/* Small screens: slightly smaller title */
+/* Small screens */
 @media (max-width: 640px) {
-  .ais-name { font-size: 0.82rem; }
+  .ais-name {
+    font-size: 0.82rem;
+  }
+
+  .ais-like-badge {
+    right: 4px;
+    bottom: 4px;
+    min-width: 1.45rem;
+    height: 1.1rem;
+    padding: 0 0.32rem;
+    font-size: 0.66rem;
+  }
+
+  .ais-like-heart {
+    font-size: 0.72rem;
+  }
 }
 </style>
