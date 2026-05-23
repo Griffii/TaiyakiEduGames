@@ -66,8 +66,8 @@ import { supabase } from '@/lib/supabase'
 /**
  * Assets image and video import list
  */
-import typingTowerDefenceImage from '@/assets/images/screenshots/games/TTD - Main Menu - v0.9.png'
-import typingTowerDefenceVideo from '@/assets/videos/TTD-Previews/TTD - SeasideFarm Preview Short - v0.7.mp4'
+import typingTowerDefenceImage from '@/assets/images/screenshots/games/Leximancer-Menu-v1.png'
+import typingTowerDefenceVideo from '@/assets/videos/Leximancer/Leximancer - Example_Video_01.mp4'
 
 import pizzaImage from '@/assets/images/screenshots/games/PaP_01.png'
 import pizzaVideo from '@/assets/videos/PaP/PaP-preview-short.mp4'
@@ -150,7 +150,7 @@ function stopPreview(key: string) {
 const games: GameCard[] = [
   {
     slug: 'typing-tower-defence',
-    title: 'Typing Tower Defence!',
+    title: 'Leximancer',
     description: 'Type words to defeat monsters and save the kingdom!',
     platform: 'NEW!',
     type: 'internal',
