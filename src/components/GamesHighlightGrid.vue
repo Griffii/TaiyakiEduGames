@@ -66,7 +66,7 @@ import { supabase } from '@/lib/supabase'
 /**
  * Assets image and video import list
  */
-import typingTowerDefenceImage from '@/assets/images/screenshots/games/Leximancer-Menu-v1.png'
+import typingTowerDefenceImage from '@/assets/images/screenshots/games/Leximancer-thumbnail-widescreen.png'
 import typingTowerDefenceVideo from '@/assets/videos/Leximancer/Leximancer - Example_Video_01.mp4'
 
 import pizzaImage from '@/assets/images/screenshots/games/PaP_01.png'
