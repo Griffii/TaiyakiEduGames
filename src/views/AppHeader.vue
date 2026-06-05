@@ -6,7 +6,7 @@
     <div class="inner">
       <div class="left">
         <button class="brand-name" type="button" @click="goDashboard" title="Dashboard">
-          EiTake
+          EiTake English Games
         </button>
       </div>
 

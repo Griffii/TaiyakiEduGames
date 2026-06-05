@@ -158,7 +158,7 @@ const GAME_TAGS: Record<GameKey, GameTag[]> = {
   memory: [],
   missing: [],
   shuffle: [],
-  onthebeat: ["new"],
+  onthebeat: [],
 };
 const hasGameTag = (k: GameKey, t: GameTag) => (GAME_TAGS[k] || []).includes(t);
 const isGameNew = (k: GameKey) => hasGameTag(k, "new");

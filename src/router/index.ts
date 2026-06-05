@@ -93,6 +93,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/random-time', name: 'random-time', component: () => import('@/views/tools/RandomTime.vue'), meta: { hideHeader: true } },
   { path: '/hot-potato', name: 'hot-potato', component: () => import('@/views/tools/HotPotato.vue'), meta: { hideHeader: true } },
   { path: '/classroom-timer', name: 'classroom-timer', component: () => import('@/views/tools/ClassroomTimer.vue'), meta: { hideHeader: true } },
+  { path: '/directions-cards', name: 'directions-cards', component: () => import('@/views/tools/TownDirectionsCards.vue'), meta: { hideHeader: true } },
 
   // Other Games
   { path: '/wordle', name: 'wordle', component: () => import('@/views/games/Wordle.vue'), meta: { hideHeader: true } },
