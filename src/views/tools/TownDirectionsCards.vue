@@ -24,6 +24,15 @@
                 <button v-if="currentCard" :key="spriteKey" class="tiny-villager" type="button"
                     :style="tinyVillagerStyle" :aria-label="`Move ${currentCard.character.name}`"
                     @pointerdown="startTinyVillagerDrag">
+
+                    <span class="facing-arrow-orbit" :style="facingArrowStyle" aria-hidden="true">
+                        <span class="facing-arrow-handle" role="button" tabindex="0"
+                            aria-label="Set villager facing direction"
+                            @pointerdown.stop.prevent="startFacingArrowDrag">
+                            <span class="facing-arrow"></span>
+                        </span>
+                    </span>
+
                     <img :src="currentCard.character.imageUrl" :alt="currentCard.character.name" draggable="false" />
                     <span class="poof-cloud"></span>
                 </button>
@@ -397,6 +406,13 @@ const tinyVillagerPositionPercent = ref({
     y: TINY_VILLAGER_SPAWN_POINTS_PERCENT[0].y,
 });
 
+const facingArrowAngleDegrees = ref(0);
+
+const facingArrowDragState = ref({
+    isDragging: false,
+    pointerId: null,
+});
+
 const minimizedCardPosition = ref({
     x: 0,
     y: 0,
@@ -488,6 +504,12 @@ const tinyVillagerStyle = computed(() => {
     };
 });
 
+const facingArrowStyle = computed(() => {
+    return {
+        "--facing-arrow-angle": `${facingArrowAngleDegrees.value}deg`,
+    };
+});
+
 function getRandomItem(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
@@ -573,6 +595,7 @@ function drawCard() {
 
 async function showNewCard(nextCard) {
     isCardMinimized.value = false;
+    facingArrowAngleDegrees.value = 0;
     resetTinyVillagerPosition();
 
     currentCard.value = nextCard;
@@ -589,6 +612,7 @@ function clearActiveCard() {
     pendingCard.value = null;
     currentCard.value = null;
     isCardMinimized.value = false;
+    facingArrowAngleDegrees.value = 0;
     resetCardDragState();
     resetTinyVillagerPosition();
 }
@@ -727,6 +751,98 @@ function stopTinyVillagerDrag(event) {
     window.removeEventListener("pointermove", moveTinyVillager);
     window.removeEventListener("pointerup", stopTinyVillagerDrag);
     window.removeEventListener("pointercancel", stopTinyVillagerDrag);
+}
+
+function startFacingArrowDrag(event) {
+    if (!currentCard.value) {
+        return;
+    }
+
+    facingArrowDragState.value = {
+        isDragging: true,
+        pointerId: event.pointerId,
+    };
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+
+    window.addEventListener("pointermove", moveFacingArrow);
+    window.addEventListener("pointerup", stopFacingArrowDrag);
+    window.addEventListener("pointercancel", stopFacingArrowDrag);
+
+    updateFacingArrowFromPointer(event);
+}
+
+function moveFacingArrow(event) {
+    if (!facingArrowDragState.value.isDragging) {
+        return;
+    }
+
+    if (event.pointerId !== facingArrowDragState.value.pointerId) {
+        return;
+    }
+
+    updateFacingArrowFromPointer(event);
+}
+
+function stopFacingArrowDrag(event) {
+    if (
+        facingArrowDragState.value.pointerId !== null &&
+        event.pointerId !== facingArrowDragState.value.pointerId
+    ) {
+        return;
+    }
+
+    updateFacingArrowFromPointer(event);
+    facingArrowAngleDegrees.value = snapFacingArrowAngle(facingArrowAngleDegrees.value);
+
+    facingArrowDragState.value = {
+        isDragging: false,
+        pointerId: null,
+    };
+
+    window.removeEventListener("pointermove", moveFacingArrow);
+    window.removeEventListener("pointerup", stopFacingArrowDrag);
+    window.removeEventListener("pointercancel", stopFacingArrowDrag);
+}
+
+function updateFacingArrowFromPointer(event) {
+    const mapRect = mapStageRef.value?.getBoundingClientRect();
+
+    if (!mapRect) {
+        return;
+    }
+
+    const spriteCenterX =
+        mapRect.left + mapRect.width * (tinyVillagerPositionPercent.value.x / 100);
+    const spriteCenterY =
+        mapRect.top + mapRect.height * (tinyVillagerPositionPercent.value.y / 100);
+
+    const deltaX = event.clientX - spriteCenterX;
+    const deltaY = event.clientY - spriteCenterY;
+
+    const rawAngle = Math.atan2(deltaX, -deltaY) * (180 / Math.PI);
+
+    facingArrowAngleDegrees.value = normalizeAngle(rawAngle);
+}
+
+function snapFacingArrowAngle(angle) {
+    const cardinalAngles = [0, 90, 180, 270];
+
+    return cardinalAngles.reduce((closestAngle, candidateAngle) => {
+        const currentDistance = getCircularAngleDistance(angle, closestAngle);
+        const candidateDistance = getCircularAngleDistance(angle, candidateAngle);
+
+        return candidateDistance < currentDistance ? candidateAngle : closestAngle;
+    }, cardinalAngles[0]);
+}
+
+function getCircularAngleDistance(angleA, angleB) {
+    const difference = Math.abs(normalizeAngle(angleA) - normalizeAngle(angleB));
+    return Math.min(difference, 360 - difference);
+}
+
+function normalizeAngle(angle) {
+    return ((angle % 360) + 360) % 360;
 }
 
 function startCardDrag(event) {
@@ -874,6 +990,10 @@ onBeforeUnmount(() => {
     window.removeEventListener("pointermove", moveCard);
     window.removeEventListener("pointerup", stopCardDrag);
     window.removeEventListener("pointercancel", stopCardDrag);
+
+    window.removeEventListener("pointermove", moveFacingArrow);
+    window.removeEventListener("pointerup", stopFacingArrowDrag);
+    window.removeEventListener("pointercancel", stopFacingArrowDrag);
 });
 </script>
 
@@ -1094,6 +1214,50 @@ onBeforeUnmount(() => {
     cursor: grabbing;
 }
 
+.facing-arrow-orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 148%;
+    height: 148%;
+    z-index: 4;
+    pointer-events: none;
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--facing-arrow-angle));
+    transform-origin: center;
+}
+
+.facing-arrow-handle {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: clamp(24px, 2.15vw, 34px);
+    height: clamp(24px, 2.15vw, 34px);
+    display: grid;
+    place-items: center;
+    cursor: grab;
+    pointer-events: auto;
+    transform: translate(-50%, -50%);
+    touch-action: none;
+    border-radius: 999px;
+}
+
+.facing-arrow-handle:active {
+    cursor: grabbing;
+}
+
+.facing-arrow {
+    width: 0;
+    height: 0;
+    border-left: clamp(7px, 0.8vw, 11px) solid transparent;
+    border-right: clamp(7px, 0.8vw, 11px) solid transparent;
+    border-bottom: clamp(15px, 1.55vw, 23px) solid #e53935;
+    filter:
+        drop-shadow(0 0 2px #ffffff)
+        drop-shadow(0 3px 3px rgba(31, 45, 38, 0.38));
+}
+
 .tiny-villager img {
     position: relative;
     z-index: 2;
@@ -1101,7 +1265,9 @@ onBeforeUnmount(() => {
     height: 100%;
     object-fit: contain;
     filter:
-        drop-shadow(0 0 3px #fff4a8) drop-shadow(0 0 8px #ffd84d) drop-shadow(0 8px 8px rgba(31, 45, 38, 0.35));
+        drop-shadow(0 0 3px #fff4a8)
+        drop-shadow(0 0 8px #ffd84d)
+        drop-shadow(0 8px 8px rgba(31, 45, 38, 0.35));
     pointer-events: none;
 }
 
